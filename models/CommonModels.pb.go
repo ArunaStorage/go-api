@@ -81,6 +81,107 @@ func (Status) EnumDescriptor() ([]byte, []int) {
 	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{0}
 }
 
+type Right int32
+
+const (
+	Right_Read  Right = 0
+	Right_Write Right = 1
+)
+
+// Enum value maps for Right.
+var (
+	Right_name = map[int32]string{
+		0: "Read",
+		1: "Write",
+	}
+	Right_value = map[string]int32{
+		"Read":  0,
+		"Write": 1,
+	}
+)
+
+func (x Right) Enum() *Right {
+	p := new(Right)
+	*p = x
+	return p
+}
+
+func (x Right) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Right) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_models_CommonModels_proto_enumTypes[1].Descriptor()
+}
+
+func (Right) Type() protoreflect.EnumType {
+	return &file_api_models_CommonModels_proto_enumTypes[1]
+}
+
+func (x Right) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Right.Descriptor instead.
+func (Right) EnumDescriptor() ([]byte, []int) {
+	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{1}
+}
+
+type Resource int32
+
+const (
+	Resource_Project                    Resource = 0
+	Resource_Dataset                    Resource = 1
+	Resource_DatasetVersion             Resource = 2
+	Resource_DatasetObject              Resource = 3
+	Resource_DatasetObjectGroupResource Resource = 4
+)
+
+// Enum value maps for Resource.
+var (
+	Resource_name = map[int32]string{
+		0: "Project",
+		1: "Dataset",
+		2: "DatasetVersion",
+		3: "DatasetObject",
+		4: "DatasetObjectGroupResource",
+	}
+	Resource_value = map[string]int32{
+		"Project":                    0,
+		"Dataset":                    1,
+		"DatasetVersion":             2,
+		"DatasetObject":              3,
+		"DatasetObjectGroupResource": 4,
+	}
+)
+
+func (x Resource) Enum() *Resource {
+	p := new(Resource)
+	*p = x
+	return p
+}
+
+func (x Resource) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Resource) Descriptor() protoreflect.EnumDescriptor {
+	return file_api_models_CommonModels_proto_enumTypes[2].Descriptor()
+}
+
+func (Resource) Type() protoreflect.EnumType {
+	return &file_api_models_CommonModels_proto_enumTypes[2]
+}
+
+func (x Resource) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Resource.Descriptor instead.
+func (Resource) EnumDescriptor() ([]byte, []int) {
+	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{2}
+}
+
 type Origin_OriginTypeEnum int32
 
 const (
@@ -111,11 +212,11 @@ func (x Origin_OriginTypeEnum) String() string {
 }
 
 func (Origin_OriginTypeEnum) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_models_CommonModels_proto_enumTypes[1].Descriptor()
+	return file_api_models_CommonModels_proto_enumTypes[3].Descriptor()
 }
 
 func (Origin_OriginTypeEnum) Type() protoreflect.EnumType {
-	return &file_api_models_CommonModels_proto_enumTypes[1]
+	return &file_api_models_CommonModels_proto_enumTypes[3]
 }
 
 func (x Origin_OriginTypeEnum) Number() protoreflect.EnumNumber {
@@ -163,11 +264,11 @@ func (x Version_VersionStage) String() string {
 }
 
 func (Version_VersionStage) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_models_CommonModels_proto_enumTypes[2].Descriptor()
+	return file_api_models_CommonModels_proto_enumTypes[4].Descriptor()
 }
 
 func (Version_VersionStage) Type() protoreflect.EnumType {
-	return &file_api_models_CommonModels_proto_enumTypes[2]
+	return &file_api_models_CommonModels_proto_enumTypes[4]
 }
 
 func (x Version_VersionStage) Number() protoreflect.EnumNumber {
@@ -542,6 +643,69 @@ func (x *UpdateFieldsRequest) GetUpdateStringFields() map[string]string {
 	return nil
 }
 
+type User struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID   string   `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Rights   []Right  `protobuf:"varint,2,rep,packed,name=Rights,proto3,enum=Right" json:"Rights,omitempty"`
+	Resource Resource `protobuf:"varint,3,opt,name=Resource,proto3,enum=Resource" json:"Resource,omitempty"`
+}
+
+func (x *User) Reset() {
+	*x = User{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_models_CommonModels_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *User) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*User) ProtoMessage() {}
+
+func (x *User) ProtoReflect() protoreflect.Message {
+	mi := &file_api_models_CommonModels_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use User.ProtoReflect.Descriptor instead.
+func (*User) Descriptor() ([]byte, []int) {
+	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *User) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *User) GetRights() []Right {
+	if x != nil {
+		return x.Rights
+	}
+	return nil
+}
+
+func (x *User) GetResource() Resource {
+	if x != nil {
+		return x.Resource
+	}
+	return Resource_Project
+}
+
 type Empty struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -551,7 +715,7 @@ type Empty struct {
 func (x *Empty) Reset() {
 	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_models_CommonModels_proto_msgTypes[6]
+		mi := &file_api_models_CommonModels_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -564,7 +728,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_api_models_CommonModels_proto_msgTypes[6]
+	mi := &file_api_models_CommonModels_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -577,7 +741,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{6}
+	return file_api_models_CommonModels_proto_rawDescGZIP(), []int{7}
 }
 
 var File_api_models_CommonModels_proto protoreflect.FileDescriptor
@@ -668,16 +832,31 @@ var file_api_models_CommonModels_proto_rawDesc = []byte{
 	0x6c, 0x64, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61,
 	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
-	0x3a, 0x02, 0x38, 0x01, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x2a, 0x51, 0x0a,
-	0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0e, 0x0a, 0x0a, 0x49, 0x6e, 0x69, 0x74, 0x69,
-	0x61, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x00, 0x12, 0x0d, 0x0a, 0x09, 0x41, 0x76, 0x61, 0x69, 0x6c,
-	0x61, 0x62, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x55, 0x70, 0x64, 0x61, 0x74, 0x69,
-	0x6e, 0x67, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x72, 0x63, 0x68, 0x69, 0x76, 0x65, 0x64,
-	0x10, 0x03, 0x12, 0x0c, 0x0a, 0x08, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x04,
-	0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53,
-	0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f,
-	0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x3a, 0x02, 0x38, 0x01, 0x22, 0x65, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x16, 0x0a, 0x06,
+	0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73,
+	0x65, 0x72, 0x49, 0x44, 0x12, 0x1e, 0x0a, 0x06, 0x52, 0x69, 0x67, 0x68, 0x74, 0x73, 0x18, 0x02,
+	0x20, 0x03, 0x28, 0x0e, 0x32, 0x06, 0x2e, 0x52, 0x69, 0x67, 0x68, 0x74, 0x52, 0x06, 0x52, 0x69,
+	0x67, 0x68, 0x74, 0x73, 0x12, 0x25, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x09, 0x2e, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x52, 0x08, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x22, 0x07, 0x0a, 0x05, 0x45,
+	0x6d, 0x70, 0x74, 0x79, 0x2a, 0x51, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0e,
+	0x0a, 0x0a, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x00, 0x12, 0x0d,
+	0x0a, 0x09, 0x41, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x0c, 0x0a,
+	0x08, 0x55, 0x70, 0x64, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x41,
+	0x72, 0x63, 0x68, 0x69, 0x76, 0x65, 0x64, 0x10, 0x03, 0x12, 0x0c, 0x0a, 0x08, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x69, 0x6e, 0x67, 0x10, 0x04, 0x2a, 0x1c, 0x0a, 0x05, 0x52, 0x69, 0x67, 0x68, 0x74,
+	0x12, 0x08, 0x0a, 0x04, 0x52, 0x65, 0x61, 0x64, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x57, 0x72,
+	0x69, 0x74, 0x65, 0x10, 0x01, 0x2a, 0x6b, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x12, 0x0b, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x10, 0x00, 0x12, 0x0b,
+	0x0a, 0x07, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x10, 0x01, 0x12, 0x12, 0x0a, 0x0e, 0x44,
+	0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x10, 0x02, 0x12,
+	0x11, 0x0a, 0x0d, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x10, 0x03, 0x12, 0x1e, 0x0a, 0x1a, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x4f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65,
+	0x10, 0x04, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44,
+	0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -692,31 +871,36 @@ func file_api_models_CommonModels_proto_rawDescGZIP() []byte {
 	return file_api_models_CommonModels_proto_rawDescData
 }
 
-var file_api_models_CommonModels_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_api_models_CommonModels_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_api_models_CommonModels_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_api_models_CommonModels_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_api_models_CommonModels_proto_goTypes = []interface{}{
 	(Status)(0),                 // 0: Status
-	(Origin_OriginTypeEnum)(0),  // 1: Origin.OriginTypeEnum
-	(Version_VersionStage)(0),   // 2: Version.VersionStage
-	(*Location)(nil),            // 3: Location
-	(*Origin)(nil),              // 4: Origin
-	(*Version)(nil),             // 5: Version
-	(*Label)(nil),               // 6: Label
-	(*ID)(nil),                  // 7: ID
-	(*UpdateFieldsRequest)(nil), // 8: UpdateFieldsRequest
-	(*Empty)(nil),               // 9: Empty
-	nil,                         // 10: UpdateFieldsRequest.UpdateStringFieldsEntry
+	(Right)(0),                  // 1: Right
+	(Resource)(0),               // 2: Resource
+	(Origin_OriginTypeEnum)(0),  // 3: Origin.OriginTypeEnum
+	(Version_VersionStage)(0),   // 4: Version.VersionStage
+	(*Location)(nil),            // 5: Location
+	(*Origin)(nil),              // 6: Origin
+	(*Version)(nil),             // 7: Version
+	(*Label)(nil),               // 8: Label
+	(*ID)(nil),                  // 9: ID
+	(*UpdateFieldsRequest)(nil), // 10: UpdateFieldsRequest
+	(*User)(nil),                // 11: User
+	(*Empty)(nil),               // 12: Empty
+	nil,                         // 13: UpdateFieldsRequest.UpdateStringFieldsEntry
 }
 var file_api_models_CommonModels_proto_depIdxs = []int32{
-	3,  // 0: Origin.ObjectStorageLocatio:type_name -> Location
-	1,  // 1: Origin.OriginType:type_name -> Origin.OriginTypeEnum
-	2,  // 2: Version.Stage:type_name -> Version.VersionStage
-	10, // 3: UpdateFieldsRequest.UpdateStringFields:type_name -> UpdateFieldsRequest.UpdateStringFieldsEntry
-	4,  // [4:4] is the sub-list for method output_type
-	4,  // [4:4] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	5,  // 0: Origin.ObjectStorageLocatio:type_name -> Location
+	3,  // 1: Origin.OriginType:type_name -> Origin.OriginTypeEnum
+	4,  // 2: Version.Stage:type_name -> Version.VersionStage
+	13, // 3: UpdateFieldsRequest.UpdateStringFields:type_name -> UpdateFieldsRequest.UpdateStringFieldsEntry
+	1,  // 4: User.Rights:type_name -> Right
+	2,  // 5: User.Resource:type_name -> Resource
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_api_models_CommonModels_proto_init() }
@@ -798,6 +982,18 @@ func file_api_models_CommonModels_proto_init() {
 			}
 		}
 		file_api_models_CommonModels_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*User); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_models_CommonModels_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
@@ -815,8 +1011,8 @@ func file_api_models_CommonModels_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_models_CommonModels_proto_rawDesc,
-			NumEnums:      3,
-			NumMessages:   8,
+			NumEnums:      5,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
