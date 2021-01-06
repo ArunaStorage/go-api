@@ -4,18 +4,18 @@
 // 	protoc        v3.12.4
 // source: api/models/Dataset.proto
 
-package datasetentrymodels
+package models
 
 import (
-	models "github.com/ScienceObjectsDB/go-api/models"
+	reflect "reflect"
+	sync "sync"
+
 	proto "github.com/golang/protobuf/proto"
 	_struct "github.com/golang/protobuf/ptypes/struct"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -39,7 +39,7 @@ type DatasetEntry struct {
 	Datasettype string               `protobuf:"bytes,3,opt,name=Datasettype,proto3" json:"Datasettype,omitempty"` // Type of the stored data in the dataset
 	IsPublic    bool                 `protobuf:"varint,4,opt,name=IsPublic,proto3" json:"IsPublic,omitempty"`      //Indicates if the dataset if publicly available
 	Created     *timestamp.Timestamp `protobuf:"bytes,5,opt,name=Created,proto3" json:"Created,omitempty"`         // When the datasets was created
-	Status      models.Status        `protobuf:"varint,6,opt,name=Status,proto3,enum=Status" json:"Status,omitempty"`
+	Status      Status               `protobuf:"varint,6,opt,name=Status,proto3,enum=Status" json:"Status,omitempty"`
 }
 
 func (x *DatasetEntry) Reset() {
@@ -109,11 +109,11 @@ func (x *DatasetEntry) GetCreated() *timestamp.Timestamp {
 	return nil
 }
 
-func (x *DatasetEntry) GetStatus() models.Status {
+func (x *DatasetEntry) GetStatus() Status {
 	if x != nil {
 		return x.Status
 	}
-	return models.Status_Initiating
+	return Status_Initiating
 }
 
 type DatasetVersionEntry struct {
@@ -124,13 +124,13 @@ type DatasetVersionEntry struct {
 	ID                                 string                     `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
 	DatasetID                          string                     `protobuf:"bytes,2,opt,name=DatasetID,proto3" json:"DatasetID,omitempty"`
 	Name                               string                     `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
-	Version                            *models.Version            `protobuf:"bytes,4,opt,name=Version,proto3" json:"Version,omitempty"`
+	Version                            *Version                   `protobuf:"bytes,4,opt,name=Version,proto3" json:"Version,omitempty"`
 	Created                            *timestamp.Timestamp       `protobuf:"bytes,5,opt,name=Created,proto3" json:"Created,omitempty"`                                                                                                                                               // When the datasets version was created
 	AdditionalMetadata                 map[string]*_struct.Struct `protobuf:"bytes,6,rep,name=AdditionalMetadata,proto3" json:"AdditionalMetadata,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`                                 // Additional metadata for the dataset version
 	AdditionalMetadataMessageRef       map[string]string          `protobuf:"bytes,7,rep,name=AdditionalMetadataMessageRef,proto3" json:"AdditionalMetadataMessageRef,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`             // Message reference for the metadata
 	AdditionalObjectMetadataMessageRef map[string]string          `protobuf:"bytes,8,rep,name=AdditionalObjectMetadataMessageRef,proto3" json:"AdditionalObjectMetadataMessageRef,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // Message reference for the metadata of the objects associated with this DatasetVersion
 	ObjectCount                        int64                      `protobuf:"varint,9,opt,name=ObjectCount,proto3" json:"ObjectCount,omitempty"`                                                                                                                                      // Number of objects registered with this dataset version
-	Status                             models.Status              `protobuf:"varint,10,opt,name=Status,proto3,enum=Status" json:"Status,omitempty"`                                                                                                                                   // Indicates the status of a dataset
+	Status                             Status                     `protobuf:"varint,10,opt,name=Status,proto3,enum=Status" json:"Status,omitempty"`                                                                                                                                   // Indicates the status of a dataset
 }
 
 func (x *DatasetVersionEntry) Reset() {
@@ -186,7 +186,7 @@ func (x *DatasetVersionEntry) GetName() string {
 	return ""
 }
 
-func (x *DatasetVersionEntry) GetVersion() *models.Version {
+func (x *DatasetVersionEntry) GetVersion() *Version {
 	if x != nil {
 		return x.Version
 	}
@@ -228,11 +228,11 @@ func (x *DatasetVersionEntry) GetObjectCount() int64 {
 	return 0
 }
 
-func (x *DatasetVersionEntry) GetStatus() models.Status {
+func (x *DatasetVersionEntry) GetStatus() Status {
 	if x != nil {
 		return x.Status
 	}
-	return models.Status_Initiating
+	return Status_Initiating
 }
 
 var File_api_models_Dataset_proto protoreflect.FileDescriptor
@@ -323,12 +323,10 @@ var file_api_models_Dataset_proto_rawDesc = []byte{
 	0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x45, 0x6e, 0x74, 0x72,
 	0x79, 0x32, 0x1e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x20, 0x76, 0x65, 0x72, 0x73, 0x69,
 	0x6f, 0x6e, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x42, 0x47, 0x5a, 0x45, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x61, 0x67, 0x2d, 0x63, 0x6f, 0x6d, 0x70, 0x75, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c,
-	0x2d, 0x62, 0x69, 0x6f, 0x2f, 0x42, 0x69, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x44, 0x42, 0x4d, 0x6f,
-	0x64, 0x65, 0x6c, 0x73, 0x2f, 0x67, 0x6f, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x65,
-	0x6e, 0x74, 0x72, 0x79, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x6e, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42,
+	0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -351,8 +349,8 @@ var file_api_models_Dataset_proto_goTypes = []interface{}{
 	nil,                         // 3: DatasetVersionEntry.AdditionalMetadataMessageRefEntry
 	nil,                         // 4: DatasetVersionEntry.AdditionalObjectMetadataMessageRefEntry
 	(*timestamp.Timestamp)(nil), // 5: google.protobuf.Timestamp
-	(models.Status)(0),          // 6: Status
-	(*models.Version)(nil),      // 7: Version
+	(Status)(0),                 // 6: Status
+	(*Version)(nil),             // 7: Version
 	(*_struct.Struct)(nil),      // 8: google.protobuf.Struct
 }
 var file_api_models_Dataset_proto_depIdxs = []int32{
@@ -377,6 +375,7 @@ func file_api_models_Dataset_proto_init() {
 	if File_api_models_Dataset_proto != nil {
 		return
 	}
+	file_api_models_CommonModels_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_api_models_Dataset_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DatasetEntry); i {

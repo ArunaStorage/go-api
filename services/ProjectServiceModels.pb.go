@@ -7,14 +7,14 @@
 package services
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	models "github.com/ScienceObjectsDB/go-api/models"
-	datasetentrymodels "github.com/ag-computational-bio/BioDataDBModels/go/datasetentrymodels"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -198,7 +198,7 @@ type DatasetList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Datasets []*datasetentrymodels.DatasetEntry `protobuf:"bytes,1,rep,name=Datasets,proto3" json:"Datasets,omitempty"`
+	Datasets []*models.DatasetEntry `protobuf:"bytes,1,rep,name=Datasets,proto3" json:"Datasets,omitempty"`
 }
 
 func (x *DatasetList) Reset() {
@@ -233,7 +233,7 @@ func (*DatasetList) Descriptor() ([]byte, []int) {
 	return file_api_services_ProjectServiceModels_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *DatasetList) GetDatasets() []*datasetentrymodels.DatasetEntry {
+func (x *DatasetList) GetDatasets() []*models.DatasetEntry {
 	if x != nil {
 		return x.Datasets
 	}
@@ -307,13 +307,13 @@ func file_api_services_ProjectServiceModels_proto_rawDescGZIP() []byte {
 
 var file_api_services_ProjectServiceModels_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_api_services_ProjectServiceModels_proto_goTypes = []interface{}{
-	(*CreateProjectRequest)(nil),            // 0: CreateProjectRequest
-	(*AddUserToProjectRequest)(nil),         // 1: AddUserToProjectRequest
-	(*ProjectEntryList)(nil),                // 2: ProjectEntryList
-	(*DatasetList)(nil),                     // 3: DatasetList
-	(models.Right)(0),                       // 4: Right
-	(*models.ProjectEntry)(nil),             // 5: ProjectEntry
-	(*datasetentrymodels.DatasetEntry)(nil), // 6: DatasetEntry
+	(*CreateProjectRequest)(nil),    // 0: CreateProjectRequest
+	(*AddUserToProjectRequest)(nil), // 1: AddUserToProjectRequest
+	(*ProjectEntryList)(nil),        // 2: ProjectEntryList
+	(*DatasetList)(nil),             // 3: DatasetList
+	(models.Right)(0),               // 4: Right
+	(*models.ProjectEntry)(nil),     // 5: ProjectEntry
+	(*models.DatasetEntry)(nil),     // 6: DatasetEntry
 }
 var file_api_services_ProjectServiceModels_proto_depIdxs = []int32{
 	4, // 0: AddUserToProjectRequest.Scope:type_name -> Right

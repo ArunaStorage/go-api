@@ -7,13 +7,13 @@
 package services
 
 import (
+	reflect "reflect"
+
 	models "github.com/ScienceObjectsDB/go-api/models"
-	datasetentrymodels "github.com/ag-computational-bio/BioDataDBModels/go/datasetentrymodels"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
 )
 
 const (
@@ -80,14 +80,14 @@ var file_api_services_DatasetService_proto_rawDesc = []byte{
 }
 
 var file_api_services_DatasetService_proto_goTypes = []interface{}{
-	(*CreateDatasetRequest)(nil),                   // 0: CreateDatasetRequest
-	(*models.ID)(nil),                              // 1: ID
-	(*models.UpdateFieldsRequest)(nil),             // 2: UpdateFieldsRequest
-	(*ReleaseDatasetVersionRequest)(nil),           // 3: ReleaseDatasetVersionRequest
-	(*datasetentrymodels.DatasetEntry)(nil),        // 4: DatasetEntry
-	(*DatasetVersionList)(nil),                     // 5: DatasetVersionList
-	(*models.Empty)(nil),                           // 6: Empty
-	(*datasetentrymodels.DatasetVersionEntry)(nil), // 7: DatasetVersionEntry
+	(*CreateDatasetRequest)(nil),         // 0: CreateDatasetRequest
+	(*models.ID)(nil),                    // 1: ID
+	(*models.UpdateFieldsRequest)(nil),   // 2: UpdateFieldsRequest
+	(*ReleaseDatasetVersionRequest)(nil), // 3: ReleaseDatasetVersionRequest
+	(*models.DatasetEntry)(nil),          // 4: DatasetEntry
+	(*DatasetVersionList)(nil),           // 5: DatasetVersionList
+	(*models.Empty)(nil),                 // 6: Empty
+	(*models.DatasetVersionEntry)(nil),   // 7: DatasetVersionEntry
 }
 var file_api_services_DatasetService_proto_depIdxs = []int32{
 	0, // 0: DatasetService.CreateNewDataset:input_type -> CreateDatasetRequest

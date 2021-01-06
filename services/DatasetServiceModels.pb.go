@@ -7,15 +7,15 @@
 package services
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	models "github.com/ScienceObjectsDB/go-api/models"
-	datasetentrymodels "github.com/ag-computational-bio/BioDataDBModels/go/datasetentrymodels"
 	proto "github.com/golang/protobuf/proto"
 	_struct "github.com/golang/protobuf/ptypes/struct"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -98,7 +98,7 @@ type DatasetVersionList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DatasetVersions []*datasetentrymodels.DatasetVersionEntry `protobuf:"bytes,1,rep,name=DatasetVersions,proto3" json:"DatasetVersions,omitempty"`
+	DatasetVersions []*models.DatasetVersionEntry `protobuf:"bytes,1,rep,name=DatasetVersions,proto3" json:"DatasetVersions,omitempty"`
 }
 
 func (x *DatasetVersionList) Reset() {
@@ -133,7 +133,7 @@ func (*DatasetVersionList) Descriptor() ([]byte, []int) {
 	return file_api_services_DatasetServiceModels_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *DatasetVersionList) GetDatasetVersions() []*datasetentrymodels.DatasetVersionEntry {
+func (x *DatasetVersionList) GetDatasetVersions() []*models.DatasetVersionEntry {
 	if x != nil {
 		return x.DatasetVersions
 	}
@@ -356,9 +356,9 @@ var file_api_services_DatasetServiceModels_proto_goTypes = []interface{}{
 	nil,                                  // 3: ReleaseDatasetVersionRequest.AdditionalMetadataEntry
 	nil,                                  // 4: ReleaseDatasetVersionRequest.AdditionalMetadataMessageRefEntry
 	nil,                                  // 5: ReleaseDatasetVersionRequest.AdditionalObjectMetadataMessageRefEntry
-	(*datasetentrymodels.DatasetVersionEntry)(nil), // 6: DatasetVersionEntry
-	(*models.Version)(nil),                         // 7: Version
-	(*_struct.Struct)(nil),                         // 8: google.protobuf.Struct
+	(*models.DatasetVersionEntry)(nil),   // 6: DatasetVersionEntry
+	(*models.Version)(nil),               // 7: Version
+	(*_struct.Struct)(nil),               // 8: google.protobuf.Struct
 }
 var file_api_services_DatasetServiceModels_proto_depIdxs = []int32{
 	6, // 0: DatasetVersionList.DatasetVersions:type_name -> DatasetVersionEntry
