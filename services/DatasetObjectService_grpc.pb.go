@@ -4,7 +4,6 @@ package services
 
 import (
 	context "context"
-
 	models "github.com/ScienceObjectsDB/go-api/models"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -19,8 +18,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatasetObjectsServiceClient interface {
+	//CreateObjectHeritage Creates a new object heritage
 	CreateObjectHeritage(ctx context.Context, in *CreateObjectHeritageRequest, opts ...grpc.CallOption) (*models.ObjectHeritage, error)
+	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
+	//FinishObjectUpload Finishes the upload process for a data
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
@@ -63,8 +65,11 @@ func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in
 // All implementations must embed UnimplementedDatasetObjectsServiceServer
 // for forward compatibility
 type DatasetObjectsServiceServer interface {
+	//CreateObjectHeritage Creates a new object heritage
 	CreateObjectHeritage(context.Context, *CreateObjectHeritageRequest) (*models.ObjectHeritage, error)
+	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error)
+	//FinishObjectUpload Finishes the upload process for a data
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
 }

@@ -4,7 +4,6 @@ package services
 
 import (
 	context "context"
-
 	models "github.com/ScienceObjectsDB/go-api/models"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -21,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type DatasetServiceClient interface {
 	// CreateNewDataset Creates a new dataset and associates it with a dataset
 	CreateNewDataset(ctx context.Context, in *CreateDatasetRequest, opts ...grpc.CallOption) (*models.DatasetEntry, error)
+	// Dataset Returns a specific dataset
 	Dataset(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetEntry, error)
 	// Lists Versions of a dataset
 	DatasetVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*DatasetVersionList, error)
@@ -28,6 +28,7 @@ type DatasetServiceClient interface {
 	UpdateDatasetField(ctx context.Context, in *models.UpdateFieldsRequest, opts ...grpc.CallOption) (*models.DatasetEntry, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
+	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*models.DatasetVersionEntry, error)
 }
 
@@ -99,6 +100,7 @@ func (c *datasetServiceClient) ReleaseDatasetVersion(ctx context.Context, in *Re
 type DatasetServiceServer interface {
 	// CreateNewDataset Creates a new dataset and associates it with a dataset
 	CreateNewDataset(context.Context, *CreateDatasetRequest) (*models.DatasetEntry, error)
+	// Dataset Returns a specific dataset
 	Dataset(context.Context, *models.ID) (*models.DatasetEntry, error)
 	// Lists Versions of a dataset
 	DatasetVersions(context.Context, *models.ID) (*DatasetVersionList, error)
@@ -106,6 +108,7 @@ type DatasetServiceServer interface {
 	UpdateDatasetField(context.Context, *models.UpdateFieldsRequest) (*models.DatasetEntry, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(context.Context, *models.ID) (*models.Empty, error)
+	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersionEntry, error)
 	mustEmbedUnimplementedDatasetServiceServer()
 }

@@ -4,7 +4,6 @@ package services
 
 import (
 	context "context"
-
 	models "github.com/ScienceObjectsDB/go-api/models"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -19,10 +18,16 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProjectAPIClient interface {
+	//CreateProject creates a new projects
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*models.ProjectEntry, error)
+	//AddUserToProject Adds a new user to a given project
 	AddUserToProject(ctx context.Context, in *AddUserToProjectRequest, opts ...grpc.CallOption) (*models.ProjectEntry, error)
+	//GetProjectDatasets Returns all datasets that belong to a certain project
 	GetProjectDatasets(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*DatasetList, error)
+	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(ctx context.Context, in *models.Empty, opts ...grpc.CallOption) (*ProjectEntryList, error)
+	//DeleteProject Deletes a specific project
+	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
@@ -83,10 +88,16 @@ func (c *projectAPIClient) DeleteProject(ctx context.Context, in *models.ID, opt
 // All implementations must embed UnimplementedProjectAPIServer
 // for forward compatibility
 type ProjectAPIServer interface {
+	//CreateProject creates a new projects
 	CreateProject(context.Context, *CreateProjectRequest) (*models.ProjectEntry, error)
+	//AddUserToProject Adds a new user to a given project
 	AddUserToProject(context.Context, *AddUserToProjectRequest) (*models.ProjectEntry, error)
+	//GetProjectDatasets Returns all datasets that belong to a certain project
 	GetProjectDatasets(context.Context, *models.ID) (*DatasetList, error)
+	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(context.Context, *models.Empty) (*ProjectEntryList, error)
+	//DeleteProject Deletes a specific project
+	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedProjectAPIServer()
 }

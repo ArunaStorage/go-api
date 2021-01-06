@@ -7,14 +7,13 @@
 package services
 
 import (
-	reflect "reflect"
-	sync "sync"
-
 	models "github.com/ScienceObjectsDB/go-api/models"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
 )
 
 const (
