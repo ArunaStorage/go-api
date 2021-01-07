@@ -7,7 +7,6 @@
 package models
 
 import (
-	models "github.com/ScienceObjectsDB/go-api/models"
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
@@ -89,9 +88,9 @@ type TokenEntry struct {
 	unknownFields protoimpl.UnknownFields
 
 	ID       string               `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
-	UserID   *models.User         `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	UserID   *User                `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID,omitempty"`
 	Token    string               `protobuf:"bytes,3,opt,name=Token,proto3" json:"Token,omitempty"`
-	Resource models.Resource      `protobuf:"varint,4,opt,name=Resource,proto3,enum=Resource" json:"Resource,omitempty"`
+	Resource Resource             `protobuf:"varint,4,opt,name=Resource,proto3,enum=Resource" json:"Resource,omitempty"`
 	Created  *timestamp.Timestamp `protobuf:"bytes,5,opt,name=Created,proto3" json:"Created,omitempty"` // When the token was created
 	Expires  *timestamp.Timestamp `protobuf:"bytes,6,opt,name=Expires,proto3" json:"Expires,omitempty"` // When the token expires
 }
@@ -135,7 +134,7 @@ func (x *TokenEntry) GetID() string {
 	return ""
 }
 
-func (x *TokenEntry) GetUserID() *models.User {
+func (x *TokenEntry) GetUserID() *User {
 	if x != nil {
 		return x.UserID
 	}
@@ -149,11 +148,11 @@ func (x *TokenEntry) GetToken() string {
 	return ""
 }
 
-func (x *TokenEntry) GetResource() models.Resource {
+func (x *TokenEntry) GetResource() Resource {
 	if x != nil {
 		return x.Resource
 	}
-	return models.Resource_Project
+	return Resource_Project
 }
 
 func (x *TokenEntry) GetCreated() *timestamp.Timestamp {
@@ -176,8 +175,8 @@ type CreateTokenRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	ResourceID string               `protobuf:"bytes,1,opt,name=ResourceID,proto3" json:"ResourceID,omitempty"`
-	Rights     []models.Right       `protobuf:"varint,2,rep,packed,name=Rights,proto3,enum=Right" json:"Rights,omitempty"`
-	Resource   models.Resource      `protobuf:"varint,3,opt,name=Resource,proto3,enum=Resource" json:"Resource,omitempty"`
+	Rights     []Right              `protobuf:"varint,2,rep,packed,name=Rights,proto3,enum=Right" json:"Rights,omitempty"`
+	Resource   Resource             `protobuf:"varint,3,opt,name=Resource,proto3,enum=Resource" json:"Resource,omitempty"`
 	Expires    *timestamp.Timestamp `protobuf:"bytes,4,opt,name=Expires,proto3" json:"Expires,omitempty"` // When the token expires
 }
 
@@ -220,18 +219,18 @@ func (x *CreateTokenRequest) GetResourceID() string {
 	return ""
 }
 
-func (x *CreateTokenRequest) GetRights() []models.Right {
+func (x *CreateTokenRequest) GetRights() []Right {
 	if x != nil {
 		return x.Rights
 	}
 	return nil
 }
 
-func (x *CreateTokenRequest) GetResource() models.Resource {
+func (x *CreateTokenRequest) GetResource() Resource {
 	if x != nil {
 		return x.Resource
 	}
-	return models.Resource_Project
+	return Resource_Project
 }
 
 func (x *CreateTokenRequest) GetExpires() *timestamp.Timestamp {
@@ -294,11 +293,10 @@ var file_api_models_Auth_proto_rawDesc = []byte{
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x36, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x20, 0x64,
 	0x61, 0x74, 0x61, 0x20, 0x74, 0x6f, 0x20, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x20, 0x61, 0x20,
 	0x6e, 0x65, 0x77, 0x20, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x61, 0x20,
-	0x67, 0x69, 0x76, 0x65, 0x6e, 0x20, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x42, 0x3b, 0x5a,
-	0x39, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x67, 0x2d, 0x63,
-	0x6f, 0x6d, 0x70, 0x75, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x2d, 0x62, 0x69, 0x6f,
-	0x2f, 0x42, 0x69, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x44, 0x42, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73,
-	0x2f, 0x67, 0x6f, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x67, 0x69, 0x76, 0x65, 0x6e, 0x20, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x42, 0x2b, 0x5a,
+	0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65,
+	0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d,
+	0x61, 0x70, 0x69, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x33,
 }
 
@@ -319,10 +317,10 @@ var file_api_models_Auth_proto_goTypes = []interface{}{
 	(*TokenList)(nil),           // 0: TokenList
 	(*TokenEntry)(nil),          // 1: TokenEntry
 	(*CreateTokenRequest)(nil),  // 2: CreateTokenRequest
-	(*models.User)(nil),         // 3: User
-	(models.Resource)(0),        // 4: Resource
+	(*User)(nil),                // 3: User
+	(Resource)(0),               // 4: Resource
 	(*timestamp.Timestamp)(nil), // 5: google.protobuf.Timestamp
-	(models.Right)(0),           // 6: Right
+	(Right)(0),                  // 6: Right
 }
 var file_api_models_Auth_proto_depIdxs = []int32{
 	1, // 0: TokenList.token:type_name -> TokenEntry
@@ -345,6 +343,7 @@ func file_api_models_Auth_proto_init() {
 	if File_api_models_Auth_proto != nil {
 		return
 	}
+	file_api_models_CommonModels_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_api_models_Auth_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TokenList); i {
