@@ -18,4 +18,4 @@ mv build/api/models/* models
 mv build/api/services/* services
 
 rm -rf API
-#rm -rf build
+rm -rf build
