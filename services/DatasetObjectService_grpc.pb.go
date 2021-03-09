@@ -22,7 +22,7 @@ type DatasetObjectsServiceClient interface {
 	CreateObjectHeritage(ctx context.Context, in *CreateObjectHeritageRequest, opts ...grpc.CallOption) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
-	//FinishObjectUpload Finishes the upload process for a data
+	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
@@ -69,7 +69,7 @@ type DatasetObjectsServiceServer interface {
 	CreateObjectHeritage(context.Context, *CreateObjectHeritageRequest) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error)
-	//FinishObjectUpload Finishes the upload process for a data
+	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
 }
