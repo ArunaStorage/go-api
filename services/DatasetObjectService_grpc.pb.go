@@ -21,8 +21,8 @@ type DatasetObjectsServiceClient interface {
 	//CreateObjectHeritage Creates a new object heritage
 	CreateObjectHeritage(ctx context.Context, in *CreateObjectHeritageRequest, opts ...grpc.CallOption) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
-	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
-	GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
+	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectGroup, error)
+	GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectGroup, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
@@ -44,8 +44,8 @@ func (c *datasetObjectsServiceClient) CreateObjectHeritage(ctx context.Context, 
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error) {
-	out := new(models.DatasetObjectEntry)
+func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectGroup, error) {
+	out := new(models.DatasetObjectGroup)
 	err := c.cc.Invoke(ctx, "/DatasetObjectsService/CreateObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error) {
-	out := new(models.DatasetObjectEntry)
+func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectGroup, error) {
+	out := new(models.DatasetObjectGroup)
 	err := c.cc.Invoke(ctx, "/DatasetObjectsService/GetObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -78,8 +78,8 @@ type DatasetObjectsServiceServer interface {
 	//CreateObjectHeritage Creates a new object heritage
 	CreateObjectHeritage(context.Context, *CreateObjectHeritageRequest) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
-	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error)
-	GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectEntry, error)
+	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectGroup, error)
+	GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectGroup, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
@@ -92,10 +92,10 @@ type UnimplementedDatasetObjectsServiceServer struct {
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectHeritage(context.Context, *CreateObjectHeritageRequest) (*models.ObjectHeritage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectHeritage not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error) {
+func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroup not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectEntry, error) {
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectGroup, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {
