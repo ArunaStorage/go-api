@@ -14,119 +14,119 @@ import (
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion7
 
-// ObjectUploadClient is the client API for ObjectUpload service.
+// ObjectLoadClient is the client API for ObjectLoad service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ObjectUploadClient interface {
+type ObjectLoadClient interface {
 	CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
 }
 
-type objectUploadClient struct {
+type objectLoadClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewObjectUploadClient(cc grpc.ClientConnInterface) ObjectUploadClient {
-	return &objectUploadClient{cc}
+func NewObjectLoadClient(cc grpc.ClientConnInterface) ObjectLoadClient {
+	return &objectLoadClient{cc}
 }
 
-func (c *objectUploadClient) CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
+func (c *objectLoadClient) CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
 	out := new(CreateUploadLinkResponse)
-	err := c.cc.Invoke(ctx, "/ObjectUpload/CreateUploadLink", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ObjectLoad/CreateUploadLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *objectUploadClient) CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
+func (c *objectLoadClient) CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
 	out := new(CreateUploadLinkResponse)
-	err := c.cc.Invoke(ctx, "/ObjectUpload/CreateDownloadLink", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ObjectLoad/CreateDownloadLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ObjectUploadServer is the server API for ObjectUpload service.
-// All implementations must embed UnimplementedObjectUploadServer
+// ObjectLoadServer is the server API for ObjectLoad service.
+// All implementations must embed UnimplementedObjectLoadServer
 // for forward compatibility
-type ObjectUploadServer interface {
+type ObjectLoadServer interface {
 	CreateUploadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error)
-	mustEmbedUnimplementedObjectUploadServer()
+	mustEmbedUnimplementedObjectLoadServer()
 }
 
-// UnimplementedObjectUploadServer must be embedded to have forward compatible implementations.
-type UnimplementedObjectUploadServer struct {
+// UnimplementedObjectLoadServer must be embedded to have forward compatible implementations.
+type UnimplementedObjectLoadServer struct {
 }
 
-func (UnimplementedObjectUploadServer) CreateUploadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
+func (UnimplementedObjectLoadServer) CreateUploadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUploadLink not implemented")
 }
-func (UnimplementedObjectUploadServer) CreateDownloadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
+func (UnimplementedObjectLoadServer) CreateDownloadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDownloadLink not implemented")
 }
-func (UnimplementedObjectUploadServer) mustEmbedUnimplementedObjectUploadServer() {}
+func (UnimplementedObjectLoadServer) mustEmbedUnimplementedObjectLoadServer() {}
 
-// UnsafeObjectUploadServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ObjectUploadServer will
+// UnsafeObjectLoadServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ObjectLoadServer will
 // result in compilation errors.
-type UnsafeObjectUploadServer interface {
-	mustEmbedUnimplementedObjectUploadServer()
+type UnsafeObjectLoadServer interface {
+	mustEmbedUnimplementedObjectLoadServer()
 }
 
-func RegisterObjectUploadServer(s grpc.ServiceRegistrar, srv ObjectUploadServer) {
-	s.RegisterService(&_ObjectUpload_serviceDesc, srv)
+func RegisterObjectLoadServer(s grpc.ServiceRegistrar, srv ObjectLoadServer) {
+	s.RegisterService(&_ObjectLoad_serviceDesc, srv)
 }
 
-func _ObjectUpload_CreateUploadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ObjectLoad_CreateUploadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ObjectUploadServer).CreateUploadLink(ctx, in)
+		return srv.(ObjectLoadServer).CreateUploadLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ObjectUpload/CreateUploadLink",
+		FullMethod: "/ObjectLoad/CreateUploadLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ObjectUploadServer).CreateUploadLink(ctx, req.(*models.ID))
+		return srv.(ObjectLoadServer).CreateUploadLink(ctx, req.(*models.ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ObjectUpload_CreateDownloadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ObjectLoad_CreateDownloadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ObjectUploadServer).CreateDownloadLink(ctx, in)
+		return srv.(ObjectLoadServer).CreateDownloadLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ObjectUpload/CreateDownloadLink",
+		FullMethod: "/ObjectLoad/CreateDownloadLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ObjectUploadServer).CreateDownloadLink(ctx, req.(*models.ID))
+		return srv.(ObjectLoadServer).CreateDownloadLink(ctx, req.(*models.ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _ObjectUpload_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ObjectUpload",
-	HandlerType: (*ObjectUploadServer)(nil),
+var _ObjectLoad_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "ObjectLoad",
+	HandlerType: (*ObjectLoadServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateUploadLink",
-			Handler:    _ObjectUpload_CreateUploadLink_Handler,
+			Handler:    _ObjectLoad_CreateUploadLink_Handler,
 		},
 		{
 			MethodName: "CreateDownloadLink",
-			Handler:    _ObjectUpload_CreateDownloadLink_Handler,
+			Handler:    _ObjectLoad_CreateDownloadLink_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
