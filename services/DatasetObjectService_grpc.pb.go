@@ -22,6 +22,7 @@ type DatasetObjectsServiceClient interface {
 	CreateObjectHeritage(ctx context.Context, in *CreateObjectHeritageRequest, opts ...grpc.CallOption) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
+	GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
@@ -52,6 +53,15 @@ func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetObjectEntry, error) {
+	out := new(models.DatasetObjectEntry)
+	err := c.cc.Invoke(ctx, "/DatasetObjectsService/GetObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
 	out := new(models.Empty)
 	err := c.cc.Invoke(ctx, "/DatasetObjectsService/FinishObjectUpload", in, out, opts...)
@@ -69,6 +79,7 @@ type DatasetObjectsServiceServer interface {
 	CreateObjectHeritage(context.Context, *CreateObjectHeritageRequest) (*models.ObjectHeritage, error)
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error)
+	GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectEntry, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
@@ -83,6 +94,9 @@ func (UnimplementedDatasetObjectsServiceServer) CreateObjectHeritage(context.Con
 }
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*models.DatasetObjectEntry, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroup not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *models.ID) (*models.DatasetObjectEntry, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
@@ -136,6 +150,24 @@ func _DatasetObjectsService_CreateObjectGroup_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetObjectsService_GetObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DatasetObjectsService/GetObjectGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroup(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
@@ -165,6 +197,10 @@ var _DatasetObjectsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateObjectGroup",
 			Handler:    _DatasetObjectsService_CreateObjectGroup_Handler,
+		},
+		{
+			MethodName: "GetObjectGroup",
+			Handler:    _DatasetObjectsService_GetObjectGroup_Handler,
 		},
 		{
 			MethodName: "FinishObjectUpload",
