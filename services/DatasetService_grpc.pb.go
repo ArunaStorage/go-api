@@ -30,6 +30,7 @@ type DatasetServiceClient interface {
 	DeleteDataset(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*models.DatasetVersionEntry, error)
+	DatasetVersionObjectGroups(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupList, error)
 }
 
 type datasetServiceClient struct {
@@ -94,6 +95,15 @@ func (c *datasetServiceClient) ReleaseDatasetVersion(ctx context.Context, in *Re
 	return out, nil
 }
 
+func (c *datasetServiceClient) DatasetVersionObjectGroups(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupList, error) {
+	out := new(ObjectGroupList)
+	err := c.cc.Invoke(ctx, "/DatasetService/DatasetVersionObjectGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetServiceServer is the server API for DatasetService service.
 // All implementations must embed UnimplementedDatasetServiceServer
 // for forward compatibility
@@ -110,6 +120,7 @@ type DatasetServiceServer interface {
 	DeleteDataset(context.Context, *models.ID) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersionEntry, error)
+	DatasetVersionObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error)
 	mustEmbedUnimplementedDatasetServiceServer()
 }
 
@@ -134,6 +145,9 @@ func (UnimplementedDatasetServiceServer) DeleteDataset(context.Context, *models.
 }
 func (UnimplementedDatasetServiceServer) ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersionEntry, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseDatasetVersion not implemented")
+}
+func (UnimplementedDatasetServiceServer) DatasetVersionObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DatasetVersionObjectGroups not implemented")
 }
 func (UnimplementedDatasetServiceServer) mustEmbedUnimplementedDatasetServiceServer() {}
 
@@ -256,6 +270,24 @@ func _DatasetService_ReleaseDatasetVersion_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_DatasetVersionObjectGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).DatasetVersionObjectGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DatasetService/DatasetVersionObjectGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).DatasetVersionObjectGroups(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DatasetService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "DatasetService",
 	HandlerType: (*DatasetServiceServer)(nil),
@@ -283,6 +315,10 @@ var _DatasetService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReleaseDatasetVersion",
 			Handler:    _DatasetService_ReleaseDatasetVersion_Handler,
+		},
+		{
+			MethodName: "DatasetVersionObjectGroups",
+			Handler:    _DatasetService_DatasetVersionObjectGroups_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
