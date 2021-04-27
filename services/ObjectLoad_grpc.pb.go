@@ -18,8 +18,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ObjectLoadClient interface {
-	CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
-	CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
+	CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateLinkResponse, error)
+	CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateLinkResponse, error)
+	StartMultipartUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Object, error)
+	GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadRequest, opts ...grpc.CallOption) (*CreateLinkResponse, error)
+	CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartRequest, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
 type objectLoadClient struct {
@@ -30,18 +33,45 @@ func NewObjectLoadClient(cc grpc.ClientConnInterface) ObjectLoadClient {
 	return &objectLoadClient{cc}
 }
 
-func (c *objectLoadClient) CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
-	out := new(CreateUploadLinkResponse)
-	err := c.cc.Invoke(ctx, "/ObjectLoad/CreateUploadLink", in, out, opts...)
+func (c *objectLoadClient) CreateUploadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateLinkResponse, error) {
+	out := new(CreateLinkResponse)
+	err := c.cc.Invoke(ctx, "/services.ObjectLoad/CreateUploadLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *objectLoadClient) CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error) {
-	out := new(CreateUploadLinkResponse)
-	err := c.cc.Invoke(ctx, "/ObjectLoad/CreateDownloadLink", in, out, opts...)
+func (c *objectLoadClient) CreateDownloadLink(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*CreateLinkResponse, error) {
+	out := new(CreateLinkResponse)
+	err := c.cc.Invoke(ctx, "/services.ObjectLoad/CreateDownloadLink", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectLoadClient) StartMultipartUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Object, error) {
+	out := new(models.Object)
+	err := c.cc.Invoke(ctx, "/services.ObjectLoad/StartMultipartUpload", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectLoadClient) GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadRequest, opts ...grpc.CallOption) (*CreateLinkResponse, error) {
+	out := new(CreateLinkResponse)
+	err := c.cc.Invoke(ctx, "/services.ObjectLoad/GetMultipartUploadLink", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectLoadClient) CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartRequest, opts ...grpc.CallOption) (*models.Empty, error) {
+	out := new(models.Empty)
+	err := c.cc.Invoke(ctx, "/services.ObjectLoad/CompleteMultipartUpload", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,8 +82,11 @@ func (c *objectLoadClient) CreateDownloadLink(ctx context.Context, in *models.ID
 // All implementations must embed UnimplementedObjectLoadServer
 // for forward compatibility
 type ObjectLoadServer interface {
-	CreateUploadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error)
-	CreateDownloadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error)
+	CreateUploadLink(context.Context, *models.ID) (*CreateLinkResponse, error)
+	CreateDownloadLink(context.Context, *models.ID) (*CreateLinkResponse, error)
+	StartMultipartUpload(context.Context, *models.ID) (*models.Object, error)
+	GetMultipartUploadLink(context.Context, *GetMultipartUploadRequest) (*CreateLinkResponse, error)
+	CompleteMultipartUpload(context.Context, *CompleteMultipartRequest) (*models.Empty, error)
 	mustEmbedUnimplementedObjectLoadServer()
 }
 
@@ -61,11 +94,20 @@ type ObjectLoadServer interface {
 type UnimplementedObjectLoadServer struct {
 }
 
-func (UnimplementedObjectLoadServer) CreateUploadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
+func (UnimplementedObjectLoadServer) CreateUploadLink(context.Context, *models.ID) (*CreateLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUploadLink not implemented")
 }
-func (UnimplementedObjectLoadServer) CreateDownloadLink(context.Context, *models.ID) (*CreateUploadLinkResponse, error) {
+func (UnimplementedObjectLoadServer) CreateDownloadLink(context.Context, *models.ID) (*CreateLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDownloadLink not implemented")
+}
+func (UnimplementedObjectLoadServer) StartMultipartUpload(context.Context, *models.ID) (*models.Object, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartMultipartUpload not implemented")
+}
+func (UnimplementedObjectLoadServer) GetMultipartUploadLink(context.Context, *GetMultipartUploadRequest) (*CreateLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMultipartUploadLink not implemented")
+}
+func (UnimplementedObjectLoadServer) CompleteMultipartUpload(context.Context, *CompleteMultipartRequest) (*models.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompleteMultipartUpload not implemented")
 }
 func (UnimplementedObjectLoadServer) mustEmbedUnimplementedObjectLoadServer() {}
 
@@ -90,7 +132,7 @@ func _ObjectLoad_CreateUploadLink_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ObjectLoad/CreateUploadLink",
+		FullMethod: "/services.ObjectLoad/CreateUploadLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ObjectLoadServer).CreateUploadLink(ctx, req.(*models.ID))
@@ -108,7 +150,7 @@ func _ObjectLoad_CreateDownloadLink_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ObjectLoad/CreateDownloadLink",
+		FullMethod: "/services.ObjectLoad/CreateDownloadLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ObjectLoadServer).CreateDownloadLink(ctx, req.(*models.ID))
@@ -116,8 +158,62 @@ func _ObjectLoad_CreateDownloadLink_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectLoad_StartMultipartUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectLoadServer).StartMultipartUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.ObjectLoad/StartMultipartUpload",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectLoadServer).StartMultipartUpload(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectLoad_GetMultipartUploadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMultipartUploadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectLoadServer).GetMultipartUploadLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.ObjectLoad/GetMultipartUploadLink",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectLoadServer).GetMultipartUploadLink(ctx, req.(*GetMultipartUploadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectLoad_CompleteMultipartUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompleteMultipartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectLoadServer).CompleteMultipartUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.ObjectLoad/CompleteMultipartUpload",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectLoadServer).CompleteMultipartUpload(ctx, req.(*CompleteMultipartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ObjectLoad_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ObjectLoad",
+	ServiceName: "services.ObjectLoad",
 	HandlerType: (*ObjectLoadServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -127,6 +223,18 @@ var _ObjectLoad_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateDownloadLink",
 			Handler:    _ObjectLoad_CreateDownloadLink_Handler,
+		},
+		{
+			MethodName: "StartMultipartUpload",
+			Handler:    _ObjectLoad_StartMultipartUpload_Handler,
+		},
+		{
+			MethodName: "GetMultipartUploadLink",
+			Handler:    _ObjectLoad_GetMultipartUploadLink_Handler,
+		},
+		{
+			MethodName: "CompleteMultipartUpload",
+			Handler:    _ObjectLoad_CompleteMultipartUpload_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
