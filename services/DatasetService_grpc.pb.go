@@ -12,6 +12,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // DatasetServiceClient is the client API for DatasetService service.
@@ -173,7 +174,7 @@ type UnsafeDatasetServiceServer interface {
 }
 
 func RegisterDatasetServiceServer(s grpc.ServiceRegistrar, srv DatasetServiceServer) {
-	s.RegisterService(&_DatasetService_serviceDesc, srv)
+	s.RegisterService(&DatasetService_ServiceDesc, srv)
 }
 
 func _DatasetService_CreateNewDataset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -320,7 +321,10 @@ func _DatasetService_DatasetVersionObjectGroups_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-var _DatasetService_serviceDesc = grpc.ServiceDesc{
+// DatasetService_ServiceDesc is the grpc.ServiceDesc for DatasetService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var DatasetService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "services.DatasetService",
 	HandlerType: (*DatasetServiceServer)(nil),
 	Methods: []grpc.MethodDesc{

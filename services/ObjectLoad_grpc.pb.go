@@ -12,6 +12,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // ObjectLoadClient is the client API for ObjectLoad service.
@@ -119,7 +120,7 @@ type UnsafeObjectLoadServer interface {
 }
 
 func RegisterObjectLoadServer(s grpc.ServiceRegistrar, srv ObjectLoadServer) {
-	s.RegisterService(&_ObjectLoad_serviceDesc, srv)
+	s.RegisterService(&ObjectLoad_ServiceDesc, srv)
 }
 
 func _ObjectLoad_CreateUploadLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -212,7 +213,10 @@ func _ObjectLoad_CompleteMultipartUpload_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-var _ObjectLoad_serviceDesc = grpc.ServiceDesc{
+// ObjectLoad_ServiceDesc is the grpc.ServiceDesc for ObjectLoad service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ObjectLoad_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "services.ObjectLoad",
 	HandlerType: (*ObjectLoadServer)(nil),
 	Methods: []grpc.MethodDesc{
