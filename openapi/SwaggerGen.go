@@ -4,7 +4,7 @@ import (
 	"embed"
 )
 
-//go:embed api/*
+//go:embed apidocs.swagger.json
 var f embed.FS
 
 func GetSwaggerEmbedded() *embed.FS {
