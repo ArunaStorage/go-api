@@ -7,6 +7,12 @@
   "tags": [
     {
       "name": "DatasetObjectsService"
+    },
+    {
+      "name": "DatasetService"
+    },
+    {
+      "name": "ProjectAPI"
     }
   ],
   "consumes": [
@@ -46,6 +52,268 @@
         ],
         "tags": [
           "DatasetObjectsService"
+        ]
+      }
+    },
+    "/api/v1/dataset/create": {
+      "post": {
+        "summary": "CreateNewDataset Creates a new dataset and associates it with a dataset",
+        "operationId": "DatasetService_CreateNewDataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsDataset"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesCreateDatasetRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/delete": {
+      "post": {
+        "summary": "DeleteDataset Delete a dataset",
+        "operationId": "DatasetService_DeleteDataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/get": {
+      "post": {
+        "summary": "Dataset Returns a specific dataset",
+        "operationId": "DatasetService_Dataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsDataset"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/list": {
+      "post": {
+        "operationId": "DatasetService_DatasetObjectGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesObjectGroupList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/update": {
+      "post": {
+        "summary": "Updates a field of a dataset",
+        "operationId": "DatasetService_UpdateDatasetField",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsDataset"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsUpdateFieldsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/create": {
+      "post": {
+        "summary": "ReleaseDatasetVersion Release a new dataset version",
+        "operationId": "DatasetService_ReleaseDatasetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsDatasetVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesReleaseDatasetVersionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/list": {
+      "post": {
+        "operationId": "DatasetService_DatasetVersionObjectGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesObjectGroupList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversions/list": {
+      "post": {
+        "summary": "Lists Versions of a dataset",
+        "operationId": "DatasetService_DatasetVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesDatasetVersionList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
         ]
       }
     },
@@ -244,6 +512,161 @@
           "DatasetObjectsService"
         ]
       }
+    },
+    "/api/v1/project/addusertoproject": {
+      "post": {
+        "summary": "AddUserToProject Adds a new user to a given project",
+        "operationId": "ProjectAPI_AddUserToProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsProject"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesAddUserToProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectAPI"
+        ]
+      }
+    },
+    "/api/v1/project/createproject": {
+      "post": {
+        "summary": "CreateProject creates a new projects",
+        "operationId": "ProjectAPI_CreateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsProject"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesCreateProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectAPI"
+        ]
+      }
+    },
+    "/api/v1/project/delete": {
+      "post": {
+        "summary": "DeleteProject Deletes a specific project\nWill also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database",
+        "operationId": "ProjectAPI_DeleteProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectAPI"
+        ]
+      }
+    },
+    "/api/v1/project/projectdatasets": {
+      "post": {
+        "summary": "GetProjectDatasets Returns all datasets that belong to a certain project",
+        "operationId": "ProjectAPI_GetProjectDatasets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesDatasetList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectAPI"
+        ]
+      }
+    },
+    "/api/v1/projects": {
+      "get": {
+        "summary": "GetUserProjects Returns all projects that a specified user has access to",
+        "operationId": "ProjectAPI_GetUserProjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesProjectList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ProjectAPI"
+        ]
+      }
     }
   },
   "definitions": {
@@ -280,6 +703,97 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "modelsDataset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsStatus"
+        },
+        "versionTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsVersionTag"
+          }
+        }
+      }
+    },
+    "modelsDatasetVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "$ref": "#/definitions/modelsVersion"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsStatus"
         }
       }
     },
@@ -511,6 +1025,58 @@
         }
       }
     },
+    "modelsProject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsUser"
+          }
+        }
+      }
+    },
+    "modelsResource": {
+      "type": "string",
+      "enum": [
+        "ProjectResource",
+        "DatasetResource",
+        "DatasetVersionResource",
+        "ObjectResource",
+        "ObjectGroupResource",
+        "ObjectGroupVersionResource"
+      ],
+      "default": "ProjectResource"
+    },
+    "modelsRight": {
+      "type": "string",
+      "enum": [
+        "Read",
+        "Write"
+      ],
+      "default": "Read"
+    },
     "modelsStatus": {
       "type": "string",
       "enum": [
@@ -521,6 +1087,37 @@
         "Deleting"
       ],
       "default": "Initiating"
+    },
+    "modelsUpdateFieldsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "updatedStringFields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "modelsUser": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "rights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsRight"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/modelsResource"
+        }
+      }
     },
     "modelsVersion": {
       "type": "object",
@@ -546,6 +1143,17 @@
         }
       }
     },
+    "modelsVersionTag": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "versionId": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -561,6 +1169,25 @@
       },
       "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := ptypes.MarshalAny(foo)\n     ...\n     foo := \u0026pb.Foo{}\n     if err := ptypes.UnmarshalAny(any, foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
     },
+    "servicesAddUserToProjectRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsRight"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        }
+      },
+      "description": "Adds a new user to a project",
+      "title": "AddUserToProjectRequest"
+    },
     "servicesAddVersionToObjectGroupRequest": {
       "type": "object",
       "properties": {
@@ -571,6 +1198,30 @@
           "$ref": "#/definitions/servicesCreateObjectGroupVersionRequest"
         }
       }
+    },
+    "servicesCreateDatasetRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        }
+      },
+      "title": "Dataset related Models"
     },
     "servicesCreateObjectGroupRequest": {
       "type": "object",
@@ -661,6 +1312,59 @@
         }
       }
     },
+    "servicesCreateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        }
+      },
+      "description": "Request to create a new project",
+      "title": "CreateProjectRequest"
+    },
+    "servicesDatasetList": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsDataset"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        }
+      }
+    },
+    "servicesDatasetVersionList": {
+      "type": "object",
+      "properties": {
+        "datasetVersion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsDatasetVersion"
+          }
+        }
+      }
+    },
     "servicesGetObjectGroupVersionRequest": {
       "type": "object",
       "properties": {
@@ -700,6 +1404,17 @@
         }
       }
     },
+    "servicesObjectGroupList": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsObjectGroup"
+          }
+        }
+      }
+    },
     "servicesObjectGroupVersionReferenceType": {
       "type": "string",
       "enum": [
@@ -707,6 +1422,51 @@
         "ID"
       ],
       "default": "Version"
+    },
+    "servicesProjectList": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsProject"
+          }
+        }
+      },
+      "description": "Lists all projects of a user",
+      "title": "ProjectEntryList"
+    },
+    "servicesReleaseDatasetVersionRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/definitions/modelsVersion"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsLabel"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsMetadata"
+          }
+        }
+      }
     }
   }
 }

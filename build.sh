@@ -13,7 +13,7 @@ git checkout dev
 protoc --proto_path=. --go-grpc_out=../build --go_out=../build --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative api/models/*.proto
 protoc --proto_path=. --go-grpc_out=../build --go_out=../build --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative api/services/*.proto
 
-protoc -I .  --openapiv2_out ../build/api/openapi --openapiv2_opt logtostderr=true api/*/*.proto
+protoc -I . --openapiv2_out ../build/api/openapi --openapiv2_opt logtostderr=true,allow_merge=true api/services/*Service.proto
 
 cd ..
 mv build/api/models/* models
