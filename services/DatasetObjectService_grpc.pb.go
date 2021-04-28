@@ -27,6 +27,7 @@ type DatasetObjectsServiceClient interface {
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
 	GetCurrentObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
 	GetObjectGroupVersion(ctx context.Context, in *GetObjectGroupVersionRequest, opts ...grpc.CallOption) (*models.ObjectGroupVersion, error)
+	GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionsResponse, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
@@ -84,6 +85,15 @@ func (c *datasetObjectsServiceClient) GetObjectGroupVersion(ctx context.Context,
 	return out, nil
 }
 
+func (c *datasetObjectsServiceClient) GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionsResponse, error) {
+	out := new(GetObjectGroupVersionsResponse)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupVersions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
 	out := new(models.Empty)
 	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/FinishObjectUpload", in, out, opts...)
@@ -106,6 +116,7 @@ type DatasetObjectsServiceServer interface {
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
 	GetCurrentObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error)
 	GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error)
+	GetObjectGroupVersions(context.Context, *models.ID) (*GetObjectGroupVersionsResponse, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
@@ -129,6 +140,9 @@ func (UnimplementedDatasetObjectsServiceServer) GetCurrentObjectGroup(context.Co
 }
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersion not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersions(context.Context, *models.ID) (*GetObjectGroupVersionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersions not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
@@ -236,6 +250,24 @@ func _DatasetObjectsService_GetObjectGroupVersion_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetObjectsService_GetObjectGroupVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetObjectsService/GetObjectGroupVersions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersions(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
@@ -277,6 +309,10 @@ var _DatasetObjectsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetObjectGroupVersion",
 			Handler:    _DatasetObjectsService_GetObjectGroupVersion_Handler,
+		},
+		{
+			MethodName: "GetObjectGroupVersions",
+			Handler:    _DatasetObjectsService_GetObjectGroupVersions_Handler,
 		},
 		{
 			MethodName: "FinishObjectUpload",

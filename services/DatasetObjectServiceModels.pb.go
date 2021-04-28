@@ -522,6 +522,61 @@ func (x *GetObjectGroupVersionResponse) GetObjectGroupVersion() *models.ObjectGr
 	return nil
 }
 
+type GetObjectGroupVersionsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ObjectGroup        *models.ObjectGroup          `protobuf:"bytes,1,opt,name=object_group,json=objectGroup,proto3" json:"object_group,omitempty"`
+	ObjectGroupVersion []*models.ObjectGroupVersion `protobuf:"bytes,2,rep,name=object_group_version,json=objectGroupVersion,proto3" json:"object_group_version,omitempty"`
+}
+
+func (x *GetObjectGroupVersionsResponse) Reset() {
+	*x = GetObjectGroupVersionsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_DatasetObjectServiceModels_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetObjectGroupVersionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetObjectGroupVersionsResponse) ProtoMessage() {}
+
+func (x *GetObjectGroupVersionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_DatasetObjectServiceModels_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetObjectGroupVersionsResponse.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupVersionsResponse) Descriptor() ([]byte, []int) {
+	return file_api_services_DatasetObjectServiceModels_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetObjectGroupVersionsResponse) GetObjectGroup() *models.ObjectGroup {
+	if x != nil {
+		return x.ObjectGroup
+	}
+	return nil
+}
+
+func (x *GetObjectGroupVersionsResponse) GetObjectGroupVersion() []*models.ObjectGroupVersion {
+	if x != nil {
+		return x.ObjectGroupVersion
+	}
+	return nil
+}
+
 var File_api_services_DatasetObjectServiceModels_proto protoreflect.FileDescriptor
 
 var file_api_services_DatasetObjectServiceModels_proto_rawDesc = []byte{
@@ -619,14 +674,24 @@ var file_api_services_DatasetObjectServiceModels_proto_rawDesc = []byte{
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e,
 	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x56, 0x65, 0x72, 0x73, 0x69,
 	0x6f, 0x6e, 0x52, 0x12, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x56,
-	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x2a, 0x36, 0x0a, 0x1f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66, 0x65,
-	0x72, 0x65, 0x6e, 0x63, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0b, 0x0a, 0x07, 0x56, 0x65, 0x72,
-	0x73, 0x69, 0x6f, 0x6e, 0x10, 0x00, 0x12, 0x06, 0x0a, 0x02, 0x49, 0x44, 0x10, 0x01, 0x42, 0x2d,
-	0x5a, 0x2b, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69,
-	0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f,
-	0x2d, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0xa6, 0x01, 0x0a, 0x1e, 0x47, 0x65, 0x74, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x0c, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x13, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x12, 0x4c, 0x0a, 0x14, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75,
+	0x70, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x1a, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x12, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x2a,
+	0x36, 0x0a, 0x1f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x56, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x54, 0x79,
+	0x70, 0x65, 0x12, 0x0b, 0x0a, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x10, 0x00, 0x12,
+	0x06, 0x0a, 0x02, 0x49, 0x44, 0x10, 0x01, 0x42, 0x2d, 0x5a, 0x2b, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -642,7 +707,7 @@ func file_api_services_DatasetObjectServiceModels_proto_rawDescGZIP() []byte {
 }
 
 var file_api_services_DatasetObjectServiceModels_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_services_DatasetObjectServiceModels_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_api_services_DatasetObjectServiceModels_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_api_services_DatasetObjectServiceModels_proto_goTypes = []interface{}{
 	(ObjectGroupVersionReferenceType)(0),        // 0: services.ObjectGroupVersionReferenceType
 	(*CreateObjectGroupWithVersionRequest)(nil), // 1: services.CreateObjectGroupWithVersionRequest
@@ -652,34 +717,37 @@ var file_api_services_DatasetObjectServiceModels_proto_goTypes = []interface{}{
 	(*CreateObjectRequest)(nil),                 // 5: services.CreateObjectRequest
 	(*GetObjectGroupVersionRequest)(nil),        // 6: services.GetObjectGroupVersionRequest
 	(*GetObjectGroupVersionResponse)(nil),       // 7: services.GetObjectGroupVersionResponse
-	(*models.Label)(nil),                        // 8: models.Label
-	(*models.Metadata)(nil),                     // 9: models.Metadata
-	(*models.Origin)(nil),                       // 10: models.Origin
-	(*models.Version)(nil),                      // 11: models.Version
-	(*models.ObjectGroup)(nil),                  // 12: models.ObjectGroup
-	(*models.ObjectGroupVersion)(nil),           // 13: models.ObjectGroupVersion
+	(*GetObjectGroupVersionsResponse)(nil),      // 8: services.GetObjectGroupVersionsResponse
+	(*models.Label)(nil),                        // 9: models.Label
+	(*models.Metadata)(nil),                     // 10: models.Metadata
+	(*models.Origin)(nil),                       // 11: models.Origin
+	(*models.Version)(nil),                      // 12: models.Version
+	(*models.ObjectGroup)(nil),                  // 13: models.ObjectGroup
+	(*models.ObjectGroupVersion)(nil),           // 14: models.ObjectGroupVersion
 }
 var file_api_services_DatasetObjectServiceModels_proto_depIdxs = []int32{
 	2,  // 0: services.CreateObjectGroupWithVersionRequest.object_group:type_name -> services.CreateObjectGroupRequest
 	4,  // 1: services.CreateObjectGroupWithVersionRequest.object_group_version:type_name -> services.CreateObjectGroupVersionRequest
-	8,  // 2: services.CreateObjectGroupRequest.labels:type_name -> models.Label
-	9,  // 3: services.CreateObjectGroupRequest.metadata:type_name -> models.Metadata
+	9,  // 2: services.CreateObjectGroupRequest.labels:type_name -> models.Label
+	10, // 3: services.CreateObjectGroupRequest.metadata:type_name -> models.Metadata
 	4,  // 4: services.AddVersionToObjectGroupRequest.group_version:type_name -> services.CreateObjectGroupVersionRequest
 	5,  // 5: services.CreateObjectGroupVersionRequest.objects:type_name -> services.CreateObjectRequest
-	8,  // 6: services.CreateObjectGroupVersionRequest.labels:type_name -> models.Label
-	9,  // 7: services.CreateObjectGroupVersionRequest.metadata:type_name -> models.Metadata
-	8,  // 8: services.CreateObjectRequest.labels:type_name -> models.Label
-	9,  // 9: services.CreateObjectRequest.metadata:type_name -> models.Metadata
-	10, // 10: services.CreateObjectRequest.origin:type_name -> models.Origin
+	9,  // 6: services.CreateObjectGroupVersionRequest.labels:type_name -> models.Label
+	10, // 7: services.CreateObjectGroupVersionRequest.metadata:type_name -> models.Metadata
+	9,  // 8: services.CreateObjectRequest.labels:type_name -> models.Label
+	10, // 9: services.CreateObjectRequest.metadata:type_name -> models.Metadata
+	11, // 10: services.CreateObjectRequest.origin:type_name -> models.Origin
 	0,  // 11: services.GetObjectGroupVersionRequest.reference_type:type_name -> services.ObjectGroupVersionReferenceType
-	11, // 12: services.GetObjectGroupVersionRequest.version:type_name -> models.Version
-	12, // 13: services.GetObjectGroupVersionResponse.object_group:type_name -> models.ObjectGroup
-	13, // 14: services.GetObjectGroupVersionResponse.object_group_version:type_name -> models.ObjectGroupVersion
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	12, // 12: services.GetObjectGroupVersionRequest.version:type_name -> models.Version
+	13, // 13: services.GetObjectGroupVersionResponse.object_group:type_name -> models.ObjectGroup
+	14, // 14: services.GetObjectGroupVersionResponse.object_group_version:type_name -> models.ObjectGroupVersion
+	13, // 15: services.GetObjectGroupVersionsResponse.object_group:type_name -> models.ObjectGroup
+	14, // 16: services.GetObjectGroupVersionsResponse.object_group_version:type_name -> models.ObjectGroupVersion
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_api_services_DatasetObjectServiceModels_proto_init() }
@@ -772,6 +840,18 @@ func file_api_services_DatasetObjectServiceModels_proto_init() {
 				return nil
 			}
 		}
+		file_api_services_DatasetObjectServiceModels_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetObjectGroupVersionsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -779,7 +859,7 @@ func file_api_services_DatasetObjectServiceModels_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_services_DatasetObjectServiceModels_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
