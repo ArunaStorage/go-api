@@ -13,6 +13,9 @@
     },
     {
       "name": "ProjectAPI"
+    },
+    {
+      "name": "ObjectLoad"
     }
   ],
   "consumes": [
@@ -510,6 +513,166 @@
         ],
         "tags": [
           "DatasetObjectsService"
+        ]
+      }
+    },
+    "/api/v1/objectload/complete_multipart": {
+      "post": {
+        "operationId": "ObjectLoad_CompleteMultipartUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesCompleteMultipartRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoad"
+        ]
+      }
+    },
+    "/api/v1/objectload/download": {
+      "post": {
+        "operationId": "ObjectLoad_CreateDownloadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesCreateLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoad"
+        ]
+      }
+    },
+    "/api/v1/objectload/init_multipart": {
+      "post": {
+        "operationId": "ObjectLoad_StartMultipartUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsObject"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoad"
+        ]
+      }
+    },
+    "/api/v1/objectload/upload": {
+      "post": {
+        "operationId": "ObjectLoad_CreateUploadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesCreateLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoad"
+        ]
+      }
+    },
+    "/api/v1/objectload/upload_multipart_part": {
+      "post": {
+        "operationId": "ObjectLoad_GetMultipartUploadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesCreateLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/servicesGetMultipartUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoad"
         ]
       }
     },
@@ -1199,6 +1362,32 @@
         }
       }
     },
+    "servicesCompleteMultipartRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/servicesCompletedParts"
+          }
+        }
+      }
+    },
+    "servicesCompletedParts": {
+      "type": "object",
+      "properties": {
+        "etag": {
+          "type": "string"
+        },
+        "part": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "servicesCreateDatasetRequest": {
       "type": "object",
       "properties": {
@@ -1222,6 +1411,19 @@
         }
       },
       "title": "Dataset related Models"
+    },
+    "servicesCreateLinkResponse": {
+      "type": "object",
+      "properties": {
+        "uploadLink": {
+          "type": "string"
+        },
+        "object": {
+          "$ref": "#/definitions/modelsObject"
+        }
+      },
+      "description": "The uploadlink and its corresponding object",
+      "title": "CreateUploadLinkResponse"
     },
     "servicesCreateObjectGroupRequest": {
       "type": "object",
@@ -1362,6 +1564,18 @@
           "items": {
             "$ref": "#/definitions/modelsDatasetVersion"
           }
+        }
+      }
+    },
+    "servicesGetMultipartUploadRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "uploadPart": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
