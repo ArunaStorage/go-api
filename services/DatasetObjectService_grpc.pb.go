@@ -28,7 +28,7 @@ type DatasetObjectsServiceClient interface {
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
 	GetCurrentObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
 	GetObjectGroupVersion(ctx context.Context, in *GetObjectGroupVersionRequest, opts ...grpc.CallOption) (*models.ObjectGroupVersion, error)
-	GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionsResponse, error)
+	GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
@@ -86,8 +86,8 @@ func (c *datasetObjectsServiceClient) GetObjectGroupVersion(ctx context.Context,
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionsResponse, error) {
-	out := new(GetObjectGroupVersionsResponse)
+func (c *datasetObjectsServiceClient) GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error) {
+	out := new(ObjectGroupVersions)
 	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupVersions", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -117,7 +117,7 @@ type DatasetObjectsServiceServer interface {
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
 	GetCurrentObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error)
 	GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error)
-	GetObjectGroupVersions(context.Context, *models.ID) (*GetObjectGroupVersionsResponse, error)
+	GetObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
@@ -142,7 +142,7 @@ func (UnimplementedDatasetObjectsServiceServer) GetCurrentObjectGroup(context.Co
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersion not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersions(context.Context, *models.ID) (*GetObjectGroupVersionsResponse, error) {
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersions not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {

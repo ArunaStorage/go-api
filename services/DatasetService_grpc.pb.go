@@ -26,13 +26,14 @@ type DatasetServiceClient interface {
 	// Lists Versions of a dataset
 	DatasetVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*DatasetVersionList, error)
 	DatasetObjectGroups(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupList, error)
+	CurrentObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(ctx context.Context, in *models.UpdateFieldsRequest, opts ...grpc.CallOption) (*models.Dataset, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*models.DatasetVersion, error)
-	DatasetVersionObjectGroups(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupList, error)
+	DatasetVersionObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error)
 }
 
 type datasetServiceClient struct {
@@ -79,6 +80,15 @@ func (c *datasetServiceClient) DatasetObjectGroups(ctx context.Context, in *mode
 	return out, nil
 }
 
+func (c *datasetServiceClient) CurrentObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error) {
+	out := new(ObjectGroupVersions)
+	err := c.cc.Invoke(ctx, "/services.DatasetService/CurrentObjectGroupVersions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetServiceClient) UpdateDatasetField(ctx context.Context, in *models.UpdateFieldsRequest, opts ...grpc.CallOption) (*models.Dataset, error) {
 	out := new(models.Dataset)
 	err := c.cc.Invoke(ctx, "/services.DatasetService/UpdateDatasetField", in, out, opts...)
@@ -106,9 +116,9 @@ func (c *datasetServiceClient) ReleaseDatasetVersion(ctx context.Context, in *Re
 	return out, nil
 }
 
-func (c *datasetServiceClient) DatasetVersionObjectGroups(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupList, error) {
-	out := new(ObjectGroupList)
-	err := c.cc.Invoke(ctx, "/services.DatasetService/DatasetVersionObjectGroups", in, out, opts...)
+func (c *datasetServiceClient) DatasetVersionObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error) {
+	out := new(ObjectGroupVersions)
+	err := c.cc.Invoke(ctx, "/services.DatasetService/DatasetVersionObjectGroupVersions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,13 +136,14 @@ type DatasetServiceServer interface {
 	// Lists Versions of a dataset
 	DatasetVersions(context.Context, *models.ID) (*DatasetVersionList, error)
 	DatasetObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error)
+	CurrentObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(context.Context, *models.UpdateFieldsRequest) (*models.Dataset, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(context.Context, *models.ID) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersion, error)
-	DatasetVersionObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error)
+	DatasetVersionObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error)
 	mustEmbedUnimplementedDatasetServiceServer()
 }
 
@@ -152,6 +163,9 @@ func (UnimplementedDatasetServiceServer) DatasetVersions(context.Context, *model
 func (UnimplementedDatasetServiceServer) DatasetObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DatasetObjectGroups not implemented")
 }
+func (UnimplementedDatasetServiceServer) CurrentObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CurrentObjectGroupVersions not implemented")
+}
 func (UnimplementedDatasetServiceServer) UpdateDatasetField(context.Context, *models.UpdateFieldsRequest) (*models.Dataset, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetField not implemented")
 }
@@ -161,8 +175,8 @@ func (UnimplementedDatasetServiceServer) DeleteDataset(context.Context, *models.
 func (UnimplementedDatasetServiceServer) ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseDatasetVersion not implemented")
 }
-func (UnimplementedDatasetServiceServer) DatasetVersionObjectGroups(context.Context, *models.ID) (*ObjectGroupList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DatasetVersionObjectGroups not implemented")
+func (UnimplementedDatasetServiceServer) DatasetVersionObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DatasetVersionObjectGroupVersions not implemented")
 }
 func (UnimplementedDatasetServiceServer) mustEmbedUnimplementedDatasetServiceServer() {}
 
@@ -249,6 +263,24 @@ func _DatasetService_DatasetObjectGroups_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_CurrentObjectGroupVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).CurrentObjectGroupVersions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetService/CurrentObjectGroupVersions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).CurrentObjectGroupVersions(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetService_UpdateDatasetField_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.UpdateFieldsRequest)
 	if err := dec(in); err != nil {
@@ -303,20 +335,20 @@ func _DatasetService_ReleaseDatasetVersion_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetService_DatasetVersionObjectGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DatasetService_DatasetVersionObjectGroupVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetServiceServer).DatasetVersionObjectGroups(ctx, in)
+		return srv.(DatasetServiceServer).DatasetVersionObjectGroupVersions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetService/DatasetVersionObjectGroups",
+		FullMethod: "/services.DatasetService/DatasetVersionObjectGroupVersions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetServiceServer).DatasetVersionObjectGroups(ctx, req.(*models.ID))
+		return srv.(DatasetServiceServer).DatasetVersionObjectGroupVersions(ctx, req.(*models.ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -345,6 +377,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetService_DatasetObjectGroups_Handler,
 		},
 		{
+			MethodName: "CurrentObjectGroupVersions",
+			Handler:    _DatasetService_CurrentObjectGroupVersions_Handler,
+		},
+		{
 			MethodName: "UpdateDatasetField",
 			Handler:    _DatasetService_UpdateDatasetField_Handler,
 		},
@@ -357,8 +393,8 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetService_ReleaseDatasetVersion_Handler,
 		},
 		{
-			MethodName: "DatasetVersionObjectGroups",
-			Handler:    _DatasetService_DatasetVersionObjectGroups_Handler,
+			MethodName: "DatasetVersionObjectGroupVersions",
+			Handler:    _DatasetService_DatasetVersionObjectGroupVersions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

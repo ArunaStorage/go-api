@@ -222,6 +222,36 @@
         ]
       }
     },
+    "/api/v1/dataset/{id}/currentgroupversions": {
+      "get": {
+        "operationId": "DatasetService_CurrentObjectGroupVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/servicesObjectGroupVersions"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
     "/api/v1/datasetversion/create": {
       "post": {
         "summary": "ReleaseDatasetVersion Release a new dataset version",
@@ -257,12 +287,12 @@
     },
     "/api/v1/datasetversion/list": {
       "post": {
-        "operationId": "DatasetService_DatasetVersionObjectGroups",
+        "operationId": "DatasetService_DatasetVersionObjectGroupVersions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/servicesObjectGroupList"
+              "$ref": "#/definitions/servicesObjectGroupVersions"
             }
           },
           "default": {
@@ -491,7 +521,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/servicesGetObjectGroupVersionsResponse"
+              "$ref": "#/definitions/servicesObjectGroupVersions"
             }
           },
           "default": {
@@ -1604,20 +1634,6 @@
         }
       }
     },
-    "servicesGetObjectGroupVersionsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroup": {
-          "$ref": "#/definitions/modelsObjectGroup"
-        },
-        "objectGroupVersion": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsObjectGroupVersion"
-          }
-        }
-      }
-    },
     "servicesObjectGroupList": {
       "type": "object",
       "properties": {
@@ -1636,6 +1652,17 @@
         "ID"
       ],
       "default": "Version"
+    },
+    "servicesObjectGroupVersions": {
+      "type": "object",
+      "properties": {
+        "objectGroupVersion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsObjectGroupVersion"
+          }
+        }
+      }
     },
     "servicesProjectList": {
       "type": "object",
