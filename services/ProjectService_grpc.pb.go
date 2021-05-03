@@ -27,6 +27,7 @@ type ProjectAPIClient interface {
 	GetProjectDatasets(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*DatasetList, error)
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(ctx context.Context, in *models.Empty, opts ...grpc.CallOption) (*ProjectList, error)
+	GetProject(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Project, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
@@ -76,6 +77,15 @@ func (c *projectAPIClient) GetUserProjects(ctx context.Context, in *models.Empty
 	return out, nil
 }
 
+func (c *projectAPIClient) GetProject(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Project, error) {
+	out := new(models.Project)
+	err := c.cc.Invoke(ctx, "/services.ProjectAPI/GetProject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *projectAPIClient) DeleteProject(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
 	out := new(models.Empty)
 	err := c.cc.Invoke(ctx, "/services.ProjectAPI/DeleteProject", in, out, opts...)
@@ -97,6 +107,7 @@ type ProjectAPIServer interface {
 	GetProjectDatasets(context.Context, *models.ID) (*DatasetList, error)
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(context.Context, *models.Empty) (*ProjectList, error)
+	GetProject(context.Context, *models.ID) (*models.Project, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(context.Context, *models.ID) (*models.Empty, error)
@@ -118,6 +129,9 @@ func (UnimplementedProjectAPIServer) GetProjectDatasets(context.Context, *models
 }
 func (UnimplementedProjectAPIServer) GetUserProjects(context.Context, *models.Empty) (*ProjectList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserProjects not implemented")
+}
+func (UnimplementedProjectAPIServer) GetProject(context.Context, *models.ID) (*models.Project, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
 }
 func (UnimplementedProjectAPIServer) DeleteProject(context.Context, *models.ID) (*models.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProject not implemented")
@@ -207,6 +221,24 @@ func _ProjectAPI_GetUserProjects_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectAPI_GetProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectAPIServer).GetProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.ProjectAPI/GetProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectAPIServer).GetProject(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProjectAPI_DeleteProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
@@ -247,6 +279,10 @@ var ProjectAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserProjects",
 			Handler:    _ProjectAPI_GetUserProjects_Handler,
+		},
+		{
+			MethodName: "GetProject",
+			Handler:    _ProjectAPI_GetProject_Handler,
 		},
 		{
 			MethodName: "DeleteProject",

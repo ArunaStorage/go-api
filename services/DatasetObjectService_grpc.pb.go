@@ -20,15 +20,15 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatasetObjectsServiceClient interface {
 	//CreateObjectGroup Creates a new object group
-	CreateObjectGroupWithVersion(ctx context.Context, in *CreateObjectGroupWithVersionRequest, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
+	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupWithRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
 	//CreateObjectGroupVersion Creates a new object group version
-	AddVersionToObjectGroup(ctx context.Context, in *AddVersionToObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
+	AddRevisionToObjectGroup(ctx context.Context, in *AddRevisionToObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
 	//GetObjectGroup Returns the object group with the given ID
-	GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
+	GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
-	GetCurrentObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error)
-	GetObjectGroupVersion(ctx context.Context, in *GetObjectGroupVersionRequest, opts ...grpc.CallOption) (*models.ObjectGroupVersion, error)
-	GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error)
+	GetCurrentObjectGroupRevision(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
+	GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*models.ObjectGroupRevision, error)
+	GetObjectGroupRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
@@ -41,26 +41,26 @@ func NewDatasetObjectsServiceClient(cc grpc.ClientConnInterface) DatasetObjectsS
 	return &datasetObjectsServiceClient{cc}
 }
 
-func (c *datasetObjectsServiceClient) CreateObjectGroupWithVersion(ctx context.Context, in *CreateObjectGroupWithVersionRequest, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error) {
-	out := new(GetObjectGroupVersionResponse)
-	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/CreateObjectGroupWithVersion", in, out, opts...)
+func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in *CreateObjectGroupWithRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/CreateObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) AddVersionToObjectGroup(ctx context.Context, in *AddVersionToObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error) {
-	out := new(GetObjectGroupVersionResponse)
-	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/AddVersionToObjectGroup", in, out, opts...)
+func (c *datasetObjectsServiceClient) AddRevisionToObjectGroup(ctx context.Context, in *AddRevisionToObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/AddRevisionToObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error) {
-	out := new(GetObjectGroupVersionResponse)
+func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
 	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -68,27 +68,27 @@ func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *mo
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetCurrentObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupVersionResponse, error) {
-	out := new(GetObjectGroupVersionResponse)
-	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetCurrentObjectGroup", in, out, opts...)
+func (c *datasetObjectsServiceClient) GetCurrentObjectGroupRevision(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetCurrentObjectGroupRevision", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetObjectGroupVersion(ctx context.Context, in *GetObjectGroupVersionRequest, opts ...grpc.CallOption) (*models.ObjectGroupVersion, error) {
-	out := new(models.ObjectGroupVersion)
-	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupVersion", in, out, opts...)
+func (c *datasetObjectsServiceClient) GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*models.ObjectGroupRevision, error) {
+	out := new(models.ObjectGroupRevision)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupRevision", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) GetObjectGroupVersions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupVersions, error) {
-	out := new(ObjectGroupVersions)
-	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupVersions", in, out, opts...)
+func (c *datasetObjectsServiceClient) GetObjectGroupRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error) {
+	out := new(ObjectGroupRevisions)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/GetObjectGroupRevisions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,15 +109,15 @@ func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in
 // for forward compatibility
 type DatasetObjectsServiceServer interface {
 	//CreateObjectGroup Creates a new object group
-	CreateObjectGroupWithVersion(context.Context, *CreateObjectGroupWithVersionRequest) (*GetObjectGroupVersionResponse, error)
+	CreateObjectGroup(context.Context, *CreateObjectGroupWithRevisionRequest) (*GetObjectGroupRevisionResponse, error)
 	//CreateObjectGroupVersion Creates a new object group version
-	AddVersionToObjectGroup(context.Context, *AddVersionToObjectGroupRequest) (*GetObjectGroupVersionResponse, error)
+	AddRevisionToObjectGroup(context.Context, *AddRevisionToObjectGroupRequest) (*GetObjectGroupRevisionResponse, error)
 	//GetObjectGroup Returns the object group with the given ID
-	GetObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error)
+	GetObjectGroup(context.Context, *models.ID) (*GetObjectGroupRevisionResponse, error)
 	//GetObjectGroupCurrentVersion Returns the head version in the history of a given object group
-	GetCurrentObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error)
-	GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error)
-	GetObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error)
+	GetCurrentObjectGroupRevision(context.Context, *models.ID) (*GetObjectGroupRevisionResponse, error)
+	GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*models.ObjectGroupRevision, error)
+	GetObjectGroupRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
@@ -127,23 +127,23 @@ type DatasetObjectsServiceServer interface {
 type UnimplementedDatasetObjectsServiceServer struct {
 }
 
-func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupWithVersion(context.Context, *CreateObjectGroupWithVersionRequest) (*GetObjectGroupVersionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupWithVersion not implemented")
+func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupWithRevisionRequest) (*GetObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroup not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) AddVersionToObjectGroup(context.Context, *AddVersionToObjectGroupRequest) (*GetObjectGroupVersionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddVersionToObjectGroup not implemented")
+func (UnimplementedDatasetObjectsServiceServer) AddRevisionToObjectGroup(context.Context, *AddRevisionToObjectGroupRequest) (*GetObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddRevisionToObjectGroup not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error) {
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *models.ID) (*GetObjectGroupRevisionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetCurrentObjectGroup(context.Context, *models.ID) (*GetObjectGroupVersionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentObjectGroup not implemented")
+func (UnimplementedDatasetObjectsServiceServer) GetCurrentObjectGroupRevision(context.Context, *models.ID) (*GetObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentObjectGroupRevision not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersion(context.Context, *GetObjectGroupVersionRequest) (*models.ObjectGroupVersion, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersion not implemented")
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*models.ObjectGroupRevision, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupRevision not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupVersions(context.Context, *models.ID) (*ObjectGroupVersions, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupVersions not implemented")
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupRevisions not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
@@ -161,38 +161,38 @@ func RegisterDatasetObjectsServiceServer(s grpc.ServiceRegistrar, srv DatasetObj
 	s.RegisterService(&DatasetObjectsService_ServiceDesc, srv)
 }
 
-func _DatasetObjectsService_CreateObjectGroupWithVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateObjectGroupWithVersionRequest)
+func _DatasetObjectsService_CreateObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateObjectGroupWithRevisionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).CreateObjectGroupWithVersion(ctx, in)
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetObjectsService/CreateObjectGroupWithVersion",
+		FullMethod: "/services.DatasetObjectsService/CreateObjectGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).CreateObjectGroupWithVersion(ctx, req.(*CreateObjectGroupWithVersionRequest))
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroup(ctx, req.(*CreateObjectGroupWithRevisionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_AddVersionToObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddVersionToObjectGroupRequest)
+func _DatasetObjectsService_AddRevisionToObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRevisionToObjectGroupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).AddVersionToObjectGroup(ctx, in)
+		return srv.(DatasetObjectsServiceServer).AddRevisionToObjectGroup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetObjectsService/AddVersionToObjectGroup",
+		FullMethod: "/services.DatasetObjectsService/AddRevisionToObjectGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).AddVersionToObjectGroup(ctx, req.(*AddVersionToObjectGroupRequest))
+		return srv.(DatasetObjectsServiceServer).AddRevisionToObjectGroup(ctx, req.(*AddRevisionToObjectGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -215,56 +215,56 @@ func _DatasetObjectsService_GetObjectGroup_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_GetCurrentObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DatasetObjectsService_GetCurrentObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).GetCurrentObjectGroup(ctx, in)
+		return srv.(DatasetObjectsServiceServer).GetCurrentObjectGroupRevision(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetObjectsService/GetCurrentObjectGroup",
+		FullMethod: "/services.DatasetObjectsService/GetCurrentObjectGroupRevision",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).GetCurrentObjectGroup(ctx, req.(*models.ID))
+		return srv.(DatasetObjectsServiceServer).GetCurrentObjectGroupRevision(ctx, req.(*models.ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_GetObjectGroupVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetObjectGroupVersionRequest)
+func _DatasetObjectsService_GetObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupRevisionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersion(ctx, in)
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetObjectsService/GetObjectGroupVersion",
+		FullMethod: "/services.DatasetObjectsService/GetObjectGroupRevision",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersion(ctx, req.(*GetObjectGroupVersionRequest))
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, req.(*GetObjectGroupRevisionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_GetObjectGroupVersions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DatasetObjectsService_GetObjectGroupRevisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersions(ctx, in)
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevisions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.DatasetObjectsService/GetObjectGroupVersions",
+		FullMethod: "/services.DatasetObjectsService/GetObjectGroupRevisions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).GetObjectGroupVersions(ctx, req.(*models.ID))
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevisions(ctx, req.(*models.ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -295,28 +295,28 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DatasetObjectsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateObjectGroupWithVersion",
-			Handler:    _DatasetObjectsService_CreateObjectGroupWithVersion_Handler,
+			MethodName: "CreateObjectGroup",
+			Handler:    _DatasetObjectsService_CreateObjectGroup_Handler,
 		},
 		{
-			MethodName: "AddVersionToObjectGroup",
-			Handler:    _DatasetObjectsService_AddVersionToObjectGroup_Handler,
+			MethodName: "AddRevisionToObjectGroup",
+			Handler:    _DatasetObjectsService_AddRevisionToObjectGroup_Handler,
 		},
 		{
 			MethodName: "GetObjectGroup",
 			Handler:    _DatasetObjectsService_GetObjectGroup_Handler,
 		},
 		{
-			MethodName: "GetCurrentObjectGroup",
-			Handler:    _DatasetObjectsService_GetCurrentObjectGroup_Handler,
+			MethodName: "GetCurrentObjectGroupRevision",
+			Handler:    _DatasetObjectsService_GetCurrentObjectGroupRevision_Handler,
 		},
 		{
-			MethodName: "GetObjectGroupVersion",
-			Handler:    _DatasetObjectsService_GetObjectGroupVersion_Handler,
+			MethodName: "GetObjectGroupRevision",
+			Handler:    _DatasetObjectsService_GetObjectGroupRevision_Handler,
 		},
 		{
-			MethodName: "GetObjectGroupVersions",
-			Handler:    _DatasetObjectsService_GetObjectGroupVersions_Handler,
+			MethodName: "GetObjectGroupRevisions",
+			Handler:    _DatasetObjectsService_GetObjectGroupRevisions_Handler,
 		},
 		{
 			MethodName: "FinishObjectUpload",
