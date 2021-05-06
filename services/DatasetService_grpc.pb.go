@@ -33,6 +33,7 @@ type DatasetServiceClient interface {
 	DeleteDataset(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*models.DatasetVersion, error)
+	GetDatasetVersion(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetVersion, error)
 	GetDatsetVersionRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error)
 }
 
@@ -116,6 +117,15 @@ func (c *datasetServiceClient) ReleaseDatasetVersion(ctx context.Context, in *Re
 	return out, nil
 }
 
+func (c *datasetServiceClient) GetDatasetVersion(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetVersion, error) {
+	out := new(models.DatasetVersion)
+	err := c.cc.Invoke(ctx, "/services.DatasetService/GetDatasetVersion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetServiceClient) GetDatsetVersionRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error) {
 	out := new(ObjectGroupRevisions)
 	err := c.cc.Invoke(ctx, "/services.DatasetService/GetDatsetVersionRevisions", in, out, opts...)
@@ -143,6 +153,7 @@ type DatasetServiceServer interface {
 	DeleteDataset(context.Context, *models.ID) (*models.Empty, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersion, error)
+	GetDatasetVersion(context.Context, *models.ID) (*models.DatasetVersion, error)
 	GetDatsetVersionRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error)
 	mustEmbedUnimplementedDatasetServiceServer()
 }
@@ -174,6 +185,9 @@ func (UnimplementedDatasetServiceServer) DeleteDataset(context.Context, *models.
 }
 func (UnimplementedDatasetServiceServer) ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersion, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseDatasetVersion not implemented")
+}
+func (UnimplementedDatasetServiceServer) GetDatasetVersion(context.Context, *models.ID) (*models.DatasetVersion, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetVersion not implemented")
 }
 func (UnimplementedDatasetServiceServer) GetDatsetVersionRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatsetVersionRevisions not implemented")
@@ -335,6 +349,24 @@ func _DatasetService_ReleaseDatasetVersion_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_GetDatasetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).GetDatasetVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetService/GetDatasetVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).GetDatasetVersion(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetService_GetDatsetVersionRevisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(models.ID)
 	if err := dec(in); err != nil {
@@ -391,6 +423,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReleaseDatasetVersion",
 			Handler:    _DatasetService_ReleaseDatasetVersion_Handler,
+		},
+		{
+			MethodName: "GetDatasetVersion",
+			Handler:    _DatasetService_GetDatasetVersion_Handler,
 		},
 		{
 			MethodName: "GetDatsetVersionRevisions",

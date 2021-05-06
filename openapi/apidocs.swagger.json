@@ -285,6 +285,38 @@
         ]
       }
     },
+    "/api/v1/datasetversion/get": {
+      "post": {
+        "operationId": "DatasetService_GetDatasetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/modelsDatasetVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modelsID"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
     "/api/v1/datasetversion/list": {
       "post": {
         "operationId": "DatasetService_GetDatsetVersionRevisions",
@@ -1735,6 +1767,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsMetadata"
+          }
+        },
+        "revisionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
