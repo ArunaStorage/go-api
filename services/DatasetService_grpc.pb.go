@@ -35,6 +35,7 @@ type DatasetServiceClient interface {
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*models.DatasetVersion, error)
 	GetDatasetVersion(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.DatasetVersion, error)
 	GetDatsetVersionRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error)
+	DeleteDatasetVersion(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
 type datasetServiceClient struct {
@@ -135,6 +136,15 @@ func (c *datasetServiceClient) GetDatsetVersionRevisions(ctx context.Context, in
 	return out, nil
 }
 
+func (c *datasetServiceClient) DeleteDatasetVersion(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
+	out := new(models.Empty)
+	err := c.cc.Invoke(ctx, "/services.DatasetService/DeleteDatasetVersion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetServiceServer is the server API for DatasetService service.
 // All implementations must embed UnimplementedDatasetServiceServer
 // for forward compatibility
@@ -155,6 +165,7 @@ type DatasetServiceServer interface {
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*models.DatasetVersion, error)
 	GetDatasetVersion(context.Context, *models.ID) (*models.DatasetVersion, error)
 	GetDatsetVersionRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error)
+	DeleteDatasetVersion(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetServiceServer()
 }
 
@@ -191,6 +202,9 @@ func (UnimplementedDatasetServiceServer) GetDatasetVersion(context.Context, *mod
 }
 func (UnimplementedDatasetServiceServer) GetDatsetVersionRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatsetVersionRevisions not implemented")
+}
+func (UnimplementedDatasetServiceServer) DeleteDatasetVersion(context.Context, *models.ID) (*models.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDatasetVersion not implemented")
 }
 func (UnimplementedDatasetServiceServer) mustEmbedUnimplementedDatasetServiceServer() {}
 
@@ -385,6 +399,24 @@ func _DatasetService_GetDatsetVersionRevisions_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_DeleteDatasetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).DeleteDatasetVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetService/DeleteDatasetVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).DeleteDatasetVersion(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatasetService_ServiceDesc is the grpc.ServiceDesc for DatasetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -431,6 +463,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDatsetVersionRevisions",
 			Handler:    _DatasetService_GetDatsetVersionRevisions_Handler,
+		},
+		{
+			MethodName: "DeleteDatasetVersion",
+			Handler:    _DatasetService_DeleteDatasetVersion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

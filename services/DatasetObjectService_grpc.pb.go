@@ -31,6 +31,8 @@ type DatasetObjectsServiceClient interface {
 	GetObjectGroupRevisions(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*ObjectGroupRevisions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
+	DeleteObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
+	DeleteObjectGroupRevision(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error)
 }
 
 type datasetObjectsServiceClient struct {
@@ -104,6 +106,24 @@ func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in
 	return out, nil
 }
 
+func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
+	out := new(models.Empty)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/DeleteObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetObjectsServiceClient) DeleteObjectGroupRevision(ctx context.Context, in *models.ID, opts ...grpc.CallOption) (*models.Empty, error) {
+	out := new(models.Empty)
+	err := c.cc.Invoke(ctx, "/services.DatasetObjectsService/DeleteObjectGroupRevision", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetObjectsServiceServer is the server API for DatasetObjectsService service.
 // All implementations must embed UnimplementedDatasetObjectsServiceServer
 // for forward compatibility
@@ -120,6 +140,8 @@ type DatasetObjectsServiceServer interface {
 	GetObjectGroupRevisions(context.Context, *models.ID) (*ObjectGroupRevisions, error)
 	//FinishObjectUpload Finishes the upload process for an object
 	FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error)
+	DeleteObjectGroup(context.Context, *models.ID) (*models.Empty, error)
+	DeleteObjectGroupRevision(context.Context, *models.ID) (*models.Empty, error)
 	mustEmbedUnimplementedDatasetObjectsServiceServer()
 }
 
@@ -147,6 +169,12 @@ func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupRevisions(context.
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *models.ID) (*models.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) DeleteObjectGroup(context.Context, *models.ID) (*models.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectGroup not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) DeleteObjectGroupRevision(context.Context, *models.ID) (*models.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectGroupRevision not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) mustEmbedUnimplementedDatasetObjectsServiceServer() {}
 
@@ -287,6 +315,42 @@ func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetObjectsService_DeleteObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).DeleteObjectGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetObjectsService/DeleteObjectGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).DeleteObjectGroup(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetObjectsService_DeleteObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(models.ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).DeleteObjectGroupRevision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/services.DatasetObjectsService/DeleteObjectGroupRevision",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).DeleteObjectGroupRevision(ctx, req.(*models.ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatasetObjectsService_ServiceDesc is the grpc.ServiceDesc for DatasetObjectsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -321,6 +385,14 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FinishObjectUpload",
 			Handler:    _DatasetObjectsService_FinishObjectUpload_Handler,
+		},
+		{
+			MethodName: "DeleteObjectGroup",
+			Handler:    _DatasetObjectsService_DeleteObjectGroup_Handler,
+		},
+		{
+			MethodName: "DeleteObjectGroupRevision",
+			Handler:    _DatasetObjectsService_DeleteObjectGroupRevision_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
