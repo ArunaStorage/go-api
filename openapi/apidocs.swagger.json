@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/services/DatasetObjectService.proto",
-    "version": "version not set"
+    "title": "ScienceObjectsDB REST API",
+    "version": "0.1"
   },
   "tags": [
+    {
+      "name": "ProjectAPI"
+    },
     {
       "name": "DatasetObjectsService"
     },
@@ -12,11 +15,11 @@
       "name": "DatasetService"
     },
     {
-      "name": "ProjectAPI"
-    },
-    {
       "name": "ObjectLoad"
     }
+  ],
+  "schemes": [
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -33,6 +36,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesAPITokenList"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -55,6 +81,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -87,6 +136,29 @@
               "$ref": "#/definitions/modelsAPIToken"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -116,6 +188,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesGetObjectGroupRevisionResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -151,6 +246,29 @@
               "$ref": "#/definitions/modelsDataset"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -184,6 +302,29 @@
               "$ref": "#/definitions/modelsDataset"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -214,6 +355,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesObjectGroupList"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -249,6 +413,29 @@
               "$ref": "#/definitions/modelsDataset"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -282,6 +469,29 @@
               "$ref": "#/definitions/modelsEmpty"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -310,6 +520,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesObjectGroupRevisions"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -341,6 +574,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsDatasetVersion"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -375,6 +631,29 @@
               "$ref": "#/definitions/modelsDatasetVersion"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -405,6 +684,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesObjectGroupRevisions"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -439,6 +741,29 @@
               "$ref": "#/definitions/modelsEmpty"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -468,6 +793,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesDatasetVersionList"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -503,6 +851,29 @@
               "$ref": "#/definitions/modelsEmpty"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -534,6 +905,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesGetObjectGroupRevisionResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -569,6 +963,29 @@
               "$ref": "#/definitions/servicesGetObjectGroupRevisionResponse"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -601,6 +1018,29 @@
               "$ref": "#/definitions/modelsEmpty"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -629,6 +1069,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -660,6 +1123,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesGetObjectGroupRevisionResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -694,6 +1180,29 @@
               "$ref": "#/definitions/servicesObjectGroupRevisions"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -720,6 +1229,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsObjectGroupRevision"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -754,6 +1286,29 @@
               "$ref": "#/definitions/modelsEmpty"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -784,6 +1339,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesCreateLinkResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -818,6 +1396,29 @@
               "$ref": "#/definitions/modelsObject"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -850,6 +1451,29 @@
               "$ref": "#/definitions/servicesCreateLinkResponse"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -880,6 +1504,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesCreateLinkResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -915,6 +1562,29 @@
               "$ref": "#/definitions/modelsProject"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -946,6 +1616,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsProject"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -980,6 +1673,29 @@
               "$ref": "#/definitions/modelsProject"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1009,6 +1725,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/modelsEmpty"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -1042,6 +1781,29 @@
               "$ref": "#/definitions/servicesDatasetList"
             }
           },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1071,6 +1833,29 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/servicesProjectList"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
             }
           },
           "default": {
@@ -1975,5 +2760,25 @@
         }
       }
     }
-  }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/auth",
+      "tokenUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/token",
+      "scopes": {
+        "email": "Grants read access",
+        "profile": "Grants write access"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "email",
+        "profile"
+      ]
+    }
+  ]
 }
