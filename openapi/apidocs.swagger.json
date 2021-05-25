@@ -1922,6 +1922,9 @@
           "items": {
             "$ref": "#/definitions/modelsRight"
           }
+        },
+        "projectId": {
+          "type": "string"
         }
       }
     },
