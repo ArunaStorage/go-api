@@ -1,0 +1,993 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/services/v1/dataset_service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DatasetService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/dataset/create": {
+      "post": {
+        "summary": "CreateNewDataset Creates a new dataset and associates it with a dataset",
+        "operationId": "DatasetService_CreateDataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateDatasetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDatasetRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/get": {
+      "post": {
+        "summary": "Dataset Returns a specific dataset",
+        "operationId": "DatasetService_GetDataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/list": {
+      "post": {
+        "operationId": "DatasetService_GetDatasetObjectGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetObjectGroupsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetObjectGroupsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/update": {
+      "post": {
+        "summary": "Updates a field of a dataset",
+        "operationId": "DatasetService_UpdateDatasetField",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateDatasetFieldResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateDatasetFieldRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/{id}": {
+      "delete": {
+        "summary": "DeleteDataset Delete a dataset",
+        "operationId": "DatasetService_DeleteDataset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteDatasetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/dataset/{id}/currentgroupversions": {
+      "get": {
+        "operationId": "DatasetService_GetCurrentObjectGroupRevisions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCurrentObjectGroupRevisionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/create": {
+      "post": {
+        "summary": "ReleaseDatasetVersion Release a new dataset version",
+        "operationId": "DatasetService_ReleaseDatasetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReleaseDatasetVersionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReleaseDatasetVersionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/get": {
+      "post": {
+        "operationId": "DatasetService_GetDatasetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetVersionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetVersionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/list": {
+      "post": {
+        "operationId": "DatasetService_GetDatsetVersionRevisions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDatsetVersionRevisionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetDatsetVersionRevisionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversion/{id}": {
+      "delete": {
+        "operationId": "DatasetService_DeleteDatasetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteDatasetVersionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/datasetversions/list": {
+      "post": {
+        "summary": "Lists Versions of a dataset",
+        "operationId": "DatasetService_GetDatasetVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetVersionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetDatasetVersionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "OriginOriginTypeEnum": {
+      "type": "string",
+      "enum": [
+        "OBJECT_STORAGE",
+        "ORIGIN_LINK"
+      ],
+      "default": "OBJECT_STORAGE"
+    },
+    "VersionVersionStage": {
+      "type": "string",
+      "enum": [
+        "STABLE",
+        "RC",
+        "BETA",
+        "ALPHA"
+      ],
+      "default": "STABLE"
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "modelsv1Label": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsv1Location": {
+      "type": "object",
+      "properties": {
+        "objectLocation": {
+          "$ref": "#/definitions/v1ObjectLocation"
+        },
+        "objectIndexLocation": {
+          "$ref": "#/definitions/v1IndexedObjectLocation"
+        }
+      }
+    },
+    "modelsv1Status": {
+      "type": "string",
+      "enum": [
+        "INITIATING",
+        "AVAILABLE",
+        "UPDATING",
+        "ARCHIVED",
+        "DELETING"
+      ],
+      "default": "INITIATING"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "v1CreateDatasetRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        }
+      },
+      "title": "Dataset related Models"
+    },
+    "v1CreateDatasetResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Dataset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        },
+        "versionTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1VersionTag"
+          }
+        }
+      }
+    },
+    "v1DatasetVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "$ref": "#/definitions/v1Version"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        }
+      }
+    },
+    "v1DeleteDatasetResponse": {
+      "type": "object"
+    },
+    "v1DeleteDatasetVersionResponse": {
+      "type": "object"
+    },
+    "v1GetCurrentObjectGroupRevisionsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroupRevisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupRevision"
+          }
+        }
+      }
+    },
+    "v1GetDatasetObjectGroupsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetDatasetObjectGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
+          }
+        }
+      }
+    },
+    "v1GetDatasetRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetDatasetResponse": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/definitions/v1Dataset"
+        }
+      }
+    },
+    "v1GetDatasetVersionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetDatasetVersionResponse": {
+      "type": "object",
+      "properties": {
+        "datasetVersion": {
+          "$ref": "#/definitions/v1DatasetVersion"
+        }
+      }
+    },
+    "v1GetDatasetVersionsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetDatasetVersionsResponse": {
+      "type": "object",
+      "properties": {
+        "datasetVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1DatasetVersion"
+          }
+        }
+      }
+    },
+    "v1GetDatsetVersionRevisionsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetDatsetVersionRevisionsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroupRevision": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupRevision"
+          }
+        }
+      }
+    },
+    "v1Index": {
+      "type": "object",
+      "properties": {
+        "startByte": {
+          "type": "string",
+          "format": "int64"
+        },
+        "endByte": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1IndexedObjectLocation": {
+      "type": "object",
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "index": {
+          "$ref": "#/definitions/v1Index"
+        }
+      },
+      "title": "A location in S3"
+    },
+    "v1Metadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "string",
+          "format": "byte"
+        },
+        "simpleSchema": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Object": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "filetype": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "$ref": "#/definitions/modelsv1Location"
+        },
+        "origin": {
+          "$ref": "#/definitions/v1Origin"
+        },
+        "contentLen": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uploadId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ObjectGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        },
+        "headId": {
+          "type": "string"
+        },
+        "currentRevision": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ObjectGroupRevision": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/definitions/v1Version"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "objectGroupId": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ObjectLocation": {
+      "type": "object",
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "A location in S3"
+    },
+    "v1Origin": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "string"
+        },
+        "objectLocation": {
+          "$ref": "#/definitions/v1ObjectLocation"
+        },
+        "originType": {
+          "$ref": "#/definitions/OriginOriginTypeEnum"
+        }
+      }
+    },
+    "v1ReleaseDatasetVersionRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/definitions/v1Version"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "revisionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1ReleaseDatasetVersionResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1UpdateDatasetFieldRequest": {
+      "type": "object",
+      "properties": {
+        "updateRequest": {
+          "$ref": "#/definitions/v1UpdateFieldsRequest"
+        }
+      }
+    },
+    "v1UpdateDatasetFieldResponse": {
+      "type": "object"
+    },
+    "v1UpdateFieldsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "updatedStringFields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1Version": {
+      "type": "object",
+      "properties": {
+        "major": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "patch": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "revision": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "stage": {
+          "$ref": "#/definitions/VersionVersionStage"
+        }
+      }
+    },
+    "v1VersionTag": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "versionId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

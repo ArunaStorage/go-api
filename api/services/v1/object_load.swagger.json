@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/services/v1/object_load.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ObjectLoadService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/objectload/complete_multipart": {
+      "post": {
+        "operationId": "ObjectLoadService_CompleteMultipartUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CompleteMultipartUploadResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CompleteMultipartUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
+    "/api/v1/objectload/download": {
+      "post": {
+        "operationId": "ObjectLoadService_CreateDownloadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
+    "/api/v1/objectload/init_multipart": {
+      "post": {
+        "operationId": "ObjectLoadService_StartMultipartUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1StartMultipartUploadResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1StartMultipartUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
+    "/api/v1/objectload/upload": {
+      "post": {
+        "operationId": "ObjectLoadService_CreateUploadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateUploadLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateUploadLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
+    "/api/v1/objectload/upload_multipart_part": {
+      "post": {
+        "operationId": "ObjectLoadService_GetMultipartUploadLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMultipartUploadLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetMultipartUploadLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "OriginOriginTypeEnum": {
+      "type": "string",
+      "enum": [
+        "OBJECT_STORAGE",
+        "ORIGIN_LINK"
+      ],
+      "default": "OBJECT_STORAGE"
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "modelsv1Label": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsv1Location": {
+      "type": "object",
+      "properties": {
+        "objectLocation": {
+          "$ref": "#/definitions/v1ObjectLocation"
+        },
+        "objectIndexLocation": {
+          "$ref": "#/definitions/v1IndexedObjectLocation"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "v1CompleteMultipartUploadRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CompletedParts"
+          }
+        }
+      }
+    },
+    "v1CompleteMultipartUploadResponse": {
+      "type": "object"
+    },
+    "v1CompletedParts": {
+      "type": "object",
+      "properties": {
+        "etag": {
+          "type": "string"
+        },
+        "part": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1CreateDownloadLinkRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateDownloadLinkResponse": {
+      "type": "object",
+      "properties": {
+        "uploadLink": {
+          "type": "string"
+        },
+        "object": {
+          "$ref": "#/definitions/v1Object"
+        }
+      }
+    },
+    "v1CreateUploadLinkRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateUploadLinkResponse": {
+      "type": "object",
+      "properties": {
+        "uploadLink": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetMultipartUploadLinkRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "uploadPart": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetMultipartUploadLinkResponse": {
+      "type": "object",
+      "properties": {
+        "uploadLink": {
+          "type": "string"
+        },
+        "object": {
+          "$ref": "#/definitions/v1Object"
+        }
+      }
+    },
+    "v1Index": {
+      "type": "object",
+      "properties": {
+        "startByte": {
+          "type": "string",
+          "format": "int64"
+        },
+        "endByte": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1IndexedObjectLocation": {
+      "type": "object",
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "index": {
+          "$ref": "#/definitions/v1Index"
+        }
+      },
+      "title": "A location in S3"
+    },
+    "v1Metadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "string",
+          "format": "byte"
+        },
+        "simpleSchema": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Object": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "filetype": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "$ref": "#/definitions/modelsv1Location"
+        },
+        "origin": {
+          "$ref": "#/definitions/v1Origin"
+        },
+        "contentLen": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uploadId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ObjectLocation": {
+      "type": "object",
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "A location in S3"
+    },
+    "v1Origin": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "string"
+        },
+        "objectLocation": {
+          "$ref": "#/definitions/v1ObjectLocation"
+        },
+        "originType": {
+          "$ref": "#/definitions/OriginOriginTypeEnum"
+        }
+      }
+    },
+    "v1StartMultipartUploadRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1StartMultipartUploadResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v1Object"
+        }
+      }
+    }
+  }
+}

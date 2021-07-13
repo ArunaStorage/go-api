@@ -1,0 +1,845 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ScienceObjectsDB REST API",
+    "version": "0.1"
+  },
+  "tags": [
+    {
+      "name": "ProjectService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/apitoken": {
+      "get": {
+        "operationId": "ProjectService_GetAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAPITokenResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/apitoken/{id}/delete": {
+      "delete": {
+        "operationId": "ProjectService_DeleteAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteAPITokenResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/createapitoken": {
+      "get": {
+        "operationId": "ProjectService_CreateAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateAPITokenResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/project/addusertoproject": {
+      "post": {
+        "summary": "AddUserToProject Adds a new user to a given project",
+        "operationId": "ProjectService_AddUserToProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddUserToProjectResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddUserToProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/project/createproject": {
+      "post": {
+        "summary": "CreateProject creates a new projects",
+        "operationId": "ProjectService_CreateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateProjectResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/project/{id}": {
+      "get": {
+        "operationId": "ProjectService_GetProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetProjectResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/project/{id}/delete": {
+      "get": {
+        "summary": "DeleteProject Deletes a specific project\nWill also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database",
+        "operationId": "ProjectService_DeleteProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteProjectResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/project/{id}/projectdatasets": {
+      "get": {
+        "summary": "GetProjectDatasets Returns all datasets that belong to a certain project",
+        "operationId": "ProjectService_GetProjectDatasets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetProjectDatasetsResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/projects": {
+      "get": {
+        "summary": "GetUserProjects Returns all projects that a specified user has access to",
+        "operationId": "ProjectService_GetUserProjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserProjectsResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "modelsv1Label": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsv1Status": {
+      "type": "string",
+      "enum": [
+        "INITIATING",
+        "AVAILABLE",
+        "UPDATING",
+        "ARCHIVED",
+        "DELETING"
+      ],
+      "default": "INITIATING"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "v1APIToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "rights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Right"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AddUserToProjectRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Right"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AddUserToProjectResponse": {
+      "type": "object"
+    },
+    "v1CreateAPITokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/v1APIToken"
+        }
+      }
+    },
+    "v1CreateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        }
+      }
+    },
+    "v1CreateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Dataset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        },
+        "versionTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1VersionTag"
+          }
+        }
+      }
+    },
+    "v1DeleteAPITokenResponse": {
+      "type": "object"
+    },
+    "v1DeleteProjectResponse": {
+      "type": "object"
+    },
+    "v1GetAPITokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1APIToken"
+          }
+        }
+      }
+    },
+    "v1GetProjectDatasetsResponse": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Dataset"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        }
+      }
+    },
+    "v1GetProjectResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/v1Project"
+        }
+      }
+    },
+    "v1GetUserProjectsResponse": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Project"
+          }
+        }
+      }
+    },
+    "v1Metadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "string",
+          "format": "byte"
+        },
+        "simpleSchema": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1User"
+          }
+        }
+      }
+    },
+    "v1Resource": {
+      "type": "string",
+      "enum": [
+        "PROJECT_RESOURCE",
+        "DATASET_RESOURCE",
+        "DATASET_VERSION_RESOURCE",
+        "OBJECT_RESOURCE",
+        "OBJEFT_GROUP_RESOURCE",
+        "OBJECT_GROUP_VERSION_RESOURCE"
+      ],
+      "default": "PROJECT_RESOURCE"
+    },
+    "v1Right": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "WRITE"
+      ],
+      "default": "READ"
+    },
+    "v1User": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "rights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Right"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/v1Resource"
+        }
+      }
+    },
+    "v1VersionTag": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "versionId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/auth",
+      "tokenUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/token",
+      "scopes": {
+        "email": "Grants read access",
+        "profile": "Grants write access"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "email",
+        "profile"
+      ]
+    }
+  ]
+}
