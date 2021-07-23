@@ -390,7 +390,7 @@
         "objectGroupId": {
           "type": "string"
         },
-        "groupVersion": {
+        "groupRevison": {
           "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
         }
       }
@@ -428,7 +428,7 @@
             "$ref": "#/definitions/v1Metadata"
           }
         },
-        "objectGroupVersion": {
+        "objectGroupRevision": {
           "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
         }
       }
