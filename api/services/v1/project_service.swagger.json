@@ -565,7 +565,8 @@
           }
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -658,7 +659,8 @@
           }
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "isPublic": {
           "type": "boolean"
@@ -825,7 +827,8 @@
           "type": "string"
         },
         "versionId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     }

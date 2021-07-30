@@ -517,7 +517,8 @@
           }
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "isPublic": {
           "type": "boolean"
@@ -541,7 +542,8 @@
           "format": "uint64"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "description": {
           "type": "string"
@@ -568,7 +570,8 @@
         "objectGroupIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         },
         "objectCount": {
@@ -798,7 +801,8 @@
           "type": "string"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "labels": {
           "type": "array",
@@ -816,7 +820,8 @@
           "$ref": "#/definitions/modelsv1Status"
         },
         "headId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "currentRevision": {
           "type": "string",
@@ -832,7 +837,8 @@
           "format": "uint64"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "version": {
           "$ref": "#/definitions/v1Version"
@@ -860,7 +866,8 @@
           }
         },
         "objectGroupId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "revision": {
           "type": "string",
@@ -1000,7 +1007,8 @@
           "type": "string"
         },
         "versionId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     }

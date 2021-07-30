@@ -703,7 +703,8 @@
           "type": "string"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "labels": {
           "type": "array",
@@ -721,7 +722,8 @@
           "$ref": "#/definitions/modelsv1Status"
         },
         "headId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "currentRevision": {
           "type": "string",
@@ -737,7 +739,8 @@
           "format": "uint64"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "version": {
           "$ref": "#/definitions/v1Version"
@@ -765,7 +768,8 @@
           }
         },
         "objectGroupId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "revision": {
           "type": "string",
