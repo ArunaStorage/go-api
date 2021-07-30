@@ -391,7 +391,8 @@
       "type": "object",
       "properties": {
         "objectGroupId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "groupRevison": {
           "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
@@ -402,7 +403,8 @@
       "type": "object",
       "properties": {
         "revisionId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "revisionNumber": {
           "type": "string",
@@ -417,7 +419,8 @@
           "type": "string"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "labels": {
           "type": "array",
@@ -440,10 +443,12 @@
       "type": "object",
       "properties": {
         "objectGroupId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "revisionId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

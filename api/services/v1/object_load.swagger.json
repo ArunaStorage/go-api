@@ -242,7 +242,8 @@
       "type": "object",
       "properties": {
         "objectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "parts": {
           "type": "array",
@@ -308,7 +309,8 @@
       "type": "object",
       "properties": {
         "objectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "uploadPart": {
           "type": "string",

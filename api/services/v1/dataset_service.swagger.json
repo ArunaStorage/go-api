@@ -461,7 +461,8 @@
           "type": "string"
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "labels": {
           "type": "array",

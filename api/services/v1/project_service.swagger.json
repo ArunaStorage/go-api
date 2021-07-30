@@ -583,7 +583,8 @@
           }
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
