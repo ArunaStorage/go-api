@@ -109,7 +109,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -162,7 +163,8 @@
             "name": "id",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -327,7 +329,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -381,7 +384,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -435,7 +439,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -547,7 +552,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "token": {
           "type": "string"
@@ -626,7 +632,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "name": {
           "type": "string"
@@ -745,7 +752,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "name": {
           "type": "string"

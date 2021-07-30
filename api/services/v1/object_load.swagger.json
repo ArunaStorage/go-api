@@ -271,7 +271,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -290,7 +291,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -381,7 +383,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "filename": {
           "type": "string"
@@ -453,7 +456,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
