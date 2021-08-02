@@ -625,8 +625,9 @@
     "v1CreateProjectResponse": {
       "type": "object",
       "properties": {
-        "project": {
-          "type": "string"
+        "id": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
