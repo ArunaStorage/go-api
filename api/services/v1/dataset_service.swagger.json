@@ -912,7 +912,8 @@
           "type": "string"
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "version": {
           "$ref": "#/definitions/v1Version"
