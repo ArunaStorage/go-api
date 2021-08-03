@@ -917,12 +917,6 @@
         "version": {
           "$ref": "#/definitions/v1Version"
         },
-        "objectGroupIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "labels": {
           "type": "array",
           "items": {
@@ -938,8 +932,12 @@
         "revisionIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
+        },
+        "description": {
+          "type": "string"
         }
       }
     },
