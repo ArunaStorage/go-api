@@ -374,7 +374,7 @@ func local_request_DatasetService_GetDatasetVersion_0(ctx context.Context, marsh
 }
 
 func request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDatsetVersionRevisionsRequest
+	var protoReq GetDatasetVersionRevisionsRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -391,7 +391,7 @@ func request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, mar
 }
 
 func local_request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDatsetVersionRevisionsRequest
+	var protoReq GetDatasetVersionRevisionsRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)

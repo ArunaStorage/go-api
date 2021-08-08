@@ -33,7 +33,7 @@ type DatasetServiceClient interface {
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(ctx context.Context, in *GetDatasetVersionRequest, opts ...grpc.CallOption) (*GetDatasetVersionResponse, error)
-	GetDatsetVersionRevisions(ctx context.Context, in *GetDatsetVersionRevisionsRequest, opts ...grpc.CallOption) (*GetDatsetVersionRevisionsResponse, error)
+	GetDatsetVersionRevisions(ctx context.Context, in *GetDatasetVersionRevisionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionRevisionsResponse, error)
 	DeleteDatasetVersion(ctx context.Context, in *DeleteDatasetVersionRequest, opts ...grpc.CallOption) (*DeleteDatasetVersionResponse, error)
 }
 
@@ -126,8 +126,8 @@ func (c *datasetServiceClient) GetDatasetVersion(ctx context.Context, in *GetDat
 	return out, nil
 }
 
-func (c *datasetServiceClient) GetDatsetVersionRevisions(ctx context.Context, in *GetDatsetVersionRevisionsRequest, opts ...grpc.CallOption) (*GetDatsetVersionRevisionsResponse, error) {
-	out := new(GetDatsetVersionRevisionsResponse)
+func (c *datasetServiceClient) GetDatsetVersionRevisions(ctx context.Context, in *GetDatasetVersionRevisionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionRevisionsResponse, error) {
+	out := new(GetDatasetVersionRevisionsResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetDatsetVersionRevisions", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -163,7 +163,7 @@ type DatasetServiceServer interface {
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(context.Context, *GetDatasetVersionRequest) (*GetDatasetVersionResponse, error)
-	GetDatsetVersionRevisions(context.Context, *GetDatsetVersionRevisionsRequest) (*GetDatsetVersionRevisionsResponse, error)
+	GetDatsetVersionRevisions(context.Context, *GetDatasetVersionRevisionsRequest) (*GetDatasetVersionRevisionsResponse, error)
 	DeleteDatasetVersion(context.Context, *DeleteDatasetVersionRequest) (*DeleteDatasetVersionResponse, error)
 }
 
@@ -198,7 +198,7 @@ func (UnimplementedDatasetServiceServer) ReleaseDatasetVersion(context.Context, 
 func (UnimplementedDatasetServiceServer) GetDatasetVersion(context.Context, *GetDatasetVersionRequest) (*GetDatasetVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetVersion not implemented")
 }
-func (UnimplementedDatasetServiceServer) GetDatsetVersionRevisions(context.Context, *GetDatsetVersionRevisionsRequest) (*GetDatsetVersionRevisionsResponse, error) {
+func (UnimplementedDatasetServiceServer) GetDatsetVersionRevisions(context.Context, *GetDatasetVersionRevisionsRequest) (*GetDatasetVersionRevisionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatsetVersionRevisions not implemented")
 }
 func (UnimplementedDatasetServiceServer) DeleteDatasetVersion(context.Context, *DeleteDatasetVersionRequest) (*DeleteDatasetVersionResponse, error) {
@@ -379,7 +379,7 @@ func _DatasetService_GetDatasetVersion_Handler(srv interface{}, ctx context.Cont
 }
 
 func _DatasetService_GetDatsetVersionRevisions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDatsetVersionRevisionsRequest)
+	in := new(GetDatasetVersionRevisionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -391,7 +391,7 @@ func _DatasetService_GetDatsetVersionRevisions_Handler(srv interface{}, ctx cont
 		FullMethod: "/api.services.v1.DatasetService/GetDatsetVersionRevisions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetServiceServer).GetDatsetVersionRevisions(ctx, req.(*GetDatsetVersionRevisionsRequest))
+		return srv.(DatasetServiceServer).GetDatsetVersionRevisions(ctx, req.(*GetDatasetVersionRevisionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
