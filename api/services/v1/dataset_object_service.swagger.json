@@ -535,9 +535,6 @@
     "v1GetCurrentObjectGroupRevisionResponse": {
       "type": "object",
       "properties": {
-        "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroup"
-        },
         "objectGroupRevision": {
           "$ref": "#/definitions/v1ObjectGroupRevision"
         }
@@ -582,9 +579,6 @@
     "v1GetObjectGroupRevisionResponse": {
       "type": "object",
       "properties": {
-        "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroup"
-        },
         "objectGroupRevision": {
           "$ref": "#/definitions/v1ObjectGroupRevision"
         }

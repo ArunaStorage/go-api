@@ -280,11 +280,8 @@
     "v1CreateDownloadLinkResponse": {
       "type": "object",
       "properties": {
-        "uploadLink": {
+        "downloadLink": {
           "type": "string"
-        },
-        "object": {
-          "$ref": "#/definitions/v1Object"
         }
       }
     },
