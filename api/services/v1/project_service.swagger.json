@@ -703,12 +703,6 @@
           "items": {
             "$ref": "#/definitions/v1Dataset"
           }
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
         }
       }
     },

@@ -418,6 +418,9 @@
         "name": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
         "datasetId": {
           "type": "string",
           "format": "uint64"
@@ -699,6 +702,9 @@
           "format": "uint64"
         },
         "name": {
+          "type": "string"
+        },
+        "description": {
           "type": "string"
         },
         "datasetId": {

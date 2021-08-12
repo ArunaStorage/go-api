@@ -460,6 +460,9 @@
         "name": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
         "projectId": {
           "type": "string",
           "format": "uint64"
@@ -542,12 +545,15 @@
           "type": "string",
           "format": "uint64"
         },
-        "datasetId": {
-          "type": "string",
-          "format": "uint64"
+        "name": {
+          "type": "string"
         },
         "description": {
           "type": "string"
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
         },
         "labels": {
           "type": "array",
@@ -799,6 +805,9 @@
           "format": "uint64"
         },
         "name": {
+          "type": "string"
+        },
+        "description": {
           "type": "string"
         },
         "datasetId": {
