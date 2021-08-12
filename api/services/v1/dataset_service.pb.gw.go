@@ -373,7 +373,7 @@ func local_request_DatasetService_GetDatasetVersion_0(ctx context.Context, marsh
 
 }
 
-func request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DatasetService_GetDatasetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDatasetVersionRevisionsRequest
 	var metadata runtime.ServerMetadata
 
@@ -385,12 +385,12 @@ func request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetDatsetVersionRevisions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetDatasetVersionRevisions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DatasetService_GetDatasetVersionRevisions_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDatasetVersionRevisionsRequest
 	var metadata runtime.ServerMetadata
 
@@ -402,7 +402,7 @@ func local_request_DatasetService_GetDatsetVersionRevisions_0(ctx context.Contex
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetDatsetVersionRevisions(ctx, &protoReq)
+	msg, err := server.GetDatasetVersionRevisions(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -672,18 +672,18 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 
 	})
 
-	mux.Handle("POST", pattern_DatasetService_GetDatsetVersionRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DatasetService_GetDatasetVersionRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetService/GetDatsetVersionRevisions", runtime.WithHTTPPathPattern("/api/v1/datasetversion/list"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetService/GetDatasetVersionRevisions", runtime.WithHTTPPathPattern("/api/v1/datasetversion/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DatasetService_GetDatsetVersionRevisions_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DatasetService_GetDatasetVersionRevisions_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -691,7 +691,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_DatasetService_GetDatsetVersionRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DatasetService_GetDatasetVersionRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -939,23 +939,23 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 
 	})
 
-	mux.Handle("POST", pattern_DatasetService_GetDatsetVersionRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DatasetService_GetDatasetVersionRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetService/GetDatsetVersionRevisions", runtime.WithHTTPPathPattern("/api/v1/datasetversion/list"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetService/GetDatasetVersionRevisions", runtime.WithHTTPPathPattern("/api/v1/datasetversion/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DatasetService_GetDatsetVersionRevisions_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DatasetService_GetDatasetVersionRevisions_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DatasetService_GetDatsetVersionRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DatasetService_GetDatasetVersionRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1001,7 +1001,7 @@ var (
 
 	pattern_DatasetService_GetDatasetVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "datasetversion", "get"}, ""))
 
-	pattern_DatasetService_GetDatsetVersionRevisions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "datasetversion", "list"}, ""))
+	pattern_DatasetService_GetDatasetVersionRevisions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "datasetversion", "list"}, ""))
 
 	pattern_DatasetService_DeleteDatasetVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "datasetversion", "id"}, ""))
 )
@@ -1025,7 +1025,7 @@ var (
 
 	forward_DatasetService_GetDatasetVersion_0 = runtime.ForwardResponseMessage
 
-	forward_DatasetService_GetDatsetVersionRevisions_0 = runtime.ForwardResponseMessage
+	forward_DatasetService_GetDatasetVersionRevisions_0 = runtime.ForwardResponseMessage
 
 	forward_DatasetService_DeleteDatasetVersion_0 = runtime.ForwardResponseMessage
 )

@@ -277,7 +277,7 @@
     },
     "/api/v1/datasetversion/list": {
       "post": {
-        "operationId": "DatasetService_GetDatsetVersionRevisions",
+        "operationId": "DatasetService_GetDatasetVersionRevisions",
         "responses": {
           "200": {
             "description": "A successful response.",
