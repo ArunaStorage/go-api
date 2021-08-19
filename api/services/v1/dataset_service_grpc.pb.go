@@ -29,6 +29,7 @@ type DatasetServiceClient interface {
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(ctx context.Context, in *DeleteDatasetRequest, opts ...grpc.CallOption) (*DeleteDatasetResponse, error)
+	GetObjectGroupsInDateRange(ctx context.Context, in *GetObjectGroupsInDateRangeRequest, opts ...grpc.CallOption) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(ctx context.Context, in *GetDatasetVersionRequest, opts ...grpc.CallOption) (*GetDatasetVersionResponse, error)
@@ -98,6 +99,15 @@ func (c *datasetServiceClient) DeleteDataset(ctx context.Context, in *DeleteData
 	return out, nil
 }
 
+func (c *datasetServiceClient) GetObjectGroupsInDateRange(ctx context.Context, in *GetObjectGroupsInDateRangeRequest, opts ...grpc.CallOption) (*GetObjectGroupsInDateRangeResponse, error) {
+	out := new(GetObjectGroupsInDateRangeResponse)
+	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetObjectGroupsInDateRange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetServiceClient) ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error) {
 	out := new(ReleaseDatasetVersionResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/ReleaseDatasetVersion", in, out, opts...)
@@ -149,6 +159,7 @@ type DatasetServiceServer interface {
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(context.Context, *DeleteDatasetRequest) (*DeleteDatasetResponse, error)
+	GetObjectGroupsInDateRange(context.Context, *GetObjectGroupsInDateRangeRequest) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(context.Context, *GetDatasetVersionRequest) (*GetDatasetVersionResponse, error)
@@ -177,6 +188,9 @@ func (UnimplementedDatasetServiceServer) UpdateDatasetField(context.Context, *Up
 }
 func (UnimplementedDatasetServiceServer) DeleteDataset(context.Context, *DeleteDatasetRequest) (*DeleteDatasetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDataset not implemented")
+}
+func (UnimplementedDatasetServiceServer) GetObjectGroupsInDateRange(context.Context, *GetObjectGroupsInDateRangeRequest) (*GetObjectGroupsInDateRangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupsInDateRange not implemented")
 }
 func (UnimplementedDatasetServiceServer) ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseDatasetVersion not implemented")
@@ -310,6 +324,24 @@ func _DatasetService_DeleteDataset_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_GetObjectGroupsInDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupsInDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).GetObjectGroupsInDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.services.v1.DatasetService/GetObjectGroupsInDateRange",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).GetObjectGroupsInDateRange(ctx, req.(*GetObjectGroupsInDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetService_ReleaseDatasetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReleaseDatasetVersionRequest)
 	if err := dec(in); err != nil {
@@ -412,6 +444,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteDataset",
 			Handler:    _DatasetService_DeleteDataset_Handler,
+		},
+		{
+			MethodName: "GetObjectGroupsInDateRange",
+			Handler:    _DatasetService_GetObjectGroupsInDateRange_Handler,
 		},
 		{
 			MethodName: "ReleaseDatasetVersion",

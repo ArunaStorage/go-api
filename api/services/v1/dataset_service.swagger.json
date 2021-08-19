@@ -339,6 +339,38 @@
           "DatasetService"
         ]
       }
+    },
+    "/api/v1/objectgroupsindaterange/query": {
+      "post": {
+        "operationId": "DatasetService_GetObjectGroupsInDateRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -655,6 +687,34 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1DatasetVersion"
+          }
+        }
+      }
+    },
+    "v1GetObjectGroupsInDateRangeRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1GetObjectGroupsInDateRangeResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
           }
         }
       }
