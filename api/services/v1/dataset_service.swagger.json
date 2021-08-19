@@ -277,12 +277,12 @@
     },
     "/api/v1/datasetversion/list": {
       "post": {
-        "operationId": "DatasetService_GetDatasetVersionRevisions",
+        "operationId": "DatasetService_GetDatasetVersionObjectGroups",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionRevisionsResponse"
+              "$ref": "#/definitions/v1GetDatasetVersionObjectGroupsResponse"
             }
           },
           "default": {
@@ -298,7 +298,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionRevisionsRequest"
+              "$ref": "#/definitions/v1GetDatasetVersionObjectGroupsRequest"
             }
           }
         ],
@@ -644,6 +644,26 @@
         }
       }
     },
+    "v1GetDatasetVersionObjectGroupsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1GetDatasetVersionObjectGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroupRevision": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupRevision"
+          }
+        }
+      }
+    },
     "v1GetDatasetVersionRequest": {
       "type": "object",
       "properties": {
@@ -658,26 +678,6 @@
       "properties": {
         "datasetVersion": {
           "$ref": "#/definitions/v1DatasetVersion"
-        }
-      }
-    },
-    "v1GetDatasetVersionRevisionsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "v1GetDatasetVersionRevisionsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevision": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
-          }
         }
       }
     },
