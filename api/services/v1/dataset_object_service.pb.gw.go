@@ -99,110 +99,6 @@ func local_request_DatasetObjectsService_GetObjectGroup_0(ctx context.Context, m
 
 }
 
-func request_DatasetObjectsService_GetCurrentObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCurrentObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.GetCurrentObjectGroupRevision(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_DatasetObjectsService_GetCurrentObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetObjectsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCurrentObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.GetCurrentObjectGroupRevision(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_DatasetObjectsService_GetObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.GetObjectGroupRevision(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_DatasetObjectsService_GetObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetObjectsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.GetObjectGroupRevision(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-var (
-	filter_DatasetObjectsService_GetObjectGroupRevisions_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_DatasetObjectsService_GetObjectGroupRevisions_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupRevisionsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DatasetObjectsService_GetObjectGroupRevisions_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.GetObjectGroupRevisions(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_DatasetObjectsService_GetObjectGroupRevisions_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetObjectsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupRevisionsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DatasetObjectsService_GetObjectGroupRevisions_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.GetObjectGroupRevisions(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
 func request_DatasetObjectsService_FinishObjectUpload_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq FinishObjectUploadRequest
 	var metadata runtime.ServerMetadata
@@ -289,58 +185,6 @@ func local_request_DatasetObjectsService_DeleteObjectGroup_0(ctx context.Context
 
 }
 
-func request_DatasetObjectsService_DeleteObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
-	}
-
-	protoReq.Id, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
-	}
-
-	msg, err := client.DeleteObjectGroupRevision(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_DatasetObjectsService_DeleteObjectGroupRevision_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetObjectsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteObjectGroupRevisionRequest
-	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
-	}
-
-	protoReq.Id, err = runtime.Uint64(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
-	}
-
-	msg, err := server.DeleteObjectGroupRevision(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
 // RegisterDatasetObjectsServiceHandlerServer registers the http handlers for service DatasetObjectsService to "mux".
 // UnaryRPC     :call DatasetObjectsServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -393,75 +237,6 @@ func RegisterDatasetObjectsServiceHandlerServer(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("POST", pattern_DatasetObjectsService_GetCurrentObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetCurrentObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/currentobjectgroup/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_DatasetObjectsService_GetCurrentObjectGroupRevision_0(rctx, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetCurrentObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_DatasetObjectsService_GetObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisions/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_DatasetObjectsService_GetObjectGroupRevision_0(rctx, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("GET", pattern_DatasetObjectsService_GetObjectGroupRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetObjectGroupRevisions", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisions/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_DatasetObjectsService_GetObjectGroupRevisions_0(rctx, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetObjectGroupRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_DatasetObjectsService_FinishObjectUpload_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -505,29 +280,6 @@ func RegisterDatasetObjectsServiceHandlerServer(ctx context.Context, mux *runtim
 		}
 
 		forward_DatasetObjectsService_DeleteObjectGroup_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("DELETE", pattern_DatasetObjectsService_DeleteObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/DeleteObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevision/{id}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_DatasetObjectsService_DeleteObjectGroupRevision_0(rctx, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_DeleteObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -612,66 +364,6 @@ func RegisterDatasetObjectsServiceHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("POST", pattern_DatasetObjectsService_GetCurrentObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetCurrentObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/currentobjectgroup/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_DatasetObjectsService_GetCurrentObjectGroupRevision_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetCurrentObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_DatasetObjectsService_GetObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisions/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_DatasetObjectsService_GetObjectGroupRevision_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("GET", pattern_DatasetObjectsService_GetObjectGroupRevisions_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/GetObjectGroupRevisions", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisions/get"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_DatasetObjectsService_GetObjectGroupRevisions_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_GetObjectGroupRevisions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_DatasetObjectsService_FinishObjectUpload_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -712,26 +404,6 @@ func RegisterDatasetObjectsServiceHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("DELETE", pattern_DatasetObjectsService_DeleteObjectGroupRevision_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/DeleteObjectGroupRevision", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevision/{id}"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_DatasetObjectsService_DeleteObjectGroupRevision_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_DeleteObjectGroupRevision_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	return nil
 }
 
@@ -740,17 +412,9 @@ var (
 
 	pattern_DatasetObjectsService_GetObjectGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgroup", "get"}, ""))
 
-	pattern_DatasetObjectsService_GetCurrentObjectGroupRevision_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "currentobjectgroup", "get"}, ""))
-
-	pattern_DatasetObjectsService_GetObjectGroupRevision_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgrouprevisions", "get"}, ""))
-
-	pattern_DatasetObjectsService_GetObjectGroupRevisions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgrouprevisions", "get"}, ""))
-
 	pattern_DatasetObjectsService_FinishObjectUpload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "object", "finish"}, ""))
 
 	pattern_DatasetObjectsService_DeleteObjectGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "objectgroup", "id"}, ""))
-
-	pattern_DatasetObjectsService_DeleteObjectGroupRevision_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "objectgrouprevision", "id"}, ""))
 )
 
 var (
@@ -758,15 +422,7 @@ var (
 
 	forward_DatasetObjectsService_GetObjectGroup_0 = runtime.ForwardResponseMessage
 
-	forward_DatasetObjectsService_GetCurrentObjectGroupRevision_0 = runtime.ForwardResponseMessage
-
-	forward_DatasetObjectsService_GetObjectGroupRevision_0 = runtime.ForwardResponseMessage
-
-	forward_DatasetObjectsService_GetObjectGroupRevisions_0 = runtime.ForwardResponseMessage
-
 	forward_DatasetObjectsService_FinishObjectUpload_0 = runtime.ForwardResponseMessage
 
 	forward_DatasetObjectsService_DeleteObjectGroup_0 = runtime.ForwardResponseMessage
-
-	forward_DatasetObjectsService_DeleteObjectGroupRevision_0 = runtime.ForwardResponseMessage
 )

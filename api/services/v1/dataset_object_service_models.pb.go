@@ -22,55 +22,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ObjectGroupRevisionReferenceType int32
-
-const (
-	ObjectGroupRevisionReferenceType_VERSION  ObjectGroupRevisionReferenceType = 0
-	ObjectGroupRevisionReferenceType_REVISION ObjectGroupRevisionReferenceType = 1
-	ObjectGroupRevisionReferenceType_ID       ObjectGroupRevisionReferenceType = 2
-)
-
-// Enum value maps for ObjectGroupRevisionReferenceType.
-var (
-	ObjectGroupRevisionReferenceType_name = map[int32]string{
-		0: "VERSION",
-		1: "REVISION",
-		2: "ID",
-	}
-	ObjectGroupRevisionReferenceType_value = map[string]int32{
-		"VERSION":  0,
-		"REVISION": 1,
-		"ID":       2,
-	}
-)
-
-func (x ObjectGroupRevisionReferenceType) Enum() *ObjectGroupRevisionReferenceType {
-	p := new(ObjectGroupRevisionReferenceType)
-	*p = x
-	return p
-}
-
-func (x ObjectGroupRevisionReferenceType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (ObjectGroupRevisionReferenceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_services_v1_dataset_object_service_models_proto_enumTypes[0].Descriptor()
-}
-
-func (ObjectGroupRevisionReferenceType) Type() protoreflect.EnumType {
-	return &file_api_services_v1_dataset_object_service_models_proto_enumTypes[0]
-}
-
-func (x ObjectGroupRevisionReferenceType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use ObjectGroupRevisionReferenceType.Descriptor instead.
-func (ObjectGroupRevisionReferenceType) EnumDescriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{0}
-}
-
 type CreateObjectGroupRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -213,171 +164,6 @@ func (x *CreateObjectGroupResponse) GetObjectGroupId() uint64 {
 	return 0
 }
 
-type CreateObjectGroupRevisionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Labels   []*v1.Label    `protobuf:"bytes,5,rep,name=labels,proto3" json:"labels,omitempty"`
-	Metadata []*v1.Metadata `protobuf:"bytes,6,rep,name=metadata,proto3" json:"metadata,omitempty"`
-}
-
-func (x *CreateObjectGroupRevisionRequest) Reset() {
-	*x = CreateObjectGroupRevisionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *CreateObjectGroupRevisionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateObjectGroupRevisionRequest) ProtoMessage() {}
-
-func (x *CreateObjectGroupRevisionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateObjectGroupRevisionRequest.ProtoReflect.Descriptor instead.
-func (*CreateObjectGroupRevisionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *CreateObjectGroupRevisionRequest) GetLabels() []*v1.Label {
-	if x != nil {
-		return x.Labels
-	}
-	return nil
-}
-
-func (x *CreateObjectGroupRevisionRequest) GetMetadata() []*v1.Metadata {
-	if x != nil {
-		return x.Metadata
-	}
-	return nil
-}
-
-type AddRevisionToObjectGroupRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ObjectGroupId uint64 `protobuf:"varint,1,opt,name=object_group_id,json=objectGroupId,proto3" json:"object_group_id,omitempty"`
-	RevisionId    uint64 `protobuf:"varint,2,opt,name=revision_id,json=revisionId,proto3" json:"revision_id,omitempty"`
-}
-
-func (x *AddRevisionToObjectGroupRequest) Reset() {
-	*x = AddRevisionToObjectGroupRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AddRevisionToObjectGroupRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddRevisionToObjectGroupRequest) ProtoMessage() {}
-
-func (x *AddRevisionToObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddRevisionToObjectGroupRequest.ProtoReflect.Descriptor instead.
-func (*AddRevisionToObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *AddRevisionToObjectGroupRequest) GetObjectGroupId() uint64 {
-	if x != nil {
-		return x.ObjectGroupId
-	}
-	return 0
-}
-
-func (x *AddRevisionToObjectGroupRequest) GetRevisionId() uint64 {
-	if x != nil {
-		return x.RevisionId
-	}
-	return 0
-}
-
-type AddRevisionToObjectGroupResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	RevisionId     uint64 `protobuf:"varint,1,opt,name=revision_id,json=revisionId,proto3" json:"revision_id,omitempty"`
-	RevisionNumber uint64 `protobuf:"varint,2,opt,name=revision_number,json=revisionNumber,proto3" json:"revision_number,omitempty"`
-}
-
-func (x *AddRevisionToObjectGroupResponse) Reset() {
-	*x = AddRevisionToObjectGroupResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AddRevisionToObjectGroupResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddRevisionToObjectGroupResponse) ProtoMessage() {}
-
-func (x *AddRevisionToObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddRevisionToObjectGroupResponse.ProtoReflect.Descriptor instead.
-func (*AddRevisionToObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *AddRevisionToObjectGroupResponse) GetRevisionId() uint64 {
-	if x != nil {
-		return x.RevisionId
-	}
-	return 0
-}
-
-func (x *AddRevisionToObjectGroupResponse) GetRevisionNumber() uint64 {
-	if x != nil {
-		return x.RevisionNumber
-	}
-	return 0
-}
-
 type CreateObjectRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -395,7 +181,7 @@ type CreateObjectRequest struct {
 func (x *CreateObjectRequest) Reset() {
 	*x = CreateObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -408,7 +194,7 @@ func (x *CreateObjectRequest) String() string {
 func (*CreateObjectRequest) ProtoMessage() {}
 
 func (x *CreateObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -421,7 +207,7 @@ func (x *CreateObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateObjectRequest.ProtoReflect.Descriptor instead.
 func (*CreateObjectRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{5}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CreateObjectRequest) GetFilename() string {
@@ -484,7 +270,7 @@ type GetObjectGroupRequest struct {
 func (x *GetObjectGroupRequest) Reset() {
 	*x = GetObjectGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -497,7 +283,7 @@ func (x *GetObjectGroupRequest) String() string {
 func (*GetObjectGroupRequest) ProtoMessage() {}
 
 func (x *GetObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -510,7 +296,7 @@ func (x *GetObjectGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectGroupRequest.ProtoReflect.Descriptor instead.
 func (*GetObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{6}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetObjectGroupRequest) GetId() uint64 {
@@ -531,7 +317,7 @@ type GetObjectGroupResponse struct {
 func (x *GetObjectGroupResponse) Reset() {
 	*x = GetObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -544,7 +330,7 @@ func (x *GetObjectGroupResponse) String() string {
 func (*GetObjectGroupResponse) ProtoMessage() {}
 
 func (x *GetObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -557,318 +343,12 @@ func (x *GetObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*GetObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{7}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetObjectGroupResponse) GetObjectGroup() *v1.ObjectGroup {
 	if x != nil {
 		return x.ObjectGroup
-	}
-	return nil
-}
-
-type GetObjectGroupRevisionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ReferenceType ObjectGroupRevisionReferenceType `protobuf:"varint,1,opt,name=reference_type,json=referenceType,proto3,enum=api.services.v1.ObjectGroupRevisionReferenceType" json:"reference_type,omitempty"`
-	Revision      int64                            `protobuf:"varint,2,opt,name=revision,proto3" json:"revision,omitempty"`
-	Version       *v1.Version                      `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
-	Id            uint64                           `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *GetObjectGroupRevisionRequest) Reset() {
-	*x = GetObjectGroupRevisionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetObjectGroupRevisionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetObjectGroupRevisionRequest) ProtoMessage() {}
-
-func (x *GetObjectGroupRevisionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetObjectGroupRevisionRequest.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupRevisionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *GetObjectGroupRevisionRequest) GetReferenceType() ObjectGroupRevisionReferenceType {
-	if x != nil {
-		return x.ReferenceType
-	}
-	return ObjectGroupRevisionReferenceType_VERSION
-}
-
-func (x *GetObjectGroupRevisionRequest) GetRevision() int64 {
-	if x != nil {
-		return x.Revision
-	}
-	return 0
-}
-
-func (x *GetObjectGroupRevisionRequest) GetVersion() *v1.Version {
-	if x != nil {
-		return x.Version
-	}
-	return nil
-}
-
-func (x *GetObjectGroupRevisionRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type GetObjectGroupRevisionResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ObjectGroupRevision *v1.ObjectGroupRevision `protobuf:"bytes,1,opt,name=object_group_revision,json=objectGroupRevision,proto3" json:"object_group_revision,omitempty"`
-}
-
-func (x *GetObjectGroupRevisionResponse) Reset() {
-	*x = GetObjectGroupRevisionResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetObjectGroupRevisionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetObjectGroupRevisionResponse) ProtoMessage() {}
-
-func (x *GetObjectGroupRevisionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetObjectGroupRevisionResponse.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupRevisionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *GetObjectGroupRevisionResponse) GetObjectGroupRevision() *v1.ObjectGroupRevision {
-	if x != nil {
-		return x.ObjectGroupRevision
-	}
-	return nil
-}
-
-type GetCurrentObjectGroupRevisionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *GetCurrentObjectGroupRevisionRequest) Reset() {
-	*x = GetCurrentObjectGroupRevisionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetCurrentObjectGroupRevisionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetCurrentObjectGroupRevisionRequest) ProtoMessage() {}
-
-func (x *GetCurrentObjectGroupRevisionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetCurrentObjectGroupRevisionRequest.ProtoReflect.Descriptor instead.
-func (*GetCurrentObjectGroupRevisionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *GetCurrentObjectGroupRevisionRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type GetCurrentObjectGroupRevisionResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ObjectGroupRevision *v1.ObjectGroupRevision `protobuf:"bytes,1,opt,name=object_group_revision,json=objectGroupRevision,proto3" json:"object_group_revision,omitempty"`
-}
-
-func (x *GetCurrentObjectGroupRevisionResponse) Reset() {
-	*x = GetCurrentObjectGroupRevisionResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[11]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetCurrentObjectGroupRevisionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetCurrentObjectGroupRevisionResponse) ProtoMessage() {}
-
-func (x *GetCurrentObjectGroupRevisionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[11]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetCurrentObjectGroupRevisionResponse.ProtoReflect.Descriptor instead.
-func (*GetCurrentObjectGroupRevisionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *GetCurrentObjectGroupRevisionResponse) GetObjectGroupRevision() *v1.ObjectGroupRevision {
-	if x != nil {
-		return x.ObjectGroupRevision
-	}
-	return nil
-}
-
-type GetObjectGroupRevisionsRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *GetObjectGroupRevisionsRequest) Reset() {
-	*x = GetObjectGroupRevisionsRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[12]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetObjectGroupRevisionsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetObjectGroupRevisionsRequest) ProtoMessage() {}
-
-func (x *GetObjectGroupRevisionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[12]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetObjectGroupRevisionsRequest.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupRevisionsRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *GetObjectGroupRevisionsRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type GetObjectGroupRevisionsResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ObjectGroupRevision []*v1.ObjectGroupRevision `protobuf:"bytes,1,rep,name=object_group_revision,json=objectGroupRevision,proto3" json:"object_group_revision,omitempty"`
-}
-
-func (x *GetObjectGroupRevisionsResponse) Reset() {
-	*x = GetObjectGroupRevisionsResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[13]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetObjectGroupRevisionsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetObjectGroupRevisionsResponse) ProtoMessage() {}
-
-func (x *GetObjectGroupRevisionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[13]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetObjectGroupRevisionsResponse.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupRevisionsResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{13}
-}
-
-func (x *GetObjectGroupRevisionsResponse) GetObjectGroupRevision() []*v1.ObjectGroupRevision {
-	if x != nil {
-		return x.ObjectGroupRevision
 	}
 	return nil
 }
@@ -884,7 +364,7 @@ type FinishObjectUploadRequest struct {
 func (x *FinishObjectUploadRequest) Reset() {
 	*x = FinishObjectUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[14]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -897,7 +377,7 @@ func (x *FinishObjectUploadRequest) String() string {
 func (*FinishObjectUploadRequest) ProtoMessage() {}
 
 func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[14]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -910,7 +390,7 @@ func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadRequest.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{14}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *FinishObjectUploadRequest) GetId() uint64 {
@@ -929,7 +409,7 @@ type FinishObjectUploadResponse struct {
 func (x *FinishObjectUploadResponse) Reset() {
 	*x = FinishObjectUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[15]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -942,7 +422,7 @@ func (x *FinishObjectUploadResponse) String() string {
 func (*FinishObjectUploadResponse) ProtoMessage() {}
 
 func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[15]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -955,7 +435,7 @@ func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadResponse.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{15}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{6}
 }
 
 type DeleteObjectGroupRequest struct {
@@ -969,7 +449,7 @@ type DeleteObjectGroupRequest struct {
 func (x *DeleteObjectGroupRequest) Reset() {
 	*x = DeleteObjectGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[16]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -982,7 +462,7 @@ func (x *DeleteObjectGroupRequest) String() string {
 func (*DeleteObjectGroupRequest) ProtoMessage() {}
 
 func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[16]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -995,7 +475,7 @@ func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupRequest.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{16}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteObjectGroupRequest) GetId() uint64 {
@@ -1014,7 +494,7 @@ type DeleteObjectGroupResponse struct {
 func (x *DeleteObjectGroupResponse) Reset() {
 	*x = DeleteObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[17]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1027,7 +507,7 @@ func (x *DeleteObjectGroupResponse) String() string {
 func (*DeleteObjectGroupResponse) ProtoMessage() {}
 
 func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[17]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1040,92 +520,7 @@ func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{17}
-}
-
-type DeleteObjectGroupRevisionRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *DeleteObjectGroupRevisionRequest) Reset() {
-	*x = DeleteObjectGroupRevisionRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[18]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteObjectGroupRevisionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteObjectGroupRevisionRequest) ProtoMessage() {}
-
-func (x *DeleteObjectGroupRevisionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[18]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteObjectGroupRevisionRequest.ProtoReflect.Descriptor instead.
-func (*DeleteObjectGroupRevisionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{18}
-}
-
-func (x *DeleteObjectGroupRevisionRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type DeleteObjectGroupRevisionResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DeleteObjectGroupRevisionResponse) Reset() {
-	*x = DeleteObjectGroupRevisionResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[19]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteObjectGroupRevisionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteObjectGroupRevisionResponse) ProtoMessage() {}
-
-func (x *DeleteObjectGroupRevisionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[19]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteObjectGroupRevisionResponse.ProtoReflect.Descriptor instead.
-func (*DeleteObjectGroupRevisionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{19}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{8}
 }
 
 var File_api_services_v1_dataset_object_service_models_proto protoreflect.FileDescriptor
@@ -1167,129 +562,53 @@ var file_api_services_v1_dataset_object_service_models_proto_rawDesc = []byte{
 	0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x0f, 0x6f, 0x62, 0x6a,
 	0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x04, 0x52, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49,
-	0x64, 0x22, 0x85, 0x01, 0x0a, 0x20, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2c, 0x0a, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73,
-	0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
-	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61,
-	0x62, 0x65, 0x6c, 0x73, 0x12, 0x33, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0x18, 0x06, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
-	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52,
-	0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x22, 0x6a, 0x0a, 0x1f, 0x41, 0x64, 0x64,
-	0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x54, 0x6f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x26, 0x0a, 0x0f,
-	0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e,
-	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a, 0x72, 0x65, 0x76, 0x69, 0x73,
-	0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x6c, 0x0a, 0x20, 0x41, 0x64, 0x64, 0x52, 0x65, 0x76, 0x69,
-	0x73, 0x69, 0x6f, 0x6e, 0x54, 0x6f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
-	0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x76,
-	0x69, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0a,
-	0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x27, 0x0a, 0x0f, 0x72, 0x65,
-	0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x04, 0x52, 0x0e, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x4e, 0x75, 0x6d,
-	0x62, 0x65, 0x72, 0x22, 0xba, 0x02, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x66,
-	0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66,
-	0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x74,
-	0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x74,
-	0x79, 0x70, 0x65, 0x12, 0x2c, 0x0a, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x18, 0x03, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c,
-	0x73, 0x12, 0x33, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x08, 0x6d, 0x65,
-	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x5f, 0x6c, 0x65, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x6e, 0x12, 0x2d, 0x0a, 0x06, 0x6f, 0x72, 0x69, 0x67, 0x69,
-	0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f,
-	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x52, 0x06,
-	0x6f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x12, 0x38, 0x0a, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61,
-	0x74, 0x65, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67,
-	0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65,
-	0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64,
-	0x22, 0x27, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x57, 0x0a, 0x16, 0x47, 0x65, 0x74,
-	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72,
-	0x6f, 0x75, 0x70, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x22, 0xd7, 0x01, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x58, 0x0a, 0x0e, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
-	0x65, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x31, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f,
-	0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x54, 0x79, 0x70, 0x65, 0x52,
-	0x0d, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1a,
-	0x0a, 0x08, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x08, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x30, 0x0a, 0x07, 0x76, 0x65,
-	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x65, 0x72, 0x73,
-	0x69, 0x6f, 0x6e, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x78, 0x0a, 0x1e,
-	0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65,
-	0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56,
-	0x0a, 0x15, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x72,
-	0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f,
-	0x6e, 0x52, 0x13, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65,
-	0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x36, 0x0a, 0x24, 0x47, 0x65, 0x74, 0x43, 0x75, 0x72,
-	0x72, 0x65, 0x6e, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
-	0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x7f,
-	0x0a, 0x25, 0x47, 0x65, 0x74, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x15, 0x6f, 0x62, 0x6a, 0x65, 0x63,
-	0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
-	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x13, 0x6f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x22,
-	0x30, 0x0a, 0x1e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
-	0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69,
-	0x64, 0x22, 0x79, 0x0a, 0x1f, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x15, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67,
-	0x72, 0x6f, 0x75, 0x70, 0x5f, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
-	0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x13, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x2b, 0x0a, 0x19,
-	0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x70, 0x6c, 0x6f,
-	0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1c, 0x0a, 0x1a, 0x46, 0x69, 0x6e,
-	0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2a, 0x0a, 0x18, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
-	0x02, 0x69, 0x64, 0x22, 0x1b, 0x0a, 0x19, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a,
-	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x22, 0x32, 0x0a, 0x20, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x23, 0x0a, 0x21, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2a, 0x45, 0x0a, 0x20, 0x4f, 0x62, 0x6a,
-	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e,
-	0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0b, 0x0a,
-	0x07, 0x56, 0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x52, 0x45,
-	0x56, 0x49, 0x53, 0x49, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x06, 0x0a, 0x02, 0x49, 0x44, 0x10, 0x02,
-	0x42, 0x89, 0x01, 0x0a, 0x34, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42,
-	0x2e, 0x6a, 0x61, 0x76, 0x61, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x1b, 0x44, 0x61, 0x74, 0x61, 0x73,
-	0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x50, 0x01, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x70, 0x69,
-	0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x22, 0xba, 0x02, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c,
+	0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c,
+	0x65, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x74, 0x79, 0x70,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x74, 0x79, 0x70,
+	0x65, 0x12, 0x2c, 0x0a, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x14, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x12,
+	0x33, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x5f,
+	0x6c, 0x65, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x4c, 0x65, 0x6e, 0x12, 0x2d, 0x0a, 0x06, 0x6f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x18,
+	0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65,
+	0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x52, 0x06, 0x6f, 0x72,
+	0x69, 0x67, 0x69, 0x6e, 0x12, 0x38, 0x0a, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
+	0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x6d, 0x70, 0x52, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x22, 0x27,
+	0x0a, 0x15, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x57, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75,
+	0x70, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f,
+	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
+	0x6f, 0x75, 0x70, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x22, 0x2b, 0x0a, 0x19, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1c, 0x0a,
+	0x1a, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x70, 0x6c,
+	0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2a, 0x0a, 0x18, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1b, 0x0a, 0x19, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x42, 0x89, 0x01, 0x0a, 0x34, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x69, 0x74,
+	0x68, 0x75, 0x62, 0x2e, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x73, 0x44, 0x42, 0x2e, 0x6a, 0x61, 0x76, 0x61, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x1b, 0x44,
+	0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x50, 0x01, 0x5a, 0x32, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69,
+	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x76, 0x31,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1304,60 +623,38 @@ func file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP() []by
 	return file_api_services_v1_dataset_object_service_models_proto_rawDescData
 }
 
-var file_api_services_v1_dataset_object_service_models_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_api_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_api_services_v1_dataset_object_service_models_proto_goTypes = []interface{}{
-	(ObjectGroupRevisionReferenceType)(0),         // 0: api.services.v1.ObjectGroupRevisionReferenceType
-	(*CreateObjectGroupRequest)(nil),              // 1: api.services.v1.CreateObjectGroupRequest
-	(*CreateObjectGroupResponse)(nil),             // 2: api.services.v1.CreateObjectGroupResponse
-	(*CreateObjectGroupRevisionRequest)(nil),      // 3: api.services.v1.CreateObjectGroupRevisionRequest
-	(*AddRevisionToObjectGroupRequest)(nil),       // 4: api.services.v1.AddRevisionToObjectGroupRequest
-	(*AddRevisionToObjectGroupResponse)(nil),      // 5: api.services.v1.AddRevisionToObjectGroupResponse
-	(*CreateObjectRequest)(nil),                   // 6: api.services.v1.CreateObjectRequest
-	(*GetObjectGroupRequest)(nil),                 // 7: api.services.v1.GetObjectGroupRequest
-	(*GetObjectGroupResponse)(nil),                // 8: api.services.v1.GetObjectGroupResponse
-	(*GetObjectGroupRevisionRequest)(nil),         // 9: api.services.v1.GetObjectGroupRevisionRequest
-	(*GetObjectGroupRevisionResponse)(nil),        // 10: api.services.v1.GetObjectGroupRevisionResponse
-	(*GetCurrentObjectGroupRevisionRequest)(nil),  // 11: api.services.v1.GetCurrentObjectGroupRevisionRequest
-	(*GetCurrentObjectGroupRevisionResponse)(nil), // 12: api.services.v1.GetCurrentObjectGroupRevisionResponse
-	(*GetObjectGroupRevisionsRequest)(nil),        // 13: api.services.v1.GetObjectGroupRevisionsRequest
-	(*GetObjectGroupRevisionsResponse)(nil),       // 14: api.services.v1.GetObjectGroupRevisionsResponse
-	(*FinishObjectUploadRequest)(nil),             // 15: api.services.v1.FinishObjectUploadRequest
-	(*FinishObjectUploadResponse)(nil),            // 16: api.services.v1.FinishObjectUploadResponse
-	(*DeleteObjectGroupRequest)(nil),              // 17: api.services.v1.DeleteObjectGroupRequest
-	(*DeleteObjectGroupResponse)(nil),             // 18: api.services.v1.DeleteObjectGroupResponse
-	(*DeleteObjectGroupRevisionRequest)(nil),      // 19: api.services.v1.DeleteObjectGroupRevisionRequest
-	(*DeleteObjectGroupRevisionResponse)(nil),     // 20: api.services.v1.DeleteObjectGroupRevisionResponse
-	(*v1.Label)(nil),                              // 21: api.models.v1.Label
-	(*v1.Metadata)(nil),                           // 22: api.models.v1.Metadata
-	(*timestamppb.Timestamp)(nil),                 // 23: google.protobuf.Timestamp
-	(*v1.Origin)(nil),                             // 24: api.models.v1.Origin
-	(*v1.ObjectGroup)(nil),                        // 25: api.models.v1.ObjectGroup
-	(*v1.Version)(nil),                            // 26: api.models.v1.Version
-	(*v1.ObjectGroupRevision)(nil),                // 27: api.models.v1.ObjectGroupRevision
+	(*CreateObjectGroupRequest)(nil),   // 0: api.services.v1.CreateObjectGroupRequest
+	(*CreateObjectGroupResponse)(nil),  // 1: api.services.v1.CreateObjectGroupResponse
+	(*CreateObjectRequest)(nil),        // 2: api.services.v1.CreateObjectRequest
+	(*GetObjectGroupRequest)(nil),      // 3: api.services.v1.GetObjectGroupRequest
+	(*GetObjectGroupResponse)(nil),     // 4: api.services.v1.GetObjectGroupResponse
+	(*FinishObjectUploadRequest)(nil),  // 5: api.services.v1.FinishObjectUploadRequest
+	(*FinishObjectUploadResponse)(nil), // 6: api.services.v1.FinishObjectUploadResponse
+	(*DeleteObjectGroupRequest)(nil),   // 7: api.services.v1.DeleteObjectGroupRequest
+	(*DeleteObjectGroupResponse)(nil),  // 8: api.services.v1.DeleteObjectGroupResponse
+	(*v1.Label)(nil),                   // 9: api.models.v1.Label
+	(*v1.Metadata)(nil),                // 10: api.models.v1.Metadata
+	(*timestamppb.Timestamp)(nil),      // 11: google.protobuf.Timestamp
+	(*v1.Origin)(nil),                  // 12: api.models.v1.Origin
+	(*v1.ObjectGroup)(nil),             // 13: api.models.v1.ObjectGroup
 }
 var file_api_services_v1_dataset_object_service_models_proto_depIdxs = []int32{
-	21, // 0: api.services.v1.CreateObjectGroupRequest.labels:type_name -> api.models.v1.Label
-	22, // 1: api.services.v1.CreateObjectGroupRequest.metadata:type_name -> api.models.v1.Metadata
-	6,  // 2: api.services.v1.CreateObjectGroupRequest.objects:type_name -> api.services.v1.CreateObjectRequest
-	23, // 3: api.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
-	21, // 4: api.services.v1.CreateObjectGroupRevisionRequest.labels:type_name -> api.models.v1.Label
-	22, // 5: api.services.v1.CreateObjectGroupRevisionRequest.metadata:type_name -> api.models.v1.Metadata
-	21, // 6: api.services.v1.CreateObjectRequest.labels:type_name -> api.models.v1.Label
-	22, // 7: api.services.v1.CreateObjectRequest.metadata:type_name -> api.models.v1.Metadata
-	24, // 8: api.services.v1.CreateObjectRequest.origin:type_name -> api.models.v1.Origin
-	23, // 9: api.services.v1.CreateObjectRequest.generated:type_name -> google.protobuf.Timestamp
-	25, // 10: api.services.v1.GetObjectGroupResponse.object_group:type_name -> api.models.v1.ObjectGroup
-	0,  // 11: api.services.v1.GetObjectGroupRevisionRequest.reference_type:type_name -> api.services.v1.ObjectGroupRevisionReferenceType
-	26, // 12: api.services.v1.GetObjectGroupRevisionRequest.version:type_name -> api.models.v1.Version
-	27, // 13: api.services.v1.GetObjectGroupRevisionResponse.object_group_revision:type_name -> api.models.v1.ObjectGroupRevision
-	27, // 14: api.services.v1.GetCurrentObjectGroupRevisionResponse.object_group_revision:type_name -> api.models.v1.ObjectGroupRevision
-	27, // 15: api.services.v1.GetObjectGroupRevisionsResponse.object_group_revision:type_name -> api.models.v1.ObjectGroupRevision
-	16, // [16:16] is the sub-list for method output_type
-	16, // [16:16] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	9,  // 0: api.services.v1.CreateObjectGroupRequest.labels:type_name -> api.models.v1.Label
+	10, // 1: api.services.v1.CreateObjectGroupRequest.metadata:type_name -> api.models.v1.Metadata
+	2,  // 2: api.services.v1.CreateObjectGroupRequest.objects:type_name -> api.services.v1.CreateObjectRequest
+	11, // 3: api.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
+	9,  // 4: api.services.v1.CreateObjectRequest.labels:type_name -> api.models.v1.Label
+	10, // 5: api.services.v1.CreateObjectRequest.metadata:type_name -> api.models.v1.Metadata
+	12, // 6: api.services.v1.CreateObjectRequest.origin:type_name -> api.models.v1.Origin
+	11, // 7: api.services.v1.CreateObjectRequest.generated:type_name -> google.protobuf.Timestamp
+	13, // 8: api.services.v1.GetObjectGroupResponse.object_group:type_name -> api.models.v1.ObjectGroup
+	9,  // [9:9] is the sub-list for method output_type
+	9,  // [9:9] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_api_services_v1_dataset_object_service_models_proto_init() }
@@ -1391,42 +688,6 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateObjectGroupRevisionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddRevisionToObjectGroupRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddRevisionToObjectGroupResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateObjectRequest); i {
 			case 0:
 				return &v.state
@@ -1438,7 +699,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetObjectGroupRequest); i {
 			case 0:
 				return &v.state
@@ -1450,7 +711,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetObjectGroupResponse); i {
 			case 0:
 				return &v.state
@@ -1462,79 +723,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupRevisionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupRevisionResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCurrentObjectGroupRevisionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCurrentObjectGroupRevisionResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupRevisionsRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupRevisionsResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FinishObjectUploadRequest); i {
 			case 0:
 				return &v.state
@@ -1546,7 +735,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FinishObjectUploadResponse); i {
 			case 0:
 				return &v.state
@@ -1558,7 +747,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteObjectGroupRequest); i {
 			case 0:
 				return &v.state
@@ -1570,32 +759,8 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 				return nil
 			}
 		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteObjectGroupResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectGroupRevisionRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_v1_dataset_object_service_models_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectGroupRevisionResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1612,14 +777,13 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_services_v1_dataset_object_service_models_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   20,
+			NumEnums:      0,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_api_services_v1_dataset_object_service_models_proto_goTypes,
 		DependencyIndexes: file_api_services_v1_dataset_object_service_models_proto_depIdxs,
-		EnumInfos:         file_api_services_v1_dataset_object_service_models_proto_enumTypes,
 		MessageInfos:      file_api_services_v1_dataset_object_service_models_proto_msgTypes,
 	}.Build()
 	File_api_services_v1_dataset_object_service_models_proto = out.File

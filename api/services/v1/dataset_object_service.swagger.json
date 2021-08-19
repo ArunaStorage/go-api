@@ -16,39 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/currentobjectgroup/get": {
-      "post": {
-        "summary": "GetObjectGroupCurrentVersion Returns the head version in the history of a given object group",
-        "operationId": "DatasetObjectsService_GetCurrentObjectGroupRevision",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCurrentObjectGroupRevisionResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetCurrentObjectGroupRevisionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
     "/api/v1/object/finish": {
       "post": {
         "summary": "FinishObjectUpload Finishes the upload process for an object",
@@ -178,98 +145,6 @@
           "DatasetObjectsService"
         ]
       }
-    },
-    "/api/v1/objectgrouprevision/{id}": {
-      "delete": {
-        "operationId": "DatasetObjectsService_DeleteObjectGroupRevision",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteObjectGroupRevisionResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/objectgrouprevisions/get": {
-      "get": {
-        "operationId": "DatasetObjectsService_GetObjectGroupRevisions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      },
-      "post": {
-        "operationId": "DatasetObjectsService_GetObjectGroupRevision",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
     }
   },
   "definitions": {
@@ -280,16 +155,6 @@
         "ORIGIN_LINK"
       ],
       "default": "OBJECT_STORAGE"
-    },
-    "VersionVersionStage": {
-      "type": "string",
-      "enum": [
-        "STABLE",
-        "RC",
-        "BETA",
-        "ALPHA"
-      ],
-      "default": "STABLE"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -437,9 +302,6 @@
     "v1DeleteObjectGroupResponse": {
       "type": "object"
     },
-    "v1DeleteObjectGroupRevisionResponse": {
-      "type": "object"
-    },
     "v1FinishObjectUploadRequest": {
       "type": "object",
       "properties": {
@@ -451,23 +313,6 @@
     },
     "v1FinishObjectUploadResponse": {
       "type": "object"
-    },
-    "v1GetCurrentObjectGroupRevisionRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "v1GetCurrentObjectGroupRevisionResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevision": {
-          "$ref": "#/definitions/v1ObjectGroupRevision"
-        }
-      }
     },
     "v1GetObjectGroupRequest": {
       "type": "object",
@@ -483,44 +328,6 @@
       "properties": {
         "objectGroup": {
           "$ref": "#/definitions/v1ObjectGroup"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionRequest": {
-      "type": "object",
-      "properties": {
-        "referenceType": {
-          "$ref": "#/definitions/v1ObjectGroupRevisionReferenceType"
-        },
-        "revision": {
-          "type": "string",
-          "format": "int64"
-        },
-        "version": {
-          "$ref": "#/definitions/v1Version"
-        },
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevision": {
-          "$ref": "#/definitions/v1ObjectGroupRevision"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevision": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
-          }
         }
       }
     },
@@ -672,57 +479,6 @@
         }
       }
     },
-    "v1ObjectGroupRevision": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "datasetId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "version": {
-          "$ref": "#/definitions/v1Version"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Metadata"
-          }
-        },
-        "revision": {
-          "type": "string",
-          "format": "int64"
-        },
-        "objectGroups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
-          }
-        }
-      }
-    },
-    "v1ObjectGroupRevisionReferenceType": {
-      "type": "string",
-      "enum": [
-        "VERSION",
-        "REVISION",
-        "ID"
-      ],
-      "default": "VERSION"
-    },
     "v1ObjectLocation": {
       "type": "object",
       "properties": {
@@ -749,30 +505,6 @@
         },
         "originType": {
           "$ref": "#/definitions/OriginOriginTypeEnum"
-        }
-      }
-    },
-    "v1Version": {
-      "type": "object",
-      "properties": {
-        "major": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "minor": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "patch": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "revision": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "stage": {
-          "$ref": "#/definitions/VersionVersionStage"
         }
       }
     }
