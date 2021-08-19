@@ -656,10 +656,10 @@
     "v1GetDatasetVersionObjectGroupsResponse": {
       "type": "object",
       "properties": {
-        "objectGroupRevision": {
+        "objectGroup": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
+            "$ref": "#/definitions/v1ObjectGroup"
           }
         }
       }
