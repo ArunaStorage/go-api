@@ -419,6 +419,10 @@
         },
         "uploadId": {
           "type": "string"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

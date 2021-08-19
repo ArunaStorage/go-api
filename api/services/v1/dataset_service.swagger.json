@@ -794,6 +794,10 @@
         },
         "uploadId": {
           "type": "string"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -829,13 +833,19 @@
         "status": {
           "$ref": "#/definitions/modelsv1Status"
         },
-        "headId": {
-          "type": "string",
-          "format": "uint64"
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         },
-        "currentRevision": {
+        "generated": {
           "type": "string",
-          "format": "int64"
+          "format": "date-time"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -869,19 +879,15 @@
             "$ref": "#/definitions/v1Metadata"
           }
         },
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "objectGroupId": {
-          "type": "string",
-          "format": "uint64"
-        },
         "revision": {
           "type": "string",
           "format": "int64"
+        },
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
+          }
         }
       }
     },
@@ -939,7 +945,7 @@
             "$ref": "#/definitions/v1Metadata"
           }
         },
-        "revisionIds": {
+        "objectGroupIds": {
           "type": "array",
           "items": {
             "type": "string",

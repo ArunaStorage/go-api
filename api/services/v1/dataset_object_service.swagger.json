@@ -210,39 +210,6 @@
         ]
       }
     },
-    "/api/v1/objectgrouprevisions/create": {
-      "post": {
-        "summary": "CreateObjectGroupVersion Creates a new object group version",
-        "operationId": "DatasetObjectsService_AddRevisionToObjectGroup",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1AddRevisionToObjectGroupResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1AddRevisionToObjectGroupRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
     "/api/v1/objectgrouprevisions/get": {
       "get": {
         "operationId": "DatasetObjectsService_GetObjectGroupRevisions",
@@ -387,31 +354,6 @@
         }
       }
     },
-    "v1AddRevisionToObjectGroupRequest": {
-      "type": "object",
-      "properties": {
-        "objectGroupId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "groupRevison": {
-          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
-        }
-      }
-    },
-    "v1AddRevisionToObjectGroupResponse": {
-      "type": "object",
-      "properties": {
-        "revisionId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "revisionNumber": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "v1CreateObjectGroupRequest": {
       "type": "object",
       "properties": {
@@ -437,8 +379,15 @@
             "$ref": "#/definitions/v1Metadata"
           }
         },
-        "objectGroupRevision": {
-          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -448,63 +397,6 @@
         "objectGroupId": {
           "type": "string",
           "format": "uint64"
-        },
-        "revisionId": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "v1CreateObjectGroupRevisionRequest": {
-      "type": "object",
-      "properties": {
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateObjectRequest"
-          }
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Metadata"
-          }
-        }
-      }
-    },
-    "v1CreateObjectRequest": {
-      "type": "object",
-      "properties": {
-        "filename": {
-          "type": "string"
-        },
-        "filetype": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Metadata"
-          }
-        },
-        "contentLen": {
-          "type": "string",
-          "format": "int64"
-        },
-        "origin": {
-          "$ref": "#/definitions/v1Origin"
         }
       }
     },
@@ -691,6 +583,10 @@
         },
         "uploadId": {
           "type": "string"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -726,13 +622,19 @@
         "status": {
           "$ref": "#/definitions/modelsv1Status"
         },
-        "headId": {
-          "type": "string",
-          "format": "uint64"
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         },
-        "currentRevision": {
+        "generated": {
           "type": "string",
-          "format": "int64"
+          "format": "date-time"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -766,19 +668,15 @@
             "$ref": "#/definitions/v1Metadata"
           }
         },
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "objectGroupId": {
-          "type": "string",
-          "format": "uint64"
-        },
         "revision": {
           "type": "string",
           "format": "int64"
+        },
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
+          }
         }
       }
     },
