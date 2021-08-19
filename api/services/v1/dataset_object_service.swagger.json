@@ -382,7 +382,7 @@
         "objects": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Object"
+            "$ref": "#/definitions/v1CreateObjectRequest"
           }
         },
         "generated": {
@@ -397,6 +397,40 @@
         "objectGroupId": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "v1CreateObjectRequest": {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "filetype": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "contentLen": {
+          "type": "string",
+          "format": "int64"
+        },
+        "origin": {
+          "$ref": "#/definitions/v1Origin"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
