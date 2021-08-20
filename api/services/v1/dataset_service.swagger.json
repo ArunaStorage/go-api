@@ -406,6 +406,53 @@
     }
   },
   "definitions": {
+    "GetObjectGroupsStreamRequestDatasetQuery": {
+      "type": "object"
+    },
+    "GetObjectGroupsStreamRequestDatasetVersionQuery": {
+      "type": "object",
+      "properties": {
+        "datasetVersion": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "GetObjectGroupsStreamRequestDateRangeQuery": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "GetObjectGroupsStreamRequestGroupIDsQuery": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          }
+        }
+      }
+    },
+    "GetObjectGroupsStreamRequestQueryType": {
+      "type": "string",
+      "enum": [
+        "GROUPIDS",
+        "DATASETALL",
+        "DATASETVERSIONALL",
+        "DATERANGE"
+      ],
+      "default": "GROUPIDS"
+    },
     "OriginOriginTypeEnum": {
       "type": "string",
       "enum": [
@@ -758,12 +805,20 @@
           "type": "string",
           "format": "uint64"
         },
-        "objectGroupId": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uint64"
-          }
+        "queryType": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestQueryType"
+        },
+        "groupIds": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestGroupIDsQuery"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestDateRangeQuery"
+        },
+        "dataset": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetQuery"
+        },
+        "datasetVersion": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetVersionQuery"
         }
       }
     },
