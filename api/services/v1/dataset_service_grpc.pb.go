@@ -25,6 +25,7 @@ type DatasetServiceClient interface {
 	// Lists Versions of a dataset
 	GetDatasetVersions(ctx context.Context, in *GetDatasetVersionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionsResponse, error)
 	GetDatasetObjectGroups(ctx context.Context, in *GetDatasetObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetObjectGroupsResponse, error)
+	GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -75,6 +76,15 @@ func (c *datasetServiceClient) GetDatasetVersions(ctx context.Context, in *GetDa
 func (c *datasetServiceClient) GetDatasetObjectGroups(ctx context.Context, in *GetDatasetObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetObjectGroupsResponse, error) {
 	out := new(GetDatasetObjectGroupsResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetDatasetObjectGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetServiceClient) GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error) {
+	out := new(GetObjectGroupsStreamResponse)
+	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetObjectGroupsStream", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -155,6 +165,7 @@ type DatasetServiceServer interface {
 	// Lists Versions of a dataset
 	GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error)
 	GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error)
+	GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -182,6 +193,9 @@ func (UnimplementedDatasetServiceServer) GetDatasetVersions(context.Context, *Ge
 }
 func (UnimplementedDatasetServiceServer) GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetObjectGroups not implemented")
+}
+func (UnimplementedDatasetServiceServer) GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupsStream not implemented")
 }
 func (UnimplementedDatasetServiceServer) UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetField not implemented")
@@ -284,6 +298,24 @@ func _DatasetService_GetDatasetObjectGroups_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetServiceServer).GetDatasetObjectGroups(ctx, req.(*GetDatasetObjectGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetService_GetObjectGroupsStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupsStreamRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.services.v1.DatasetService/GetObjectGroupsStream",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, req.(*GetObjectGroupsStreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -436,6 +468,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDatasetObjectGroups",
 			Handler:    _DatasetService_GetDatasetObjectGroups_Handler,
+		},
+		{
+			MethodName: "GetObjectGroupsStream",
+			Handler:    _DatasetService_GetObjectGroupsStream_Handler,
 		},
 		{
 			MethodName: "UpdateDatasetField",

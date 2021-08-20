@@ -31,7 +31,7 @@ var file_api_services_v1_dataset_service_proto_rawDesc = []byte{
 	0x74, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61,
 	0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x32, 0x97, 0x0d, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74,
+	0x72, 0x6f, 0x74, 0x6f, 0x32, 0xb7, 0x0e, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74,
 	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x81, 0x01, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61,
 	0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x12, 0x25, 0x2e, 0x61, 0x70, 0x69, 0x2e,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61,
@@ -67,7 +67,17 @@ var file_api_services_v1_dataset_service_proto_rawDesc = []byte{
 	0x73, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1f, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x19, 0x22,
 	0x14, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74,
-	0x2f, 0x6c, 0x69, 0x73, 0x74, 0x3a, 0x01, 0x2a, 0x12, 0x90, 0x01, 0x0a, 0x12, 0x55, 0x70, 0x64,
+	0x2f, 0x6c, 0x69, 0x73, 0x74, 0x3a, 0x01, 0x2a, 0x12, 0x9d, 0x01, 0x0a, 0x15, 0x47, 0x65, 0x74,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65,
+	0x61, 0x6d, 0x12, 0x2d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
+	0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x2e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x25, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1f, 0x22, 0x1a, 0x2f, 0x61, 0x70, 0x69, 0x2f,
+	0x76, 0x31, 0x2f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x73,
+	0x74, 0x72, 0x65, 0x61, 0x6d, 0x3a, 0x01, 0x2a, 0x12, 0x90, 0x01, 0x0a, 0x12, 0x55, 0x70, 0x64,
 	0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x12,
 	0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76,
 	0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x46,
@@ -153,50 +163,54 @@ var file_api_services_v1_dataset_service_proto_goTypes = []interface{}{
 	(*GetDatasetRequest)(nil),                     // 1: api.services.v1.GetDatasetRequest
 	(*GetDatasetVersionsRequest)(nil),             // 2: api.services.v1.GetDatasetVersionsRequest
 	(*GetDatasetObjectGroupsRequest)(nil),         // 3: api.services.v1.GetDatasetObjectGroupsRequest
-	(*UpdateDatasetFieldRequest)(nil),             // 4: api.services.v1.UpdateDatasetFieldRequest
-	(*DeleteDatasetRequest)(nil),                  // 5: api.services.v1.DeleteDatasetRequest
-	(*GetObjectGroupsInDateRangeRequest)(nil),     // 6: api.services.v1.GetObjectGroupsInDateRangeRequest
-	(*ReleaseDatasetVersionRequest)(nil),          // 7: api.services.v1.ReleaseDatasetVersionRequest
-	(*GetDatasetVersionRequest)(nil),              // 8: api.services.v1.GetDatasetVersionRequest
-	(*GetDatasetVersionObjectGroupsRequest)(nil),  // 9: api.services.v1.GetDatasetVersionObjectGroupsRequest
-	(*DeleteDatasetVersionRequest)(nil),           // 10: api.services.v1.DeleteDatasetVersionRequest
-	(*CreateDatasetResponse)(nil),                 // 11: api.services.v1.CreateDatasetResponse
-	(*GetDatasetResponse)(nil),                    // 12: api.services.v1.GetDatasetResponse
-	(*GetDatasetVersionsResponse)(nil),            // 13: api.services.v1.GetDatasetVersionsResponse
-	(*GetDatasetObjectGroupsResponse)(nil),        // 14: api.services.v1.GetDatasetObjectGroupsResponse
-	(*UpdateDatasetFieldResponse)(nil),            // 15: api.services.v1.UpdateDatasetFieldResponse
-	(*DeleteDatasetResponse)(nil),                 // 16: api.services.v1.DeleteDatasetResponse
-	(*GetObjectGroupsInDateRangeResponse)(nil),    // 17: api.services.v1.GetObjectGroupsInDateRangeResponse
-	(*ReleaseDatasetVersionResponse)(nil),         // 18: api.services.v1.ReleaseDatasetVersionResponse
-	(*GetDatasetVersionResponse)(nil),             // 19: api.services.v1.GetDatasetVersionResponse
-	(*GetDatasetVersionObjectGroupsResponse)(nil), // 20: api.services.v1.GetDatasetVersionObjectGroupsResponse
-	(*DeleteDatasetVersionResponse)(nil),          // 21: api.services.v1.DeleteDatasetVersionResponse
+	(*GetObjectGroupsStreamRequest)(nil),          // 4: api.services.v1.GetObjectGroupsStreamRequest
+	(*UpdateDatasetFieldRequest)(nil),             // 5: api.services.v1.UpdateDatasetFieldRequest
+	(*DeleteDatasetRequest)(nil),                  // 6: api.services.v1.DeleteDatasetRequest
+	(*GetObjectGroupsInDateRangeRequest)(nil),     // 7: api.services.v1.GetObjectGroupsInDateRangeRequest
+	(*ReleaseDatasetVersionRequest)(nil),          // 8: api.services.v1.ReleaseDatasetVersionRequest
+	(*GetDatasetVersionRequest)(nil),              // 9: api.services.v1.GetDatasetVersionRequest
+	(*GetDatasetVersionObjectGroupsRequest)(nil),  // 10: api.services.v1.GetDatasetVersionObjectGroupsRequest
+	(*DeleteDatasetVersionRequest)(nil),           // 11: api.services.v1.DeleteDatasetVersionRequest
+	(*CreateDatasetResponse)(nil),                 // 12: api.services.v1.CreateDatasetResponse
+	(*GetDatasetResponse)(nil),                    // 13: api.services.v1.GetDatasetResponse
+	(*GetDatasetVersionsResponse)(nil),            // 14: api.services.v1.GetDatasetVersionsResponse
+	(*GetDatasetObjectGroupsResponse)(nil),        // 15: api.services.v1.GetDatasetObjectGroupsResponse
+	(*GetObjectGroupsStreamResponse)(nil),         // 16: api.services.v1.GetObjectGroupsStreamResponse
+	(*UpdateDatasetFieldResponse)(nil),            // 17: api.services.v1.UpdateDatasetFieldResponse
+	(*DeleteDatasetResponse)(nil),                 // 18: api.services.v1.DeleteDatasetResponse
+	(*GetObjectGroupsInDateRangeResponse)(nil),    // 19: api.services.v1.GetObjectGroupsInDateRangeResponse
+	(*ReleaseDatasetVersionResponse)(nil),         // 20: api.services.v1.ReleaseDatasetVersionResponse
+	(*GetDatasetVersionResponse)(nil),             // 21: api.services.v1.GetDatasetVersionResponse
+	(*GetDatasetVersionObjectGroupsResponse)(nil), // 22: api.services.v1.GetDatasetVersionObjectGroupsResponse
+	(*DeleteDatasetVersionResponse)(nil),          // 23: api.services.v1.DeleteDatasetVersionResponse
 }
 var file_api_services_v1_dataset_service_proto_depIdxs = []int32{
 	0,  // 0: api.services.v1.DatasetService.CreateDataset:input_type -> api.services.v1.CreateDatasetRequest
 	1,  // 1: api.services.v1.DatasetService.GetDataset:input_type -> api.services.v1.GetDatasetRequest
 	2,  // 2: api.services.v1.DatasetService.GetDatasetVersions:input_type -> api.services.v1.GetDatasetVersionsRequest
 	3,  // 3: api.services.v1.DatasetService.GetDatasetObjectGroups:input_type -> api.services.v1.GetDatasetObjectGroupsRequest
-	4,  // 4: api.services.v1.DatasetService.UpdateDatasetField:input_type -> api.services.v1.UpdateDatasetFieldRequest
-	5,  // 5: api.services.v1.DatasetService.DeleteDataset:input_type -> api.services.v1.DeleteDatasetRequest
-	6,  // 6: api.services.v1.DatasetService.GetObjectGroupsInDateRange:input_type -> api.services.v1.GetObjectGroupsInDateRangeRequest
-	7,  // 7: api.services.v1.DatasetService.ReleaseDatasetVersion:input_type -> api.services.v1.ReleaseDatasetVersionRequest
-	8,  // 8: api.services.v1.DatasetService.GetDatasetVersion:input_type -> api.services.v1.GetDatasetVersionRequest
-	9,  // 9: api.services.v1.DatasetService.GetDatasetVersionObjectGroups:input_type -> api.services.v1.GetDatasetVersionObjectGroupsRequest
-	10, // 10: api.services.v1.DatasetService.DeleteDatasetVersion:input_type -> api.services.v1.DeleteDatasetVersionRequest
-	11, // 11: api.services.v1.DatasetService.CreateDataset:output_type -> api.services.v1.CreateDatasetResponse
-	12, // 12: api.services.v1.DatasetService.GetDataset:output_type -> api.services.v1.GetDatasetResponse
-	13, // 13: api.services.v1.DatasetService.GetDatasetVersions:output_type -> api.services.v1.GetDatasetVersionsResponse
-	14, // 14: api.services.v1.DatasetService.GetDatasetObjectGroups:output_type -> api.services.v1.GetDatasetObjectGroupsResponse
-	15, // 15: api.services.v1.DatasetService.UpdateDatasetField:output_type -> api.services.v1.UpdateDatasetFieldResponse
-	16, // 16: api.services.v1.DatasetService.DeleteDataset:output_type -> api.services.v1.DeleteDatasetResponse
-	17, // 17: api.services.v1.DatasetService.GetObjectGroupsInDateRange:output_type -> api.services.v1.GetObjectGroupsInDateRangeResponse
-	18, // 18: api.services.v1.DatasetService.ReleaseDatasetVersion:output_type -> api.services.v1.ReleaseDatasetVersionResponse
-	19, // 19: api.services.v1.DatasetService.GetDatasetVersion:output_type -> api.services.v1.GetDatasetVersionResponse
-	20, // 20: api.services.v1.DatasetService.GetDatasetVersionObjectGroups:output_type -> api.services.v1.GetDatasetVersionObjectGroupsResponse
-	21, // 21: api.services.v1.DatasetService.DeleteDatasetVersion:output_type -> api.services.v1.DeleteDatasetVersionResponse
-	11, // [11:22] is the sub-list for method output_type
-	0,  // [0:11] is the sub-list for method input_type
+	4,  // 4: api.services.v1.DatasetService.GetObjectGroupsStream:input_type -> api.services.v1.GetObjectGroupsStreamRequest
+	5,  // 5: api.services.v1.DatasetService.UpdateDatasetField:input_type -> api.services.v1.UpdateDatasetFieldRequest
+	6,  // 6: api.services.v1.DatasetService.DeleteDataset:input_type -> api.services.v1.DeleteDatasetRequest
+	7,  // 7: api.services.v1.DatasetService.GetObjectGroupsInDateRange:input_type -> api.services.v1.GetObjectGroupsInDateRangeRequest
+	8,  // 8: api.services.v1.DatasetService.ReleaseDatasetVersion:input_type -> api.services.v1.ReleaseDatasetVersionRequest
+	9,  // 9: api.services.v1.DatasetService.GetDatasetVersion:input_type -> api.services.v1.GetDatasetVersionRequest
+	10, // 10: api.services.v1.DatasetService.GetDatasetVersionObjectGroups:input_type -> api.services.v1.GetDatasetVersionObjectGroupsRequest
+	11, // 11: api.services.v1.DatasetService.DeleteDatasetVersion:input_type -> api.services.v1.DeleteDatasetVersionRequest
+	12, // 12: api.services.v1.DatasetService.CreateDataset:output_type -> api.services.v1.CreateDatasetResponse
+	13, // 13: api.services.v1.DatasetService.GetDataset:output_type -> api.services.v1.GetDatasetResponse
+	14, // 14: api.services.v1.DatasetService.GetDatasetVersions:output_type -> api.services.v1.GetDatasetVersionsResponse
+	15, // 15: api.services.v1.DatasetService.GetDatasetObjectGroups:output_type -> api.services.v1.GetDatasetObjectGroupsResponse
+	16, // 16: api.services.v1.DatasetService.GetObjectGroupsStream:output_type -> api.services.v1.GetObjectGroupsStreamResponse
+	17, // 17: api.services.v1.DatasetService.UpdateDatasetField:output_type -> api.services.v1.UpdateDatasetFieldResponse
+	18, // 18: api.services.v1.DatasetService.DeleteDataset:output_type -> api.services.v1.DeleteDatasetResponse
+	19, // 19: api.services.v1.DatasetService.GetObjectGroupsInDateRange:output_type -> api.services.v1.GetObjectGroupsInDateRangeResponse
+	20, // 20: api.services.v1.DatasetService.ReleaseDatasetVersion:output_type -> api.services.v1.ReleaseDatasetVersionResponse
+	21, // 21: api.services.v1.DatasetService.GetDatasetVersion:output_type -> api.services.v1.GetDatasetVersionResponse
+	22, // 22: api.services.v1.DatasetService.GetDatasetVersionObjectGroups:output_type -> api.services.v1.GetDatasetVersionObjectGroupsResponse
+	23, // 23: api.services.v1.DatasetService.DeleteDatasetVersion:output_type -> api.services.v1.DeleteDatasetVersionResponse
+	12, // [12:24] is the sub-list for method output_type
+	0,  // [0:12] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

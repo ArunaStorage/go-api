@@ -541,6 +541,108 @@ func (x *GetObjectGroupsInDateRangeResponse) GetObjectGroups() []*v1.ObjectGroup
 	return nil
 }
 
+type GetObjectGroupsStreamRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DatasetId     uint64   `protobuf:"varint,1,opt,name=dataset_id,json=datasetId,proto3" json:"dataset_id,omitempty"`
+	ObjectGroupId []uint64 `protobuf:"varint,2,rep,packed,name=object_group_id,json=objectGroupId,proto3" json:"object_group_id,omitempty"`
+}
+
+func (x *GetObjectGroupsStreamRequest) Reset() {
+	*x = GetObjectGroupsStreamRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetObjectGroupsStreamRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetObjectGroupsStreamRequest) ProtoMessage() {}
+
+func (x *GetObjectGroupsStreamRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetObjectGroupsStreamRequest.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest) Descriptor() ([]byte, []int) {
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetObjectGroupsStreamRequest) GetDatasetId() uint64 {
+	if x != nil {
+		return x.DatasetId
+	}
+	return 0
+}
+
+func (x *GetObjectGroupsStreamRequest) GetObjectGroupId() []uint64 {
+	if x != nil {
+		return x.ObjectGroupId
+	}
+	return nil
+}
+
+type GetObjectGroupsStreamResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+}
+
+func (x *GetObjectGroupsStreamResponse) Reset() {
+	*x = GetObjectGroupsStreamResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetObjectGroupsStreamResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetObjectGroupsStreamResponse) ProtoMessage() {}
+
+func (x *GetObjectGroupsStreamResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetObjectGroupsStreamResponse.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamResponse) Descriptor() ([]byte, []int) {
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetObjectGroupsStreamResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
 type UpdateDatasetFieldRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -552,7 +654,7 @@ type UpdateDatasetFieldRequest struct {
 func (x *UpdateDatasetFieldRequest) Reset() {
 	*x = UpdateDatasetFieldRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -565,7 +667,7 @@ func (x *UpdateDatasetFieldRequest) String() string {
 func (*UpdateDatasetFieldRequest) ProtoMessage() {}
 
 func (x *UpdateDatasetFieldRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -578,7 +680,7 @@ func (x *UpdateDatasetFieldRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateDatasetFieldRequest.ProtoReflect.Descriptor instead.
 func (*UpdateDatasetFieldRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *UpdateDatasetFieldRequest) GetUpdateRequest() *v1.UpdateFieldsRequest {
@@ -597,7 +699,7 @@ type UpdateDatasetFieldResponse struct {
 func (x *UpdateDatasetFieldResponse) Reset() {
 	*x = UpdateDatasetFieldResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -610,7 +712,7 @@ func (x *UpdateDatasetFieldResponse) String() string {
 func (*UpdateDatasetFieldResponse) ProtoMessage() {}
 
 func (x *UpdateDatasetFieldResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -623,7 +725,7 @@ func (x *UpdateDatasetFieldResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateDatasetFieldResponse.ProtoReflect.Descriptor instead.
 func (*UpdateDatasetFieldResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{11}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{13}
 }
 
 type DeleteDatasetRequest struct {
@@ -637,7 +739,7 @@ type DeleteDatasetRequest struct {
 func (x *DeleteDatasetRequest) Reset() {
 	*x = DeleteDatasetRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[12]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -650,7 +752,7 @@ func (x *DeleteDatasetRequest) String() string {
 func (*DeleteDatasetRequest) ProtoMessage() {}
 
 func (x *DeleteDatasetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[12]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -663,7 +765,7 @@ func (x *DeleteDatasetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDatasetRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDatasetRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{12}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *DeleteDatasetRequest) GetId() uint64 {
@@ -682,7 +784,7 @@ type DeleteDatasetResponse struct {
 func (x *DeleteDatasetResponse) Reset() {
 	*x = DeleteDatasetResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[13]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -695,7 +797,7 @@ func (x *DeleteDatasetResponse) String() string {
 func (*DeleteDatasetResponse) ProtoMessage() {}
 
 func (x *DeleteDatasetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[13]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -708,7 +810,7 @@ func (x *DeleteDatasetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDatasetResponse.ProtoReflect.Descriptor instead.
 func (*DeleteDatasetResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{13}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{15}
 }
 
 type ReleaseDatasetVersionRequest struct {
@@ -728,7 +830,7 @@ type ReleaseDatasetVersionRequest struct {
 func (x *ReleaseDatasetVersionRequest) Reset() {
 	*x = ReleaseDatasetVersionRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[14]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -741,7 +843,7 @@ func (x *ReleaseDatasetVersionRequest) String() string {
 func (*ReleaseDatasetVersionRequest) ProtoMessage() {}
 
 func (x *ReleaseDatasetVersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[14]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -754,7 +856,7 @@ func (x *ReleaseDatasetVersionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseDatasetVersionRequest.ProtoReflect.Descriptor instead.
 func (*ReleaseDatasetVersionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{14}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ReleaseDatasetVersionRequest) GetName() string {
@@ -817,7 +919,7 @@ type ReleaseDatasetVersionResponse struct {
 func (x *ReleaseDatasetVersionResponse) Reset() {
 	*x = ReleaseDatasetVersionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[15]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -830,7 +932,7 @@ func (x *ReleaseDatasetVersionResponse) String() string {
 func (*ReleaseDatasetVersionResponse) ProtoMessage() {}
 
 func (x *ReleaseDatasetVersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[15]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -843,7 +945,7 @@ func (x *ReleaseDatasetVersionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseDatasetVersionResponse.ProtoReflect.Descriptor instead.
 func (*ReleaseDatasetVersionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{15}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ReleaseDatasetVersionResponse) GetId() uint64 {
@@ -864,7 +966,7 @@ type GetDatasetVersionRequest struct {
 func (x *GetDatasetVersionRequest) Reset() {
 	*x = GetDatasetVersionRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[16]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -877,7 +979,7 @@ func (x *GetDatasetVersionRequest) String() string {
 func (*GetDatasetVersionRequest) ProtoMessage() {}
 
 func (x *GetDatasetVersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[16]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -890,7 +992,7 @@ func (x *GetDatasetVersionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDatasetVersionRequest.ProtoReflect.Descriptor instead.
 func (*GetDatasetVersionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{16}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetDatasetVersionRequest) GetId() uint64 {
@@ -911,7 +1013,7 @@ type GetDatasetVersionResponse struct {
 func (x *GetDatasetVersionResponse) Reset() {
 	*x = GetDatasetVersionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[17]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -924,7 +1026,7 @@ func (x *GetDatasetVersionResponse) String() string {
 func (*GetDatasetVersionResponse) ProtoMessage() {}
 
 func (x *GetDatasetVersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[17]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -937,7 +1039,7 @@ func (x *GetDatasetVersionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDatasetVersionResponse.ProtoReflect.Descriptor instead.
 func (*GetDatasetVersionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{17}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetDatasetVersionResponse) GetDatasetVersion() *v1.DatasetVersion {
@@ -958,7 +1060,7 @@ type GetDatasetVersionObjectGroupsRequest struct {
 func (x *GetDatasetVersionObjectGroupsRequest) Reset() {
 	*x = GetDatasetVersionObjectGroupsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[18]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -971,7 +1073,7 @@ func (x *GetDatasetVersionObjectGroupsRequest) String() string {
 func (*GetDatasetVersionObjectGroupsRequest) ProtoMessage() {}
 
 func (x *GetDatasetVersionObjectGroupsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[18]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -984,7 +1086,7 @@ func (x *GetDatasetVersionObjectGroupsRequest) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use GetDatasetVersionObjectGroupsRequest.ProtoReflect.Descriptor instead.
 func (*GetDatasetVersionObjectGroupsRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{18}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetDatasetVersionObjectGroupsRequest) GetId() uint64 {
@@ -1005,7 +1107,7 @@ type GetDatasetVersionObjectGroupsResponse struct {
 func (x *GetDatasetVersionObjectGroupsResponse) Reset() {
 	*x = GetDatasetVersionObjectGroupsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[19]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1018,7 +1120,7 @@ func (x *GetDatasetVersionObjectGroupsResponse) String() string {
 func (*GetDatasetVersionObjectGroupsResponse) ProtoMessage() {}
 
 func (x *GetDatasetVersionObjectGroupsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[19]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1031,7 +1133,7 @@ func (x *GetDatasetVersionObjectGroupsResponse) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use GetDatasetVersionObjectGroupsResponse.ProtoReflect.Descriptor instead.
 func (*GetDatasetVersionObjectGroupsResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{19}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetDatasetVersionObjectGroupsResponse) GetObjectGroup() []*v1.ObjectGroup {
@@ -1052,7 +1154,7 @@ type DeleteDatasetVersionRequest struct {
 func (x *DeleteDatasetVersionRequest) Reset() {
 	*x = DeleteDatasetVersionRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[20]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1065,7 +1167,7 @@ func (x *DeleteDatasetVersionRequest) String() string {
 func (*DeleteDatasetVersionRequest) ProtoMessage() {}
 
 func (x *DeleteDatasetVersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[20]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1078,7 +1180,7 @@ func (x *DeleteDatasetVersionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDatasetVersionRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDatasetVersionRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{20}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *DeleteDatasetVersionRequest) GetId() uint64 {
@@ -1097,7 +1199,7 @@ type DeleteDatasetVersionResponse struct {
 func (x *DeleteDatasetVersionResponse) Reset() {
 	*x = DeleteDatasetVersionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[21]
+		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1110,7 +1212,7 @@ func (x *DeleteDatasetVersionResponse) String() string {
 func (*DeleteDatasetVersionResponse) ProtoMessage() {}
 
 func (x *DeleteDatasetVersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[21]
+	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1123,7 +1225,7 @@ func (x *DeleteDatasetVersionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDatasetVersionResponse.ProtoReflect.Descriptor instead.
 func (*DeleteDatasetVersionResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{21}
+	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{23}
 }
 
 var File_api_services_v1_dataset_service_models_proto protoreflect.FileDescriptor
@@ -1198,74 +1300,84 @@ var file_api_services_v1_dataset_service_models_proto_rawDesc = []byte{
 	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
 	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
 	0x75, 0x70, 0x52, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73,
-	0x22, 0x66, 0x0a, 0x19, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65,
-	0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x49, 0x0a,
-	0x0e, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65,
-	0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x65, 0x6c,
-	0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0d, 0x75, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x1c, 0x0a, 0x1a, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x26, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x17,
-	0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xb2, 0x02, 0x0a, 0x1c, 0x52, 0x65, 0x6c, 0x65,
-	0x61, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1d, 0x0a, 0x0a,
-	0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04,
-	0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x12, 0x30, 0x0a, 0x07, 0x76,
-	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x65, 0x72,
-	0x73, 0x69, 0x6f, 0x6e, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2c, 0x0a,
-	0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x61,
-	0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x73, 0x12, 0x33, 0x0a, 0x08, 0x6d,
-	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x06, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65,
-	0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0x12, 0x28, 0x0a, 0x10, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70,
-	0x5f, 0x69, 0x64, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0e, 0x6f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x73, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x2f, 0x0a, 0x1d,
-	0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65,
-	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x2a, 0x0a,
-	0x18, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x63, 0x0a, 0x19, 0x47, 0x65, 0x74,
-	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x46, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
-	0x74, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e,
-	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x0e,
-	0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x36,
-	0x0a, 0x24, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73,
-	0x69, 0x6f, 0x6e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x66, 0x0a, 0x25, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74,
-	0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x4f, 0x62, 0x6a, 0x65, 0x63,
-	0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x3d, 0x0a, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x18,
-	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65,
-	0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
-	0x70, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x22, 0x2d,
-	0x0a, 0x1b, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56,
-	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1e, 0x0a,
-	0x1c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65,
-	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x82, 0x01,
-	0x0a, 0x34, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x53, 0x63, 0x69,
-	0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2e, 0x6a, 0x61,
-	0x76, 0x61, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x14, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x50, 0x01, 0x5a, 0x32,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e,
-	0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61,
-	0x70, 0x69, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f,
-	0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x65, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x12,
+	0x26, 0x0a, 0x0f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f,
+	0x69, 0x64, 0x18, 0x02, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x22, 0x31, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x66, 0x0a, 0x19, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x49, 0x0a, 0x0e, 0x75, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x5f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x52, 0x0d, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x22, 0x1c, 0x0a, 0x1a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61,
+	0x73, 0x65, 0x74, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x26, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x17, 0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0xb2, 0x02, 0x0a, 0x1c, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
+	0x74, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61,
+	0x73, 0x65, 0x74, 0x49, 0x64, 0x12, 0x30, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
+	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x07,
+	0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2c, 0x0a, 0x06, 0x6c, 0x61, 0x62, 0x65, 0x6c,
+	0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f,
+	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x61, 0x62, 0x65, 0x6c, 0x52, 0x06, 0x6c,
+	0x61, 0x62, 0x65, 0x6c, 0x73, 0x12, 0x33, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x06, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f,
+	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x28, 0x0a, 0x10, 0x6f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x07,
+	0x20, 0x03, 0x28, 0x04, 0x52, 0x0e, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x49, 0x64, 0x73, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x2f, 0x0a, 0x1d, 0x52, 0x65, 0x6c, 0x65, 0x61, 0x73,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x2a, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x44, 0x61,
+	0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x02, 0x69, 0x64, 0x22, 0x63, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65,
+	0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x46, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x76, 0x65, 0x72, 0x73,
+	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65,
+	0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x0e, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
+	0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x36, 0x0a, 0x24, 0x47, 0x65, 0x74, 0x44,
+	0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x4f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x66, 0x0a, 0x25, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x0b, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x22, 0x2d, 0x0a, 0x1b, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x1e, 0x0a, 0x1c, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x82, 0x01, 0x0a, 0x34, 0x63, 0x6f, 0x6d, 0x2e,
+	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x73, 0x44, 0x42, 0x2e, 0x6a, 0x61, 0x76, 0x61, 0x5f, 0x61, 0x70, 0x69,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31,
+	0x42, 0x14, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x50, 0x01, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x53, 0x63, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x73, 0x44, 0x42, 0x2f, 0x67, 0x6f, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1280,7 +1392,7 @@ func file_api_services_v1_dataset_service_models_proto_rawDescGZIP() []byte {
 	return file_api_services_v1_dataset_service_models_proto_rawDescData
 }
 
-var file_api_services_v1_dataset_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
+var file_api_services_v1_dataset_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_api_services_v1_dataset_service_models_proto_goTypes = []interface{}{
 	(*CreateDatasetRequest)(nil),                  // 0: api.services.v1.CreateDatasetRequest
 	(*CreateDatasetResponse)(nil),                 // 1: api.services.v1.CreateDatasetResponse
@@ -1292,42 +1404,44 @@ var file_api_services_v1_dataset_service_models_proto_goTypes = []interface{}{
 	(*GetDatasetObjectGroupsResponse)(nil),        // 7: api.services.v1.GetDatasetObjectGroupsResponse
 	(*GetObjectGroupsInDateRangeRequest)(nil),     // 8: api.services.v1.GetObjectGroupsInDateRangeRequest
 	(*GetObjectGroupsInDateRangeResponse)(nil),    // 9: api.services.v1.GetObjectGroupsInDateRangeResponse
-	(*UpdateDatasetFieldRequest)(nil),             // 10: api.services.v1.UpdateDatasetFieldRequest
-	(*UpdateDatasetFieldResponse)(nil),            // 11: api.services.v1.UpdateDatasetFieldResponse
-	(*DeleteDatasetRequest)(nil),                  // 12: api.services.v1.DeleteDatasetRequest
-	(*DeleteDatasetResponse)(nil),                 // 13: api.services.v1.DeleteDatasetResponse
-	(*ReleaseDatasetVersionRequest)(nil),          // 14: api.services.v1.ReleaseDatasetVersionRequest
-	(*ReleaseDatasetVersionResponse)(nil),         // 15: api.services.v1.ReleaseDatasetVersionResponse
-	(*GetDatasetVersionRequest)(nil),              // 16: api.services.v1.GetDatasetVersionRequest
-	(*GetDatasetVersionResponse)(nil),             // 17: api.services.v1.GetDatasetVersionResponse
-	(*GetDatasetVersionObjectGroupsRequest)(nil),  // 18: api.services.v1.GetDatasetVersionObjectGroupsRequest
-	(*GetDatasetVersionObjectGroupsResponse)(nil), // 19: api.services.v1.GetDatasetVersionObjectGroupsResponse
-	(*DeleteDatasetVersionRequest)(nil),           // 20: api.services.v1.DeleteDatasetVersionRequest
-	(*DeleteDatasetVersionResponse)(nil),          // 21: api.services.v1.DeleteDatasetVersionResponse
-	(*v1.Label)(nil),                              // 22: api.models.v1.Label
-	(*v1.Metadata)(nil),                           // 23: api.models.v1.Metadata
-	(*v1.Dataset)(nil),                            // 24: api.models.v1.Dataset
-	(*v1.DatasetVersion)(nil),                     // 25: api.models.v1.DatasetVersion
-	(*v1.ObjectGroup)(nil),                        // 26: api.models.v1.ObjectGroup
-	(*timestamppb.Timestamp)(nil),                 // 27: google.protobuf.Timestamp
-	(*v1.UpdateFieldsRequest)(nil),                // 28: api.models.v1.UpdateFieldsRequest
-	(*v1.Version)(nil),                            // 29: api.models.v1.Version
+	(*GetObjectGroupsStreamRequest)(nil),          // 10: api.services.v1.GetObjectGroupsStreamRequest
+	(*GetObjectGroupsStreamResponse)(nil),         // 11: api.services.v1.GetObjectGroupsStreamResponse
+	(*UpdateDatasetFieldRequest)(nil),             // 12: api.services.v1.UpdateDatasetFieldRequest
+	(*UpdateDatasetFieldResponse)(nil),            // 13: api.services.v1.UpdateDatasetFieldResponse
+	(*DeleteDatasetRequest)(nil),                  // 14: api.services.v1.DeleteDatasetRequest
+	(*DeleteDatasetResponse)(nil),                 // 15: api.services.v1.DeleteDatasetResponse
+	(*ReleaseDatasetVersionRequest)(nil),          // 16: api.services.v1.ReleaseDatasetVersionRequest
+	(*ReleaseDatasetVersionResponse)(nil),         // 17: api.services.v1.ReleaseDatasetVersionResponse
+	(*GetDatasetVersionRequest)(nil),              // 18: api.services.v1.GetDatasetVersionRequest
+	(*GetDatasetVersionResponse)(nil),             // 19: api.services.v1.GetDatasetVersionResponse
+	(*GetDatasetVersionObjectGroupsRequest)(nil),  // 20: api.services.v1.GetDatasetVersionObjectGroupsRequest
+	(*GetDatasetVersionObjectGroupsResponse)(nil), // 21: api.services.v1.GetDatasetVersionObjectGroupsResponse
+	(*DeleteDatasetVersionRequest)(nil),           // 22: api.services.v1.DeleteDatasetVersionRequest
+	(*DeleteDatasetVersionResponse)(nil),          // 23: api.services.v1.DeleteDatasetVersionResponse
+	(*v1.Label)(nil),                              // 24: api.models.v1.Label
+	(*v1.Metadata)(nil),                           // 25: api.models.v1.Metadata
+	(*v1.Dataset)(nil),                            // 26: api.models.v1.Dataset
+	(*v1.DatasetVersion)(nil),                     // 27: api.models.v1.DatasetVersion
+	(*v1.ObjectGroup)(nil),                        // 28: api.models.v1.ObjectGroup
+	(*timestamppb.Timestamp)(nil),                 // 29: google.protobuf.Timestamp
+	(*v1.UpdateFieldsRequest)(nil),                // 30: api.models.v1.UpdateFieldsRequest
+	(*v1.Version)(nil),                            // 31: api.models.v1.Version
 }
 var file_api_services_v1_dataset_service_models_proto_depIdxs = []int32{
-	22, // 0: api.services.v1.CreateDatasetRequest.labels:type_name -> api.models.v1.Label
-	23, // 1: api.services.v1.CreateDatasetRequest.metadata:type_name -> api.models.v1.Metadata
-	24, // 2: api.services.v1.GetDatasetResponse.dataset:type_name -> api.models.v1.Dataset
-	25, // 3: api.services.v1.GetDatasetVersionsResponse.dataset_versions:type_name -> api.models.v1.DatasetVersion
-	26, // 4: api.services.v1.GetDatasetObjectGroupsResponse.object_groups:type_name -> api.models.v1.ObjectGroup
-	27, // 5: api.services.v1.GetObjectGroupsInDateRangeRequest.start:type_name -> google.protobuf.Timestamp
-	27, // 6: api.services.v1.GetObjectGroupsInDateRangeRequest.end:type_name -> google.protobuf.Timestamp
-	26, // 7: api.services.v1.GetObjectGroupsInDateRangeResponse.object_groups:type_name -> api.models.v1.ObjectGroup
-	28, // 8: api.services.v1.UpdateDatasetFieldRequest.update_request:type_name -> api.models.v1.UpdateFieldsRequest
-	29, // 9: api.services.v1.ReleaseDatasetVersionRequest.version:type_name -> api.models.v1.Version
-	22, // 10: api.services.v1.ReleaseDatasetVersionRequest.labels:type_name -> api.models.v1.Label
-	23, // 11: api.services.v1.ReleaseDatasetVersionRequest.metadata:type_name -> api.models.v1.Metadata
-	25, // 12: api.services.v1.GetDatasetVersionResponse.dataset_version:type_name -> api.models.v1.DatasetVersion
-	26, // 13: api.services.v1.GetDatasetVersionObjectGroupsResponse.object_group:type_name -> api.models.v1.ObjectGroup
+	24, // 0: api.services.v1.CreateDatasetRequest.labels:type_name -> api.models.v1.Label
+	25, // 1: api.services.v1.CreateDatasetRequest.metadata:type_name -> api.models.v1.Metadata
+	26, // 2: api.services.v1.GetDatasetResponse.dataset:type_name -> api.models.v1.Dataset
+	27, // 3: api.services.v1.GetDatasetVersionsResponse.dataset_versions:type_name -> api.models.v1.DatasetVersion
+	28, // 4: api.services.v1.GetDatasetObjectGroupsResponse.object_groups:type_name -> api.models.v1.ObjectGroup
+	29, // 5: api.services.v1.GetObjectGroupsInDateRangeRequest.start:type_name -> google.protobuf.Timestamp
+	29, // 6: api.services.v1.GetObjectGroupsInDateRangeRequest.end:type_name -> google.protobuf.Timestamp
+	28, // 7: api.services.v1.GetObjectGroupsInDateRangeResponse.object_groups:type_name -> api.models.v1.ObjectGroup
+	30, // 8: api.services.v1.UpdateDatasetFieldRequest.update_request:type_name -> api.models.v1.UpdateFieldsRequest
+	31, // 9: api.services.v1.ReleaseDatasetVersionRequest.version:type_name -> api.models.v1.Version
+	24, // 10: api.services.v1.ReleaseDatasetVersionRequest.labels:type_name -> api.models.v1.Label
+	25, // 11: api.services.v1.ReleaseDatasetVersionRequest.metadata:type_name -> api.models.v1.Metadata
+	27, // 12: api.services.v1.GetDatasetVersionResponse.dataset_version:type_name -> api.models.v1.DatasetVersion
+	28, // 13: api.services.v1.GetDatasetVersionObjectGroupsResponse.object_group:type_name -> api.models.v1.ObjectGroup
 	14, // [14:14] is the sub-list for method output_type
 	14, // [14:14] is the sub-list for method input_type
 	14, // [14:14] is the sub-list for extension type_name
@@ -1462,7 +1576,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateDatasetFieldRequest); i {
+			switch v := v.(*GetObjectGroupsStreamRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1474,7 +1588,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateDatasetFieldResponse); i {
+			switch v := v.(*GetObjectGroupsStreamResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1486,7 +1600,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteDatasetRequest); i {
+			switch v := v.(*UpdateDatasetFieldRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1498,7 +1612,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteDatasetResponse); i {
+			switch v := v.(*UpdateDatasetFieldResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1510,7 +1624,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReleaseDatasetVersionRequest); i {
+			switch v := v.(*DeleteDatasetRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1522,7 +1636,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReleaseDatasetVersionResponse); i {
+			switch v := v.(*DeleteDatasetResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1534,7 +1648,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetDatasetVersionRequest); i {
+			switch v := v.(*ReleaseDatasetVersionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1546,7 +1660,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetDatasetVersionResponse); i {
+			switch v := v.(*ReleaseDatasetVersionResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1558,7 +1672,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetDatasetVersionObjectGroupsRequest); i {
+			switch v := v.(*GetDatasetVersionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1570,7 +1684,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetDatasetVersionObjectGroupsResponse); i {
+			switch v := v.(*GetDatasetVersionResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1582,7 +1696,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteDatasetVersionRequest); i {
+			switch v := v.(*GetDatasetVersionObjectGroupsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1594,6 +1708,30 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetDatasetVersionObjectGroupsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_services_v1_dataset_service_models_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteDatasetVersionRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_services_v1_dataset_service_models_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteDatasetVersionResponse); i {
 			case 0:
 				return &v.state
@@ -1612,7 +1750,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_services_v1_dataset_service_models_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   22,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -371,6 +371,38 @@
           "DatasetService"
         ]
       }
+    },
+    "/api/v1/objectgroupsstream": {
+      "post": {
+        "operationId": "DatasetService_GetObjectGroupsStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -716,6 +748,30 @@
           "items": {
             "$ref": "#/definitions/v1ObjectGroup"
           }
+        }
+      }
+    },
+    "v1GetObjectGroupsStreamRequest": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "objectGroupId": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          }
+        }
+      }
+    },
+    "v1GetObjectGroupsStreamResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
         }
       }
     },
