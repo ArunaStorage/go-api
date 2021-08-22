@@ -453,6 +453,15 @@
       ],
       "default": "GROUPIDS"
     },
+    "GetObjectGroupsStreamRequestStreamType": {
+      "type": "string",
+      "enum": [
+        "BASE64NEWLINE",
+        "ZIP",
+        "TARGZ"
+      ],
+      "default": "BASE64NEWLINE"
+    },
     "OriginOriginTypeEnum": {
       "type": "string",
       "enum": [
@@ -807,6 +816,9 @@
         },
         "queryType": {
           "$ref": "#/definitions/GetObjectGroupsStreamRequestQueryType"
+        },
+        "streamType": {
+          "$ref": "#/definitions/GetObjectGroupsStreamRequestStreamType"
         },
         "groupIds": {
           "$ref": "#/definitions/GetObjectGroupsStreamRequestGroupIDsQuery"
