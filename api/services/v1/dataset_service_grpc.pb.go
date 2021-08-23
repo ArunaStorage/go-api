@@ -25,7 +25,7 @@ type DatasetServiceClient interface {
 	// Lists Versions of a dataset
 	GetDatasetVersions(ctx context.Context, in *GetDatasetVersionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionsResponse, error)
 	GetDatasetObjectGroups(ctx context.Context, in *GetDatasetObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetObjectGroupsResponse, error)
-	GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error)
+	GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamLinkRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -82,8 +82,8 @@ func (c *datasetServiceClient) GetDatasetObjectGroups(ctx context.Context, in *G
 	return out, nil
 }
 
-func (c *datasetServiceClient) GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error) {
-	out := new(GetObjectGroupsStreamResponse)
+func (c *datasetServiceClient) GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamLinkRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamLinkResponse, error) {
+	out := new(GetObjectGroupsStreamLinkResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetObjectGroupsStream", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -165,7 +165,7 @@ type DatasetServiceServer interface {
 	// Lists Versions of a dataset
 	GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error)
 	GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error)
-	GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error)
+	GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamLinkRequest) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -194,7 +194,7 @@ func (UnimplementedDatasetServiceServer) GetDatasetVersions(context.Context, *Ge
 func (UnimplementedDatasetServiceServer) GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetObjectGroups not implemented")
 }
-func (UnimplementedDatasetServiceServer) GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error) {
+func (UnimplementedDatasetServiceServer) GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamLinkRequest) (*GetObjectGroupsStreamLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupsStream not implemented")
 }
 func (UnimplementedDatasetServiceServer) UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error) {
@@ -303,7 +303,7 @@ func _DatasetService_GetDatasetObjectGroups_Handler(srv interface{}, ctx context
 }
 
 func _DatasetService_GetObjectGroupsStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetObjectGroupsStreamRequest)
+	in := new(GetObjectGroupsStreamLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -315,7 +315,7 @@ func _DatasetService_GetObjectGroupsStream_Handler(srv interface{}, ctx context.
 		FullMethod: "/api.services.v1.DatasetService/GetObjectGroupsStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, req.(*GetObjectGroupsStreamRequest))
+		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, req.(*GetObjectGroupsStreamLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

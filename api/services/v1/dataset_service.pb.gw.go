@@ -168,7 +168,7 @@ func local_request_DatasetService_GetDatasetObjectGroups_0(ctx context.Context, 
 }
 
 func request_DatasetService_GetObjectGroupsStream_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupsStreamRequest
+	var protoReq GetObjectGroupsStreamLinkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -185,7 +185,7 @@ func request_DatasetService_GetObjectGroupsStream_0(ctx context.Context, marshal
 }
 
 func local_request_DatasetService_GetObjectGroupsStream_0(ctx context.Context, marshaler runtime.Marshaler, server DatasetServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetObjectGroupsStreamRequest
+	var protoReq GetObjectGroupsStreamLinkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)

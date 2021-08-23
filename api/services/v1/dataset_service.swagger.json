@@ -379,7 +379,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamResponse"
+              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkResponse"
             }
           },
           "default": {
@@ -395,7 +395,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamRequest"
+              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequest"
             }
           }
         ],
@@ -406,10 +406,16 @@
     }
   },
   "definitions": {
-    "GetObjectGroupsStreamRequestDatasetQuery": {
-      "type": "object"
+    "GetObjectGroupsStreamLinkRequestDatasetQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
     },
-    "GetObjectGroupsStreamRequestDatasetVersionQuery": {
+    "GetObjectGroupsStreamLinkRequestDatasetVersionQuery": {
       "type": "object",
       "properties": {
         "datasetVersion": {
@@ -418,9 +424,13 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestDateRangeQuery": {
+    "GetObjectGroupsStreamLinkRequestDateRangeQuery": {
       "type": "object",
       "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
         "start": {
           "type": "string",
           "format": "date-time"
@@ -431,9 +441,13 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestGroupIDsQuery": {
+    "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
       "type": "object",
       "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
         "objectGroups": {
           "type": "array",
           "items": {
@@ -443,7 +457,7 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestQueryType": {
+    "GetObjectGroupsStreamLinkRequestQueryType": {
       "type": "string",
       "enum": [
         "GROUPIDS",
@@ -453,7 +467,7 @@
       ],
       "default": "GROUPIDS"
     },
-    "GetObjectGroupsStreamRequestStreamType": {
+    "GetObjectGroupsStreamLinkRequestStreamType": {
       "type": "string",
       "enum": [
         "BASE64NEWLINE",
@@ -807,34 +821,30 @@
         }
       }
     },
-    "v1GetObjectGroupsStreamRequest": {
+    "v1GetObjectGroupsStreamLinkRequest": {
       "type": "object",
       "properties": {
-        "datasetId": {
-          "type": "string",
-          "format": "uint64"
-        },
         "queryType": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestQueryType"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestQueryType"
         },
         "streamType": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestStreamType"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestStreamType"
         },
         "groupIds": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestGroupIDsQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestGroupIDsQuery"
         },
         "dateRange": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDateRangeQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDateRangeQuery"
         },
         "dataset": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetQuery"
         },
         "datasetVersion": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetVersionQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetVersionQuery"
         }
       }
     },
-    "v1GetObjectGroupsStreamResponse": {
+    "v1GetObjectGroupsStreamLinkResponse": {
       "type": "object",
       "properties": {
         "url": {
