@@ -145,9 +145,52 @@
           "DatasetObjectsService"
         ]
       }
+    },
+    "/api/v1/objectgroupbatch/create": {
+      "post": {
+        "operationId": "DatasetObjectsService_CreateObjectGroupBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectGroupBatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectGroupBatchRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
     }
   },
   "definitions": {
+    "CreateObjectGroupResponseObjectLinks": {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        }
+      }
+    },
     "OriginOriginTypeEnum": {
       "type": "string",
       "enum": [
@@ -219,6 +262,31 @@
         }
       }
     },
+    "v1CreateObjectGroupBatchRequest": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectGroupRequest"
+          }
+        },
+        "includeObjectLink": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1CreateObjectGroupBatchResponse": {
+      "type": "object",
+      "properties": {
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectGroupResponse"
+          }
+        }
+      }
+    },
     "v1CreateObjectGroupRequest": {
       "type": "object",
       "properties": {
@@ -253,6 +321,9 @@
         "generated": {
           "type": "string",
           "format": "date-time"
+        },
+        "includeObjectLink": {
+          "type": "boolean"
         }
       }
     },
@@ -262,6 +333,12 @@
         "objectGroupId": {
           "type": "string",
           "format": "uint64"
+        },
+        "objectLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
+          }
         }
       }
     },

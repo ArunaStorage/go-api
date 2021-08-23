@@ -27,13 +27,14 @@ type CreateObjectGroupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name        string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Description string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	DatasetId   uint64                 `protobuf:"varint,3,opt,name=dataset_id,json=datasetId,proto3" json:"dataset_id,omitempty"`
-	Labels      []*v1.Label            `protobuf:"bytes,4,rep,name=labels,proto3" json:"labels,omitempty"`
-	Metadata    []*v1.Metadata         `protobuf:"bytes,5,rep,name=metadata,proto3" json:"metadata,omitempty"`
-	Objects     []*CreateObjectRequest `protobuf:"bytes,6,rep,name=objects,proto3" json:"objects,omitempty"`
-	Generated   *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=generated,proto3" json:"generated,omitempty"`
+	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description       string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	DatasetId         uint64                 `protobuf:"varint,3,opt,name=dataset_id,json=datasetId,proto3" json:"dataset_id,omitempty"`
+	Labels            []*v1.Label            `protobuf:"bytes,4,rep,name=labels,proto3" json:"labels,omitempty"`
+	Metadata          []*v1.Metadata         `protobuf:"bytes,5,rep,name=metadata,proto3" json:"metadata,omitempty"`
+	Objects           []*CreateObjectRequest `protobuf:"bytes,6,rep,name=objects,proto3" json:"objects,omitempty"`
+	Generated         *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=generated,proto3" json:"generated,omitempty"`
+	IncludeObjectLink bool                   `protobuf:"varint,8,opt,name=include_object_link,json=includeObjectLink,proto3" json:"include_object_link,omitempty"`
 }
 
 func (x *CreateObjectGroupRequest) Reset() {
@@ -117,18 +118,128 @@ func (x *CreateObjectGroupRequest) GetGenerated() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *CreateObjectGroupRequest) GetIncludeObjectLink() bool {
+	if x != nil {
+		return x.IncludeObjectLink
+	}
+	return false
+}
+
+type CreateObjectGroupBatchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Requests          []*CreateObjectGroupRequest `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests,omitempty"`
+	IncludeObjectLink bool                        `protobuf:"varint,2,opt,name=include_object_link,json=includeObjectLink,proto3" json:"include_object_link,omitempty"`
+}
+
+func (x *CreateObjectGroupBatchRequest) Reset() {
+	*x = CreateObjectGroupBatchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateObjectGroupBatchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateObjectGroupBatchRequest) ProtoMessage() {}
+
+func (x *CreateObjectGroupBatchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateObjectGroupBatchRequest.ProtoReflect.Descriptor instead.
+func (*CreateObjectGroupBatchRequest) Descriptor() ([]byte, []int) {
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateObjectGroupBatchRequest) GetRequests() []*CreateObjectGroupRequest {
+	if x != nil {
+		return x.Requests
+	}
+	return nil
+}
+
+func (x *CreateObjectGroupBatchRequest) GetIncludeObjectLink() bool {
+	if x != nil {
+		return x.IncludeObjectLink
+	}
+	return false
+}
+
+type CreateObjectGroupBatchResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Responses []*CreateObjectGroupResponse `protobuf:"bytes,1,rep,name=responses,proto3" json:"responses,omitempty"`
+}
+
+func (x *CreateObjectGroupBatchResponse) Reset() {
+	*x = CreateObjectGroupBatchResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateObjectGroupBatchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateObjectGroupBatchResponse) ProtoMessage() {}
+
+func (x *CreateObjectGroupBatchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateObjectGroupBatchResponse.ProtoReflect.Descriptor instead.
+func (*CreateObjectGroupBatchResponse) Descriptor() ([]byte, []int) {
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CreateObjectGroupBatchResponse) GetResponses() []*CreateObjectGroupResponse {
+	if x != nil {
+		return x.Responses
+	}
+	return nil
+}
+
 type CreateObjectGroupResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ObjectGroupId uint64 `protobuf:"varint,1,opt,name=object_group_id,json=objectGroupId,proto3" json:"object_group_id,omitempty"`
+	ObjectGroupId uint64                                   `protobuf:"varint,1,opt,name=object_group_id,json=objectGroupId,proto3" json:"object_group_id,omitempty"`
+	ObjectLinks   []*CreateObjectGroupResponse_ObjectLinks `protobuf:"bytes,2,rep,name=object_links,json=objectLinks,proto3" json:"object_links,omitempty"`
 }
 
 func (x *CreateObjectGroupResponse) Reset() {
 	*x = CreateObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[1]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -141,7 +252,7 @@ func (x *CreateObjectGroupResponse) String() string {
 func (*CreateObjectGroupResponse) ProtoMessage() {}
 
 func (x *CreateObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[1]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -154,7 +265,7 @@ func (x *CreateObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*CreateObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{1}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateObjectGroupResponse) GetObjectGroupId() uint64 {
@@ -162,6 +273,13 @@ func (x *CreateObjectGroupResponse) GetObjectGroupId() uint64 {
 		return x.ObjectGroupId
 	}
 	return 0
+}
+
+func (x *CreateObjectGroupResponse) GetObjectLinks() []*CreateObjectGroupResponse_ObjectLinks {
+	if x != nil {
+		return x.ObjectLinks
+	}
+	return nil
 }
 
 type CreateObjectRequest struct {
@@ -181,7 +299,7 @@ type CreateObjectRequest struct {
 func (x *CreateObjectRequest) Reset() {
 	*x = CreateObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -194,7 +312,7 @@ func (x *CreateObjectRequest) String() string {
 func (*CreateObjectRequest) ProtoMessage() {}
 
 func (x *CreateObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[2]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,7 +325,7 @@ func (x *CreateObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateObjectRequest.ProtoReflect.Descriptor instead.
 func (*CreateObjectRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{2}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateObjectRequest) GetFilename() string {
@@ -270,7 +388,7 @@ type GetObjectGroupRequest struct {
 func (x *GetObjectGroupRequest) Reset() {
 	*x = GetObjectGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -283,7 +401,7 @@ func (x *GetObjectGroupRequest) String() string {
 func (*GetObjectGroupRequest) ProtoMessage() {}
 
 func (x *GetObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[3]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -296,7 +414,7 @@ func (x *GetObjectGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectGroupRequest.ProtoReflect.Descriptor instead.
 func (*GetObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{3}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetObjectGroupRequest) GetId() uint64 {
@@ -317,7 +435,7 @@ type GetObjectGroupResponse struct {
 func (x *GetObjectGroupResponse) Reset() {
 	*x = GetObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -330,7 +448,7 @@ func (x *GetObjectGroupResponse) String() string {
 func (*GetObjectGroupResponse) ProtoMessage() {}
 
 func (x *GetObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[4]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +461,7 @@ func (x *GetObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*GetObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{4}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetObjectGroupResponse) GetObjectGroup() *v1.ObjectGroup {
@@ -364,7 +482,7 @@ type FinishObjectUploadRequest struct {
 func (x *FinishObjectUploadRequest) Reset() {
 	*x = FinishObjectUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -377,7 +495,7 @@ func (x *FinishObjectUploadRequest) String() string {
 func (*FinishObjectUploadRequest) ProtoMessage() {}
 
 func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[5]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -390,7 +508,7 @@ func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadRequest.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{5}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *FinishObjectUploadRequest) GetId() uint64 {
@@ -409,7 +527,7 @@ type FinishObjectUploadResponse struct {
 func (x *FinishObjectUploadResponse) Reset() {
 	*x = FinishObjectUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -422,7 +540,7 @@ func (x *FinishObjectUploadResponse) String() string {
 func (*FinishObjectUploadResponse) ProtoMessage() {}
 
 func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[6]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -435,7 +553,7 @@ func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadResponse.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{6}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{8}
 }
 
 type DeleteObjectGroupRequest struct {
@@ -449,7 +567,7 @@ type DeleteObjectGroupRequest struct {
 func (x *DeleteObjectGroupRequest) Reset() {
 	*x = DeleteObjectGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -462,7 +580,7 @@ func (x *DeleteObjectGroupRequest) String() string {
 func (*DeleteObjectGroupRequest) ProtoMessage() {}
 
 func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[7]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -475,7 +593,7 @@ func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupRequest.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{7}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteObjectGroupRequest) GetId() uint64 {
@@ -494,7 +612,7 @@ type DeleteObjectGroupResponse struct {
 func (x *DeleteObjectGroupResponse) Reset() {
 	*x = DeleteObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -507,7 +625,7 @@ func (x *DeleteObjectGroupResponse) String() string {
 func (*DeleteObjectGroupResponse) ProtoMessage() {}
 
 func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[8]
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -520,7 +638,62 @@ func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{8}
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{10}
+}
+
+type CreateObjectGroupResponse_ObjectLinks struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Filename string `protobuf:"bytes,1,opt,name=filename,proto3" json:"filename,omitempty"`
+	Link     string `protobuf:"bytes,2,opt,name=link,proto3" json:"link,omitempty"`
+}
+
+func (x *CreateObjectGroupResponse_ObjectLinks) Reset() {
+	*x = CreateObjectGroupResponse_ObjectLinks{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateObjectGroupResponse_ObjectLinks) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateObjectGroupResponse_ObjectLinks) ProtoMessage() {}
+
+func (x *CreateObjectGroupResponse_ObjectLinks) ProtoReflect() protoreflect.Message {
+	mi := &file_api_services_v1_dataset_object_service_models_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateObjectGroupResponse_ObjectLinks.ProtoReflect.Descriptor instead.
+func (*CreateObjectGroupResponse_ObjectLinks) Descriptor() ([]byte, []int) {
+	return file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{3, 0}
+}
+
+func (x *CreateObjectGroupResponse_ObjectLinks) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *CreateObjectGroupResponse_ObjectLinks) GetLink() string {
+	if x != nil {
+		return x.Link
+	}
+	return ""
 }
 
 var File_api_services_v1_dataset_object_service_models_proto protoreflect.FileDescriptor
@@ -536,7 +709,7 @@ var file_api_services_v1_dataset_object_service_models_proto_rawDesc = []byte{
 	0x65, 0x6c, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x5f, 0x6d, 0x6f,
 	0x64, 0x65, 0x6c, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x21, 0x61, 0x70, 0x69, 0x2f,
 	0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xcc, 0x02,
+	0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xfc, 0x02,
 	0x0a, 0x18, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
 	0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61,
 	0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20,
@@ -557,12 +730,41 @@ var file_api_services_v1_dataset_object_service_models_proto_rawDesc = []byte{
 	0x74, 0x73, 0x12, 0x38, 0x0a, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x18,
 	0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
-	0x70, 0x52, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x22, 0x43, 0x0a, 0x19,
+	0x70, 0x52, 0x09, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x12, 0x2e, 0x0a, 0x13,
+	0x69, 0x6e, 0x63, 0x6c, 0x75, 0x64, 0x65, 0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x6c,
+	0x69, 0x6e, 0x6b, 0x18, 0x08, 0x20, 0x01, 0x28, 0x08, 0x52, 0x11, 0x69, 0x6e, 0x63, 0x6c, 0x75,
+	0x64, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x22, 0x96, 0x01, 0x0a,
+	0x1d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x42, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x45,
+	0x0a, 0x08, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x08, 0x72, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x73, 0x12, 0x2e, 0x0a, 0x13, 0x69, 0x6e, 0x63, 0x6c, 0x75, 0x64, 0x65,
+	0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x6c, 0x69, 0x6e, 0x6b, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x11, 0x69, 0x6e, 0x63, 0x6c, 0x75, 0x64, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x22, 0x6a, 0x0a, 0x1e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f,
+	0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x42, 0x61, 0x74, 0x63, 0x68, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x48, 0x0a, 0x09, 0x72, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x09, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x73, 0x22, 0xdd, 0x01, 0x0a, 0x19, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x26, 0x0a, 0x0f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x12, 0x59, 0x0a, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x5f, 0x6c, 0x69, 0x6e, 0x6b, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x36, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
-	0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x0f, 0x6f, 0x62, 0x6a,
-	0x65, 0x63, 0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49,
-	0x64, 0x22, 0xba, 0x02, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
+	0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x4c, 0x69, 0x6e, 0x6b, 0x73, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x69, 0x6e,
+	0x6b, 0x73, 0x1a, 0x3d, 0x0a, 0x0b, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x69, 0x6e, 0x6b,
+	0x73, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x12, 0x0a,
+	0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6c, 0x69, 0x6e,
+	0x6b, 0x22, 0xba, 0x02, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
 	0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c,
 	0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c,
 	0x65, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x74, 0x79, 0x70,
@@ -623,38 +825,44 @@ func file_api_services_v1_dataset_object_service_models_proto_rawDescGZIP() []by
 	return file_api_services_v1_dataset_object_service_models_proto_rawDescData
 }
 
-var file_api_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_api_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_api_services_v1_dataset_object_service_models_proto_goTypes = []interface{}{
-	(*CreateObjectGroupRequest)(nil),   // 0: api.services.v1.CreateObjectGroupRequest
-	(*CreateObjectGroupResponse)(nil),  // 1: api.services.v1.CreateObjectGroupResponse
-	(*CreateObjectRequest)(nil),        // 2: api.services.v1.CreateObjectRequest
-	(*GetObjectGroupRequest)(nil),      // 3: api.services.v1.GetObjectGroupRequest
-	(*GetObjectGroupResponse)(nil),     // 4: api.services.v1.GetObjectGroupResponse
-	(*FinishObjectUploadRequest)(nil),  // 5: api.services.v1.FinishObjectUploadRequest
-	(*FinishObjectUploadResponse)(nil), // 6: api.services.v1.FinishObjectUploadResponse
-	(*DeleteObjectGroupRequest)(nil),   // 7: api.services.v1.DeleteObjectGroupRequest
-	(*DeleteObjectGroupResponse)(nil),  // 8: api.services.v1.DeleteObjectGroupResponse
-	(*v1.Label)(nil),                   // 9: api.models.v1.Label
-	(*v1.Metadata)(nil),                // 10: api.models.v1.Metadata
-	(*timestamppb.Timestamp)(nil),      // 11: google.protobuf.Timestamp
-	(*v1.Origin)(nil),                  // 12: api.models.v1.Origin
-	(*v1.ObjectGroup)(nil),             // 13: api.models.v1.ObjectGroup
+	(*CreateObjectGroupRequest)(nil),              // 0: api.services.v1.CreateObjectGroupRequest
+	(*CreateObjectGroupBatchRequest)(nil),         // 1: api.services.v1.CreateObjectGroupBatchRequest
+	(*CreateObjectGroupBatchResponse)(nil),        // 2: api.services.v1.CreateObjectGroupBatchResponse
+	(*CreateObjectGroupResponse)(nil),             // 3: api.services.v1.CreateObjectGroupResponse
+	(*CreateObjectRequest)(nil),                   // 4: api.services.v1.CreateObjectRequest
+	(*GetObjectGroupRequest)(nil),                 // 5: api.services.v1.GetObjectGroupRequest
+	(*GetObjectGroupResponse)(nil),                // 6: api.services.v1.GetObjectGroupResponse
+	(*FinishObjectUploadRequest)(nil),             // 7: api.services.v1.FinishObjectUploadRequest
+	(*FinishObjectUploadResponse)(nil),            // 8: api.services.v1.FinishObjectUploadResponse
+	(*DeleteObjectGroupRequest)(nil),              // 9: api.services.v1.DeleteObjectGroupRequest
+	(*DeleteObjectGroupResponse)(nil),             // 10: api.services.v1.DeleteObjectGroupResponse
+	(*CreateObjectGroupResponse_ObjectLinks)(nil), // 11: api.services.v1.CreateObjectGroupResponse.ObjectLinks
+	(*v1.Label)(nil),                              // 12: api.models.v1.Label
+	(*v1.Metadata)(nil),                           // 13: api.models.v1.Metadata
+	(*timestamppb.Timestamp)(nil),                 // 14: google.protobuf.Timestamp
+	(*v1.Origin)(nil),                             // 15: api.models.v1.Origin
+	(*v1.ObjectGroup)(nil),                        // 16: api.models.v1.ObjectGroup
 }
 var file_api_services_v1_dataset_object_service_models_proto_depIdxs = []int32{
-	9,  // 0: api.services.v1.CreateObjectGroupRequest.labels:type_name -> api.models.v1.Label
-	10, // 1: api.services.v1.CreateObjectGroupRequest.metadata:type_name -> api.models.v1.Metadata
-	2,  // 2: api.services.v1.CreateObjectGroupRequest.objects:type_name -> api.services.v1.CreateObjectRequest
-	11, // 3: api.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
-	9,  // 4: api.services.v1.CreateObjectRequest.labels:type_name -> api.models.v1.Label
-	10, // 5: api.services.v1.CreateObjectRequest.metadata:type_name -> api.models.v1.Metadata
-	12, // 6: api.services.v1.CreateObjectRequest.origin:type_name -> api.models.v1.Origin
-	11, // 7: api.services.v1.CreateObjectRequest.generated:type_name -> google.protobuf.Timestamp
-	13, // 8: api.services.v1.GetObjectGroupResponse.object_group:type_name -> api.models.v1.ObjectGroup
-	9,  // [9:9] is the sub-list for method output_type
-	9,  // [9:9] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	12, // 0: api.services.v1.CreateObjectGroupRequest.labels:type_name -> api.models.v1.Label
+	13, // 1: api.services.v1.CreateObjectGroupRequest.metadata:type_name -> api.models.v1.Metadata
+	4,  // 2: api.services.v1.CreateObjectGroupRequest.objects:type_name -> api.services.v1.CreateObjectRequest
+	14, // 3: api.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
+	0,  // 4: api.services.v1.CreateObjectGroupBatchRequest.requests:type_name -> api.services.v1.CreateObjectGroupRequest
+	3,  // 5: api.services.v1.CreateObjectGroupBatchResponse.responses:type_name -> api.services.v1.CreateObjectGroupResponse
+	11, // 6: api.services.v1.CreateObjectGroupResponse.object_links:type_name -> api.services.v1.CreateObjectGroupResponse.ObjectLinks
+	12, // 7: api.services.v1.CreateObjectRequest.labels:type_name -> api.models.v1.Label
+	13, // 8: api.services.v1.CreateObjectRequest.metadata:type_name -> api.models.v1.Metadata
+	15, // 9: api.services.v1.CreateObjectRequest.origin:type_name -> api.models.v1.Origin
+	14, // 10: api.services.v1.CreateObjectRequest.generated:type_name -> google.protobuf.Timestamp
+	16, // 11: api.services.v1.GetObjectGroupResponse.object_group:type_name -> api.models.v1.ObjectGroup
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_api_services_v1_dataset_object_service_models_proto_init() }
@@ -676,7 +884,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateObjectGroupResponse); i {
+			switch v := v.(*CreateObjectGroupBatchRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -688,7 +896,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateObjectRequest); i {
+			switch v := v.(*CreateObjectGroupBatchResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -700,7 +908,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupRequest); i {
+			switch v := v.(*CreateObjectGroupResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -712,7 +920,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupResponse); i {
+			switch v := v.(*CreateObjectRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -724,7 +932,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectUploadRequest); i {
+			switch v := v.(*GetObjectGroupRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -736,7 +944,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectUploadResponse); i {
+			switch v := v.(*GetObjectGroupResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -748,7 +956,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectGroupRequest); i {
+			switch v := v.(*FinishObjectUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -760,7 +968,43 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_object_service_models_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishObjectUploadResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteObjectGroupRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteObjectGroupResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_services_v1_dataset_object_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateObjectGroupResponse_ObjectLinks); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -778,7 +1022,7 @@ func file_api_services_v1_dataset_object_service_models_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_services_v1_dataset_object_service_models_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

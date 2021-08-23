@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type DatasetObjectsServiceClient interface {
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error)
+	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
 	//GetObjectGroup Returns the object group with the given ID
 	GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error)
 	//FinishObjectUpload Finishes the upload process for an object
@@ -38,6 +39,15 @@ func NewDatasetObjectsServiceClient(cc grpc.ClientConnInterface) DatasetObjectsS
 func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error) {
 	out := new(CreateObjectGroupResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetObjectsService/CreateObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetObjectsServiceClient) CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error) {
+	out := new(CreateObjectGroupBatchResponse)
+	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetObjectsService/CreateObjectGroupBatch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +87,7 @@ func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in 
 type DatasetObjectsServiceServer interface {
 	//CreateObjectGroup Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error)
+	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
 	//GetObjectGroup Returns the object group with the given ID
 	GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error)
 	//FinishObjectUpload Finishes the upload process for an object
@@ -90,6 +101,9 @@ type UnimplementedDatasetObjectsServiceServer struct {
 
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroup not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupBatch not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
@@ -126,6 +140,24 @@ func _DatasetObjectsService_CreateObjectGroup_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetObjectsServiceServer).CreateObjectGroup(ctx, req.(*CreateObjectGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetObjectsService_CreateObjectGroupBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateObjectGroupBatchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroupBatch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.services.v1.DatasetObjectsService/CreateObjectGroupBatch",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroupBatch(ctx, req.(*CreateObjectGroupBatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -194,6 +226,10 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateObjectGroup",
 			Handler:    _DatasetObjectsService_CreateObjectGroup_Handler,
+		},
+		{
+			MethodName: "CreateObjectGroupBatch",
+			Handler:    _DatasetObjectsService_CreateObjectGroupBatch_Handler,
 		},
 		{
 			MethodName: "GetObjectGroup",
