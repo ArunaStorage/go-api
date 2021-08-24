@@ -339,6 +339,9 @@
           "items": {
             "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
           }
+        },
+        "objectGroupName": {
+          "type": "string"
         }
       }
     },
