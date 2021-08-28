@@ -28,6 +28,7 @@ type ProjectServiceClient interface {
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
+	// Returns all API token for a specific user, based on the provided oauth2 token
 	GetAPIToken(ctx context.Context, in *GetAPITokenRequest, opts ...grpc.CallOption) (*GetAPITokenResponse, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
@@ -138,6 +139,7 @@ type ProjectServiceServer interface {
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
+	// Returns all API token for a specific user, based on the provided oauth2 token
 	GetAPIToken(context.Context, *GetAPITokenRequest) (*GetAPITokenResponse, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database

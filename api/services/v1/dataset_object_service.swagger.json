@@ -199,6 +199,53 @@
       ],
       "default": "OBJECT_STORAGE"
     },
+    "QueryableMetadataDoubleMetadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "QueryableMetadataIntMetadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "QueryableMetadataStringMetadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "QueryableMetadataTimestampMetadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -318,12 +365,11 @@
             "$ref": "#/definitions/v1CreateObjectRequest"
           }
         },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
-        },
         "includeObjectLink": {
           "type": "boolean"
+        },
+        "queryableMetadata": {
+          "$ref": "#/definitions/v1QueryableMetadata"
         }
       }
     },
@@ -585,6 +631,35 @@
         },
         "originType": {
           "$ref": "#/definitions/OriginOriginTypeEnum"
+        }
+      }
+    },
+    "v1QueryableMetadata": {
+      "type": "object",
+      "properties": {
+        "stringLabels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryableMetadataStringMetadata"
+          }
+        },
+        "doubleLabels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryableMetadataDoubleMetadata"
+          }
+        },
+        "intLabels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryableMetadataIntMetadata"
+          }
+        },
+        "timestampLabels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryableMetadataTimestampMetadata"
+          }
         }
       }
     }

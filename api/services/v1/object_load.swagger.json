@@ -48,8 +48,8 @@
         ]
       }
     },
-    "/api/v1/objectload/download": {
-      "post": {
+    "/api/v1/objectload/download/{id}": {
+      "get": {
         "operationId": "ObjectLoadService_CreateDownloadLink",
         "responses": {
           "200": {
@@ -67,12 +67,11 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "id",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateDownloadLinkRequest"
-            }
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -80,7 +79,7 @@
         ]
       }
     },
-    "/api/v1/objectload/init_multipart": {
+    "/api/v1/objectload/init_multipart/{id}": {
       "post": {
         "operationId": "ObjectLoadService_StartMultipartUpload",
         "responses": {
@@ -99,11 +98,18 @@
         },
         "parameters": [
           {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1StartMultipartUploadRequest"
+              "type": "object"
             }
           }
         ],
@@ -112,8 +118,8 @@
         ]
       }
     },
-    "/api/v1/objectload/upload": {
-      "post": {
+    "/api/v1/objectload/upload/{id}": {
+      "get": {
         "operationId": "ObjectLoadService_CreateUploadLink",
         "responses": {
           "200": {
@@ -131,12 +137,11 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "id",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateUploadLinkRequest"
-            }
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -144,7 +149,7 @@
         ]
       }
     },
-    "/api/v1/objectload/upload_multipart_part": {
+    "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
       "post": {
         "operationId": "ObjectLoadService_GetMultipartUploadLink",
         "responses": {
@@ -163,11 +168,25 @@
         },
         "parameters": [
           {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "uploadPart",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetMultipartUploadLinkRequest"
+              "type": "object"
             }
           }
         ],
@@ -268,15 +287,6 @@
         }
       }
     },
-    "v1CreateDownloadLinkRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "v1CreateDownloadLinkResponse": {
       "type": "object",
       "properties": {
@@ -285,33 +295,11 @@
         }
       }
     },
-    "v1CreateUploadLinkRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "v1CreateUploadLinkResponse": {
       "type": "object",
       "properties": {
         "uploadLink": {
           "type": "string"
-        }
-      }
-    },
-    "v1GetMultipartUploadLinkRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "uploadPart": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
@@ -452,15 +440,6 @@
         },
         "originType": {
           "$ref": "#/definitions/OriginOriginTypeEnum"
-        }
-      }
-    },
-    "v1StartMultipartUploadRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
         }
       }
     },

@@ -21,6 +21,7 @@
   "paths": {
     "/api/v1/apitoken": {
       "get": {
+        "summary": "Returns all API token for a specific user, based on the provided oauth2 token",
         "operationId": "ProjectService_GetAPIToken",
         "responses": {
           "200": {
@@ -620,7 +621,8 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         }
-      }
+      },
+      "title": "Request to create a project"
     },
     "v1CreateProjectResponse": {
       "type": "object",
