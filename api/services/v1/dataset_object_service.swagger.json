@@ -240,7 +240,7 @@
         "key": {
           "type": "string"
         },
-        "created": {
+        "value": {
           "type": "string",
           "format": "date-time"
         }
@@ -637,25 +637,25 @@
     "v1QueryableMetadata": {
       "type": "object",
       "properties": {
-        "stringLabels": {
+        "stringMetadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/QueryableMetadataStringMetadata"
           }
         },
-        "doubleLabels": {
+        "doubleMetadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/QueryableMetadataDoubleMetadata"
           }
         },
-        "intLabels": {
+        "intMetadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/QueryableMetadataIntMetadata"
           }
         },
-        "timestampLabels": {
+        "timestampMetadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/QueryableMetadataTimestampMetadata"
