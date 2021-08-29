@@ -370,6 +370,10 @@
         },
         "queryableMetadata": {
           "$ref": "#/definitions/v1QueryableMetadata"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -418,10 +422,6 @@
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
-        },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
