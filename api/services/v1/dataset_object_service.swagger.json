@@ -199,53 +199,6 @@
       ],
       "default": "OBJECT_STORAGE"
     },
-    "QueryableMetadataDoubleMetadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "QueryableMetadataIntMetadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "QueryableMetadataStringMetadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
-    "QueryableMetadataTimestampMetadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -367,9 +320,6 @@
         },
         "includeObjectLink": {
           "type": "boolean"
-        },
-        "queryableMetadata": {
-          "$ref": "#/definitions/v1QueryableMetadata"
         },
         "generated": {
           "type": "string",
@@ -631,35 +581,6 @@
         },
         "originType": {
           "$ref": "#/definitions/OriginOriginTypeEnum"
-        }
-      }
-    },
-    "v1QueryableMetadata": {
-      "type": "object",
-      "properties": {
-        "stringMetadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/QueryableMetadataStringMetadata"
-          }
-        },
-        "doubleMetadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/QueryableMetadataDoubleMetadata"
-          }
-        },
-        "intMetadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/QueryableMetadataIntMetadata"
-          }
-        },
-        "timestampMetadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/QueryableMetadataTimestampMetadata"
-          }
         }
       }
     }
