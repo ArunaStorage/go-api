@@ -79,6 +79,48 @@
         ]
       }
     },
+    "/api/v1/objectload/download_stream": {
+      "post": {
+        "operationId": "ObjectLoadService_CreateDownloadLinksStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1CreateDownloadLinksStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1CreateDownloadLinksStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinksStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
     "/api/v1/objectload/init_multipart/{id}": {
       "post": {
         "operationId": "ObjectLoadService_StartMultipartUpload",
@@ -287,11 +329,45 @@
         }
       }
     },
+    "v1CreateDownloadLinkRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "v1CreateDownloadLinkResponse": {
       "type": "object",
       "properties": {
         "downloadLink": {
           "type": "string"
+        },
+        "object": {
+          "$ref": "#/definitions/v1Object"
+        }
+      }
+    },
+    "v1CreateDownloadLinksStreamRequest": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateDownloadLinkRequest"
+          }
+        }
+      }
+    },
+    "v1CreateDownloadLinksStreamResponse": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateDownloadLinkResponse"
+          }
         }
       }
     },
@@ -411,6 +487,18 @@
         "generated": {
           "type": "string",
           "format": "date-time"
+        },
+        "objectGroupId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "projectId": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

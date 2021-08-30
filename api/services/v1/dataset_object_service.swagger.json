@@ -177,6 +177,48 @@
           "DatasetObjectsService"
         ]
       }
+    },
+    "/api/v1/objectgroupbatch_stream/create": {
+      "post": {
+        "operationId": "DatasetObjectsService_CreateObjectGroupStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1CreateObjectGroupStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1CreateObjectGroupStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectGroupStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -324,6 +366,9 @@
         "generated": {
           "type": "string",
           "format": "date-time"
+        },
+        "uuid": {
+          "type": "string"
         }
       }
     },
@@ -342,6 +387,31 @@
         },
         "objectGroupName": {
           "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateObjectGroupStreamRequest": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectGroupRequest"
+          }
+        }
+      }
+    },
+    "v1CreateObjectGroupStreamResponse": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectGroupResponse"
+          }
         }
       }
     },
@@ -504,6 +574,18 @@
         "generated": {
           "type": "string",
           "format": "date-time"
+        },
+        "objectGroupId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "projectId": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

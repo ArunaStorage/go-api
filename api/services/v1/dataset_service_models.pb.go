@@ -22,104 +22,104 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type GetObjectGroupsStreamLinkRequest_QueryType int32
+type GetObjectGroupsStreamRequest_QueryType int32
 
 const (
-	GetObjectGroupsStreamLinkRequest_GROUPIDS          GetObjectGroupsStreamLinkRequest_QueryType = 0
-	GetObjectGroupsStreamLinkRequest_DATASETALL        GetObjectGroupsStreamLinkRequest_QueryType = 1
-	GetObjectGroupsStreamLinkRequest_DATASETVERSIONALL GetObjectGroupsStreamLinkRequest_QueryType = 2
-	GetObjectGroupsStreamLinkRequest_DATERANGE         GetObjectGroupsStreamLinkRequest_QueryType = 3
+	GetObjectGroupsStreamRequest_QUERY_TYPE_GROUPIDS          GetObjectGroupsStreamRequest_QueryType = 0
+	GetObjectGroupsStreamRequest_QUERY_TYPE_DATASETALL        GetObjectGroupsStreamRequest_QueryType = 1
+	GetObjectGroupsStreamRequest_QUERY_TYPE_DATASETVERSIONALL GetObjectGroupsStreamRequest_QueryType = 2
+	GetObjectGroupsStreamRequest_QUERY_TYPE_DATERANGE         GetObjectGroupsStreamRequest_QueryType = 3
 )
 
-// Enum value maps for GetObjectGroupsStreamLinkRequest_QueryType.
+// Enum value maps for GetObjectGroupsStreamRequest_QueryType.
 var (
-	GetObjectGroupsStreamLinkRequest_QueryType_name = map[int32]string{
-		0: "GROUPIDS",
-		1: "DATASETALL",
-		2: "DATASETVERSIONALL",
-		3: "DATERANGE",
+	GetObjectGroupsStreamRequest_QueryType_name = map[int32]string{
+		0: "QUERY_TYPE_GROUPIDS",
+		1: "QUERY_TYPE_DATASETALL",
+		2: "QUERY_TYPE_DATASETVERSIONALL",
+		3: "QUERY_TYPE_DATERANGE",
 	}
-	GetObjectGroupsStreamLinkRequest_QueryType_value = map[string]int32{
-		"GROUPIDS":          0,
-		"DATASETALL":        1,
-		"DATASETVERSIONALL": 2,
-		"DATERANGE":         3,
+	GetObjectGroupsStreamRequest_QueryType_value = map[string]int32{
+		"QUERY_TYPE_GROUPIDS":          0,
+		"QUERY_TYPE_DATASETALL":        1,
+		"QUERY_TYPE_DATASETVERSIONALL": 2,
+		"QUERY_TYPE_DATERANGE":         3,
 	}
 )
 
-func (x GetObjectGroupsStreamLinkRequest_QueryType) Enum() *GetObjectGroupsStreamLinkRequest_QueryType {
-	p := new(GetObjectGroupsStreamLinkRequest_QueryType)
+func (x GetObjectGroupsStreamRequest_QueryType) Enum() *GetObjectGroupsStreamRequest_QueryType {
+	p := new(GetObjectGroupsStreamRequest_QueryType)
 	*p = x
 	return p
 }
 
-func (x GetObjectGroupsStreamLinkRequest_QueryType) String() string {
+func (x GetObjectGroupsStreamRequest_QueryType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (GetObjectGroupsStreamLinkRequest_QueryType) Descriptor() protoreflect.EnumDescriptor {
+func (GetObjectGroupsStreamRequest_QueryType) Descriptor() protoreflect.EnumDescriptor {
 	return file_api_services_v1_dataset_service_models_proto_enumTypes[0].Descriptor()
 }
 
-func (GetObjectGroupsStreamLinkRequest_QueryType) Type() protoreflect.EnumType {
+func (GetObjectGroupsStreamRequest_QueryType) Type() protoreflect.EnumType {
 	return &file_api_services_v1_dataset_service_models_proto_enumTypes[0]
 }
 
-func (x GetObjectGroupsStreamLinkRequest_QueryType) Number() protoreflect.EnumNumber {
+func (x GetObjectGroupsStreamRequest_QueryType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_QueryType.Descriptor instead.
-func (GetObjectGroupsStreamLinkRequest_QueryType) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_QueryType.Descriptor instead.
+func (GetObjectGroupsStreamRequest_QueryType) EnumDescriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 0}
 }
 
-type GetObjectGroupsStreamLinkRequest_StreamType int32
+type GetObjectGroupsStreamRequest_StreamType int32
 
 const (
-	GetObjectGroupsStreamLinkRequest_BASE64NEWLINE GetObjectGroupsStreamLinkRequest_StreamType = 0
-	GetObjectGroupsStreamLinkRequest_ZIP           GetObjectGroupsStreamLinkRequest_StreamType = 1
-	GetObjectGroupsStreamLinkRequest_TARGZ         GetObjectGroupsStreamLinkRequest_StreamType = 2
+	GetObjectGroupsStreamRequest_STREAM_TYPE_BASE64NEWLINE GetObjectGroupsStreamRequest_StreamType = 0
+	GetObjectGroupsStreamRequest_STREAM_TYPE_ZIP           GetObjectGroupsStreamRequest_StreamType = 1
+	GetObjectGroupsStreamRequest_STREAM_TYPE_TARGZ         GetObjectGroupsStreamRequest_StreamType = 2
 )
 
-// Enum value maps for GetObjectGroupsStreamLinkRequest_StreamType.
+// Enum value maps for GetObjectGroupsStreamRequest_StreamType.
 var (
-	GetObjectGroupsStreamLinkRequest_StreamType_name = map[int32]string{
-		0: "BASE64NEWLINE",
-		1: "ZIP",
-		2: "TARGZ",
+	GetObjectGroupsStreamRequest_StreamType_name = map[int32]string{
+		0: "STREAM_TYPE_BASE64NEWLINE",
+		1: "STREAM_TYPE_ZIP",
+		2: "STREAM_TYPE_TARGZ",
 	}
-	GetObjectGroupsStreamLinkRequest_StreamType_value = map[string]int32{
-		"BASE64NEWLINE": 0,
-		"ZIP":           1,
-		"TARGZ":         2,
+	GetObjectGroupsStreamRequest_StreamType_value = map[string]int32{
+		"STREAM_TYPE_BASE64NEWLINE": 0,
+		"STREAM_TYPE_ZIP":           1,
+		"STREAM_TYPE_TARGZ":         2,
 	}
 )
 
-func (x GetObjectGroupsStreamLinkRequest_StreamType) Enum() *GetObjectGroupsStreamLinkRequest_StreamType {
-	p := new(GetObjectGroupsStreamLinkRequest_StreamType)
+func (x GetObjectGroupsStreamRequest_StreamType) Enum() *GetObjectGroupsStreamRequest_StreamType {
+	p := new(GetObjectGroupsStreamRequest_StreamType)
 	*p = x
 	return p
 }
 
-func (x GetObjectGroupsStreamLinkRequest_StreamType) String() string {
+func (x GetObjectGroupsStreamRequest_StreamType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (GetObjectGroupsStreamLinkRequest_StreamType) Descriptor() protoreflect.EnumDescriptor {
+func (GetObjectGroupsStreamRequest_StreamType) Descriptor() protoreflect.EnumDescriptor {
 	return file_api_services_v1_dataset_service_models_proto_enumTypes[1].Descriptor()
 }
 
-func (GetObjectGroupsStreamLinkRequest_StreamType) Type() protoreflect.EnumType {
+func (GetObjectGroupsStreamRequest_StreamType) Type() protoreflect.EnumType {
 	return &file_api_services_v1_dataset_service_models_proto_enumTypes[1]
 }
 
-func (x GetObjectGroupsStreamLinkRequest_StreamType) Number() protoreflect.EnumNumber {
+func (x GetObjectGroupsStreamRequest_StreamType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_StreamType.Descriptor instead.
-func (GetObjectGroupsStreamLinkRequest_StreamType) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_StreamType.Descriptor instead.
+func (GetObjectGroupsStreamRequest_StreamType) EnumDescriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 1}
 }
 
@@ -642,23 +642,23 @@ func (x *GetObjectGroupsInDateRangeResponse) GetObjectGroups() []*v1.ObjectGroup
 	return nil
 }
 
-type GetObjectGroupsStreamLinkRequest struct {
+type GetObjectGroupsStreamRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	QueryType  GetObjectGroupsStreamLinkRequest_QueryType  `protobuf:"varint,2,opt,name=query_type,json=queryType,proto3,enum=api.services.v1.GetObjectGroupsStreamLinkRequest_QueryType" json:"query_type,omitempty"`
-	StreamType GetObjectGroupsStreamLinkRequest_StreamType `protobuf:"varint,3,opt,name=stream_type,json=streamType,proto3,enum=api.services.v1.GetObjectGroupsStreamLinkRequest_StreamType" json:"stream_type,omitempty"`
+	QueryType  GetObjectGroupsStreamRequest_QueryType  `protobuf:"varint,2,opt,name=query_type,json=queryType,proto3,enum=api.services.v1.GetObjectGroupsStreamRequest_QueryType" json:"query_type,omitempty"`
+	StreamType GetObjectGroupsStreamRequest_StreamType `protobuf:"varint,3,opt,name=stream_type,json=streamType,proto3,enum=api.services.v1.GetObjectGroupsStreamRequest_StreamType" json:"stream_type,omitempty"`
 	// Types that are assignable to Query:
-	//	*GetObjectGroupsStreamLinkRequest_GroupIds
-	//	*GetObjectGroupsStreamLinkRequest_DateRange
-	//	*GetObjectGroupsStreamLinkRequest_Dataset
-	//	*GetObjectGroupsStreamLinkRequest_DatasetVersion
-	Query isGetObjectGroupsStreamLinkRequest_Query `protobuf_oneof:"Query"`
+	//	*GetObjectGroupsStreamRequest_GroupIds
+	//	*GetObjectGroupsStreamRequest_DateRange
+	//	*GetObjectGroupsStreamRequest_Dataset
+	//	*GetObjectGroupsStreamRequest_DatasetVersion
+	Query isGetObjectGroupsStreamRequest_Query `protobuf_oneof:"query"`
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) Reset() {
-	*x = GetObjectGroupsStreamLinkRequest{}
+func (x *GetObjectGroupsStreamRequest) Reset() {
+	*x = GetObjectGroupsStreamRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -666,13 +666,13 @@ func (x *GetObjectGroupsStreamLinkRequest) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) String() string {
+func (x *GetObjectGroupsStreamRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkRequest) ProtoMessage() {}
+func (*GetObjectGroupsStreamRequest) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkRequest) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -684,89 +684,89 @@ func (x *GetObjectGroupsStreamLinkRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetQueryType() GetObjectGroupsStreamLinkRequest_QueryType {
+func (x *GetObjectGroupsStreamRequest) GetQueryType() GetObjectGroupsStreamRequest_QueryType {
 	if x != nil {
 		return x.QueryType
 	}
-	return GetObjectGroupsStreamLinkRequest_GROUPIDS
+	return GetObjectGroupsStreamRequest_QUERY_TYPE_GROUPIDS
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetStreamType() GetObjectGroupsStreamLinkRequest_StreamType {
+func (x *GetObjectGroupsStreamRequest) GetStreamType() GetObjectGroupsStreamRequest_StreamType {
 	if x != nil {
 		return x.StreamType
 	}
-	return GetObjectGroupsStreamLinkRequest_BASE64NEWLINE
+	return GetObjectGroupsStreamRequest_STREAM_TYPE_BASE64NEWLINE
 }
 
-func (m *GetObjectGroupsStreamLinkRequest) GetQuery() isGetObjectGroupsStreamLinkRequest_Query {
+func (m *GetObjectGroupsStreamRequest) GetQuery() isGetObjectGroupsStreamRequest_Query {
 	if m != nil {
 		return m.Query
 	}
 	return nil
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetGroupIds() *GetObjectGroupsStreamLinkRequest_GroupIDsQuery {
-	if x, ok := x.GetQuery().(*GetObjectGroupsStreamLinkRequest_GroupIds); ok {
+func (x *GetObjectGroupsStreamRequest) GetGroupIds() *GetObjectGroupsStreamRequest_GroupIDsQuery {
+	if x, ok := x.GetQuery().(*GetObjectGroupsStreamRequest_GroupIds); ok {
 		return x.GroupIds
 	}
 	return nil
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetDateRange() *GetObjectGroupsStreamLinkRequest_DateRangeQuery {
-	if x, ok := x.GetQuery().(*GetObjectGroupsStreamLinkRequest_DateRange); ok {
+func (x *GetObjectGroupsStreamRequest) GetDateRange() *GetObjectGroupsStreamRequest_DateRangeQuery {
+	if x, ok := x.GetQuery().(*GetObjectGroupsStreamRequest_DateRange); ok {
 		return x.DateRange
 	}
 	return nil
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetDataset() *GetObjectGroupsStreamLinkRequest_DatasetQuery {
-	if x, ok := x.GetQuery().(*GetObjectGroupsStreamLinkRequest_Dataset); ok {
+func (x *GetObjectGroupsStreamRequest) GetDataset() *GetObjectGroupsStreamRequest_DatasetQuery {
+	if x, ok := x.GetQuery().(*GetObjectGroupsStreamRequest_Dataset); ok {
 		return x.Dataset
 	}
 	return nil
 }
 
-func (x *GetObjectGroupsStreamLinkRequest) GetDatasetVersion() *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery {
-	if x, ok := x.GetQuery().(*GetObjectGroupsStreamLinkRequest_DatasetVersion); ok {
+func (x *GetObjectGroupsStreamRequest) GetDatasetVersion() *GetObjectGroupsStreamRequest_DatasetVersionQuery {
+	if x, ok := x.GetQuery().(*GetObjectGroupsStreamRequest_DatasetVersion); ok {
 		return x.DatasetVersion
 	}
 	return nil
 }
 
-type isGetObjectGroupsStreamLinkRequest_Query interface {
-	isGetObjectGroupsStreamLinkRequest_Query()
+type isGetObjectGroupsStreamRequest_Query interface {
+	isGetObjectGroupsStreamRequest_Query()
 }
 
-type GetObjectGroupsStreamLinkRequest_GroupIds struct {
-	GroupIds *GetObjectGroupsStreamLinkRequest_GroupIDsQuery `protobuf:"bytes,4,opt,name=group_ids,json=groupIds,proto3,oneof"`
+type GetObjectGroupsStreamRequest_GroupIds struct {
+	GroupIds *GetObjectGroupsStreamRequest_GroupIDsQuery `protobuf:"bytes,4,opt,name=group_ids,json=groupIds,proto3,oneof"`
 }
 
-type GetObjectGroupsStreamLinkRequest_DateRange struct {
-	DateRange *GetObjectGroupsStreamLinkRequest_DateRangeQuery `protobuf:"bytes,5,opt,name=date_range,json=dateRange,proto3,oneof"`
+type GetObjectGroupsStreamRequest_DateRange struct {
+	DateRange *GetObjectGroupsStreamRequest_DateRangeQuery `protobuf:"bytes,5,opt,name=date_range,json=dateRange,proto3,oneof"`
 }
 
-type GetObjectGroupsStreamLinkRequest_Dataset struct {
-	Dataset *GetObjectGroupsStreamLinkRequest_DatasetQuery `protobuf:"bytes,6,opt,name=dataset,proto3,oneof"`
+type GetObjectGroupsStreamRequest_Dataset struct {
+	Dataset *GetObjectGroupsStreamRequest_DatasetQuery `protobuf:"bytes,6,opt,name=dataset,proto3,oneof"`
 }
 
-type GetObjectGroupsStreamLinkRequest_DatasetVersion struct {
-	DatasetVersion *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery `protobuf:"bytes,7,opt,name=dataset_version,json=datasetVersion,proto3,oneof"`
+type GetObjectGroupsStreamRequest_DatasetVersion struct {
+	DatasetVersion *GetObjectGroupsStreamRequest_DatasetVersionQuery `protobuf:"bytes,7,opt,name=dataset_version,json=datasetVersion,proto3,oneof"`
 }
 
-func (*GetObjectGroupsStreamLinkRequest_GroupIds) isGetObjectGroupsStreamLinkRequest_Query() {}
+func (*GetObjectGroupsStreamRequest_GroupIds) isGetObjectGroupsStreamRequest_Query() {}
 
-func (*GetObjectGroupsStreamLinkRequest_DateRange) isGetObjectGroupsStreamLinkRequest_Query() {}
+func (*GetObjectGroupsStreamRequest_DateRange) isGetObjectGroupsStreamRequest_Query() {}
 
-func (*GetObjectGroupsStreamLinkRequest_Dataset) isGetObjectGroupsStreamLinkRequest_Query() {}
+func (*GetObjectGroupsStreamRequest_Dataset) isGetObjectGroupsStreamRequest_Query() {}
 
-func (*GetObjectGroupsStreamLinkRequest_DatasetVersion) isGetObjectGroupsStreamLinkRequest_Query() {}
+func (*GetObjectGroupsStreamRequest_DatasetVersion) isGetObjectGroupsStreamRequest_Query() {}
 
-type GetObjectGroupsStreamLinkResponse struct {
+type GetObjectGroupsStreamResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -774,8 +774,8 @@ type GetObjectGroupsStreamLinkResponse struct {
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 }
 
-func (x *GetObjectGroupsStreamLinkResponse) Reset() {
-	*x = GetObjectGroupsStreamLinkResponse{}
+func (x *GetObjectGroupsStreamResponse) Reset() {
+	*x = GetObjectGroupsStreamResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -783,13 +783,13 @@ func (x *GetObjectGroupsStreamLinkResponse) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkResponse) String() string {
+func (x *GetObjectGroupsStreamResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkResponse) ProtoMessage() {}
+func (*GetObjectGroupsStreamResponse) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkResponse) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -801,12 +801,12 @@ func (x *GetObjectGroupsStreamLinkResponse) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkResponse.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamResponse.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamResponse) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *GetObjectGroupsStreamLinkResponse) GetUrl() string {
+func (x *GetObjectGroupsStreamResponse) GetUrl() string {
 	if x != nil {
 		return x.Url
 	}
@@ -1398,7 +1398,7 @@ func (*DeleteDatasetVersionResponse) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{23}
 }
 
-type GetObjectGroupsStreamLinkRequest_DateRangeQuery struct {
+type GetObjectGroupsStreamRequest_DateRangeQuery struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1408,8 +1408,8 @@ type GetObjectGroupsStreamLinkRequest_DateRangeQuery struct {
 	End       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=end,proto3" json:"end,omitempty"`
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) Reset() {
-	*x = GetObjectGroupsStreamLinkRequest_DateRangeQuery{}
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) Reset() {
+	*x = GetObjectGroupsStreamRequest_DateRangeQuery{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1417,13 +1417,13 @@ func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) String() string {
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkRequest_DateRangeQuery) ProtoMessage() {}
+func (*GetObjectGroupsStreamRequest_DateRangeQuery) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1435,33 +1435,33 @@ func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) ProtoReflect() protore
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_DateRangeQuery.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkRequest_DateRangeQuery) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_DateRangeQuery.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest_DateRangeQuery) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 0}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) GetDatasetId() uint64 {
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) GetDatasetId() uint64 {
 	if x != nil {
 		return x.DatasetId
 	}
 	return 0
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) GetStart() *timestamppb.Timestamp {
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) GetStart() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Start
 	}
 	return nil
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DateRangeQuery) GetEnd() *timestamppb.Timestamp {
+func (x *GetObjectGroupsStreamRequest_DateRangeQuery) GetEnd() *timestamppb.Timestamp {
 	if x != nil {
 		return x.End
 	}
 	return nil
 }
 
-type GetObjectGroupsStreamLinkRequest_GroupIDsQuery struct {
+type GetObjectGroupsStreamRequest_GroupIDsQuery struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1470,8 +1470,8 @@ type GetObjectGroupsStreamLinkRequest_GroupIDsQuery struct {
 	ObjectGroups []uint64 `protobuf:"varint,1,rep,packed,name=object_groups,json=objectGroups,proto3" json:"object_groups,omitempty"`
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) Reset() {
-	*x = GetObjectGroupsStreamLinkRequest_GroupIDsQuery{}
+func (x *GetObjectGroupsStreamRequest_GroupIDsQuery) Reset() {
+	*x = GetObjectGroupsStreamRequest_GroupIDsQuery{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1479,13 +1479,13 @@ func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) String() string {
+func (x *GetObjectGroupsStreamRequest_GroupIDsQuery) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkRequest_GroupIDsQuery) ProtoMessage() {}
+func (*GetObjectGroupsStreamRequest_GroupIDsQuery) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamRequest_GroupIDsQuery) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1497,26 +1497,26 @@ func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) ProtoReflect() protoref
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_GroupIDsQuery.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkRequest_GroupIDsQuery) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_GroupIDsQuery.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest_GroupIDsQuery) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 1}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) GetDatasetId() uint64 {
+func (x *GetObjectGroupsStreamRequest_GroupIDsQuery) GetDatasetId() uint64 {
 	if x != nil {
 		return x.DatasetId
 	}
 	return 0
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_GroupIDsQuery) GetObjectGroups() []uint64 {
+func (x *GetObjectGroupsStreamRequest_GroupIDsQuery) GetObjectGroups() []uint64 {
 	if x != nil {
 		return x.ObjectGroups
 	}
 	return nil
 }
 
-type GetObjectGroupsStreamLinkRequest_DatasetQuery struct {
+type GetObjectGroupsStreamRequest_DatasetQuery struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1524,8 +1524,8 @@ type GetObjectGroupsStreamLinkRequest_DatasetQuery struct {
 	DatasetId uint64 `protobuf:"varint,1,opt,name=dataset_id,json=datasetId,proto3" json:"dataset_id,omitempty"`
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) Reset() {
-	*x = GetObjectGroupsStreamLinkRequest_DatasetQuery{}
+func (x *GetObjectGroupsStreamRequest_DatasetQuery) Reset() {
+	*x = GetObjectGroupsStreamRequest_DatasetQuery{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1533,13 +1533,13 @@ func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) String() string {
+func (x *GetObjectGroupsStreamRequest_DatasetQuery) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkRequest_DatasetQuery) ProtoMessage() {}
+func (*GetObjectGroupsStreamRequest_DatasetQuery) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamRequest_DatasetQuery) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1551,19 +1551,19 @@ func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) ProtoReflect() protorefl
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_DatasetQuery.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkRequest_DatasetQuery) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_DatasetQuery.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest_DatasetQuery) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 2}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetQuery) GetDatasetId() uint64 {
+func (x *GetObjectGroupsStreamRequest_DatasetQuery) GetDatasetId() uint64 {
 	if x != nil {
 		return x.DatasetId
 	}
 	return 0
 }
 
-type GetObjectGroupsStreamLinkRequest_DatasetVersionQuery struct {
+type GetObjectGroupsStreamRequest_DatasetVersionQuery struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1571,8 +1571,8 @@ type GetObjectGroupsStreamLinkRequest_DatasetVersionQuery struct {
 	DatasetVersion uint64 `protobuf:"varint,1,opt,name=dataset_version,json=datasetVersion,proto3" json:"dataset_version,omitempty"`
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) Reset() {
-	*x = GetObjectGroupsStreamLinkRequest_DatasetVersionQuery{}
+func (x *GetObjectGroupsStreamRequest_DatasetVersionQuery) Reset() {
+	*x = GetObjectGroupsStreamRequest_DatasetVersionQuery{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1580,13 +1580,13 @@ func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) Reset() {
 	}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) String() string {
+func (x *GetObjectGroupsStreamRequest_DatasetVersionQuery) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) ProtoMessage() {}
+func (*GetObjectGroupsStreamRequest_DatasetVersionQuery) ProtoMessage() {}
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) ProtoReflect() protoreflect.Message {
+func (x *GetObjectGroupsStreamRequest_DatasetVersionQuery) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_v1_dataset_service_models_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1598,12 +1598,12 @@ func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) ProtoReflect() pr
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetObjectGroupsStreamLinkRequest_DatasetVersionQuery.ProtoReflect.Descriptor instead.
-func (*GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetObjectGroupsStreamRequest_DatasetVersionQuery.ProtoReflect.Descriptor instead.
+func (*GetObjectGroupsStreamRequest_DatasetVersionQuery) Descriptor() ([]byte, []int) {
 	return file_api_services_v1_dataset_service_models_proto_rawDescGZIP(), []int{10, 3}
 }
 
-func (x *GetObjectGroupsStreamLinkRequest_DatasetVersionQuery) GetDatasetVersion() uint64 {
+func (x *GetObjectGroupsStreamRequest_DatasetVersionQuery) GetDatasetVersion() uint64 {
 	if x != nil {
 		return x.DatasetVersion
 	}
@@ -1682,78 +1682,81 @@ var file_api_services_v1_dataset_service_models_proto_rawDesc = []byte{
 	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6d, 0x6f, 0x64,
 	0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f,
 	0x75, 0x70, 0x52, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73,
-	0x22, 0xd3, 0x08, 0x0a, 0x20, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x5a, 0x0a, 0x0a, 0x71, 0x75, 0x65, 0x72, 0x79, 0x5f, 0x74,
-	0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x3b, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f,
-	0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61,
-	0x6d, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x51, 0x75, 0x65,
-	0x72, 0x79, 0x54, 0x79, 0x70, 0x65, 0x52, 0x09, 0x71, 0x75, 0x65, 0x72, 0x79, 0x54, 0x79, 0x70,
-	0x65, 0x12, 0x5d, 0x0a, 0x0b, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x5f, 0x74, 0x79, 0x70, 0x65,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x3c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c, 0x69,
-	0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d,
-	0x54, 0x79, 0x70, 0x65, 0x52, 0x0a, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x5e, 0x0a, 0x09, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x3f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x6e, 0x6b, 0x52,
+	0x22, 0x87, 0x09, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72,
+	0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x56, 0x0a, 0x0a, 0x71, 0x75, 0x65, 0x72, 0x79, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x37, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x54, 0x79, 0x70, 0x65, 0x52, 0x09,
+	0x71, 0x75, 0x65, 0x72, 0x79, 0x54, 0x79, 0x70, 0x65, 0x12, 0x59, 0x0a, 0x0b, 0x73, 0x74, 0x72,
+	0x65, 0x61, 0x6d, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x38,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31,
+	0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73,
+	0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x53, 0x74,
+	0x72, 0x65, 0x61, 0x6d, 0x54, 0x79, 0x70, 0x65, 0x52, 0x0a, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d,
+	0x54, 0x79, 0x70, 0x65, 0x12, 0x5a, 0x0a, 0x09, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64,
+	0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x3b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x73, 0x51,
 	0x75, 0x65, 0x72, 0x79, 0x48, 0x00, 0x52, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x73,
-	0x12, 0x61, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x72, 0x61, 0x6e, 0x67, 0x65, 0x18, 0x05,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x40, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x12, 0x5d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x72, 0x61, 0x6e, 0x67, 0x65, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x3c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x6e, 0x6b,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x61, 0x6e, 0x67,
-	0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x48, 0x00, 0x52, 0x09, 0x64, 0x61, 0x74, 0x65, 0x52, 0x61,
-	0x6e, 0x67, 0x65, 0x12, 0x5a, 0x0a, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x18, 0x06,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x3e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x6e, 0x6b,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x48, 0x00, 0x52, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x12,
-	0x70, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69,
-	0x6f, 0x6e, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x45, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d,
-	0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61,
-	0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x48,
-	0x00, 0x52, 0x0e, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x1a, 0x8f, 0x01, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f,
-	0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
-	0x74, 0x49, 0x64, 0x12, 0x30, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x05,
-	0x73, 0x74, 0x61, 0x72, 0x74, 0x12, 0x2c, 0x0a, 0x03, 0x65, 0x6e, 0x64, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x03,
-	0x65, 0x6e, 0x64, 0x1a, 0x53, 0x0a, 0x0d, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x44, 0x73, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f,
-	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65,
-	0x74, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x67, 0x72,
-	0x6f, 0x75, 0x70, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0c, 0x6f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x1a, 0x2d, 0x0a, 0x0c, 0x44, 0x61, 0x74, 0x61,
-	0x73, 0x65, 0x74, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61,
-	0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61,
-	0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x1a, 0x3e, 0x0a, 0x13, 0x44, 0x61, 0x74, 0x61, 0x73,
-	0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x27,
-	0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0e, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74,
-	0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x4f, 0x0a, 0x09, 0x51, 0x75, 0x65, 0x72, 0x79,
-	0x54, 0x79, 0x70, 0x65, 0x12, 0x0c, 0x0a, 0x08, 0x47, 0x52, 0x4f, 0x55, 0x50, 0x49, 0x44, 0x53,
-	0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x44, 0x41, 0x54, 0x41, 0x53, 0x45, 0x54, 0x41, 0x4c, 0x4c,
-	0x10, 0x01, 0x12, 0x15, 0x0a, 0x11, 0x44, 0x41, 0x54, 0x41, 0x53, 0x45, 0x54, 0x56, 0x45, 0x52,
-	0x53, 0x49, 0x4f, 0x4e, 0x41, 0x4c, 0x4c, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x44, 0x41, 0x54,
-	0x45, 0x52, 0x41, 0x4e, 0x47, 0x45, 0x10, 0x03, 0x22, 0x33, 0x0a, 0x0a, 0x53, 0x74, 0x72, 0x65,
-	0x61, 0x6d, 0x54, 0x79, 0x70, 0x65, 0x12, 0x11, 0x0a, 0x0d, 0x42, 0x41, 0x53, 0x45, 0x36, 0x34,
-	0x4e, 0x45, 0x57, 0x4c, 0x49, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x07, 0x0a, 0x03, 0x5a, 0x49, 0x50,
-	0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x54, 0x41, 0x52, 0x47, 0x5a, 0x10, 0x02, 0x42, 0x07, 0x0a,
-	0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x22, 0x35, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a,
-	0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4c,
-	0x69, 0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x48, 0x00, 0x52, 0x09, 0x64, 0x61, 0x74, 0x65, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x12,
+	0x56, 0x0a, 0x07, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x3a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e,
+	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x51, 0x75, 0x65, 0x72, 0x79, 0x48, 0x00, 0x52, 0x07,
+	0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x12, 0x6c, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73,
+	0x65, 0x74, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x41, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x73, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e,
+	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x51, 0x75,
+	0x65, 0x72, 0x79, 0x48, 0x00, 0x52, 0x0e, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x1a, 0x8f, 0x01, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x61,
+	0x6e, 0x67, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61,
+	0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61,
+	0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x12, 0x30, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x52, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x12, 0x2c, 0x0a, 0x03, 0x65, 0x6e, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x52, 0x03, 0x65, 0x6e, 0x64, 0x1a, 0x53, 0x0a, 0x0d, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x49, 0x44, 0x73, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61,
+	0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x64, 0x61,
+	0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x6f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x0c,
+	0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x1a, 0x2d, 0x0a, 0x0c,
+	0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x1d, 0x0a, 0x0a,
+	0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04,
+	0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x49, 0x64, 0x1a, 0x3e, 0x0a, 0x13, 0x44,
+	0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x12, 0x27, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x5f, 0x76, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0e, 0x64, 0x61, 0x74,
+	0x61, 0x73, 0x65, 0x74, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x7b, 0x0a, 0x09, 0x51,
+	0x75, 0x65, 0x72, 0x79, 0x54, 0x79, 0x70, 0x65, 0x12, 0x17, 0x0a, 0x13, 0x51, 0x55, 0x45, 0x52,
+	0x59, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x47, 0x52, 0x4f, 0x55, 0x50, 0x49, 0x44, 0x53, 0x10,
+	0x00, 0x12, 0x19, 0x0a, 0x15, 0x51, 0x55, 0x45, 0x52, 0x59, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
+	0x44, 0x41, 0x54, 0x41, 0x53, 0x45, 0x54, 0x41, 0x4c, 0x4c, 0x10, 0x01, 0x12, 0x20, 0x0a, 0x1c,
+	0x51, 0x55, 0x45, 0x52, 0x59, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x44, 0x41, 0x54, 0x41, 0x53,
+	0x45, 0x54, 0x56, 0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e, 0x41, 0x4c, 0x4c, 0x10, 0x02, 0x12, 0x18,
+	0x0a, 0x14, 0x51, 0x55, 0x45, 0x52, 0x59, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x44, 0x41, 0x54,
+	0x45, 0x52, 0x41, 0x4e, 0x47, 0x45, 0x10, 0x03, 0x22, 0x57, 0x0a, 0x0a, 0x53, 0x74, 0x72, 0x65,
+	0x61, 0x6d, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1d, 0x0a, 0x19, 0x53, 0x54, 0x52, 0x45, 0x41, 0x4d,
+	0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x42, 0x41, 0x53, 0x45, 0x36, 0x34, 0x4e, 0x45, 0x57, 0x4c,
+	0x49, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x13, 0x0a, 0x0f, 0x53, 0x54, 0x52, 0x45, 0x41, 0x4d, 0x5f,
+	0x54, 0x59, 0x50, 0x45, 0x5f, 0x5a, 0x49, 0x50, 0x10, 0x01, 0x12, 0x15, 0x0a, 0x11, 0x53, 0x54,
+	0x52, 0x45, 0x41, 0x4d, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x54, 0x41, 0x52, 0x47, 0x5a, 0x10,
+	0x02, 0x42, 0x07, 0x0a, 0x05, 0x71, 0x75, 0x65, 0x72, 0x79, 0x22, 0x31, 0x0a, 0x1d, 0x47, 0x65,
+	0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x53, 0x74, 0x72,
+	0x65, 0x61, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75,
 	0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x66, 0x0a,
 	0x19, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x61, 0x74, 0x61, 0x73, 0x65, 0x74, 0x46, 0x69,
 	0x65, 0x6c, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x49, 0x0a, 0x0e, 0x75, 0x70,
@@ -1840,44 +1843,44 @@ func file_api_services_v1_dataset_service_models_proto_rawDescGZIP() []byte {
 var file_api_services_v1_dataset_service_models_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_api_services_v1_dataset_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_api_services_v1_dataset_service_models_proto_goTypes = []interface{}{
-	(GetObjectGroupsStreamLinkRequest_QueryType)(0),              // 0: api.services.v1.GetObjectGroupsStreamLinkRequest.QueryType
-	(GetObjectGroupsStreamLinkRequest_StreamType)(0),             // 1: api.services.v1.GetObjectGroupsStreamLinkRequest.StreamType
-	(*CreateDatasetRequest)(nil),                                 // 2: api.services.v1.CreateDatasetRequest
-	(*CreateDatasetResponse)(nil),                                // 3: api.services.v1.CreateDatasetResponse
-	(*GetDatasetRequest)(nil),                                    // 4: api.services.v1.GetDatasetRequest
-	(*GetDatasetResponse)(nil),                                   // 5: api.services.v1.GetDatasetResponse
-	(*GetDatasetVersionsRequest)(nil),                            // 6: api.services.v1.GetDatasetVersionsRequest
-	(*GetDatasetVersionsResponse)(nil),                           // 7: api.services.v1.GetDatasetVersionsResponse
-	(*GetDatasetObjectGroupsRequest)(nil),                        // 8: api.services.v1.GetDatasetObjectGroupsRequest
-	(*GetDatasetObjectGroupsResponse)(nil),                       // 9: api.services.v1.GetDatasetObjectGroupsResponse
-	(*GetObjectGroupsInDateRangeRequest)(nil),                    // 10: api.services.v1.GetObjectGroupsInDateRangeRequest
-	(*GetObjectGroupsInDateRangeResponse)(nil),                   // 11: api.services.v1.GetObjectGroupsInDateRangeResponse
-	(*GetObjectGroupsStreamLinkRequest)(nil),                     // 12: api.services.v1.GetObjectGroupsStreamLinkRequest
-	(*GetObjectGroupsStreamLinkResponse)(nil),                    // 13: api.services.v1.GetObjectGroupsStreamLinkResponse
-	(*UpdateDatasetFieldRequest)(nil),                            // 14: api.services.v1.UpdateDatasetFieldRequest
-	(*UpdateDatasetFieldResponse)(nil),                           // 15: api.services.v1.UpdateDatasetFieldResponse
-	(*DeleteDatasetRequest)(nil),                                 // 16: api.services.v1.DeleteDatasetRequest
-	(*DeleteDatasetResponse)(nil),                                // 17: api.services.v1.DeleteDatasetResponse
-	(*ReleaseDatasetVersionRequest)(nil),                         // 18: api.services.v1.ReleaseDatasetVersionRequest
-	(*ReleaseDatasetVersionResponse)(nil),                        // 19: api.services.v1.ReleaseDatasetVersionResponse
-	(*GetDatasetVersionRequest)(nil),                             // 20: api.services.v1.GetDatasetVersionRequest
-	(*GetDatasetVersionResponse)(nil),                            // 21: api.services.v1.GetDatasetVersionResponse
-	(*GetDatasetVersionObjectGroupsRequest)(nil),                 // 22: api.services.v1.GetDatasetVersionObjectGroupsRequest
-	(*GetDatasetVersionObjectGroupsResponse)(nil),                // 23: api.services.v1.GetDatasetVersionObjectGroupsResponse
-	(*DeleteDatasetVersionRequest)(nil),                          // 24: api.services.v1.DeleteDatasetVersionRequest
-	(*DeleteDatasetVersionResponse)(nil),                         // 25: api.services.v1.DeleteDatasetVersionResponse
-	(*GetObjectGroupsStreamLinkRequest_DateRangeQuery)(nil),      // 26: api.services.v1.GetObjectGroupsStreamLinkRequest.DateRangeQuery
-	(*GetObjectGroupsStreamLinkRequest_GroupIDsQuery)(nil),       // 27: api.services.v1.GetObjectGroupsStreamLinkRequest.GroupIDsQuery
-	(*GetObjectGroupsStreamLinkRequest_DatasetQuery)(nil),        // 28: api.services.v1.GetObjectGroupsStreamLinkRequest.DatasetQuery
-	(*GetObjectGroupsStreamLinkRequest_DatasetVersionQuery)(nil), // 29: api.services.v1.GetObjectGroupsStreamLinkRequest.DatasetVersionQuery
-	(*v1.Label)(nil),                                             // 30: api.models.v1.Label
-	(*v1.Metadata)(nil),                                          // 31: api.models.v1.Metadata
-	(*v1.Dataset)(nil),                                           // 32: api.models.v1.Dataset
-	(*v1.DatasetVersion)(nil),                                    // 33: api.models.v1.DatasetVersion
-	(*v1.ObjectGroup)(nil),                                       // 34: api.models.v1.ObjectGroup
-	(*timestamppb.Timestamp)(nil),                                // 35: google.protobuf.Timestamp
-	(*v1.UpdateFieldsRequest)(nil),                               // 36: api.models.v1.UpdateFieldsRequest
-	(*v1.Version)(nil),                                           // 37: api.models.v1.Version
+	(GetObjectGroupsStreamRequest_QueryType)(0),              // 0: api.services.v1.GetObjectGroupsStreamRequest.QueryType
+	(GetObjectGroupsStreamRequest_StreamType)(0),             // 1: api.services.v1.GetObjectGroupsStreamRequest.StreamType
+	(*CreateDatasetRequest)(nil),                             // 2: api.services.v1.CreateDatasetRequest
+	(*CreateDatasetResponse)(nil),                            // 3: api.services.v1.CreateDatasetResponse
+	(*GetDatasetRequest)(nil),                                // 4: api.services.v1.GetDatasetRequest
+	(*GetDatasetResponse)(nil),                               // 5: api.services.v1.GetDatasetResponse
+	(*GetDatasetVersionsRequest)(nil),                        // 6: api.services.v1.GetDatasetVersionsRequest
+	(*GetDatasetVersionsResponse)(nil),                       // 7: api.services.v1.GetDatasetVersionsResponse
+	(*GetDatasetObjectGroupsRequest)(nil),                    // 8: api.services.v1.GetDatasetObjectGroupsRequest
+	(*GetDatasetObjectGroupsResponse)(nil),                   // 9: api.services.v1.GetDatasetObjectGroupsResponse
+	(*GetObjectGroupsInDateRangeRequest)(nil),                // 10: api.services.v1.GetObjectGroupsInDateRangeRequest
+	(*GetObjectGroupsInDateRangeResponse)(nil),               // 11: api.services.v1.GetObjectGroupsInDateRangeResponse
+	(*GetObjectGroupsStreamRequest)(nil),                     // 12: api.services.v1.GetObjectGroupsStreamRequest
+	(*GetObjectGroupsStreamResponse)(nil),                    // 13: api.services.v1.GetObjectGroupsStreamResponse
+	(*UpdateDatasetFieldRequest)(nil),                        // 14: api.services.v1.UpdateDatasetFieldRequest
+	(*UpdateDatasetFieldResponse)(nil),                       // 15: api.services.v1.UpdateDatasetFieldResponse
+	(*DeleteDatasetRequest)(nil),                             // 16: api.services.v1.DeleteDatasetRequest
+	(*DeleteDatasetResponse)(nil),                            // 17: api.services.v1.DeleteDatasetResponse
+	(*ReleaseDatasetVersionRequest)(nil),                     // 18: api.services.v1.ReleaseDatasetVersionRequest
+	(*ReleaseDatasetVersionResponse)(nil),                    // 19: api.services.v1.ReleaseDatasetVersionResponse
+	(*GetDatasetVersionRequest)(nil),                         // 20: api.services.v1.GetDatasetVersionRequest
+	(*GetDatasetVersionResponse)(nil),                        // 21: api.services.v1.GetDatasetVersionResponse
+	(*GetDatasetVersionObjectGroupsRequest)(nil),             // 22: api.services.v1.GetDatasetVersionObjectGroupsRequest
+	(*GetDatasetVersionObjectGroupsResponse)(nil),            // 23: api.services.v1.GetDatasetVersionObjectGroupsResponse
+	(*DeleteDatasetVersionRequest)(nil),                      // 24: api.services.v1.DeleteDatasetVersionRequest
+	(*DeleteDatasetVersionResponse)(nil),                     // 25: api.services.v1.DeleteDatasetVersionResponse
+	(*GetObjectGroupsStreamRequest_DateRangeQuery)(nil),      // 26: api.services.v1.GetObjectGroupsStreamRequest.DateRangeQuery
+	(*GetObjectGroupsStreamRequest_GroupIDsQuery)(nil),       // 27: api.services.v1.GetObjectGroupsStreamRequest.GroupIDsQuery
+	(*GetObjectGroupsStreamRequest_DatasetQuery)(nil),        // 28: api.services.v1.GetObjectGroupsStreamRequest.DatasetQuery
+	(*GetObjectGroupsStreamRequest_DatasetVersionQuery)(nil), // 29: api.services.v1.GetObjectGroupsStreamRequest.DatasetVersionQuery
+	(*v1.Label)(nil),                                         // 30: api.models.v1.Label
+	(*v1.Metadata)(nil),                                      // 31: api.models.v1.Metadata
+	(*v1.Dataset)(nil),                                       // 32: api.models.v1.Dataset
+	(*v1.DatasetVersion)(nil),                                // 33: api.models.v1.DatasetVersion
+	(*v1.ObjectGroup)(nil),                                   // 34: api.models.v1.ObjectGroup
+	(*timestamppb.Timestamp)(nil),                            // 35: google.protobuf.Timestamp
+	(*v1.UpdateFieldsRequest)(nil),                           // 36: api.models.v1.UpdateFieldsRequest
+	(*v1.Version)(nil),                                       // 37: api.models.v1.Version
 }
 var file_api_services_v1_dataset_service_models_proto_depIdxs = []int32{
 	30, // 0: api.services.v1.CreateDatasetRequest.labels:type_name -> api.models.v1.Label
@@ -1888,20 +1891,20 @@ var file_api_services_v1_dataset_service_models_proto_depIdxs = []int32{
 	35, // 5: api.services.v1.GetObjectGroupsInDateRangeRequest.start:type_name -> google.protobuf.Timestamp
 	35, // 6: api.services.v1.GetObjectGroupsInDateRangeRequest.end:type_name -> google.protobuf.Timestamp
 	34, // 7: api.services.v1.GetObjectGroupsInDateRangeResponse.object_groups:type_name -> api.models.v1.ObjectGroup
-	0,  // 8: api.services.v1.GetObjectGroupsStreamLinkRequest.query_type:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.QueryType
-	1,  // 9: api.services.v1.GetObjectGroupsStreamLinkRequest.stream_type:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.StreamType
-	27, // 10: api.services.v1.GetObjectGroupsStreamLinkRequest.group_ids:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.GroupIDsQuery
-	26, // 11: api.services.v1.GetObjectGroupsStreamLinkRequest.date_range:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.DateRangeQuery
-	28, // 12: api.services.v1.GetObjectGroupsStreamLinkRequest.dataset:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.DatasetQuery
-	29, // 13: api.services.v1.GetObjectGroupsStreamLinkRequest.dataset_version:type_name -> api.services.v1.GetObjectGroupsStreamLinkRequest.DatasetVersionQuery
+	0,  // 8: api.services.v1.GetObjectGroupsStreamRequest.query_type:type_name -> api.services.v1.GetObjectGroupsStreamRequest.QueryType
+	1,  // 9: api.services.v1.GetObjectGroupsStreamRequest.stream_type:type_name -> api.services.v1.GetObjectGroupsStreamRequest.StreamType
+	27, // 10: api.services.v1.GetObjectGroupsStreamRequest.group_ids:type_name -> api.services.v1.GetObjectGroupsStreamRequest.GroupIDsQuery
+	26, // 11: api.services.v1.GetObjectGroupsStreamRequest.date_range:type_name -> api.services.v1.GetObjectGroupsStreamRequest.DateRangeQuery
+	28, // 12: api.services.v1.GetObjectGroupsStreamRequest.dataset:type_name -> api.services.v1.GetObjectGroupsStreamRequest.DatasetQuery
+	29, // 13: api.services.v1.GetObjectGroupsStreamRequest.dataset_version:type_name -> api.services.v1.GetObjectGroupsStreamRequest.DatasetVersionQuery
 	36, // 14: api.services.v1.UpdateDatasetFieldRequest.update_request:type_name -> api.models.v1.UpdateFieldsRequest
 	37, // 15: api.services.v1.ReleaseDatasetVersionRequest.version:type_name -> api.models.v1.Version
 	30, // 16: api.services.v1.ReleaseDatasetVersionRequest.labels:type_name -> api.models.v1.Label
 	31, // 17: api.services.v1.ReleaseDatasetVersionRequest.metadata:type_name -> api.models.v1.Metadata
 	33, // 18: api.services.v1.GetDatasetVersionResponse.dataset_version:type_name -> api.models.v1.DatasetVersion
 	34, // 19: api.services.v1.GetDatasetVersionObjectGroupsResponse.object_group:type_name -> api.models.v1.ObjectGroup
-	35, // 20: api.services.v1.GetObjectGroupsStreamLinkRequest.DateRangeQuery.start:type_name -> google.protobuf.Timestamp
-	35, // 21: api.services.v1.GetObjectGroupsStreamLinkRequest.DateRangeQuery.end:type_name -> google.protobuf.Timestamp
+	35, // 20: api.services.v1.GetObjectGroupsStreamRequest.DateRangeQuery.start:type_name -> google.protobuf.Timestamp
+	35, // 21: api.services.v1.GetObjectGroupsStreamRequest.DateRangeQuery.end:type_name -> google.protobuf.Timestamp
 	22, // [22:22] is the sub-list for method output_type
 	22, // [22:22] is the sub-list for method input_type
 	22, // [22:22] is the sub-list for extension type_name
@@ -2036,7 +2039,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkRequest); i {
+			switch v := v.(*GetObjectGroupsStreamRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2048,7 +2051,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkResponse); i {
+			switch v := v.(*GetObjectGroupsStreamResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2204,7 +2207,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkRequest_DateRangeQuery); i {
+			switch v := v.(*GetObjectGroupsStreamRequest_DateRangeQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2216,7 +2219,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkRequest_GroupIDsQuery); i {
+			switch v := v.(*GetObjectGroupsStreamRequest_GroupIDsQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2228,7 +2231,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkRequest_DatasetQuery); i {
+			switch v := v.(*GetObjectGroupsStreamRequest_DatasetQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2240,7 +2243,7 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 			}
 		}
 		file_api_services_v1_dataset_service_models_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectGroupsStreamLinkRequest_DatasetVersionQuery); i {
+			switch v := v.(*GetObjectGroupsStreamRequest_DatasetVersionQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2253,10 +2256,10 @@ func file_api_services_v1_dataset_service_models_proto_init() {
 		}
 	}
 	file_api_services_v1_dataset_service_models_proto_msgTypes[10].OneofWrappers = []interface{}{
-		(*GetObjectGroupsStreamLinkRequest_GroupIds)(nil),
-		(*GetObjectGroupsStreamLinkRequest_DateRange)(nil),
-		(*GetObjectGroupsStreamLinkRequest_Dataset)(nil),
-		(*GetObjectGroupsStreamLinkRequest_DatasetVersion)(nil),
+		(*GetObjectGroupsStreamRequest_GroupIds)(nil),
+		(*GetObjectGroupsStreamRequest_DateRange)(nil),
+		(*GetObjectGroupsStreamRequest_Dataset)(nil),
+		(*GetObjectGroupsStreamRequest_DatasetVersion)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
