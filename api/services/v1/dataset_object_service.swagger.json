@@ -318,12 +318,12 @@
             "$ref": "#/definitions/v1CreateObjectRequest"
           }
         },
+        "includeObjectLink": {
+          "type": "boolean"
+        },
         "generated": {
           "type": "string",
           "format": "date-time"
-        },
-        "includeObjectLink": {
-          "type": "boolean"
         }
       }
     },
@@ -372,10 +372,6 @@
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
-        },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },

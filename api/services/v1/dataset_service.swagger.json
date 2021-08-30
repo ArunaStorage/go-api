@@ -632,12 +632,6 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
-        },
-        "versionTags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1VersionTag"
-          }
         }
       }
     },
@@ -690,6 +684,10 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
+        },
+        "projectId": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -1121,18 +1119,6 @@
         },
         "stage": {
           "$ref": "#/definitions/VersionVersionStage"
-        }
-      }
-    },
-    "v1VersionTag": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "versionId": {
-          "type": "string",
-          "format": "uint64"
         }
       }
     }
