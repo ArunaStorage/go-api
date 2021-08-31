@@ -671,12 +671,6 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
-        },
-        "versionTags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1VersionTag"
-          }
         }
       }
     },
@@ -815,18 +809,6 @@
         },
         "resource": {
           "$ref": "#/definitions/v1Resource"
-        }
-      }
-    },
-    "v1VersionTag": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "versionId": {
-          "type": "string",
-          "format": "uint64"
         }
       }
     }
