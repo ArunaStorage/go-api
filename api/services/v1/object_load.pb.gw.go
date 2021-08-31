@@ -135,8 +135,8 @@ func local_request_ObjectLoadService_CreateDownloadLink_0(ctx context.Context, m
 
 }
 
-func request_ObjectLoadService_StartMultipartUpload_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectLoadServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq StartMultipartUploadRequest
+func request_ObjectLoadService_CreateDownloadLinkBatch_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectLoadServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDownloadLinkBatchRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -146,6 +146,32 @@ func request_ObjectLoadService_StartMultipartUpload_0(ctx context.Context, marsh
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
+	msg, err := client.CreateDownloadLinkBatch(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectLoadService_CreateDownloadLinkBatch_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectLoadServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDownloadLinkBatchRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreateDownloadLinkBatch(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ObjectLoadService_StartMultipartUpload_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectLoadServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq StartMultipartUploadRequest
+	var metadata runtime.ServerMetadata
 
 	var (
 		val string
@@ -173,14 +199,6 @@ func local_request_ObjectLoadService_StartMultipartUpload_0(ctx context.Context,
 	var protoReq StartMultipartUploadRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	var (
 		val string
 		ok  bool
@@ -206,14 +224,6 @@ func local_request_ObjectLoadService_StartMultipartUpload_0(ctx context.Context,
 func request_ObjectLoadService_GetMultipartUploadLink_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectLoadServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetMultipartUploadLinkRequest
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	var (
 		val string
@@ -250,14 +260,6 @@ func request_ObjectLoadService_GetMultipartUploadLink_0(ctx context.Context, mar
 func local_request_ObjectLoadService_GetMultipartUploadLink_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectLoadServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetMultipartUploadLinkRequest
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	var (
 		val string
@@ -377,6 +379,29 @@ func RegisterObjectLoadServiceHandlerServer(ctx context.Context, mux *runtime.Se
 
 	})
 
+	mux.Handle("POST", pattern_ObjectLoadService_CreateDownloadLinkBatch_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.services.v1.ObjectLoadService/CreateDownloadLinkBatch", runtime.WithHTTPPathPattern("/api/v1/objectload/download_batch"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectLoadService_CreateDownloadLinkBatch_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectLoadService_CreateDownloadLinkBatch_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_ObjectLoadService_StartMultipartUpload_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -400,7 +425,7 @@ func RegisterObjectLoadServiceHandlerServer(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_ObjectLoadService_GetMultipartUploadLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ObjectLoadService_GetMultipartUploadLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -527,6 +552,26 @@ func RegisterObjectLoadServiceHandlerClient(ctx context.Context, mux *runtime.Se
 
 	})
 
+	mux.Handle("POST", pattern_ObjectLoadService_CreateDownloadLinkBatch_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.ObjectLoadService/CreateDownloadLinkBatch", runtime.WithHTTPPathPattern("/api/v1/objectload/download_batch"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectLoadService_CreateDownloadLinkBatch_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectLoadService_CreateDownloadLinkBatch_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_ObjectLoadService_StartMultipartUpload_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -547,7 +592,7 @@ func RegisterObjectLoadServiceHandlerClient(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_ObjectLoadService_GetMultipartUploadLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ObjectLoadService_GetMultipartUploadLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -595,6 +640,8 @@ var (
 
 	pattern_ObjectLoadService_CreateDownloadLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "objectload", "download", "id"}, ""))
 
+	pattern_ObjectLoadService_CreateDownloadLinkBatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectload", "download_batch"}, ""))
+
 	pattern_ObjectLoadService_StartMultipartUpload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"api", "v1", "objectload", "init_multipart", "id"}, ""))
 
 	pattern_ObjectLoadService_GetMultipartUploadLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "objectload", "upload_multipart_part", "object_id", "upload_part"}, ""))
@@ -606,6 +653,8 @@ var (
 	forward_ObjectLoadService_CreateUploadLink_0 = runtime.ForwardResponseMessage
 
 	forward_ObjectLoadService_CreateDownloadLink_0 = runtime.ForwardResponseMessage
+
+	forward_ObjectLoadService_CreateDownloadLinkBatch_0 = runtime.ForwardResponseMessage
 
 	forward_ObjectLoadService_StartMultipartUpload_0 = runtime.ForwardResponseMessage
 

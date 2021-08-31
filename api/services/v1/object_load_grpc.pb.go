@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ObjectLoadServiceClient interface {
 	CreateUploadLink(ctx context.Context, in *CreateUploadLinkRequest, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(ctx context.Context, in *CreateDownloadLinkRequest, opts ...grpc.CallOption) (*CreateDownloadLinkResponse, error)
+	CreateDownloadLinkBatch(ctx context.Context, in *CreateDownloadLinkBatchRequest, opts ...grpc.CallOption) (*CreateDownloadLinkBatchResponse, error)
 	StartMultipartUpload(ctx context.Context, in *StartMultipartUploadRequest, opts ...grpc.CallOption) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadLinkRequest, opts ...grpc.CallOption) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartUploadRequest, opts ...grpc.CallOption) (*CompleteMultipartUploadResponse, error)
@@ -45,6 +46,15 @@ func (c *objectLoadServiceClient) CreateUploadLink(ctx context.Context, in *Crea
 func (c *objectLoadServiceClient) CreateDownloadLink(ctx context.Context, in *CreateDownloadLinkRequest, opts ...grpc.CallOption) (*CreateDownloadLinkResponse, error) {
 	out := new(CreateDownloadLinkResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.ObjectLoadService/CreateDownloadLink", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectLoadServiceClient) CreateDownloadLinkBatch(ctx context.Context, in *CreateDownloadLinkBatchRequest, opts ...grpc.CallOption) (*CreateDownloadLinkBatchResponse, error) {
+	out := new(CreateDownloadLinkBatchResponse)
+	err := c.cc.Invoke(ctx, "/api.services.v1.ObjectLoadService/CreateDownloadLinkBatch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +94,7 @@ func (c *objectLoadServiceClient) CompleteMultipartUpload(ctx context.Context, i
 type ObjectLoadServiceServer interface {
 	CreateUploadLink(context.Context, *CreateUploadLinkRequest) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(context.Context, *CreateDownloadLinkRequest) (*CreateDownloadLinkResponse, error)
+	CreateDownloadLinkBatch(context.Context, *CreateDownloadLinkBatchRequest) (*CreateDownloadLinkBatchResponse, error)
 	StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(context.Context, *GetMultipartUploadLinkRequest) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(context.Context, *CompleteMultipartUploadRequest) (*CompleteMultipartUploadResponse, error)
@@ -98,6 +109,9 @@ func (UnimplementedObjectLoadServiceServer) CreateUploadLink(context.Context, *C
 }
 func (UnimplementedObjectLoadServiceServer) CreateDownloadLink(context.Context, *CreateDownloadLinkRequest) (*CreateDownloadLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDownloadLink not implemented")
+}
+func (UnimplementedObjectLoadServiceServer) CreateDownloadLinkBatch(context.Context, *CreateDownloadLinkBatchRequest) (*CreateDownloadLinkBatchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDownloadLinkBatch not implemented")
 }
 func (UnimplementedObjectLoadServiceServer) StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartMultipartUpload not implemented")
@@ -152,6 +166,24 @@ func _ObjectLoadService_CreateDownloadLink_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ObjectLoadServiceServer).CreateDownloadLink(ctx, req.(*CreateDownloadLinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectLoadService_CreateDownloadLinkBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDownloadLinkBatchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectLoadServiceServer).CreateDownloadLinkBatch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.services.v1.ObjectLoadService/CreateDownloadLinkBatch",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectLoadServiceServer).CreateDownloadLinkBatch(ctx, req.(*CreateDownloadLinkBatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -224,6 +256,10 @@ var ObjectLoadService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateDownloadLink",
 			Handler:    _ObjectLoadService_CreateDownloadLink_Handler,
+		},
+		{
+			MethodName: "CreateDownloadLinkBatch",
+			Handler:    _ObjectLoadService_CreateDownloadLinkBatch_Handler,
 		},
 		{
 			MethodName: "StartMultipartUpload",

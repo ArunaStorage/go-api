@@ -79,6 +79,38 @@
         ]
       }
     },
+    "/api/v1/objectload/download_batch": {
+      "post": {
+        "operationId": "ObjectLoadService_CreateDownloadLinkBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinkBatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinkBatchRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
     "/api/v1/objectload/init_multipart/{id}": {
       "post": {
         "operationId": "ObjectLoadService_StartMultipartUpload",
@@ -103,14 +135,6 @@
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
-            }
           }
         ],
         "tags": [
@@ -150,7 +174,7 @@
       }
     },
     "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
-      "post": {
+      "get": {
         "operationId": "ObjectLoadService_GetMultipartUploadLink",
         "responses": {
           "200": {
@@ -180,14 +204,6 @@
             "required": true,
             "type": "string",
             "format": "int64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
-            }
           }
         ],
         "tags": [
@@ -284,6 +300,37 @@
         "part": {
           "type": "string",
           "format": "int64"
+        }
+      }
+    },
+    "v1CreateDownloadLinkBatchRequest": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateDownloadLinkRequest"
+          }
+        }
+      }
+    },
+    "v1CreateDownloadLinkBatchResponse": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateDownloadLinkResponse"
+          }
+        }
+      }
+    },
+    "v1CreateDownloadLinkRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
