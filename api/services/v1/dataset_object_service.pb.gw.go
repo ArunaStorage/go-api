@@ -99,58 +99,6 @@ func local_request_DatasetObjectsService_CreateObjectGroupBatch_0(ctx context.Co
 
 }
 
-func request_DatasetObjectsService_CreateObjectGroupStream_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (DatasetObjectsService_CreateObjectGroupStreamClient, runtime.ServerMetadata, error) {
-	var metadata runtime.ServerMetadata
-	stream, err := client.CreateObjectGroupStream(ctx)
-	if err != nil {
-		grpclog.Infof("Failed to start streaming: %v", err)
-		return nil, metadata, err
-	}
-	dec := marshaler.NewDecoder(req.Body)
-	handleSend := func() error {
-		var protoReq CreateObjectGroupStreamRequest
-		err := dec.Decode(&protoReq)
-		if err == io.EOF {
-			return err
-		}
-		if err != nil {
-			grpclog.Infof("Failed to decode request: %v", err)
-			return err
-		}
-		if err := stream.Send(&protoReq); err != nil {
-			grpclog.Infof("Failed to send request: %v", err)
-			return err
-		}
-		return nil
-	}
-	if err := handleSend(); err != nil {
-		if cerr := stream.CloseSend(); cerr != nil {
-			grpclog.Infof("Failed to terminate client stream: %v", cerr)
-		}
-		if err == io.EOF {
-			return stream, metadata, nil
-		}
-		return nil, metadata, err
-	}
-	go func() {
-		for {
-			if err := handleSend(); err != nil {
-				break
-			}
-		}
-		if err := stream.CloseSend(); err != nil {
-			grpclog.Infof("Failed to terminate client stream: %v", err)
-		}
-	}()
-	header, err := stream.Header()
-	if err != nil {
-		grpclog.Infof("Failed to get header from client: %v", err)
-		return nil, metadata, err
-	}
-	metadata.HeaderMD = header
-	return stream, metadata, nil
-}
-
 func request_DatasetObjectsService_GetObjectGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetObjectGroupRequest
 	var metadata runtime.ServerMetadata
@@ -323,13 +271,6 @@ func RegisterDatasetObjectsServiceHandlerServer(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("POST", pattern_DatasetObjectsService_CreateObjectGroupStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
-		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-		return
-	})
-
 	mux.Handle("POST", pattern_DatasetObjectsService_GetObjectGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -480,26 +421,6 @@ func RegisterDatasetObjectsServiceHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("POST", pattern_DatasetObjectsService_CreateObjectGroupStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.DatasetObjectsService/CreateObjectGroupStream", runtime.WithHTTPPathPattern("/api/v1/objectgroupbatch_stream/create"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_DatasetObjectsService_CreateObjectGroupStream_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_DatasetObjectsService_CreateObjectGroupStream_0(ctx, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_DatasetObjectsService_GetObjectGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -568,8 +489,6 @@ var (
 
 	pattern_DatasetObjectsService_CreateObjectGroupBatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgroupbatch", "create"}, ""))
 
-	pattern_DatasetObjectsService_CreateObjectGroupStream_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgroupbatch_stream", "create"}, ""))
-
 	pattern_DatasetObjectsService_GetObjectGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgroup", "get"}, ""))
 
 	pattern_DatasetObjectsService_FinishObjectUpload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "object", "finish"}, ""))
@@ -581,8 +500,6 @@ var (
 	forward_DatasetObjectsService_CreateObjectGroup_0 = runtime.ForwardResponseMessage
 
 	forward_DatasetObjectsService_CreateObjectGroupBatch_0 = runtime.ForwardResponseMessage
-
-	forward_DatasetObjectsService_CreateObjectGroupStream_0 = runtime.ForwardResponseStream
 
 	forward_DatasetObjectsService_GetObjectGroup_0 = runtime.ForwardResponseMessage
 
