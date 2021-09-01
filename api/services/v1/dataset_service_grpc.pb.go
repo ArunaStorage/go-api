@@ -24,8 +24,11 @@ type DatasetServiceClient interface {
 	GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error)
 	// Lists Versions of a dataset
 	GetDatasetVersions(ctx context.Context, in *GetDatasetVersionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionsResponse, error)
+	// Lists all object groups of a dataset
 	GetDatasetObjectGroups(ctx context.Context, in *GetDatasetObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetObjectGroupsResponse, error)
-	GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error)
+	// Returns a signed link that can be used to download all objects from the specified request
+	// The link is signed using hmac and the resulting data can be shared without exposing any secrets
+	GetObjectGroupsStreamLink(ctx context.Context, in *GetObjectGroupsStreamLinkRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -82,9 +85,9 @@ func (c *datasetServiceClient) GetDatasetObjectGroups(ctx context.Context, in *G
 	return out, nil
 }
 
-func (c *datasetServiceClient) GetObjectGroupsStream(ctx context.Context, in *GetObjectGroupsStreamRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamResponse, error) {
-	out := new(GetObjectGroupsStreamResponse)
-	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetObjectGroupsStream", in, out, opts...)
+func (c *datasetServiceClient) GetObjectGroupsStreamLink(ctx context.Context, in *GetObjectGroupsStreamLinkRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamLinkResponse, error) {
+	out := new(GetObjectGroupsStreamLinkResponse)
+	err := c.cc.Invoke(ctx, "/api.services.v1.DatasetService/GetObjectGroupsStreamLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -164,8 +167,11 @@ type DatasetServiceServer interface {
 	GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error)
 	// Lists Versions of a dataset
 	GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error)
+	// Lists all object groups of a dataset
 	GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error)
-	GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error)
+	// Returns a signed link that can be used to download all objects from the specified request
+	// The link is signed using hmac and the resulting data can be shared without exposing any secrets
+	GetObjectGroupsStreamLink(context.Context, *GetObjectGroupsStreamLinkRequest) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
@@ -194,8 +200,8 @@ func (UnimplementedDatasetServiceServer) GetDatasetVersions(context.Context, *Ge
 func (UnimplementedDatasetServiceServer) GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetObjectGroups not implemented")
 }
-func (UnimplementedDatasetServiceServer) GetObjectGroupsStream(context.Context, *GetObjectGroupsStreamRequest) (*GetObjectGroupsStreamResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupsStream not implemented")
+func (UnimplementedDatasetServiceServer) GetObjectGroupsStreamLink(context.Context, *GetObjectGroupsStreamLinkRequest) (*GetObjectGroupsStreamLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupsStreamLink not implemented")
 }
 func (UnimplementedDatasetServiceServer) UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetField not implemented")
@@ -302,20 +308,20 @@ func _DatasetService_GetDatasetObjectGroups_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetService_GetObjectGroupsStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetObjectGroupsStreamRequest)
+func _DatasetService_GetObjectGroupsStreamLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupsStreamLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, in)
+		return srv.(DatasetServiceServer).GetObjectGroupsStreamLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.services.v1.DatasetService/GetObjectGroupsStream",
+		FullMethod: "/api.services.v1.DatasetService/GetObjectGroupsStreamLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetServiceServer).GetObjectGroupsStream(ctx, req.(*GetObjectGroupsStreamRequest))
+		return srv.(DatasetServiceServer).GetObjectGroupsStreamLink(ctx, req.(*GetObjectGroupsStreamLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -470,8 +476,8 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetService_GetDatasetObjectGroups_Handler,
 		},
 		{
-			MethodName: "GetObjectGroupsStream",
-			Handler:    _DatasetService_GetObjectGroupsStream_Handler,
+			MethodName: "GetObjectGroupsStreamLink",
+			Handler:    _DatasetService_GetObjectGroupsStreamLink_Handler,
 		},
 		{
 			MethodName: "UpdateDatasetField",

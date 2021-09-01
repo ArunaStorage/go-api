@@ -84,6 +84,7 @@
     },
     "/api/v1/dataset/list": {
       "post": {
+        "summary": "Lists all object groups of a dataset",
         "operationId": "DatasetService_GetDatasetObjectGroups",
         "responses": {
           "200": {
@@ -374,12 +375,13 @@
     },
     "/api/v1/objectgroupsstream": {
       "post": {
-        "operationId": "DatasetService_GetObjectGroupsStream",
+        "summary": "Returns a signed link that can be used to download all objects from the specified request\nThe link is signed using hmac and the resulting data can be shared without exposing any secrets",
+        "operationId": "DatasetService_GetObjectGroupsStreamLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamResponse"
+              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkResponse"
             }
           },
           "default": {
@@ -395,7 +397,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamRequest"
+              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequest"
             }
           }
         ],
@@ -406,7 +408,7 @@
     }
   },
   "definitions": {
-    "GetObjectGroupsStreamRequestDatasetQuery": {
+    "GetObjectGroupsStreamLinkRequestDatasetQuery": {
       "type": "object",
       "properties": {
         "datasetId": {
@@ -415,7 +417,7 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestDatasetVersionQuery": {
+    "GetObjectGroupsStreamLinkRequestDatasetVersionQuery": {
       "type": "object",
       "properties": {
         "datasetVersion": {
@@ -424,7 +426,7 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestDateRangeQuery": {
+    "GetObjectGroupsStreamLinkRequestDateRangeQuery": {
       "type": "object",
       "properties": {
         "datasetId": {
@@ -441,7 +443,7 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestGroupIDsQuery": {
+    "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
       "type": "object",
       "properties": {
         "datasetId": {
@@ -457,17 +459,7 @@
         }
       }
     },
-    "GetObjectGroupsStreamRequestQueryType": {
-      "type": "string",
-      "enum": [
-        "QUERY_TYPE_GROUPIDS",
-        "QUERY_TYPE_DATASETALL",
-        "QUERY_TYPE_DATASETVERSIONALL",
-        "QUERY_TYPE_DATERANGE"
-      ],
-      "default": "QUERY_TYPE_GROUPIDS"
-    },
-    "GetObjectGroupsStreamRequestStreamType": {
+    "GetObjectGroupsStreamLinkRequestStreamType": {
       "type": "string",
       "enum": [
         "STREAM_TYPE_BASE64NEWLINE",
@@ -819,30 +811,33 @@
         }
       }
     },
-    "v1GetObjectGroupsStreamRequest": {
+    "v1GetObjectGroupsStreamLinkRequest": {
       "type": "object",
       "properties": {
-        "queryType": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestQueryType"
-        },
         "streamType": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestStreamType"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestStreamType"
         },
         "groupIds": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestGroupIDsQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestGroupIDsQuery"
         },
         "dateRange": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDateRangeQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDateRangeQuery"
         },
         "dataset": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetQuery"
         },
         "datasetVersion": {
-          "$ref": "#/definitions/GetObjectGroupsStreamRequestDatasetVersionQuery"
+          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetVersionQuery"
+        },
+        "expiry": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Expiry time of the link\nThis is the maximum expiry time, implementations can set maximum durations that can be shorter than this"
         }
-      }
+      },
+      "title": "GetObjectGroupsStreamLinkRequest a request for a get link to stream a set of object groups\nThe query defines what object groups should be part of the stream\nThe steam type defines how the individual objects are packed\nZIP and TARGZ will bundle objectgroups into subfolders"
     },
-    "v1GetObjectGroupsStreamResponse": {
+    "v1GetObjectGroupsStreamLinkResponse": {
       "type": "object",
       "properties": {
         "url": {
