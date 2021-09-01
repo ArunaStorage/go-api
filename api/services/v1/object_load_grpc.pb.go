@@ -21,6 +21,7 @@ type ObjectLoadServiceClient interface {
 	CreateUploadLink(ctx context.Context, in *CreateUploadLinkRequest, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(ctx context.Context, in *CreateDownloadLinkRequest, opts ...grpc.CallOption) (*CreateDownloadLinkResponse, error)
 	CreateDownloadLinkBatch(ctx context.Context, in *CreateDownloadLinkBatchRequest, opts ...grpc.CallOption) (*CreateDownloadLinkBatchResponse, error)
+	CreateDownloadLinkStream(ctx context.Context, in *CreateDownloadLinkStreamRequest, opts ...grpc.CallOption) (ObjectLoadService_CreateDownloadLinkStreamClient, error)
 	StartMultipartUpload(ctx context.Context, in *StartMultipartUploadRequest, opts ...grpc.CallOption) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadLinkRequest, opts ...grpc.CallOption) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartUploadRequest, opts ...grpc.CallOption) (*CompleteMultipartUploadResponse, error)
@@ -61,6 +62,38 @@ func (c *objectLoadServiceClient) CreateDownloadLinkBatch(ctx context.Context, i
 	return out, nil
 }
 
+func (c *objectLoadServiceClient) CreateDownloadLinkStream(ctx context.Context, in *CreateDownloadLinkStreamRequest, opts ...grpc.CallOption) (ObjectLoadService_CreateDownloadLinkStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ObjectLoadService_ServiceDesc.Streams[0], "/api.services.v1.ObjectLoadService/CreateDownloadLinkStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &objectLoadServiceCreateDownloadLinkStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ObjectLoadService_CreateDownloadLinkStreamClient interface {
+	Recv() (*CreateDownloadLinkStreamResponse, error)
+	grpc.ClientStream
+}
+
+type objectLoadServiceCreateDownloadLinkStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *objectLoadServiceCreateDownloadLinkStreamClient) Recv() (*CreateDownloadLinkStreamResponse, error) {
+	m := new(CreateDownloadLinkStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *objectLoadServiceClient) StartMultipartUpload(ctx context.Context, in *StartMultipartUploadRequest, opts ...grpc.CallOption) (*StartMultipartUploadResponse, error) {
 	out := new(StartMultipartUploadResponse)
 	err := c.cc.Invoke(ctx, "/api.services.v1.ObjectLoadService/StartMultipartUpload", in, out, opts...)
@@ -95,6 +128,7 @@ type ObjectLoadServiceServer interface {
 	CreateUploadLink(context.Context, *CreateUploadLinkRequest) (*CreateUploadLinkResponse, error)
 	CreateDownloadLink(context.Context, *CreateDownloadLinkRequest) (*CreateDownloadLinkResponse, error)
 	CreateDownloadLinkBatch(context.Context, *CreateDownloadLinkBatchRequest) (*CreateDownloadLinkBatchResponse, error)
+	CreateDownloadLinkStream(*CreateDownloadLinkStreamRequest, ObjectLoadService_CreateDownloadLinkStreamServer) error
 	StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(context.Context, *GetMultipartUploadLinkRequest) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(context.Context, *CompleteMultipartUploadRequest) (*CompleteMultipartUploadResponse, error)
@@ -112,6 +146,9 @@ func (UnimplementedObjectLoadServiceServer) CreateDownloadLink(context.Context, 
 }
 func (UnimplementedObjectLoadServiceServer) CreateDownloadLinkBatch(context.Context, *CreateDownloadLinkBatchRequest) (*CreateDownloadLinkBatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDownloadLinkBatch not implemented")
+}
+func (UnimplementedObjectLoadServiceServer) CreateDownloadLinkStream(*CreateDownloadLinkStreamRequest, ObjectLoadService_CreateDownloadLinkStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method CreateDownloadLinkStream not implemented")
 }
 func (UnimplementedObjectLoadServiceServer) StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartMultipartUpload not implemented")
@@ -186,6 +223,27 @@ func _ObjectLoadService_CreateDownloadLinkBatch_Handler(srv interface{}, ctx con
 		return srv.(ObjectLoadServiceServer).CreateDownloadLinkBatch(ctx, req.(*CreateDownloadLinkBatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectLoadService_CreateDownloadLinkStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CreateDownloadLinkStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ObjectLoadServiceServer).CreateDownloadLinkStream(m, &objectLoadServiceCreateDownloadLinkStreamServer{stream})
+}
+
+type ObjectLoadService_CreateDownloadLinkStreamServer interface {
+	Send(*CreateDownloadLinkStreamResponse) error
+	grpc.ServerStream
+}
+
+type objectLoadServiceCreateDownloadLinkStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *objectLoadServiceCreateDownloadLinkStreamServer) Send(m *CreateDownloadLinkStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _ObjectLoadService_StartMultipartUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -274,6 +332,12 @@ var ObjectLoadService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ObjectLoadService_CompleteMultipartUpload_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "CreateDownloadLinkStream",
+			Handler:       _ObjectLoadService_CreateDownloadLinkStream_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "api/services/v1/object_load.proto",
 }
