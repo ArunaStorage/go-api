@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/models/v1/common_models.proto",
+    "title": "grpc/gateway/protoc_gen_openapiv2/options/annotations.proto",
     "version": "version not set"
   },
   "consumes": [
@@ -12,7 +12,19 @@
   ],
   "paths": {},
   "definitions": {
-    "googlerpcStatus": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
       "type": "object",
       "properties": {
         "code": {
@@ -27,18 +39,6 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "typeUrl": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
       }
     }

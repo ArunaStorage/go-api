@@ -111,6 +111,47 @@
         ]
       }
     },
+    "/api/v1/objectload/download_batch_stream": {
+      "post": {
+        "operationId": "ObjectLoadService_CreateDownloadLinkStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1CreateDownloadLinkStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1CreateDownloadLinkStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateDownloadLinkStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectLoadService"
+        ]
+      }
+    },
     "/api/v1/objectload/init_multipart/{id}": {
       "post": {
         "operationId": "ObjectLoadService_StartMultipartUpload",
@@ -261,6 +302,17 @@
         }
       }
     },
+    "modelsv1Status": {
+      "type": "string",
+      "enum": [
+        "INITIATING",
+        "AVAILABLE",
+        "UPDATING",
+        "ARCHIVED",
+        "DELETING"
+      ],
+      "default": "INITIATING"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -345,6 +397,67 @@
         }
       }
     },
+    "v1CreateDownloadLinkStreamRequest": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDatasetQuery"
+        },
+        "datasetVersion": {
+          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDatasetVersionQuery"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDateRangeQuery"
+        }
+      }
+    },
+    "v1CreateDownloadLinkStreamRequestDatasetQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1CreateDownloadLinkStreamRequestDatasetVersionQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "datasetVersionId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1CreateDownloadLinkStreamRequestDateRangeQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1CreateDownloadLinkStreamResponse": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "$ref": "#/definitions/v1LinksResponse"
+        }
+      }
+    },
     "v1CreateUploadLinkResponse": {
       "type": "object",
       "properties": {
@@ -394,6 +507,34 @@
         }
       },
       "title": "A location in S3"
+    },
+    "v1InnerLinksResponse": {
+      "type": "object",
+      "properties": {
+        "objectLinks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1LinksResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
+          }
+        },
+        "objectGroupLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1InnerLinksResponse"
+          }
+        }
+      }
     },
     "v1Metadata": {
       "type": "object",
@@ -473,6 +614,54 @@
         "projectId": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "v1ObjectGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Metadata"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

@@ -408,41 +408,6 @@
     }
   },
   "definitions": {
-    "GetObjectGroupsStreamLinkRequestDatasetQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "GetObjectGroupsStreamLinkRequestDatasetVersionQuery": {
-      "type": "object",
-      "properties": {
-        "datasetVersion": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "GetObjectGroupsStreamLinkRequestDateRangeQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "start": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "end": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
       "type": "object",
       "properties": {
@@ -821,13 +786,13 @@
           "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestGroupIDsQuery"
         },
         "dateRange": {
-          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDateRangeQuery"
+          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDateRangeQuery"
         },
         "dataset": {
-          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetQuery"
+          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDatasetQuery"
         },
         "datasetVersion": {
-          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestDatasetVersionQuery"
+          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDatasetVersionQuery"
         },
         "expiry": {
           "type": "string",
@@ -836,6 +801,45 @@
         }
       },
       "title": "GetObjectGroupsStreamLinkRequest a request for a get link to stream a set of object groups\nThe query defines what object groups should be part of the stream\nThe steam type defines how the individual objects are packed\nZIP and TARGZ will bundle objectgroups into subfolders"
+    },
+    "v1GetObjectGroupsStreamLinkRequestDatasetQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1GetObjectGroupsStreamLinkRequestDatasetVersionQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "datasetVersionId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1GetObjectGroupsStreamLinkRequestDateRangeQuery": {
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "v1GetObjectGroupsStreamLinkResponse": {
       "type": "object",
