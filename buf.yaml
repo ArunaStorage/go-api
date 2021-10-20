@@ -38,3 +38,4 @@ lint:
       - api/models/*
 deps:
   - buf.build/grpc-ecosystem/grpc-gateway
+  - buf.build/googleapis/googleapis
