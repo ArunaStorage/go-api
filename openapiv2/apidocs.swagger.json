@@ -3067,12 +3067,13 @@
   "securityDefinitions": {
     "OAuth2": {
       "type": "oauth2",
-      "flow": "implicit",
-      "authorizationUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/auth",
-      "tokenUrl": "https://keycloak.infra.ingress.rancher.computational.bio/auth/realms/BioDataDB/protocol/openid-connect/token",
+      "flow": "accessCode",
+      "authorizationUrl": "https://keycloak.m1.k8s.computational.bio/auth/realms/NFDI4Biodiversity/protocol/openid-connect/auth",
+      "tokenUrl": "https://keycloak.m1.k8s.computational.bio/auth/realms/NFDI4Biodiversity/protocol/openid-connect/token",
       "scopes": {
-        "email": "Grants read access",
-        "profile": "Grants write access"
+        "email": "Grants access to email",
+        "groups": "Grants access to list the users group",
+        "profile": ""
       }
     }
   },
