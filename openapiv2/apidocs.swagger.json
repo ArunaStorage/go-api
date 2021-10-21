@@ -3065,6 +3065,11 @@
     }
   },
   "securityDefinitions": {
+    "AccessKeyAuth": {
+      "type": "apiKey",
+      "name": "Grpc-Metadata-accesskey",
+      "in": "header"
+    },
     "ApiKeyAuth": {
       "type": "apiKey",
       "name": "Grpc-Metadata-API_TOKEN",
@@ -3073,6 +3078,7 @@
   },
   "security": [
     {
+      "AccessKeyAuth": [],
       "ApiKeyAuth": []
     }
   ]
