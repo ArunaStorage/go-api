@@ -3065,24 +3065,15 @@
     }
   },
   "securityDefinitions": {
-    "OAuth2": {
-      "type": "oauth2",
-      "flow": "accessCode",
-      "authorizationUrl": "https://keycloak.m1.k8s.computational.bio/auth/realms/NFDI4Biodiversity/protocol/openid-connect/auth",
-      "tokenUrl": "https://keycloak.m1.k8s.computational.bio/auth/realms/NFDI4Biodiversity/protocol/openid-connect/token",
-      "scopes": {
-        "email": "Grants access to email",
-        "groups": "Grants access to list the users group",
-        "profile": ""
-      }
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "name": "Grpc-Metadata-API_TOKEN",
+      "in": "header"
     }
   },
   "security": [
     {
-      "OAuth2": [
-        "email",
-        "profile"
-      ]
+      "ApiKeyAuth": []
     }
   ]
 }
