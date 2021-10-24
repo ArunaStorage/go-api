@@ -53,15 +53,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -98,15 +94,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -151,15 +143,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -205,15 +193,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -261,15 +245,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -317,15 +297,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -373,15 +349,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -429,15 +401,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -483,15 +451,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -538,15 +502,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -593,15 +553,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -648,15 +604,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -702,15 +654,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -758,15 +706,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -814,15 +758,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -870,15 +810,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -925,15 +861,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -978,15 +910,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1033,15 +961,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1089,15 +1013,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1144,15 +1064,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1199,15 +1115,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1252,15 +1164,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1316,15 +1224,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1371,15 +1275,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1424,15 +1324,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1477,15 +1373,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1538,15 +1430,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1594,15 +1482,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1649,15 +1533,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1703,15 +1583,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1757,15 +1633,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1811,15 +1683,11 @@
           },
           "418": {
             "description": "I'm a teapot.",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.NumericEnum"
-            }
+            "schema": {}
           },
           "500": {
             "description": "Server error",
-            "schema": {
-              "$ref": ".grpc.gateway.examples.internal.proto.examplepb.ErrorResponse"
-            }
+            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
