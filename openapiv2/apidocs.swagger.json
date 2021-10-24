@@ -2936,7 +2936,7 @@
   "securityDefinitions": {
     "AccessKeyAuth": {
       "type": "apiKey",
-      "name": "Grpc-Metadata-accesskey",
+      "name": "Grpc-Metadata-accesstoken",
       "in": "header"
     },
     "ApiKeyAuth": {
