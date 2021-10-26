@@ -33,6 +33,9 @@ type DatasetServiceClient interface {
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(ctx context.Context, in *DeleteDatasetRequest, opts ...grpc.CallOption) (*DeleteDatasetResponse, error)
+	// Returns all object groups that were created within a specific date range
+	// The date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather
+	// than the date the data was ingested into the system
 	GetObjectGroupsInDateRange(ctx context.Context, in *GetObjectGroupsInDateRangeRequest, opts ...grpc.CallOption) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error)
@@ -176,6 +179,9 @@ type DatasetServiceServer interface {
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(context.Context, *DeleteDatasetRequest) (*DeleteDatasetResponse, error)
+	// Returns all object groups that were created within a specific date range
+	// The date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather
+	// than the date the data was ingested into the system
 	GetObjectGroupsInDateRange(context.Context, *GetObjectGroupsInDateRangeRequest) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error)

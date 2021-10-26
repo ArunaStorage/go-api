@@ -18,13 +18,19 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatasetObjectsServiceClient interface {
-	//CreateObjectGroup Creates a new object group
+	// Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error)
+	// Batch request of CreateObjectGroup
+	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
-	//GetObjectGroup Returns the object group with the given ID
+	//Returns the object group with the given ID
 	GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error)
-	//FinishObjectUpload Finishes the upload process for an object
+	// Finishes the upload process for an object
+	// This will change the status of the objects to "available"
+	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error)
+	// Deletes the given object group
+	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
 }
 
@@ -85,13 +91,19 @@ func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in 
 // All implementations should embed UnimplementedDatasetObjectsServiceServer
 // for forward compatibility
 type DatasetObjectsServiceServer interface {
-	//CreateObjectGroup Creates a new object group
+	// Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error)
+	// Batch request of CreateObjectGroup
+	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
-	//GetObjectGroup Returns the object group with the given ID
+	//Returns the object group with the given ID
 	GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error)
-	//FinishObjectUpload Finishes the upload process for an object
+	// Finishes the upload process for an object
+	// This will change the status of the objects to "available"
+	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error)
+	// Deletes the given object group
+	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
 }
 

@@ -684,7 +684,7 @@
     },
     "/api/v1/object/finish": {
       "post": {
-        "summary": "FinishObjectUpload Finishes the upload process for an object",
+        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
         "operationId": "DatasetObjectsService_FinishObjectUpload",
         "responses": {
           "200": {
@@ -736,7 +736,7 @@
     },
     "/api/v1/objectgroup/create": {
       "post": {
-        "summary": "CreateObjectGroup Creates a new object group",
+        "summary": "Creates a new object group",
         "operationId": "DatasetObjectsService_CreateObjectGroup",
         "responses": {
           "200": {
@@ -788,7 +788,7 @@
     },
     "/api/v1/objectgroup/get": {
       "post": {
-        "summary": "GetObjectGroup Returns the object group with the given ID",
+        "summary": "Returns the object group with the given ID",
         "operationId": "DatasetObjectsService_GetObjectGroup",
         "responses": {
           "200": {
@@ -840,6 +840,7 @@
     },
     "/api/v1/objectgroup/{id}": {
       "delete": {
+        "summary": "Deletes the given object group\nThis will also delete all associated objects both as metadata objects and the actual objects in the object storage",
         "operationId": "DatasetObjectsService_DeleteObjectGroup",
         "responses": {
           "200": {
@@ -889,6 +890,7 @@
     },
     "/api/v1/objectgroupbatch/create": {
       "post": {
+        "summary": "Batch request of CreateObjectGroup\nThe call will preserve the ordering of the request in the response",
         "operationId": "DatasetObjectsService_CreateObjectGroupBatch",
         "responses": {
           "200": {
@@ -940,6 +942,7 @@
     },
     "/api/v1/objectgroupsindaterange/query": {
       "post": {
+        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather\nthan the date the data was ingested into the system",
         "operationId": "DatasetService_GetObjectGroupsInDateRange",
         "responses": {
           "200": {
@@ -1094,6 +1097,7 @@
     },
     "/api/v1/objectload/download/{id}": {
       "get": {
+        "summary": "Creates a download link for an object\nReturns a presigned https GET request",
         "operationId": "ObjectLoadService_CreateDownloadLink",
         "responses": {
           "200": {
@@ -1134,6 +1138,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "range.startByte",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "range.endByte",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1143,6 +1161,7 @@
     },
     "/api/v1/objectload/download_batch": {
       "post": {
+        "summary": "Creates links for multiple objects at once\nThe order of the requested objects is preserved in the response",
         "operationId": "ObjectLoadService_CreateDownloadLinkBatch",
         "responses": {
           "200": {
@@ -1194,6 +1213,7 @@
     },
     "/api/v1/objectload/download_batch_stream": {
       "post": {
+        "summary": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of ObjectGroups as a stream that would otherwise cause issues with the connection",
         "operationId": "ObjectLoadService_CreateDownloadLinkStream",
         "responses": {
           "200": {
@@ -1254,6 +1274,7 @@
     },
     "/api/v1/objectload/init_multipart/{id}": {
       "post": {
+        "summary": "Initiates a multipart upload for an object\nThis is intended to be used for larger objects\nFor further information please read the Amazon S3 documentation on multipart uploads\nHas to be used together with GetMultipartUploadLink and CompleteMultipartUpload",
         "operationId": "ObjectLoadService_StartMultipartUpload",
         "responses": {
           "200": {
@@ -1303,6 +1324,7 @@
     },
     "/api/v1/objectload/upload/{id}": {
       "get": {
+        "summary": "Creates an upload link for an object to upload the actual data object\nReturns a presigned https PUT request\nCan only be used to upload objects \u003c 4GB",
         "operationId": "ObjectLoadService_CreateUploadLink",
         "responses": {
           "200": {
@@ -1703,6 +1725,19 @@
     }
   },
   "definitions": {
+    "CreateDownloadLinkRequestRange": {
+      "type": "object",
+      "properties": {
+        "startByte": {
+          "type": "string",
+          "format": "int64"
+        },
+        "endByte": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "CreateObjectGroupResponseObjectLinks": {
       "type": "object",
       "properties": {
@@ -1954,6 +1989,9 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "range": {
+          "$ref": "#/definitions/CreateDownloadLinkRequestRange"
         }
       }
     },

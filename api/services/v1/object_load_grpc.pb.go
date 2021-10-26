@@ -18,10 +18,23 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ObjectLoadServiceClient interface {
+	// Creates an upload link for an object to upload the actual data object
+	// Returns a presigned https PUT request
+	// Can only be used to upload objects < 4GB
 	CreateUploadLink(ctx context.Context, in *CreateUploadLinkRequest, opts ...grpc.CallOption) (*CreateUploadLinkResponse, error)
+	// Creates a download link for an object
+	// Returns a presigned https GET request
 	CreateDownloadLink(ctx context.Context, in *CreateDownloadLinkRequest, opts ...grpc.CallOption) (*CreateDownloadLinkResponse, error)
+	// Creates links for multiple objects at once
+	// The order of the requested objects is preserved in the response
 	CreateDownloadLinkBatch(ctx context.Context, in *CreateDownloadLinkBatchRequest, opts ...grpc.CallOption) (*CreateDownloadLinkBatchResponse, error)
+	// Creates a stream of objects and presigned links based on the provided query
+	// This can be used retrieve a large number of ObjectGroups as a stream that would otherwise cause issues with the connection
 	CreateDownloadLinkStream(ctx context.Context, in *CreateDownloadLinkStreamRequest, opts ...grpc.CallOption) (ObjectLoadService_CreateDownloadLinkStreamClient, error)
+	// Initiates a multipart upload for an object
+	// This is intended to be used for larger objects
+	// For further information please read the Amazon S3 documentation on multipart uploads
+	// Has to be used together with GetMultipartUploadLink and CompleteMultipartUpload
 	StartMultipartUpload(ctx context.Context, in *StartMultipartUploadRequest, opts ...grpc.CallOption) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadLinkRequest, opts ...grpc.CallOption) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartUploadRequest, opts ...grpc.CallOption) (*CompleteMultipartUploadResponse, error)
@@ -125,10 +138,23 @@ func (c *objectLoadServiceClient) CompleteMultipartUpload(ctx context.Context, i
 // All implementations should embed UnimplementedObjectLoadServiceServer
 // for forward compatibility
 type ObjectLoadServiceServer interface {
+	// Creates an upload link for an object to upload the actual data object
+	// Returns a presigned https PUT request
+	// Can only be used to upload objects < 4GB
 	CreateUploadLink(context.Context, *CreateUploadLinkRequest) (*CreateUploadLinkResponse, error)
+	// Creates a download link for an object
+	// Returns a presigned https GET request
 	CreateDownloadLink(context.Context, *CreateDownloadLinkRequest) (*CreateDownloadLinkResponse, error)
+	// Creates links for multiple objects at once
+	// The order of the requested objects is preserved in the response
 	CreateDownloadLinkBatch(context.Context, *CreateDownloadLinkBatchRequest) (*CreateDownloadLinkBatchResponse, error)
+	// Creates a stream of objects and presigned links based on the provided query
+	// This can be used retrieve a large number of ObjectGroups as a stream that would otherwise cause issues with the connection
 	CreateDownloadLinkStream(*CreateDownloadLinkStreamRequest, ObjectLoadService_CreateDownloadLinkStreamServer) error
+	// Initiates a multipart upload for an object
+	// This is intended to be used for larger objects
+	// For further information please read the Amazon S3 documentation on multipart uploads
+	// Has to be used together with GetMultipartUploadLink and CompleteMultipartUpload
 	StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error)
 	GetMultipartUploadLink(context.Context, *GetMultipartUploadLinkRequest) (*GetMultipartUploadLinkResponse, error)
 	CompleteMultipartUpload(context.Context, *CompleteMultipartUploadRequest) (*CompleteMultipartUploadResponse, error)
