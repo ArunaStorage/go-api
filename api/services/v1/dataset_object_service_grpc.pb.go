@@ -18,14 +18,19 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatasetObjectsServiceClient interface {
-	//CreateObjectGroup Creates a new object group
+	// Creates a new object group
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error)
+	// Batch request of CreateObjectGroup
+	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
-	CreateObjectGroupStream(ctx context.Context, opts ...grpc.CallOption) (DatasetObjectsService_CreateObjectGroupStreamClient, error)
-	//GetObjectGroup Returns the object group with the given ID
+	//Returns the object group with the given ID
 	GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error)
-	//FinishObjectUpload Finishes the upload process for an object
+	// Finishes the upload process for an object
+	// This will change the status of the objects to "available"
+	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error)
+	// Deletes the given object group
+	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
 }
 
@@ -53,37 +58,6 @@ func (c *datasetObjectsServiceClient) CreateObjectGroupBatch(ctx context.Context
 		return nil, err
 	}
 	return out, nil
-}
-
-func (c *datasetObjectsServiceClient) CreateObjectGroupStream(ctx context.Context, opts ...grpc.CallOption) (DatasetObjectsService_CreateObjectGroupStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &DatasetObjectsService_ServiceDesc.Streams[0], "/api.services.v1.DatasetObjectsService/CreateObjectGroupStream", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &datasetObjectsServiceCreateObjectGroupStreamClient{stream}
-	return x, nil
-}
-
-type DatasetObjectsService_CreateObjectGroupStreamClient interface {
-	Send(*CreateObjectGroupStreamRequest) error
-	Recv() (*CreateObjectGroupStreamResponse, error)
-	grpc.ClientStream
-}
-
-type datasetObjectsServiceCreateObjectGroupStreamClient struct {
-	grpc.ClientStream
-}
-
-func (x *datasetObjectsServiceCreateObjectGroupStreamClient) Send(m *CreateObjectGroupStreamRequest) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *datasetObjectsServiceCreateObjectGroupStreamClient) Recv() (*CreateObjectGroupStreamResponse, error) {
-	m := new(CreateObjectGroupStreamResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
 }
 
 func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error) {
@@ -117,14 +91,19 @@ func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in 
 // All implementations should embed UnimplementedDatasetObjectsServiceServer
 // for forward compatibility
 type DatasetObjectsServiceServer interface {
-	//CreateObjectGroup Creates a new object group
+	// Creates a new object group
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error)
+	// Batch request of CreateObjectGroup
+	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
-	CreateObjectGroupStream(DatasetObjectsService_CreateObjectGroupStreamServer) error
-	//GetObjectGroup Returns the object group with the given ID
+	//Returns the object group with the given ID
 	GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error)
-	//FinishObjectUpload Finishes the upload process for an object
+	// Finishes the upload process for an object
+	// This will change the status of the objects to "available"
+	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error)
+	// Deletes the given object group
+	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
 }
 
@@ -137,9 +116,6 @@ func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Contex
 }
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupBatch not implemented")
-}
-func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupStream(DatasetObjectsService_CreateObjectGroupStreamServer) error {
-	return status.Errorf(codes.Unimplemented, "method CreateObjectGroupStream not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
@@ -196,32 +172,6 @@ func _DatasetObjectsService_CreateObjectGroupBatch_Handler(srv interface{}, ctx 
 		return srv.(DatasetObjectsServiceServer).CreateObjectGroupBatch(ctx, req.(*CreateObjectGroupBatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
-}
-
-func _DatasetObjectsService_CreateObjectGroupStream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(DatasetObjectsServiceServer).CreateObjectGroupStream(&datasetObjectsServiceCreateObjectGroupStreamServer{stream})
-}
-
-type DatasetObjectsService_CreateObjectGroupStreamServer interface {
-	Send(*CreateObjectGroupStreamResponse) error
-	Recv() (*CreateObjectGroupStreamRequest, error)
-	grpc.ServerStream
-}
-
-type datasetObjectsServiceCreateObjectGroupStreamServer struct {
-	grpc.ServerStream
-}
-
-func (x *datasetObjectsServiceCreateObjectGroupStreamServer) Send(m *CreateObjectGroupStreamResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *datasetObjectsServiceCreateObjectGroupStreamServer) Recv() (*CreateObjectGroupStreamRequest, error) {
-	m := new(CreateObjectGroupStreamRequest)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
 }
 
 func _DatasetObjectsService_GetObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -306,13 +256,6 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetObjectsService_DeleteObjectGroup_Handler,
 		},
 	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "CreateObjectGroupStream",
-			Handler:       _DatasetObjectsService_CreateObjectGroupStream_Handler,
-			ServerStreams: true,
-			ClientStreams: true,
-		},
-	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "api/services/v1/dataset_object_service.proto",
 }
