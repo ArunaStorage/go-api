@@ -2353,6 +2353,9 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "pageRequest": {
+          "$ref": "#/definitions/v1PageRequest"
         }
       }
     },
@@ -2388,6 +2391,9 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "pageRequest": {
+          "$ref": "#/definitions/v1PageRequest"
         }
       }
     },
@@ -2800,6 +2806,20 @@
           "$ref": "#/definitions/OriginOriginTypeEnum"
         }
       }
+    },
+    "v1PageRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "pageSize": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "Request for paginated result retrival\nIf the page size is zero, the backends default page size will be used\nIf the page size exceeds the backends maximum, an error will be returned\nConsistency of results will only be guaranteed for DatasetVersions"
     },
     "v1Project": {
       "type": "object",
