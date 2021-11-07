@@ -2810,16 +2810,15 @@
     "v1PageRequest": {
       "type": "object",
       "properties": {
-        "page": {
-          "type": "string",
-          "format": "uint64"
+        "lastUuid": {
+          "type": "string"
         },
         "pageSize": {
           "type": "string",
           "format": "uint64"
         }
       },
-      "title": "Request for paginated result retrival\nIf the page size is zero, the backends default page size will be used\nIf the page size exceeds the backends maximum, an error will be returned\nConsistency of results will only be guaranteed for DatasetVersions"
+      "title": "Request for paginated result retrival\nIf the page size is zero, the backends default page size will be used\nIf the page size exceeds the backends maximum, an error will be returned\nConsistency of results will only be guaranteed for DatasetVersions\nFor the initial request leave last_uuid empty"
     },
     "v1Project": {
       "type": "object",
