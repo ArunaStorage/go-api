@@ -2256,6 +2256,9 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
+        },
+        "bucket": {
+          "type": "string"
         }
       }
     },
@@ -2849,6 +2852,9 @@
           "items": {
             "$ref": "#/definitions/v1User"
           }
+        },
+        "bucket": {
+          "type": "string"
         }
       }
     },
