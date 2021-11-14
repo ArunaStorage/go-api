@@ -1790,6 +1790,18 @@
       ],
       "default": "STABLE"
     },
+    "apimodelsv1Resource": {
+      "type": "string",
+      "enum": [
+        "PROJECT_RESOURCE",
+        "DATASET_RESOURCE",
+        "DATASET_VERSION_RESOURCE",
+        "OBJECT_RESOURCE",
+        "OBJECT_GROUP_RESOURCE",
+        "OBJECT_GROUP_REVISION_RESOURCE"
+      ],
+      "default": "PROJECT_RESOURCE"
+    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -2901,18 +2913,6 @@
         }
       }
     },
-    "v1Resource": {
-      "type": "string",
-      "enum": [
-        "PROJECT_RESOURCE",
-        "DATASET_RESOURCE",
-        "DATASET_VERSION_RESOURCE",
-        "OBJECT_RESOURCE",
-        "OBJECT_GROUP_RESOURCE",
-        "OBJECT_GROUP_REVISION_RESOURCE"
-      ],
-      "default": "PROJECT_RESOURCE"
-    },
     "v1Right": {
       "type": "string",
       "enum": [
@@ -2967,7 +2967,7 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/v1Resource"
+          "$ref": "#/definitions/apimodelsv1Resource"
         }
       }
     },
