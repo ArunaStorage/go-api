@@ -15,6 +15,9 @@
       "name": "DatasetService"
     },
     {
+      "name": "UpdateNotificationService"
+    },
+    {
       "name": "ObjectLoadService"
     }
   ],
@@ -679,6 +682,66 @@
         ],
         "tags": [
           "DatasetService"
+        ]
+      }
+    },
+    "/api/v1/eventstream/notifications": {
+      "post": {
+        "operationId": "UpdateNotificationService_NotificationStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1NotificationStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1NotificationStreamResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1NotificationStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UpdateNotificationService"
         ]
       }
     },
@@ -1775,6 +1838,29 @@
       ],
       "default": "STREAM_TYPE_BASE64NEWLINE"
     },
+    "NotificationStreamRequestEventResources": {
+      "type": "string",
+      "enum": [
+        "EVENT_RESOURCES_UNSPECIFIED",
+        "EVENT_RESOURCES_PROJECT_RESOURCE",
+        "EVENT_RESOURCES_DATASET_RESOURCE",
+        "EVENT_RESOURCES_DATASET_VERSION_RESOURCE",
+        "EVENT_RESOURCES_OBJECT_GROUP_RESOURCE"
+      ],
+      "default": "EVENT_RESOURCES_UNSPECIFIED"
+    },
+    "NotificationStreamResponseUpdateType": {
+      "type": "string",
+      "enum": [
+        "UPDATE_TYPE_UNSPECIFIED",
+        "UPDATE_TYPE_CREATED",
+        "UPDATE_TYPE_AVAILABLE",
+        "UPDATE_TYPE_UPDATED",
+        "UPDATE_TYPE_METADATA_UPDATED",
+        "UPDATE_TYPE_DELETED"
+      ],
+      "default": "UPDATE_TYPE_UNSPECIFIED"
+    },
     "OriginOriginTypeEnum": {
       "type": "string",
       "enum": [
@@ -1792,18 +1878,6 @@
         "ALPHA"
       ],
       "default": "STABLE"
-    },
-    "apimodelsv1Resource": {
-      "type": "string",
-      "enum": [
-        "PROJECT_RESOURCE",
-        "DATASET_RESOURCE",
-        "DATASET_VERSION_RESOURCE",
-        "OBJECT_RESOURCE",
-        "OBJECT_GROUP_RESOURCE",
-        "OBJECT_GROUP_REVISION_RESOURCE"
-      ],
-      "default": "PROJECT_RESOURCE"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -2694,6 +2768,34 @@
         }
       }
     },
+    "v1NotificationStreamRequest": {
+      "type": "object",
+      "properties": {
+        "streamGroup": {
+          "type": "string"
+        },
+        "resource": {
+          "$ref": "#/definitions/NotificationStreamRequestEventResources"
+        },
+        "resourceId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1NotificationStreamResponse": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "$ref": "#/definitions/v1Resource"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "updatedType": {
+          "$ref": "#/definitions/NotificationStreamResponseUpdateType"
+        }
+      }
+    },
     "v1Object": {
       "type": "object",
       "properties": {
@@ -2916,6 +3018,18 @@
         }
       }
     },
+    "v1Resource": {
+      "type": "string",
+      "enum": [
+        "PROJECT_RESOURCE",
+        "DATASET_RESOURCE",
+        "DATASET_VERSION_RESOURCE",
+        "OBJECT_RESOURCE",
+        "OBJECT_GROUP_RESOURCE",
+        "OBJECT_GROUP_REVISION_RESOURCE"
+      ],
+      "default": "PROJECT_RESOURCE"
+    },
     "v1Right": {
       "type": "string",
       "enum": [
@@ -2970,7 +3084,7 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/apimodelsv1Resource"
+          "$ref": "#/definitions/v1Resource"
         }
       }
     },
