@@ -685,57 +685,6 @@
         ]
       }
     },
-    "/api/v1/eventstream/ack": {
-      "post": {
-        "operationId": "UpdateNotificationService_NotificationAck",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1NotificationAckResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1NotificationAckRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UpdateNotificationService"
-        ]
-      }
-    },
     "/api/v1/eventstream/notifications": {
       "post": {
         "operationId": "UpdateNotificationService_NotificationStream",
@@ -1900,7 +1849,7 @@
       ],
       "default": "EVENT_RESOURCES_UNSPECIFIED"
     },
-    "NotificationStreamResponseUpdateType": {
+    "NotificationStreamUpdateType": {
       "type": "string",
       "enum": [
         "UPDATE_TYPE_UNSPECIFIED",
@@ -2819,42 +2768,7 @@
         }
       }
     },
-    "v1NotificationAckRequest": {
-      "type": "object",
-      "properties": {
-        "reply": {
-          "type": "string"
-        },
-        "hmac": {
-          "type": "string"
-        },
-        "hmacSalt": {
-          "type": "string"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "v1NotificationAckResponse": {
-      "type": "object"
-    },
-    "v1NotificationStreamRequest": {
-      "type": "object",
-      "properties": {
-        "streamGroup": {
-          "type": "string"
-        },
-        "resource": {
-          "$ref": "#/definitions/NotificationStreamRequestEventResources"
-        },
-        "resourceId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1NotificationStreamResponse": {
+    "v1NotificationStream": {
       "type": "object",
       "properties": {
         "resource": {
@@ -2864,13 +2778,42 @@
           "type": "string"
         },
         "updatedType": {
-          "$ref": "#/definitions/NotificationStreamResponseUpdateType"
+          "$ref": "#/definitions/NotificationStreamUpdateType"
+        }
+      }
+    },
+    "v1NotificationStreamRequest": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "$ref": "#/definitions/NotificationStreamRequestEventResources"
         },
-        "reply": {
+        "resourceId": {
           "type": "string"
         },
-        "hmacSalt": {
-          "type": "string"
+        "includeSubresource": {
+          "type": "boolean"
+        },
+        "streamAll": {
+          "$ref": "#/definitions/v1StreamAll"
+        },
+        "streamFromDate": {
+          "$ref": "#/definitions/v1StreamFromDate"
+        },
+        "streamFromSequence": {
+          "$ref": "#/definitions/v1StreamFromSequence"
+        }
+      }
+    },
+    "v1NotificationStreamResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/v1NotificationStream"
+        },
+        "sequence": {
+          "type": "string",
+          "format": "uint64"
         },
         "timestamp": {
           "type": "string",
@@ -3125,6 +3068,27 @@
       "properties": {
         "object": {
           "$ref": "#/definitions/v1Object"
+        }
+      }
+    },
+    "v1StreamAll": {
+      "type": "object"
+    },
+    "v1StreamFromDate": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1StreamFromSequence": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
