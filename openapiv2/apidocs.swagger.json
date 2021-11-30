@@ -685,6 +685,57 @@
         ]
       }
     },
+    "/api/v1/eventstream/ack": {
+      "post": {
+        "operationId": "UpdateNotificationService_NotificationAck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1NotificationAckResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1NotificationAckRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UpdateNotificationService"
+        ]
+      }
+    },
     "/api/v1/eventstream/notifications": {
       "post": {
         "operationId": "UpdateNotificationService_NotificationStream",
@@ -2768,6 +2819,27 @@
         }
       }
     },
+    "v1NotificationAckRequest": {
+      "type": "object",
+      "properties": {
+        "reply": {
+          "type": "string"
+        },
+        "hmac": {
+          "type": "string"
+        },
+        "hmacSalt": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1NotificationAckResponse": {
+      "type": "object"
+    },
     "v1NotificationStreamRequest": {
       "type": "object",
       "properties": {
@@ -2793,6 +2865,16 @@
         },
         "updatedType": {
           "$ref": "#/definitions/NotificationStreamResponseUpdateType"
+        },
+        "reply": {
+          "type": "string"
+        },
+        "hmacSalt": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
