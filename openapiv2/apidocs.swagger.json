@@ -1815,6 +1815,18 @@
         }
       }
     },
+    "EventNotificationMessageUpdateType": {
+      "type": "string",
+      "enum": [
+        "UPDATE_TYPE_UNSPECIFIED",
+        "UPDATE_TYPE_CREATED",
+        "UPDATE_TYPE_AVAILABLE",
+        "UPDATE_TYPE_UPDATED",
+        "UPDATE_TYPE_METADATA_UPDATED",
+        "UPDATE_TYPE_DELETED"
+      ],
+      "default": "UPDATE_TYPE_UNSPECIFIED"
+    },
     "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
       "type": "object",
       "properties": {
@@ -1848,18 +1860,6 @@
         "EVENT_RESOURCES_OBJECT_GROUP_RESOURCE"
       ],
       "default": "EVENT_RESOURCES_UNSPECIFIED"
-    },
-    "NotificationStreamUpdateType": {
-      "type": "string",
-      "enum": [
-        "UPDATE_TYPE_UNSPECIFIED",
-        "UPDATE_TYPE_CREATED",
-        "UPDATE_TYPE_AVAILABLE",
-        "UPDATE_TYPE_UPDATED",
-        "UPDATE_TYPE_METADATA_UPDATED",
-        "UPDATE_TYPE_DELETED"
-      ],
-      "default": "UPDATE_TYPE_UNSPECIFIED"
     },
     "OriginOriginTypeEnum": {
       "type": "string",
@@ -2418,6 +2418,20 @@
     "v1DeleteProjectResponse": {
       "type": "object"
     },
+    "v1EventNotificationMessage": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "$ref": "#/definitions/v1Resource"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "updatedType": {
+          "$ref": "#/definitions/EventNotificationMessageUpdateType"
+        }
+      }
+    },
     "v1FinishObjectUploadRequest": {
       "type": "object",
       "properties": {
@@ -2768,20 +2782,6 @@
         }
       }
     },
-    "v1NotificationStream": {
-      "type": "object",
-      "properties": {
-        "resource": {
-          "$ref": "#/definitions/v1Resource"
-        },
-        "resourceId": {
-          "type": "string"
-        },
-        "updatedType": {
-          "$ref": "#/definitions/NotificationStreamUpdateType"
-        }
-      }
-    },
     "v1NotificationStreamRequest": {
       "type": "object",
       "properties": {
@@ -2809,7 +2809,7 @@
       "type": "object",
       "properties": {
         "message": {
-          "$ref": "#/definitions/v1NotificationStream"
+          "$ref": "#/definitions/v1EventNotificationMessage"
         },
         "sequence": {
           "type": "string",
