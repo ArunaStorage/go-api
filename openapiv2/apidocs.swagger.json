@@ -34,7 +34,7 @@
   "paths": {
     "/api/v1/apitoken": {
       "get": {
-        "summary": "Returns all API token for a specific user, based on the provided oauth2 token",
+        "summary": "GetAPIToken Returns all API token for a specific user, based on the provided oauth2 token",
         "operationId": "ProjectService_GetAPIToken",
         "responses": {
           "200": {
@@ -76,6 +76,7 @@
     },
     "/api/v1/apitoken/{id}/delete": {
       "delete": {
+        "summary": "DeleteAPIToken Deletes a specific API token",
         "operationId": "ProjectService_DeleteAPIToken",
         "responses": {
           "200": {
@@ -113,6 +114,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the API token fyou want to delete.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -125,6 +127,7 @@
     },
     "/api/v1/createapitoken": {
       "get": {
+        "summary": "CreateAPIToken Creates a new API token for a given project",
         "operationId": "ProjectService_CreateAPIToken",
         "responses": {
           "200": {
@@ -162,6 +165,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the project for that you want to create a new API token.",
             "in": "query",
             "required": false,
             "type": "string"
@@ -484,6 +488,7 @@
     },
     "/api/v1/datasetversion/get": {
       "post": {
+        "summary": "Returns the details of a specific version",
         "operationId": "DatasetService_GetDatasetVersion",
         "responses": {
           "200": {
@@ -535,6 +540,7 @@
     },
     "/api/v1/datasetversion/list": {
       "post": {
+        "summary": "Returns the object groups of a specific version",
         "operationId": "DatasetService_GetDatasetVersionObjectGroups",
         "responses": {
           "200": {
@@ -586,6 +592,7 @@
     },
     "/api/v1/datasetversion/{id}": {
       "delete": {
+        "summary": "Deletes a specific version",
         "operationId": "DatasetService_DeleteDatasetVersion",
         "responses": {
           "200": {
@@ -623,6 +630,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the version for that you want to delete.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -941,6 +949,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "The object filename.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1109,6 +1118,7 @@
     },
     "/api/v1/objectload/complete_multipart": {
       "post": {
+        "summary": "Completes a multipart upload",
         "operationId": "ObjectLoadService_CompleteMultipartUpload",
         "responses": {
           "200": {
@@ -1437,6 +1447,7 @@
     },
     "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
       "get": {
+        "summary": "Returns the upload link for one part and information about the object",
         "operationId": "ObjectLoadService_GetMultipartUploadLink",
         "responses": {
           "200": {
@@ -1597,6 +1608,7 @@
     },
     "/api/v1/project/{id}": {
       "get": {
+        "summary": "GetProject Returns the details of that specified project",
         "operationId": "ProjectService_GetProject",
         "responses": {
           "200": {
@@ -1634,6 +1646,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the project for that you want to get details.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1684,6 +1697,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the project for that you want to delete.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1734,6 +1748,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "ID of the project for that you want to get a the datasets.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1963,7 +1978,8 @@
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the user you want to add."
         },
         "scope": {
           "type": "array",
@@ -1972,9 +1988,11 @@
           }
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the project you want to add users to."
         }
-      }
+      },
+      "title": "AddUserToProjectRequest Request to add a new user to a given project"
     },
     "v1AddUserToProjectResponse": {
       "type": "object"
@@ -2020,28 +2038,33 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The dataset name."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The dataset description."
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "description": "The project ID the dataset is associated with."
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
-          }
+          },
+          "description": "The field for labels."
         },
         "metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Metadata"
-          }
+          },
+          "description": "The field for metadata."
         }
       },
-      "title": "Dataset related Models"
+      "title": "Dataset related Models\nCreateDatasetRequest Creates a new dataset"
     },
     "v1CreateDatasetResponse": {
       "type": "object",
@@ -2181,43 +2204,51 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The object group name."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The object group description."
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "description": "The ID of the dataset in that the object group should be created."
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
-          }
+          },
+          "description": "The field for labels."
         },
         "metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Metadata"
-          }
+          },
+          "description": "The field for metadata."
         },
         "objects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1CreateObjectRequest"
-          }
+          },
+          "description": "The objects to be created in that new group."
         },
         "includeObjectLink": {
           "type": "boolean"
         },
         "generated": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "The Timestamp the data in this object group was generaded."
         },
         "uuid": {
           "type": "string"
         }
-      }
+      },
+      "title": "CreateObjectGroupRequest Request to create an object group"
     },
     "v1CreateObjectGroupResponse": {
       "type": "object",
@@ -2243,55 +2274,65 @@
       "type": "object",
       "properties": {
         "filename": {
-          "type": "string"
+          "type": "string",
+          "description": "The object filename."
         },
         "filetype": {
-          "type": "string"
+          "type": "string",
+          "description": "The object filetype."
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
-          }
+          },
+          "description": "The field for labels."
         },
         "metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Metadata"
-          }
+          },
+          "description": "The field for metadata."
         },
         "contentLen": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "description": "The object filesize."
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
         }
-      }
+      },
+      "title": "CreateObjectRequest Request to create an object"
     },
     "v1CreateProjectRequest": {
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The project name."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The project description."
         },
         "metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Metadata"
-          }
+          },
+          "description": "The field for metadata."
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
-          }
+          },
+          "description": "The field for labels."
         }
       },
-      "title": "Request to create a project"
+      "title": "CreateProjectRequest Request to create a project"
     },
     "v1CreateProjectResponse": {
       "type": "object",
@@ -2458,12 +2499,14 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the dataset for that you want to get the object groups."
         },
         "pageRequest": {
           "$ref": "#/definitions/v1PageRequest"
         }
-      }
+      },
+      "title": "GetDatasetObjectGroupsRequest Request to get the object groups of a dataset"
     },
     "v1GetDatasetObjectGroupsResponse": {
       "type": "object",
@@ -2480,9 +2523,11 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the dataset for that you want to get details."
         }
-      }
+      },
+      "title": "GetDatasetRequest Request to get details of a specific dataset"
     },
     "v1GetDatasetResponse": {
       "type": "object",
@@ -2496,12 +2541,14 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the version for that you want to get the object groups."
         },
         "pageRequest": {
           "$ref": "#/definitions/v1PageRequest"
         }
-      }
+      },
+      "title": "GetDatasetVersionObjectGroupsRequest Request to get all object groups that belong to a specific version"
     },
     "v1GetDatasetVersionObjectGroupsResponse": {
       "type": "object",
@@ -2518,9 +2565,11 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the version for that you want to get details."
         }
-      }
+      },
+      "title": "GetDatasetVersionRequest Request to get details of a specific version"
     },
     "v1GetDatasetVersionResponse": {
       "type": "object",
@@ -2534,9 +2583,11 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the dataset for that you want to get the versions."
         }
-      }
+      },
+      "title": "GetDatasetVersionsRequest Request to get the versions of a specific dataset"
     },
     "v1GetDatasetVersionsResponse": {
       "type": "object",
@@ -2564,9 +2615,11 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "The object group ID."
         }
-      }
+      },
+      "title": "GetObjectGroupRequest Request to get details of a specific object group"
     },
     "v1GetObjectGroupResponse": {
       "type": "object",
@@ -3004,36 +3057,44 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The version name."
         },
         "datasetId": {
-          "type": "string"
+          "type": "string",
+          "description": "The dataset ID the version is associated with."
         },
         "version": {
-          "$ref": "#/definitions/v1Version"
+          "$ref": "#/definitions/v1Version",
+          "description": "The field for the version number."
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
-          }
+          },
+          "description": "The field for labels."
         },
         "metadata": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Metadata"
-          }
+          },
+          "description": "The field for metadata."
         },
         "objectGroupIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "The object group ids that belong to this version."
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The version description."
         }
-      }
+      },
+      "title": "ReleaseDatasetVersionRequest Request to release a new dataset version"
     },
     "v1ReleaseDatasetVersionResponse": {
       "type": "object",

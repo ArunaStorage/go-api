@@ -39,8 +39,11 @@ type DatasetServiceClient interface {
 	GetObjectGroupsInDateRange(ctx context.Context, in *GetObjectGroupsInDateRangeRequest, opts ...grpc.CallOption) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error)
+	//Returns the details of a specific version
 	GetDatasetVersion(ctx context.Context, in *GetDatasetVersionRequest, opts ...grpc.CallOption) (*GetDatasetVersionResponse, error)
+	//Returns the object groups of a specific version
 	GetDatasetVersionObjectGroups(ctx context.Context, in *GetDatasetVersionObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetVersionObjectGroupsResponse, error)
+	//Deletes a specific version
 	DeleteDatasetVersion(ctx context.Context, in *DeleteDatasetVersionRequest, opts ...grpc.CallOption) (*DeleteDatasetVersionResponse, error)
 }
 
@@ -185,8 +188,11 @@ type DatasetServiceServer interface {
 	GetObjectGroupsInDateRange(context.Context, *GetObjectGroupsInDateRangeRequest) (*GetObjectGroupsInDateRangeResponse, error)
 	//ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error)
+	//Returns the details of a specific version
 	GetDatasetVersion(context.Context, *GetDatasetVersionRequest) (*GetDatasetVersionResponse, error)
+	//Returns the object groups of a specific version
 	GetDatasetVersionObjectGroups(context.Context, *GetDatasetVersionObjectGroupsRequest) (*GetDatasetVersionObjectGroupsResponse, error)
+	//Deletes a specific version
 	DeleteDatasetVersion(context.Context, *DeleteDatasetVersionRequest) (*DeleteDatasetVersionResponse, error)
 }
 
