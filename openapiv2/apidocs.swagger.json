@@ -1812,6 +1812,10 @@
         },
         "objectId": {
           "type": "string"
+        },
+        "index": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
