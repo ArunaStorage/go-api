@@ -2896,6 +2896,9 @@
         "datasetId": {
           "type": "string"
         },
+        "projectId": {
+          "type": "string"
+        },
         "labels": {
           "type": "array",
           "items": {
