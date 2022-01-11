@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UpdateNotificationServiceClient interface {
 	CreateEventStreamingGroup(ctx context.Context, in *CreateEventStreamingGroupRequest, opts ...grpc.CallOption) (*CreateEventStreamingGroupResponse, error)
+	NotificationStreamGroup(ctx context.Context, in *NotificationStreamGroupRequest, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamGroupClient, error)
 	NotificationStream(ctx context.Context, in *NotificationStreamRequest, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamClient, error)
 }
 
@@ -39,8 +40,40 @@ func (c *updateNotificationServiceClient) CreateEventStreamingGroup(ctx context.
 	return out, nil
 }
 
+func (c *updateNotificationServiceClient) NotificationStreamGroup(ctx context.Context, in *NotificationStreamGroupRequest, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamGroupClient, error) {
+	stream, err := c.cc.NewStream(ctx, &UpdateNotificationService_ServiceDesc.Streams[0], "/api.services.v1.UpdateNotificationService/NotificationStreamGroup", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &updateNotificationServiceNotificationStreamGroupClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type UpdateNotificationService_NotificationStreamGroupClient interface {
+	Recv() (*NotificationStreamGroupResponse, error)
+	grpc.ClientStream
+}
+
+type updateNotificationServiceNotificationStreamGroupClient struct {
+	grpc.ClientStream
+}
+
+func (x *updateNotificationServiceNotificationStreamGroupClient) Recv() (*NotificationStreamGroupResponse, error) {
+	m := new(NotificationStreamGroupResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *updateNotificationServiceClient) NotificationStream(ctx context.Context, in *NotificationStreamRequest, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &UpdateNotificationService_ServiceDesc.Streams[0], "/api.services.v1.UpdateNotificationService/NotificationStream", opts...)
+	stream, err := c.cc.NewStream(ctx, &UpdateNotificationService_ServiceDesc.Streams[1], "/api.services.v1.UpdateNotificationService/NotificationStream", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,6 +109,7 @@ func (x *updateNotificationServiceNotificationStreamClient) Recv() (*Notificatio
 // for forward compatibility
 type UpdateNotificationServiceServer interface {
 	CreateEventStreamingGroup(context.Context, *CreateEventStreamingGroupRequest) (*CreateEventStreamingGroupResponse, error)
+	NotificationStreamGroup(*NotificationStreamGroupRequest, UpdateNotificationService_NotificationStreamGroupServer) error
 	NotificationStream(*NotificationStreamRequest, UpdateNotificationService_NotificationStreamServer) error
 }
 
@@ -85,6 +119,9 @@ type UnimplementedUpdateNotificationServiceServer struct {
 
 func (UnimplementedUpdateNotificationServiceServer) CreateEventStreamingGroup(context.Context, *CreateEventStreamingGroupRequest) (*CreateEventStreamingGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEventStreamingGroup not implemented")
+}
+func (UnimplementedUpdateNotificationServiceServer) NotificationStreamGroup(*NotificationStreamGroupRequest, UpdateNotificationService_NotificationStreamGroupServer) error {
+	return status.Errorf(codes.Unimplemented, "method NotificationStreamGroup not implemented")
 }
 func (UnimplementedUpdateNotificationServiceServer) NotificationStream(*NotificationStreamRequest, UpdateNotificationService_NotificationStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method NotificationStream not implemented")
@@ -117,6 +154,27 @@ func _UpdateNotificationService_CreateEventStreamingGroup_Handler(srv interface{
 		return srv.(UpdateNotificationServiceServer).CreateEventStreamingGroup(ctx, req.(*CreateEventStreamingGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _UpdateNotificationService_NotificationStreamGroup_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(NotificationStreamGroupRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(UpdateNotificationServiceServer).NotificationStreamGroup(m, &updateNotificationServiceNotificationStreamGroupServer{stream})
+}
+
+type UpdateNotificationService_NotificationStreamGroupServer interface {
+	Send(*NotificationStreamGroupResponse) error
+	grpc.ServerStream
+}
+
+type updateNotificationServiceNotificationStreamGroupServer struct {
+	grpc.ServerStream
+}
+
+func (x *updateNotificationServiceNotificationStreamGroupServer) Send(m *NotificationStreamGroupResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _UpdateNotificationService_NotificationStream_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -153,6 +211,11 @@ var UpdateNotificationService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "NotificationStreamGroup",
+			Handler:       _UpdateNotificationService_NotificationStreamGroup_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "NotificationStream",
 			Handler:       _UpdateNotificationService_NotificationStream_Handler,

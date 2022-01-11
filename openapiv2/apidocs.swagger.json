@@ -796,6 +796,66 @@
         ]
       }
     },
+    "/api/v1/eventstreamgroup/notifications": {
+      "post": {
+        "operationId": "UpdateNotificationService_NotificationStreamGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1NotificationStreamGroupResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1NotificationStreamGroupResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1NotificationStreamGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UpdateNotificationService"
+        ]
+      }
+    },
     "/api/v1/object/finish": {
       "post": {
         "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
@@ -2208,12 +2268,17 @@
       }
     },
     "v1CreateEventStreamingGroupRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "notificationRequest": {
+          "$ref": "#/definitions/v1NotificationStreamRequest"
+        }
+      }
     },
     "v1CreateEventStreamingGroupResponse": {
       "type": "object",
       "properties": {
-        "queuename": {
+        "streamGroupId": {
           "type": "string"
         }
       }
@@ -2848,6 +2913,30 @@
         }
       }
     },
+    "v1NotificationStreamGroupRequest": {
+      "type": "object",
+      "properties": {
+        "streamGroupId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1NotificationStreamGroupResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/v1EventNotificationMessage"
+        },
+        "sequence": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "v1NotificationStreamRequest": {
       "type": "object",
       "properties": {
@@ -2869,7 +2958,7 @@
         "streamFromSequence": {
           "$ref": "#/definitions/v1StreamFromSequence"
         },
-        "streamGroup": {
+        "streamGroupId": {
           "type": "string"
         }
       }
