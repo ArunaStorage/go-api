@@ -685,6 +685,57 @@
         ]
       }
     },
+    "/api/v1/eventstream/createstreaminggroup": {
+      "post": {
+        "operationId": "UpdateNotificationService_CreateEventStreamingGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateEventStreamingGroupResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateEventStreamingGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UpdateNotificationService"
+        ]
+      }
+    },
     "/api/v1/eventstream/notifications": {
       "post": {
         "operationId": "UpdateNotificationService_NotificationStream",
@@ -1005,7 +1056,7 @@
     },
     "/api/v1/objectgroupsindaterange/query": {
       "post": {
-        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather\nthan the date the data was ingested into the system",
+        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
         "operationId": "DatasetService_GetObjectGroupsInDateRange",
         "responses": {
           "200": {
@@ -1057,7 +1108,7 @@
     },
     "/api/v1/objectgroupsstream": {
       "post": {
-        "summary": "Returns a signed link that can be used to download all objects from the specified request\nThe link is signed using hmac and the resulting data can be shared without exposing any secrets",
+        "summary": "Returns a signed link that can be used to download all objects from the\nspecified request The link is signed using hmac and the resulting data can\nbe shared without exposing any secrets",
         "operationId": "DatasetService_GetObjectGroupsStreamLink",
         "responses": {
           "200": {
@@ -2156,6 +2207,17 @@
         }
       }
     },
+    "v1CreateEventStreamingGroupRequest": {
+      "type": "object"
+    },
+    "v1CreateEventStreamingGroupResponse": {
+      "type": "object",
+      "properties": {
+        "queuename": {
+          "type": "string"
+        }
+      }
+    },
     "v1CreateObjectGroupBatchRequest": {
       "type": "object",
       "properties": {
@@ -2806,6 +2868,9 @@
         },
         "streamFromSequence": {
           "$ref": "#/definitions/v1StreamFromSequence"
+        },
+        "streamGroup": {
+          "type": "string"
         }
       }
     },

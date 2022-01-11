@@ -26,18 +26,20 @@ type DatasetServiceClient interface {
 	GetDatasetVersions(ctx context.Context, in *GetDatasetVersionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionsResponse, error)
 	// Lists all object groups of a dataset
 	GetDatasetObjectGroups(ctx context.Context, in *GetDatasetObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetObjectGroupsResponse, error)
-	// Returns a signed link that can be used to download all objects from the specified request
-	// The link is signed using hmac and the resulting data can be shared without exposing any secrets
+	// Returns a signed link that can be used to download all objects from the
+	// specified request The link is signed using hmac and the resulting data can
+	// be shared without exposing any secrets
 	GetObjectGroupsStreamLink(ctx context.Context, in *GetObjectGroupsStreamLinkRequest, opts ...grpc.CallOption) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(ctx context.Context, in *UpdateDatasetFieldRequest, opts ...grpc.CallOption) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(ctx context.Context, in *DeleteDatasetRequest, opts ...grpc.CallOption) (*DeleteDatasetResponse, error)
 	// Returns all object groups that were created within a specific date range
-	// The date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather
-	// than the date the data was ingested into the system
+	// The date range is not the date when the data was created in the system but
+	// byte the externally date that indicates the actual creation of the data
+	// rather than the date the data was ingested into the system
 	GetObjectGroupsInDateRange(ctx context.Context, in *GetObjectGroupsInDateRangeRequest, opts ...grpc.CallOption) (*GetObjectGroupsInDateRangeResponse, error)
-	//ReleaseDatasetVersion Release a new dataset version
+	// ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(ctx context.Context, in *ReleaseDatasetVersionRequest, opts ...grpc.CallOption) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(ctx context.Context, in *GetDatasetVersionRequest, opts ...grpc.CallOption) (*GetDatasetVersionResponse, error)
 	GetDatasetVersionObjectGroups(ctx context.Context, in *GetDatasetVersionObjectGroupsRequest, opts ...grpc.CallOption) (*GetDatasetVersionObjectGroupsResponse, error)
@@ -172,18 +174,20 @@ type DatasetServiceServer interface {
 	GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error)
 	// Lists all object groups of a dataset
 	GetDatasetObjectGroups(context.Context, *GetDatasetObjectGroupsRequest) (*GetDatasetObjectGroupsResponse, error)
-	// Returns a signed link that can be used to download all objects from the specified request
-	// The link is signed using hmac and the resulting data can be shared without exposing any secrets
+	// Returns a signed link that can be used to download all objects from the
+	// specified request The link is signed using hmac and the resulting data can
+	// be shared without exposing any secrets
 	GetObjectGroupsStreamLink(context.Context, *GetObjectGroupsStreamLinkRequest) (*GetObjectGroupsStreamLinkResponse, error)
 	// Updates a field of a dataset
 	UpdateDatasetField(context.Context, *UpdateDatasetFieldRequest) (*UpdateDatasetFieldResponse, error)
 	// DeleteDataset Delete a dataset
 	DeleteDataset(context.Context, *DeleteDatasetRequest) (*DeleteDatasetResponse, error)
 	// Returns all object groups that were created within a specific date range
-	// The date range is not the date when the data was created in the system but byte the externally date that indicates the actual creation of the data rather
-	// than the date the data was ingested into the system
+	// The date range is not the date when the data was created in the system but
+	// byte the externally date that indicates the actual creation of the data
+	// rather than the date the data was ingested into the system
 	GetObjectGroupsInDateRange(context.Context, *GetObjectGroupsInDateRangeRequest) (*GetObjectGroupsInDateRangeResponse, error)
-	//ReleaseDatasetVersion Release a new dataset version
+	// ReleaseDatasetVersion Release a new dataset version
 	ReleaseDatasetVersion(context.Context, *ReleaseDatasetVersionRequest) (*ReleaseDatasetVersionResponse, error)
 	GetDatasetVersion(context.Context, *GetDatasetVersionRequest) (*GetDatasetVersionResponse, error)
 	GetDatasetVersionObjectGroups(context.Context, *GetDatasetVersionObjectGroupsRequest) (*GetDatasetVersionObjectGroupsResponse, error)
