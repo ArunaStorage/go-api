@@ -66,53 +66,46 @@ func local_request_UpdateNotificationService_CreateEventStreamingGroup_0(ctx con
 }
 
 func request_UpdateNotificationService_NotificationStreamGroup_0(ctx context.Context, marshaler runtime.Marshaler, client UpdateNotificationServiceClient, req *http.Request, pathParams map[string]string) (UpdateNotificationService_NotificationStreamGroupClient, runtime.ServerMetadata, error) {
-	var protoReq NotificationStreamGroupRequest
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	stream, err := client.NotificationStreamGroup(ctx, &protoReq)
+	stream, err := client.NotificationStreamGroup(ctx)
 	if err != nil {
+		grpclog.Infof("Failed to start streaming: %v", err)
 		return nil, metadata, err
 	}
+	dec := marshaler.NewDecoder(req.Body)
+	handleSend := func() error {
+		var protoReq NotificationStreamGroupRequest
+		err := dec.Decode(&protoReq)
+		if err == io.EOF {
+			return err
+		}
+		if err != nil {
+			grpclog.Infof("Failed to decode request: %v", err)
+			return err
+		}
+		if err := stream.Send(&protoReq); err != nil {
+			grpclog.Infof("Failed to send request: %v", err)
+			return err
+		}
+		return nil
+	}
+	go func() {
+		for {
+			if err := handleSend(); err != nil {
+				break
+			}
+		}
+		if err := stream.CloseSend(); err != nil {
+			grpclog.Infof("Failed to terminate client stream: %v", err)
+		}
+	}()
 	header, err := stream.Header()
 	if err != nil {
+		grpclog.Infof("Failed to get header from client: %v", err)
 		return nil, metadata, err
 	}
 	metadata.HeaderMD = header
 	return stream, metadata, nil
-
-}
-
-func request_UpdateNotificationService_NotificationStream_0(ctx context.Context, marshaler runtime.Marshaler, client UpdateNotificationServiceClient, req *http.Request, pathParams map[string]string) (UpdateNotificationService_NotificationStreamClient, runtime.ServerMetadata, error) {
-	var protoReq NotificationStreamRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	stream, err := client.NotificationStream(ctx, &protoReq)
-	if err != nil {
-		return nil, metadata, err
-	}
-	header, err := stream.Header()
-	if err != nil {
-		return nil, metadata, err
-	}
-	metadata.HeaderMD = header
-	return stream, metadata, nil
-
 }
 
 // RegisterUpdateNotificationServiceHandlerServer registers the http handlers for service UpdateNotificationService to "mux".
@@ -145,13 +138,6 @@ func RegisterUpdateNotificationServiceHandlerServer(ctx context.Context, mux *ru
 	})
 
 	mux.Handle("POST", pattern_UpdateNotificationService_NotificationStreamGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
-		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-		return
-	})
-
-	mux.Handle("POST", pattern_UpdateNotificationService_NotificationStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -239,26 +225,6 @@ func RegisterUpdateNotificationServiceHandlerClient(ctx context.Context, mux *ru
 
 	})
 
-	mux.Handle("POST", pattern_UpdateNotificationService_NotificationStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/api.services.v1.UpdateNotificationService/NotificationStream", runtime.WithHTTPPathPattern("/api/v1/eventstream/notifications"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_UpdateNotificationService_NotificationStream_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_UpdateNotificationService_NotificationStream_0(ctx, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
-
-	})
-
 	return nil
 }
 
@@ -266,14 +232,10 @@ var (
 	pattern_UpdateNotificationService_CreateEventStreamingGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "eventstream", "createstreaminggroup"}, ""))
 
 	pattern_UpdateNotificationService_NotificationStreamGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "eventstreamgroup", "notifications"}, ""))
-
-	pattern_UpdateNotificationService_NotificationStream_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "eventstream", "notifications"}, ""))
 )
 
 var (
 	forward_UpdateNotificationService_CreateEventStreamingGroup_0 = runtime.ForwardResponseMessage
 
 	forward_UpdateNotificationService_NotificationStreamGroup_0 = runtime.ForwardResponseStream
-
-	forward_UpdateNotificationService_NotificationStream_0 = runtime.ForwardResponseStream
 )

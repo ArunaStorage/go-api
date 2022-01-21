@@ -736,66 +736,6 @@
         ]
       }
     },
-    "/api/v1/eventstream/notifications": {
-      "post": {
-        "operationId": "UpdateNotificationService_NotificationStream",
-        "responses": {
-          "200": {
-            "description": "A successful response.(streaming responses)",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/v1NotificationStreamResponse"
-                },
-                "error": {
-                  "$ref": "#/definitions/googlerpcStatus"
-                }
-              },
-              "title": "Stream result of v1NotificationStreamResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1NotificationStreamRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UpdateNotificationService"
-        ]
-      }
-    },
     "/api/v1/eventstreamgroup/notifications": {
       "post": {
         "operationId": "UpdateNotificationService_NotificationStreamGroup",
@@ -844,6 +784,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": " (streaming inputs)",
             "in": "body",
             "required": true,
             "schema": {
@@ -1965,6 +1906,22 @@
       ],
       "default": "STREAM_TYPE_BASE64NEWLINE"
     },
+    "NotificationStreamGroupResponseNotification": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/v1EventNotificationMessage"
+        },
+        "sequence": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "NotificationStreamRequestEventResources": {
       "type": "string",
       "enum": [
@@ -2913,27 +2870,44 @@
         }
       }
     },
+    "v1NotficationStreamAck": {
+      "type": "object",
+      "properties": {
+        "ackChunkId": {
+          "type": "string"
+        }
+      }
+    },
     "v1NotificationStreamGroupRequest": {
       "type": "object",
       "properties": {
-        "streamGroupId": {
-          "type": "string"
+        "init": {
+          "$ref": "#/definitions/v1NotificationStreamInit"
+        },
+        "ack": {
+          "$ref": "#/definitions/v1NotficationStreamAck"
         }
       }
     },
     "v1NotificationStreamGroupResponse": {
       "type": "object",
       "properties": {
-        "message": {
-          "$ref": "#/definitions/v1EventNotificationMessage"
+        "notification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NotificationStreamGroupResponseNotification"
+          }
         },
-        "sequence": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
+        "ackChunkId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1NotificationStreamInit": {
+      "type": "object",
+      "properties": {
+        "streamGroupId": {
+          "type": "string"
         }
       }
     },
@@ -2960,22 +2934,6 @@
         },
         "streamGroupId": {
           "type": "string"
-        }
-      }
-    },
-    "v1NotificationStreamResponse": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "$ref": "#/definitions/v1EventNotificationMessage"
-        },
-        "sequence": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
