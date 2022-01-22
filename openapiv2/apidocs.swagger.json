@@ -2870,6 +2870,9 @@
         },
         "ack": {
           "$ref": "#/definitions/v1NotficationStreamAck"
+        },
+        "close": {
+          "type": "boolean"
         }
       }
     },
