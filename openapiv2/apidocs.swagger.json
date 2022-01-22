@@ -1906,22 +1906,6 @@
       ],
       "default": "STREAM_TYPE_BASE64NEWLINE"
     },
-    "NotificationStreamGroupResponseNotification": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "$ref": "#/definitions/v1EventNotificationMessage"
-        },
-        "sequence": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "NotificationStreamRequestEventResources": {
       "type": "string",
       "enum": [
@@ -2895,7 +2879,7 @@
         "notification": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/NotificationStreamGroupResponseNotification"
+            "$ref": "#/definitions/v1NotificationStreamResponse"
           }
         },
         "ackChunkId": {
@@ -2934,6 +2918,22 @@
         },
         "streamGroupId": {
           "type": "string"
+        }
+      }
+    },
+    "v1NotificationStreamResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/v1EventNotificationMessage"
+        },
+        "sequence": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
