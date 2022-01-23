@@ -2876,7 +2876,10 @@
       "type": "object",
       "properties": {
         "ackChunkId": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
