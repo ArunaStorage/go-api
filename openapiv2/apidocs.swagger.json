@@ -1853,6 +1853,17 @@
         }
       }
     },
+    "CreateEventStreamingGroupRequestEventResources": {
+      "type": "string",
+      "enum": [
+        "EVENT_RESOURCES_UNSPECIFIED",
+        "EVENT_RESOURCES_PROJECT_RESOURCE",
+        "EVENT_RESOURCES_DATASET_RESOURCE",
+        "EVENT_RESOURCES_DATASET_VERSION_RESOURCE",
+        "EVENT_RESOURCES_OBJECT_GROUP_RESOURCE"
+      ],
+      "default": "EVENT_RESOURCES_UNSPECIFIED"
+    },
     "CreateObjectGroupResponseObjectLinks": {
       "type": "object",
       "properties": {
@@ -1905,17 +1916,6 @@
         "STREAM_TYPE_TARGZ"
       ],
       "default": "STREAM_TYPE_BASE64NEWLINE"
-    },
-    "NotificationStreamRequestEventResources": {
-      "type": "string",
-      "enum": [
-        "EVENT_RESOURCES_UNSPECIFIED",
-        "EVENT_RESOURCES_PROJECT_RESOURCE",
-        "EVENT_RESOURCES_DATASET_RESOURCE",
-        "EVENT_RESOURCES_DATASET_VERSION_RESOURCE",
-        "EVENT_RESOURCES_OBJECT_GROUP_RESOURCE"
-      ],
-      "default": "EVENT_RESOURCES_UNSPECIFIED"
     },
     "OriginOriginTypeEnum": {
       "type": "string",
@@ -2211,8 +2211,26 @@
     "v1CreateEventStreamingGroupRequest": {
       "type": "object",
       "properties": {
-        "notificationRequest": {
-          "$ref": "#/definitions/v1NotificationStreamRequest"
+        "resource": {
+          "$ref": "#/definitions/CreateEventStreamingGroupRequestEventResources"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "includeSubresource": {
+          "type": "boolean"
+        },
+        "streamAll": {
+          "$ref": "#/definitions/v1StreamAll"
+        },
+        "streamFromDate": {
+          "$ref": "#/definitions/v1StreamFromDate"
+        },
+        "streamFromSequence": {
+          "$ref": "#/definitions/v1StreamFromSequence"
+        },
+        "streamGroupId": {
+          "type": "string"
         }
       }
     },
@@ -2893,32 +2911,6 @@
     "v1NotificationStreamInit": {
       "type": "object",
       "properties": {
-        "streamGroupId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1NotificationStreamRequest": {
-      "type": "object",
-      "properties": {
-        "resource": {
-          "$ref": "#/definitions/NotificationStreamRequestEventResources"
-        },
-        "resourceId": {
-          "type": "string"
-        },
-        "includeSubresource": {
-          "type": "boolean"
-        },
-        "streamAll": {
-          "$ref": "#/definitions/v1StreamAll"
-        },
-        "streamFromDate": {
-          "$ref": "#/definitions/v1StreamFromDate"
-        },
-        "streamFromSequence": {
-          "$ref": "#/definitions/v1StreamFromSequence"
-        },
         "streamGroupId": {
           "type": "string"
         }
