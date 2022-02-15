@@ -9,13 +9,13 @@
       "name": "ProjectService"
     },
     {
+      "name": "UpdateNotificationService"
+    },
+    {
       "name": "DatasetObjectsService"
     },
     {
       "name": "DatasetService"
-    },
-    {
-      "name": "UpdateNotificationService"
     },
     {
       "name": "ObjectLoadService"
@@ -125,6 +125,7 @@
     },
     "/api/v1/createapitoken": {
       "get": {
+        "summary": "Creates an API token to authenticate",
         "operationId": "ProjectService_CreateAPIToken",
         "responses": {
           "200": {
@@ -1912,29 +1913,32 @@
     "GetObjectGroupsStreamLinkRequestStreamType": {
       "type": "string",
       "enum": [
+        "STREAM_TYPE_UNSPECIFIED",
         "STREAM_TYPE_BASE64NEWLINE",
         "STREAM_TYPE_ZIP",
         "STREAM_TYPE_TARGZ"
       ],
-      "default": "STREAM_TYPE_BASE64NEWLINE"
+      "default": "STREAM_TYPE_UNSPECIFIED"
     },
-    "OriginOriginTypeEnum": {
+    "OriginOriginType": {
       "type": "string",
       "enum": [
-        "OBJECT_STORAGE",
-        "ORIGIN_LINK"
+        "ORIGIN_TYPE_UNSPECIFIED",
+        "ORIGIN_TYPE_OBJECT_STORAGE",
+        "ORIGIN_TYPE_ORIGIN_LINK"
       ],
-      "default": "OBJECT_STORAGE"
+      "default": "ORIGIN_TYPE_UNSPECIFIED"
     },
     "VersionVersionStage": {
       "type": "string",
       "enum": [
-        "STABLE",
-        "RC",
-        "BETA",
-        "ALPHA"
+        "VERSION_STAGE_UNSPECIFIED",
+        "VERSION_STAGE_STABLE",
+        "VERSION_STAGE_RC",
+        "VERSION_STAGE_BETA",
+        "VERSION_STAGE_ALPHA"
       ],
-      "default": "STABLE"
+      "default": "VERSION_STAGE_UNSPECIFIED"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -1979,13 +1983,14 @@
     "modelsv1Status": {
       "type": "string",
       "enum": [
-        "INITIATING",
-        "AVAILABLE",
-        "UPDATING",
-        "ARCHIVED",
-        "DELETING"
+        "STATUS_UNSPECIFIED",
+        "STATUS_INITIATING",
+        "STATUS_AVAILABLE",
+        "STATUS_UPDATING",
+        "STATUS_ARCHIVED",
+        "STATUS_DELETING"
       ],
-      "default": "INITIATING"
+      "default": "STATUS_UNSPECIFIED"
     },
     "protobufAny": {
       "type": "object",
@@ -2766,7 +2771,7 @@
     "v1GetProjectDatasetsResponse": {
       "type": "object",
       "properties": {
-        "dataset": {
+        "datasets": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Dataset"
@@ -3066,7 +3071,7 @@
           "$ref": "#/definitions/v1ObjectLocation"
         },
         "originType": {
-          "$ref": "#/definitions/OriginOriginTypeEnum"
+          "$ref": "#/definitions/OriginOriginType"
         }
       }
     },
@@ -3164,22 +3169,24 @@
     "v1Resource": {
       "type": "string",
       "enum": [
-        "PROJECT_RESOURCE",
-        "DATASET_RESOURCE",
-        "DATASET_VERSION_RESOURCE",
-        "OBJECT_RESOURCE",
-        "OBJECT_GROUP_RESOURCE",
-        "OBJECT_GROUP_REVISION_RESOURCE"
+        "RESOURCE_UNSPECIFIED",
+        "RESOURCE_PROJECT",
+        "RESOURCE_DATASET",
+        "RESOURCE_DATASET_VERSION",
+        "RESOURCE_OBJECT",
+        "RESOURCE_OBJECT_GROUP",
+        "RESOURCE_OBJECT_GROUP_REVISION"
       ],
-      "default": "PROJECT_RESOURCE"
+      "default": "RESOURCE_UNSPECIFIED"
     },
     "v1Right": {
       "type": "string",
       "enum": [
-        "READ",
-        "WRITE"
+        "RIGHT_UNSPECIFIED",
+        "RIGHT_READ",
+        "RIGHT_WRITE"
       ],
-      "default": "READ"
+      "default": "RIGHT_UNSPECIFIED"
     },
     "v1StartMultipartUploadResponse": {
       "type": "object",
