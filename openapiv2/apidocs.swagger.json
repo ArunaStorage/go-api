@@ -902,6 +902,58 @@
         ]
       }
     },
+    "/api/v1/objectgroup/finish": {
+      "post": {
+        "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
+        "operationId": "DatasetObjectsService_FinishObjectGroupUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1FinishObjectGroupUploadResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1FinishObjectGroupUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
+    },
     "/api/v1/objectgroup/get": {
       "post": {
         "summary": "Returns the object group with the given ID",
@@ -2527,6 +2579,17 @@
           "$ref": "#/definitions/EventNotificationMessageUpdateType"
         }
       }
+    },
+    "v1FinishObjectGroupUploadRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1FinishObjectGroupUploadResponse": {
+      "type": "object"
     },
     "v1FinishObjectUploadRequest": {
       "type": "object",
