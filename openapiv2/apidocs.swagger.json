@@ -3057,6 +3057,9 @@
         },
         "projectId": {
           "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
         }
       }
     },
@@ -3183,6 +3186,9 @@
         },
         "bucket": {
           "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
         }
       }
     },
