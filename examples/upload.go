@@ -56,7 +56,15 @@ func upload() {
 		objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
 			Id: object.ObjectId,
 		})
+
+		objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
+			Id: object.ObjectId,
+		})
 	}
+
+	objectGroupClient.FinishObjectGroupUpload(context.Background(), &v1Storage.FinishObjectGroupUploadRequest{
+		Id: objectGroup.ObjectGroupId,
+	})
 
 	objectGroup2, _ := objectGroupClient.GetObjectGroup(context.Background(), &v1Storage.GetObjectGroupRequest{
 		Id: objectGroup.GetObjectGroupId(),
