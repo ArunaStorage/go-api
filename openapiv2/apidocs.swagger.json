@@ -3263,6 +3263,34 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1ProjectStats"
+        }
+      }
+    },
+    "v1ProjectStats": {
+      "type": "object",
+      "properties": {
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "objectGroupCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "userCount": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
