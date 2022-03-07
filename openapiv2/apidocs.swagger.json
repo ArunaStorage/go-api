@@ -2496,6 +2496,30 @@
         },
         "bucket": {
           "type": "string"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1DatasetStats"
+        }
+      }
+    },
+    "v1DatasetStats": {
+      "type": "object",
+      "properties": {
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "objectGroupCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -2548,6 +2572,30 @@
         },
         "projectId": {
           "type": "string"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1DatasetVersionStats"
+        }
+      }
+    },
+    "v1DatasetVersionStats": {
+      "type": "object",
+      "properties": {
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "objectGroupCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -3060,6 +3108,9 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1ObjectStats"
         }
       }
     },
@@ -3109,6 +3160,26 @@
         "created": {
           "type": "string",
           "format": "date-time"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1ObjectGroupStats"
+        }
+      }
+    },
+    "v1ObjectGroupStats": {
+      "type": "object",
+      "properties": {
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -3126,6 +3197,9 @@
         }
       },
       "title": "A location in S3"
+    },
+    "v1ObjectStats": {
+      "type": "object"
     },
     "v1Origin": {
       "type": "object",
