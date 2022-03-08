@@ -2518,8 +2518,8 @@
           "format": "int64"
         },
         "avgObjectSize": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -2594,8 +2594,8 @@
           "format": "int64"
         },
         "avgObjectSize": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -3178,8 +3178,8 @@
           "format": "int64"
         },
         "avgObjectSize": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -3281,8 +3281,8 @@
           "format": "int64"
         },
         "accSize": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "double"
         },
         "avgObjectSize": {
           "type": "string",
