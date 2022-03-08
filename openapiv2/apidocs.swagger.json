@@ -3281,12 +3281,12 @@
           "format": "int64"
         },
         "accSize": {
-          "type": "number",
-          "format": "double"
-        },
-        "avgObjectSize": {
           "type": "string",
           "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "number",
+          "format": "double"
         },
         "userCount": {
           "type": "string",
