@@ -17,16 +17,21 @@ func upload() {
 
 	//This examples assumes that an api_token is used. Therefor project creation is handled via Website
 	//projectClient := v1Storage.NewProjectServiceClient(conn)
+
+	//Create the clients for the individual storage components
 	datasetClient := v1Storage.NewDatasetServiceClient(conn)
 	objectGroupClient := v1Storage.NewDatasetObjectsServiceClient(conn)
 	loadClient := v1Storage.NewObjectLoadServiceClient(conn)
 
+	// After project creation, a dataset has to be created.
 	dataset, _ := datasetClient.CreateDataset(context.Background(), &v1Storage.CreateDatasetRequest{
 		Name:        "testdataset",
 		Description: "A test dataset",
 		ProjectId:   projectID,
 	})
 
+	// Data objects can be stored in object groups that represent a set of closely related objects.
+	// E.g. A data file with an associated index file that points to various features in the data file
 	objectGroup, _ := objectGroupClient.CreateObjectGroup(context.Background(), &v1Storage.CreateObjectGroupRequest{
 		Name:              "testobjectgroup",
 		Description:       "A test objectgroup",
@@ -36,7 +41,7 @@ func upload() {
 			&v1Storage.CreateObjectRequest{
 				Filename:   "foo.txt",
 				Filetype:   "txt",
-				ContentLen: 9,
+				ContentLen: 9, // The content length is currently not checked, but might be required in the future
 			},
 			&v1Storage.CreateObjectRequest{
 				Filename:   "foo.bin",
@@ -57,9 +62,6 @@ func upload() {
 			Id: object.ObjectId,
 		})
 
-		objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
-			Id: object.ObjectId,
-		})
 	}
 
 	objectGroupClient.FinishObjectGroupUpload(context.Background(), &v1Storage.FinishObjectGroupUploadRequest{
