@@ -18,6 +18,198 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
+// ObjectGroupRevisionsServiceClient is the client API for ObjectGroupRevisionsService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ObjectGroupRevisionsServiceClient interface {
+	CreateRevisionMonitor(ctx context.Context, in *CreateRevisionMonitorRequest, opts ...grpc.CallOption) (*CreateRevisionMonitorResponse, error)
+	GetRevisionMonitor(ctx context.Context, in *GetRevisionMonitorRequest, opts ...grpc.CallOption) (*GetRevisionMonitorResponse, error)
+	GetRevisionMonitorObjectGroups(ctx context.Context, in *GetRevisionMonitorObjectGroupsRequest, opts ...grpc.CallOption) (*GetRevisionMonitorObjectGroupsResponse, error)
+	GetCurrentRevisionMonitorObjectGroup(ctx context.Context, in *GetCurrentRevisionMonitorObjectGroupRequest, opts ...grpc.CallOption) (*GetCurrentRevisionMonitorObjectGroupResponse, error)
+}
+
+type objectGroupRevisionsServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewObjectGroupRevisionsServiceClient(cc grpc.ClientConnInterface) ObjectGroupRevisionsServiceClient {
+	return &objectGroupRevisionsServiceClient{cc}
+}
+
+func (c *objectGroupRevisionsServiceClient) CreateRevisionMonitor(ctx context.Context, in *CreateRevisionMonitorRequest, opts ...grpc.CallOption) (*CreateRevisionMonitorResponse, error) {
+	out := new(CreateRevisionMonitorResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/CreateRevisionMonitor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectGroupRevisionsServiceClient) GetRevisionMonitor(ctx context.Context, in *GetRevisionMonitorRequest, opts ...grpc.CallOption) (*GetRevisionMonitorResponse, error) {
+	out := new(GetRevisionMonitorResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectGroupRevisionsServiceClient) GetRevisionMonitorObjectGroups(ctx context.Context, in *GetRevisionMonitorObjectGroupsRequest, opts ...grpc.CallOption) (*GetRevisionMonitorObjectGroupsResponse, error) {
+	out := new(GetRevisionMonitorObjectGroupsResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitorObjectGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectGroupRevisionsServiceClient) GetCurrentRevisionMonitorObjectGroup(ctx context.Context, in *GetCurrentRevisionMonitorObjectGroupRequest, opts ...grpc.CallOption) (*GetCurrentRevisionMonitorObjectGroupResponse, error) {
+	out := new(GetCurrentRevisionMonitorObjectGroupResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetCurrentRevisionMonitorObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ObjectGroupRevisionsServiceServer is the server API for ObjectGroupRevisionsService service.
+// All implementations should embed UnimplementedObjectGroupRevisionsServiceServer
+// for forward compatibility
+type ObjectGroupRevisionsServiceServer interface {
+	CreateRevisionMonitor(context.Context, *CreateRevisionMonitorRequest) (*CreateRevisionMonitorResponse, error)
+	GetRevisionMonitor(context.Context, *GetRevisionMonitorRequest) (*GetRevisionMonitorResponse, error)
+	GetRevisionMonitorObjectGroups(context.Context, *GetRevisionMonitorObjectGroupsRequest) (*GetRevisionMonitorObjectGroupsResponse, error)
+	GetCurrentRevisionMonitorObjectGroup(context.Context, *GetCurrentRevisionMonitorObjectGroupRequest) (*GetCurrentRevisionMonitorObjectGroupResponse, error)
+}
+
+// UnimplementedObjectGroupRevisionsServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedObjectGroupRevisionsServiceServer struct {
+}
+
+func (UnimplementedObjectGroupRevisionsServiceServer) CreateRevisionMonitor(context.Context, *CreateRevisionMonitorRequest) (*CreateRevisionMonitorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRevisionMonitor not implemented")
+}
+func (UnimplementedObjectGroupRevisionsServiceServer) GetRevisionMonitor(context.Context, *GetRevisionMonitorRequest) (*GetRevisionMonitorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRevisionMonitor not implemented")
+}
+func (UnimplementedObjectGroupRevisionsServiceServer) GetRevisionMonitorObjectGroups(context.Context, *GetRevisionMonitorObjectGroupsRequest) (*GetRevisionMonitorObjectGroupsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRevisionMonitorObjectGroups not implemented")
+}
+func (UnimplementedObjectGroupRevisionsServiceServer) GetCurrentRevisionMonitorObjectGroup(context.Context, *GetCurrentRevisionMonitorObjectGroupRequest) (*GetCurrentRevisionMonitorObjectGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentRevisionMonitorObjectGroup not implemented")
+}
+
+// UnsafeObjectGroupRevisionsServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ObjectGroupRevisionsServiceServer will
+// result in compilation errors.
+type UnsafeObjectGroupRevisionsServiceServer interface {
+	mustEmbedUnimplementedObjectGroupRevisionsServiceServer()
+}
+
+func RegisterObjectGroupRevisionsServiceServer(s grpc.ServiceRegistrar, srv ObjectGroupRevisionsServiceServer) {
+	s.RegisterService(&ObjectGroupRevisionsService_ServiceDesc, srv)
+}
+
+func _ObjectGroupRevisionsService_CreateRevisionMonitor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRevisionMonitorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectGroupRevisionsServiceServer).CreateRevisionMonitor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/CreateRevisionMonitor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectGroupRevisionsServiceServer).CreateRevisionMonitor(ctx, req.(*CreateRevisionMonitorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectGroupRevisionsService_GetRevisionMonitor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRevisionMonitorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectGroupRevisionsServiceServer).GetRevisionMonitor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectGroupRevisionsServiceServer).GetRevisionMonitor(ctx, req.(*GetRevisionMonitorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRevisionMonitorObjectGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectGroupRevisionsServiceServer).GetRevisionMonitorObjectGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitorObjectGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectGroupRevisionsServiceServer).GetRevisionMonitorObjectGroups(ctx, req.(*GetRevisionMonitorObjectGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrentRevisionMonitorObjectGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectGroupRevisionsServiceServer).GetCurrentRevisionMonitorObjectGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetCurrentRevisionMonitorObjectGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectGroupRevisionsServiceServer).GetCurrentRevisionMonitorObjectGroup(ctx, req.(*GetCurrentRevisionMonitorObjectGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ObjectGroupRevisionsService_ServiceDesc is the grpc.ServiceDesc for ObjectGroupRevisionsService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ObjectGroupRevisionsService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService",
+	HandlerType: (*ObjectGroupRevisionsServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateRevisionMonitor",
+			Handler:    _ObjectGroupRevisionsService_CreateRevisionMonitor_Handler,
+		},
+		{
+			MethodName: "GetRevisionMonitor",
+			Handler:    _ObjectGroupRevisionsService_GetRevisionMonitor_Handler,
+		},
+		{
+			MethodName: "GetRevisionMonitorObjectGroups",
+			Handler:    _ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_Handler,
+		},
+		{
+			MethodName: "GetCurrentRevisionMonitorObjectGroup",
+			Handler:    _ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "sciobjsdb/api/storage/services/v1/dataset_object_service.proto",
+}
+
 // DatasetObjectsServiceClient is the client API for DatasetObjectsService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.

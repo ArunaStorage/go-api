@@ -24,20 +24,22 @@ const _ = grpc.SupportPackageIsVersion7
 type ProjectServiceClient interface {
 	//CreateProject creates a new projects
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
-	//AddUserToProject Adds a new user to a given project
+	//AddUserToProject Adds a new user to a given project by its id
 	AddUserToProject(ctx context.Context, in *AddUserToProjectRequest, opts ...grpc.CallOption) (*AddUserToProjectResponse, error)
-	//Creates an API token to authenticate
+	//CreateAPIToken Creates an API token to authenticate
 	CreateAPIToken(ctx context.Context, in *CreateAPITokenRequest, opts ...grpc.CallOption) (*CreateAPITokenResponse, error)
 	//GetProjectDatasets Returns all datasets that belong to a certain project
 	GetProjectDatasets(ctx context.Context, in *GetProjectDatasetsRequest, opts ...grpc.CallOption) (*GetProjectDatasetsResponse, error)
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error)
+	//GetProject Returns the specified project
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
 	// Returns all API token for a specific user, based on the provided oauth2 token
 	GetAPIToken(ctx context.Context, in *GetAPITokenRequest, opts ...grpc.CallOption) (*GetAPITokenResponse, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectResponse, error)
+	//DeleteAPITokenRequest Deletes the specified API Token
 	DeleteAPIToken(ctx context.Context, in *DeleteAPITokenRequest, opts ...grpc.CallOption) (*DeleteAPITokenResponse, error)
 }
 
@@ -136,20 +138,22 @@ func (c *projectServiceClient) DeleteAPIToken(ctx context.Context, in *DeleteAPI
 type ProjectServiceServer interface {
 	//CreateProject creates a new projects
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
-	//AddUserToProject Adds a new user to a given project
+	//AddUserToProject Adds a new user to a given project by its id
 	AddUserToProject(context.Context, *AddUserToProjectRequest) (*AddUserToProjectResponse, error)
-	//Creates an API token to authenticate
+	//CreateAPIToken Creates an API token to authenticate
 	CreateAPIToken(context.Context, *CreateAPITokenRequest) (*CreateAPITokenResponse, error)
 	//GetProjectDatasets Returns all datasets that belong to a certain project
 	GetProjectDatasets(context.Context, *GetProjectDatasetsRequest) (*GetProjectDatasetsResponse, error)
 	//GetUserProjects Returns all projects that a specified user has access to
 	GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error)
+	//GetProject Returns the specified project
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
 	// Returns all API token for a specific user, based on the provided oauth2 token
 	GetAPIToken(context.Context, *GetAPITokenRequest) (*GetAPITokenResponse, error)
 	//DeleteProject Deletes a specific project
 	//Will also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error)
+	//DeleteAPITokenRequest Deletes the specified API Token
 	DeleteAPIToken(context.Context, *DeleteAPITokenRequest) (*DeleteAPITokenResponse, error)
 }
 

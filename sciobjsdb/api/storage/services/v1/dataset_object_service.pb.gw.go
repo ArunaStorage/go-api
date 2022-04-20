@@ -31,6 +31,142 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
+func request_ObjectGroupRevisionsService_CreateRevisionMonitor_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectGroupRevisionsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateRevisionMonitorRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateRevisionMonitor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectGroupRevisionsService_CreateRevisionMonitor_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectGroupRevisionsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateRevisionMonitorRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreateRevisionMonitor(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ObjectGroupRevisionsService_GetRevisionMonitor_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectGroupRevisionsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRevisionMonitorRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetRevisionMonitor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectGroupRevisionsService_GetRevisionMonitor_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectGroupRevisionsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRevisionMonitorRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetRevisionMonitor(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectGroupRevisionsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRevisionMonitorObjectGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetRevisionMonitorObjectGroups(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectGroupRevisionsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRevisionMonitorObjectGroupsRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetRevisionMonitorObjectGroups(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectGroupRevisionsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetCurrentRevisionMonitorObjectGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetCurrentRevisionMonitorObjectGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectGroupRevisionsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetCurrentRevisionMonitorObjectGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetCurrentRevisionMonitorObjectGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_DatasetObjectsService_CreateObjectGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DatasetObjectsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateObjectGroupRequest
 	var metadata runtime.ServerMetadata
@@ -253,6 +389,107 @@ func local_request_DatasetObjectsService_DeleteObjectGroup_0(ctx context.Context
 
 }
 
+// RegisterObjectGroupRevisionsServiceHandlerServer registers the http handlers for service ObjectGroupRevisionsService to "mux".
+// UnaryRPC     :call ObjectGroupRevisionsServiceServer directly.
+// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterObjectGroupRevisionsServiceHandlerFromEndpoint instead.
+func RegisterObjectGroupRevisionsServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ObjectGroupRevisionsServiceServer) error {
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_CreateRevisionMonitor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/CreateRevisionMonitor", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitor/create"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectGroupRevisionsService_CreateRevisionMonitor_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_CreateRevisionMonitor_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetRevisionMonitor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitor", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitor/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectGroupRevisionsService_GetRevisionMonitor_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetRevisionMonitor_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitorObjectGroups", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitorobjectgroups/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetCurrentRevisionMonitorObjectGroup", runtime.WithHTTPPathPattern("/api/v1/currentrevisionsmonitorobjectgroup/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	return nil
+}
+
 // RegisterDatasetObjectsServiceHandlerServer registers the http handlers for service DatasetObjectsService to "mux".
 // UnaryRPC     :call DatasetObjectsServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -399,6 +636,147 @@ func RegisterDatasetObjectsServiceHandlerServer(ctx context.Context, mux *runtim
 
 	return nil
 }
+
+// RegisterObjectGroupRevisionsServiceHandlerFromEndpoint is same as RegisterObjectGroupRevisionsServiceHandler but
+// automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+func RegisterObjectGroupRevisionsServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+	conn, err := grpc.Dial(endpoint, opts...)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err != nil {
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+			return
+		}
+		go func() {
+			<-ctx.Done()
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+		}()
+	}()
+
+	return RegisterObjectGroupRevisionsServiceHandler(ctx, mux, conn)
+}
+
+// RegisterObjectGroupRevisionsServiceHandler registers the http handlers for service ObjectGroupRevisionsService to "mux".
+// The handlers forward requests to the grpc endpoint over "conn".
+func RegisterObjectGroupRevisionsServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterObjectGroupRevisionsServiceHandlerClient(ctx, mux, NewObjectGroupRevisionsServiceClient(conn))
+}
+
+// RegisterObjectGroupRevisionsServiceHandlerClient registers the http handlers for service ObjectGroupRevisionsService
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "ObjectGroupRevisionsServiceClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "ObjectGroupRevisionsServiceClient"
+// doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
+// "ObjectGroupRevisionsServiceClient" to call the correct interceptors.
+func RegisterObjectGroupRevisionsServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ObjectGroupRevisionsServiceClient) error {
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_CreateRevisionMonitor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/CreateRevisionMonitor", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitor/create"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectGroupRevisionsService_CreateRevisionMonitor_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_CreateRevisionMonitor_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetRevisionMonitor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitor", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitor/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectGroupRevisionsService_GetRevisionMonitor_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetRevisionMonitor_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetRevisionMonitorObjectGroups", runtime.WithHTTPPathPattern("/api/v1/objectgrouprevisionsmonitorobjectgroups/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/sciobjsdb.api.storage.services.v1.ObjectGroupRevisionsService/GetCurrentRevisionMonitorObjectGroup", runtime.WithHTTPPathPattern("/api/v1/currentrevisionsmonitorobjectgroup/get"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	return nil
+}
+
+var (
+	pattern_ObjectGroupRevisionsService_CreateRevisionMonitor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgrouprevisionsmonitor", "create"}, ""))
+
+	pattern_ObjectGroupRevisionsService_GetRevisionMonitor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgrouprevisionsmonitor", "get"}, ""))
+
+	pattern_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "objectgrouprevisionsmonitorobjectgroups", "get"}, ""))
+
+	pattern_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "currentrevisionsmonitorobjectgroup", "get"}, ""))
+)
+
+var (
+	forward_ObjectGroupRevisionsService_CreateRevisionMonitor_0 = runtime.ForwardResponseMessage
+
+	forward_ObjectGroupRevisionsService_GetRevisionMonitor_0 = runtime.ForwardResponseMessage
+
+	forward_ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups_0 = runtime.ForwardResponseMessage
+
+	forward_ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup_0 = runtime.ForwardResponseMessage
+)
 
 // RegisterDatasetObjectsServiceHandlerFromEndpoint is same as RegisterDatasetObjectsServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.

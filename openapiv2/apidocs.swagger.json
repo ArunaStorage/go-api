@@ -12,6 +12,9 @@
       "name": "UpdateNotificationService"
     },
     {
+      "name": "ObjectGroupRevisionsService"
+    },
+    {
       "name": "DatasetObjectsService"
     },
     {
@@ -76,6 +79,7 @@
     },
     "/api/v1/apitoken/{id}/delete": {
       "delete": {
+        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
         "operationId": "ProjectService_DeleteAPIToken",
         "responses": {
           "200": {
@@ -125,7 +129,7 @@
     },
     "/api/v1/createapitoken": {
       "get": {
-        "summary": "Creates an API token to authenticate",
+        "summary": "CreateAPIToken Creates an API token to authenticate",
         "operationId": "ProjectService_CreateAPIToken",
         "responses": {
           "200": {
@@ -170,6 +174,57 @@
         ],
         "tags": [
           "ProjectService"
+        ]
+      }
+    },
+    "/api/v1/currentrevisionsmonitorobjectgroup/get": {
+      "post": {
+        "operationId": "ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCurrentRevisionMonitorObjectGroupResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetCurrentRevisionMonitorObjectGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectGroupRevisionsService"
         ]
       }
     },
@@ -1108,6 +1163,159 @@
         ]
       }
     },
+    "/api/v1/objectgrouprevisionsmonitor/create": {
+      "post": {
+        "operationId": "ObjectGroupRevisionsService_CreateRevisionMonitor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateRevisionMonitorResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateRevisionMonitorRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectGroupRevisionsService"
+        ]
+      }
+    },
+    "/api/v1/objectgrouprevisionsmonitor/get": {
+      "post": {
+        "operationId": "ObjectGroupRevisionsService_GetRevisionMonitor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRevisionMonitorResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetRevisionMonitorRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectGroupRevisionsService"
+        ]
+      }
+    },
+    "/api/v1/objectgrouprevisionsmonitorobjectgroups/get": {
+      "post": {
+        "operationId": "ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRevisionMonitorObjectGroupsResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetRevisionMonitorObjectGroupsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ObjectGroupRevisionsService"
+        ]
+      }
+    },
     "/api/v1/objectgroupsindaterange/query": {
       "post": {
         "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
@@ -1214,6 +1422,7 @@
     },
     "/api/v1/objectload/complete_multipart": {
       "post": {
+        "summary": "CompleteMultipartUploadRequest Finishes a multipart upload after all parts have been uploaded",
         "operationId": "ObjectLoadService_CompleteMultipartUpload",
         "responses": {
           "200": {
@@ -1542,6 +1751,7 @@
     },
     "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
       "get": {
+        "summary": "Returns a part of an multipart upload.\nEach but the last part needs to be bigger than 5MB in order to use this functionality",
         "operationId": "ObjectLoadService_GetMultipartUploadLink",
         "responses": {
           "200": {
@@ -1598,7 +1808,7 @@
     },
     "/api/v1/project/addusertoproject": {
       "post": {
-        "summary": "AddUserToProject Adds a new user to a given project",
+        "summary": "AddUserToProject Adds a new user to a given project by its id",
         "operationId": "ProjectService_AddUserToProject",
         "responses": {
           "200": {
@@ -1702,6 +1912,7 @@
     },
     "/api/v1/project/{id}": {
       "get": {
+        "summary": "GetProject Returns the specified project",
         "operationId": "ProjectService_GetProject",
         "responses": {
           "200": {
@@ -2010,6 +2221,17 @@
         }
       }
     },
+    "modelsv1Annotation": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "modelsv1Label": {
       "type": "object",
       "properties": {
@@ -2040,7 +2262,8 @@
         "STATUS_AVAILABLE",
         "STATUS_UPDATING",
         "STATUS_ARCHIVED",
-        "STATUS_DELETING"
+        "STATUS_DELETING",
+        "STATUS_STAGING"
       ],
       "default": "STATUS_UNSPECIFIED"
     },
@@ -2088,7 +2311,8 @@
         "projectId": {
           "type": "string"
         }
-      }
+      },
+      "title": "AddUserToProjectRequest Request to add a user to a project"
     },
     "v1AddUserToProjectResponse": {
       "type": "object"
@@ -2148,10 +2372,16 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
+          }
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
           }
         }
       },
@@ -2343,13 +2573,19 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
+          }
+        },
+        "metadataObjects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1CreateObjectRequest"
@@ -2364,6 +2600,12 @@
         },
         "uuid": {
           "type": "string"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
+        },
+        "revisionMonitorId": {
+          "type": "string"
         }
       }
     },
@@ -2374,6 +2616,12 @@
           "type": "string"
         },
         "objectLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
+          }
+        },
+        "metadataObjectLinks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
@@ -2402,10 +2650,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "contentLen": {
@@ -2414,6 +2662,9 @@
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
         }
       }
     },
@@ -2426,22 +2677,34 @@
         "description": {
           "type": "string"
         },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Metadata"
-          }
-        },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         }
       },
       "title": "Request to create a project"
     },
     "v1CreateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "CreateProjectResponse Returns the id of the created project"
+    },
+    "v1CreateRevisionMonitorRequest": {
+      "type": "object"
+    },
+    "v1CreateRevisionMonitorResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -2479,10 +2742,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "projectId": {
@@ -2499,6 +2762,12 @@
         },
         "stats": {
           "$ref": "#/definitions/v1DatasetStats"
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         }
       }
     },
@@ -2544,10 +2813,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "created": {
@@ -2575,6 +2844,12 @@
         },
         "stats": {
           "$ref": "#/definitions/v1DatasetVersionStats"
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         }
       }
     },
@@ -2658,6 +2933,22 @@
           "items": {
             "$ref": "#/definitions/v1APIToken"
           }
+        }
+      }
+    },
+    "v1GetCurrentRevisionMonitorObjectGroupRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetCurrentRevisionMonitorObjectGroupResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroup": {
+          "$ref": "#/definitions/v1ObjectGroup"
         }
       }
     },
@@ -2898,6 +3189,44 @@
         }
       }
     },
+    "v1GetRevisionMonitorObjectGroupsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "pageRequest": {
+          "$ref": "#/definitions/v1PageRequest"
+        }
+      }
+    },
+    "v1GetRevisionMonitorObjectGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroup"
+          }
+        }
+      }
+    },
+    "v1GetRevisionMonitorRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetRevisionMonitorResponse": {
+      "type": "object",
+      "properties": {
+        "monitor": {
+          "$ref": "#/definitions/v1ObjectGroupRevisionMonitor"
+        }
+      }
+    },
     "v1GetUserProjectsResponse": {
       "type": "object",
       "properties": {
@@ -2965,27 +3294,6 @@
           "items": {
             "$ref": "#/definitions/v1InnerLinksResponse"
           }
-        }
-      }
-    },
-    "v1Metadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "metadata": {
-          "type": "string",
-          "format": "byte"
-        },
-        "simpleSchema": {
-          "type": "string"
         }
       }
     },
@@ -3070,10 +3378,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "created": {
@@ -3111,6 +3419,9 @@
         },
         "stats": {
           "$ref": "#/definitions/v1ObjectStats"
+        },
+        "fileformat": {
+          "type": "string"
         }
       }
     },
@@ -3138,16 +3449,22 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
         },
         "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "metadataObjects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Object"
@@ -3163,6 +3480,52 @@
         },
         "stats": {
           "$ref": "#/definitions/v1ObjectGroupStats"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
+        },
+        "revisionId": {
+          "type": "string"
+        },
+        "revisionNumber": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ObjectGroupRevisionMonitor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "revisionCounter": {
+          "type": "string",
+          "format": "int64"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1ObjectGroupRevisionStats"
+        }
+      }
+    },
+    "v1ObjectGroupRevisionStats": {
+      "type": "object",
+      "properties": {
+        "objectCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "accSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgObjectSize": {
+          "type": "number",
+          "format": "double"
+        },
+        "metaObjectCount": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -3180,6 +3543,10 @@
         "avgObjectSize": {
           "type": "number",
           "format": "double"
+        },
+        "metaObjectCount": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -3246,10 +3613,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "users": {
@@ -3312,10 +3679,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "objectGroupIds": {
@@ -3385,6 +3752,14 @@
         "sequence": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "v1Subpath": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
         }
       }
     },

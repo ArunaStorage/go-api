@@ -40,7 +40,10 @@ type ObjectLoadServiceClient interface {
 	// For further information please read the Amazon S3 documentation on multipart uploads
 	// Has to be used together with GetMultipartUploadLink and CompleteMultipartUpload
 	StartMultipartUpload(ctx context.Context, in *StartMultipartUploadRequest, opts ...grpc.CallOption) (*StartMultipartUploadResponse, error)
+	// Returns a part of an multipart upload.
+	// Each but the last part needs to be bigger than 5MB in order to use this functionality
 	GetMultipartUploadLink(ctx context.Context, in *GetMultipartUploadLinkRequest, opts ...grpc.CallOption) (*GetMultipartUploadLinkResponse, error)
+	//CompleteMultipartUploadRequest Finishes a multipart upload after all parts have been uploaded
 	CompleteMultipartUpload(ctx context.Context, in *CompleteMultipartUploadRequest, opts ...grpc.CallOption) (*CompleteMultipartUploadResponse, error)
 }
 
@@ -160,7 +163,10 @@ type ObjectLoadServiceServer interface {
 	// For further information please read the Amazon S3 documentation on multipart uploads
 	// Has to be used together with GetMultipartUploadLink and CompleteMultipartUpload
 	StartMultipartUpload(context.Context, *StartMultipartUploadRequest) (*StartMultipartUploadResponse, error)
+	// Returns a part of an multipart upload.
+	// Each but the last part needs to be bigger than 5MB in order to use this functionality
 	GetMultipartUploadLink(context.Context, *GetMultipartUploadLinkRequest) (*GetMultipartUploadLinkResponse, error)
+	//CompleteMultipartUploadRequest Finishes a multipart upload after all parts have been uploaded
 	CompleteMultipartUpload(context.Context, *CompleteMultipartUploadRequest) (*CompleteMultipartUploadResponse, error)
 }
 
