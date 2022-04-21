@@ -2702,7 +2702,12 @@
       "title": "CreateProjectResponse Returns the id of the created project"
     },
     "v1CreateRevisionMonitorRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "datasetId": {
+          "type": "string"
+        }
+      }
     },
     "v1CreateRevisionMonitorResponse": {
       "type": "object",
