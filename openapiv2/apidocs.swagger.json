@@ -3254,6 +3254,12 @@
         },
         "currentRevision": {
           "$ref": "#/definitions/v1ObjectGroupRevision"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
         }
       }
     },
