@@ -27,8 +27,9 @@ type DatasetObjectsServiceClient interface {
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
-	//Returns the object group with the given ID
 	GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error)
+	//Returns the object group with the given ID
+	GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
 	// Experimental, might change this to FinishObjectGroupUpload
@@ -77,6 +78,15 @@ func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *datasetObjectsServiceClient) GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/GetObjectGroupRevision", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error) {
 	out := new(FinishObjectUploadResponse)
 	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectUpload", in, out, opts...)
@@ -113,8 +123,9 @@ type DatasetObjectsServiceServer interface {
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
-	//Returns the object group with the given ID
 	GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error)
+	//Returns the object group with the given ID
+	GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*GetObjectGroupRevisionResponse, error)
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
 	// Experimental, might change this to FinishObjectGroupUpload
@@ -140,6 +151,9 @@ func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupBatch(context.C
 }
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*GetObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupRevision not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
@@ -216,6 +230,24 @@ func _DatasetObjectsService_GetObjectGroup_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetObjectsService_GetObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupRevisionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/GetObjectGroupRevision",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, req.(*GetObjectGroupRevisionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FinishObjectUploadRequest)
 	if err := dec(in); err != nil {
@@ -288,6 +320,10 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetObjectGroup",
 			Handler:    _DatasetObjectsService_GetObjectGroup_Handler,
+		},
+		{
+			MethodName: "GetObjectGroupRevision",
+			Handler:    _DatasetObjectsService_GetObjectGroupRevision_Handler,
 		},
 		{
 			MethodName: "FinishObjectUpload",
