@@ -2834,10 +2834,10 @@
     "v1GetDatasetVersionObjectGroupsResponse": {
       "type": "object",
       "properties": {
-        "objectGroup": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         }
       }
@@ -3481,7 +3481,7 @@
             "$ref": "#/definitions/modelsv1Annotation"
           }
         },
-        "objectGroupIds": {
+        "objectGroupRevisionIds": {
           "type": "array",
           "items": {
             "type": "string"
