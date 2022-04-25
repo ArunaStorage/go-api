@@ -3100,13 +3100,13 @@
     "v1LinksResponse": {
       "type": "object",
       "properties": {
-        "objectGroups": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         },
-        "objectGroupLinks": {
+        "objectGroupRevisionLinks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1InnerLinksResponse"
