@@ -12,9 +12,6 @@
       "name": "UpdateNotificationService"
     },
     {
-      "name": "ObjectGroupRevisionsService"
-    },
-    {
       "name": "DatasetObjectsService"
     },
     {
@@ -174,57 +171,6 @@
         ],
         "tags": [
           "ProjectService"
-        ]
-      }
-    },
-    "/api/v1/currentrevisionsmonitorobjectgroup/get": {
-      "post": {
-        "operationId": "ObjectGroupRevisionsService_GetCurrentRevisionMonitorObjectGroup",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCurrentRevisionMonitorObjectGroupResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetCurrentRevisionMonitorObjectGroupRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectGroupRevisionsService"
         ]
       }
     },
@@ -1160,159 +1106,6 @@
         ],
         "tags": [
           "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/objectgrouprevisionsmonitor/create": {
-      "post": {
-        "operationId": "ObjectGroupRevisionsService_CreateRevisionMonitor",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateRevisionMonitorResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateRevisionMonitorRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectGroupRevisionsService"
-        ]
-      }
-    },
-    "/api/v1/objectgrouprevisionsmonitor/get": {
-      "post": {
-        "operationId": "ObjectGroupRevisionsService_GetRevisionMonitor",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetRevisionMonitorResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetRevisionMonitorRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectGroupRevisionsService"
-        ]
-      }
-    },
-    "/api/v1/objectgrouprevisionsmonitorobjectgroups/get": {
-      "post": {
-        "operationId": "ObjectGroupRevisionsService_GetRevisionMonitorObjectGroups",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetRevisionMonitorObjectGroupsResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetRevisionMonitorObjectGroupsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectGroupRevisionsService"
         ]
       }
     },
@@ -2603,9 +2396,6 @@
         },
         "subpath": {
           "$ref": "#/definitions/v1Subpath"
-        },
-        "revisionMonitorId": {
-          "type": "string"
         }
       }
     },
@@ -2631,6 +2421,9 @@
           "type": "string"
         },
         "uuid": {
+          "type": "string"
+        },
+        "objectGroupRevisionId": {
           "type": "string"
         }
       }
@@ -2700,22 +2493,6 @@
         }
       },
       "title": "CreateProjectResponse Returns the id of the created project"
-    },
-    "v1CreateRevisionMonitorRequest": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateRevisionMonitorResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
     },
     "v1CreateUploadLinkResponse": {
       "type": "object",
@@ -2938,22 +2715,6 @@
           "items": {
             "$ref": "#/definitions/v1APIToken"
           }
-        }
-      }
-    },
-    "v1GetCurrentRevisionMonitorObjectGroupRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetCurrentRevisionMonitorObjectGroupResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroup"
         }
       }
     },
@@ -3194,44 +2955,6 @@
         }
       }
     },
-    "v1GetRevisionMonitorObjectGroupsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "pageRequest": {
-          "$ref": "#/definitions/v1PageRequest"
-        }
-      }
-    },
-    "v1GetRevisionMonitorObjectGroupsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
-          }
-        }
-      }
-    },
-    "v1GetRevisionMonitorRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetRevisionMonitorResponse": {
-      "type": "object",
-      "properties": {
-        "monitor": {
-          "$ref": "#/definitions/v1ObjectGroupRevisionMonitor"
-        }
-      }
-    },
     "v1GetUserProjectsResponse": {
       "type": "object",
       "properties": {
@@ -3436,6 +3159,21 @@
         "id": {
           "type": "string"
         },
+        "revisionCounter": {
+          "type": "string",
+          "format": "int64"
+        },
+        "currentRevision": {
+          "$ref": "#/definitions/v1ObjectGroupRevision"
+        }
+      }
+    },
+    "v1ObjectGroupRevision": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -3489,46 +3227,10 @@
         "subpath": {
           "$ref": "#/definitions/v1Subpath"
         },
-        "revisionId": {
+        "objectGroupId": {
           "type": "string"
         },
         "revisionNumber": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "v1ObjectGroupRevisionMonitor": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "revisionCounter": {
-          "type": "string",
-          "format": "int64"
-        },
-        "stats": {
-          "$ref": "#/definitions/v1ObjectGroupRevisionStats"
-        }
-      }
-    },
-    "v1ObjectGroupRevisionStats": {
-      "type": "object",
-      "properties": {
-        "objectCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "accSize": {
-          "type": "string",
-          "format": "int64"
-        },
-        "avgObjectSize": {
-          "type": "number",
-          "format": "double"
-        },
-        "metaObjectCount": {
           "type": "string",
           "format": "int64"
         }
