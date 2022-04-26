@@ -722,7 +722,7 @@ func (*FinishObjectUploadResponse) Descriptor() ([]byte, []int) {
 	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{10}
 }
 
-type FinishObjectGroupUploadRequest struct {
+type FinishObjectGroupRevisionUploadRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -730,8 +730,8 @@ type FinishObjectGroupUploadRequest struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *FinishObjectGroupUploadRequest) Reset() {
-	*x = FinishObjectGroupUploadRequest{}
+func (x *FinishObjectGroupRevisionUploadRequest) Reset() {
+	*x = FinishObjectGroupRevisionUploadRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -739,13 +739,13 @@ func (x *FinishObjectGroupUploadRequest) Reset() {
 	}
 }
 
-func (x *FinishObjectGroupUploadRequest) String() string {
+func (x *FinishObjectGroupRevisionUploadRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FinishObjectGroupUploadRequest) ProtoMessage() {}
+func (*FinishObjectGroupRevisionUploadRequest) ProtoMessage() {}
 
-func (x *FinishObjectGroupUploadRequest) ProtoReflect() protoreflect.Message {
+func (x *FinishObjectGroupRevisionUploadRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -757,26 +757,26 @@ func (x *FinishObjectGroupUploadRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FinishObjectGroupUploadRequest.ProtoReflect.Descriptor instead.
-func (*FinishObjectGroupUploadRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use FinishObjectGroupRevisionUploadRequest.ProtoReflect.Descriptor instead.
+func (*FinishObjectGroupRevisionUploadRequest) Descriptor() ([]byte, []int) {
 	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *FinishObjectGroupUploadRequest) GetId() string {
+func (x *FinishObjectGroupRevisionUploadRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type FinishObjectGroupUploadResponse struct {
+type FinishObjectGroupRevisionUploadResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *FinishObjectGroupUploadResponse) Reset() {
-	*x = FinishObjectGroupUploadResponse{}
+func (x *FinishObjectGroupRevisionUploadResponse) Reset() {
+	*x = FinishObjectGroupRevisionUploadResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -784,13 +784,13 @@ func (x *FinishObjectGroupUploadResponse) Reset() {
 	}
 }
 
-func (x *FinishObjectGroupUploadResponse) String() string {
+func (x *FinishObjectGroupRevisionUploadResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FinishObjectGroupUploadResponse) ProtoMessage() {}
+func (*FinishObjectGroupRevisionUploadResponse) ProtoMessage() {}
 
-func (x *FinishObjectGroupUploadResponse) ProtoReflect() protoreflect.Message {
+func (x *FinishObjectGroupRevisionUploadResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -802,8 +802,8 @@ func (x *FinishObjectGroupUploadResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FinishObjectGroupUploadResponse.ProtoReflect.Descriptor instead.
-func (*FinishObjectGroupUploadResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use FinishObjectGroupRevisionUploadResponse.ProtoReflect.Descriptor instead.
+func (*FinishObjectGroupRevisionUploadResponse) Descriptor() ([]byte, []int) {
 	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{12}
 }
 
@@ -1201,11 +1201,12 @@ var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_r
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x02, 0x69, 0x64, 0x22, 0x1c, 0x0a, 0x1a, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62,
 	0x6a, 0x65, 0x63, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x30, 0x0a, 0x1e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x21, 0x0a, 0x1f, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52,
+	0x73, 0x65, 0x22, 0x38, 0x0a, 0x26, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x55,
+	0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x29, 0x0a, 0x27,
+	0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2a, 0x0a, 0x18, 0x44, 0x65, 0x6c, 0x65, 0x74,
 	0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
@@ -1250,8 +1251,8 @@ var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_g
 	(*GetObjectGroupRevisionResponse)(nil),                      // 8: sciobjsdb.api.storage.services.v1.GetObjectGroupRevisionResponse
 	(*FinishObjectUploadRequest)(nil),                           // 9: sciobjsdb.api.storage.services.v1.FinishObjectUploadRequest
 	(*FinishObjectUploadResponse)(nil),                          // 10: sciobjsdb.api.storage.services.v1.FinishObjectUploadResponse
-	(*FinishObjectGroupUploadRequest)(nil),                      // 11: sciobjsdb.api.storage.services.v1.FinishObjectGroupUploadRequest
-	(*FinishObjectGroupUploadResponse)(nil),                     // 12: sciobjsdb.api.storage.services.v1.FinishObjectGroupUploadResponse
+	(*FinishObjectGroupRevisionUploadRequest)(nil),              // 11: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadRequest
+	(*FinishObjectGroupRevisionUploadResponse)(nil),             // 12: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadResponse
 	(*DeleteObjectGroupRequest)(nil),                            // 13: sciobjsdb.api.storage.services.v1.DeleteObjectGroupRequest
 	(*DeleteObjectGroupResponse)(nil),                           // 14: sciobjsdb.api.storage.services.v1.DeleteObjectGroupResponse
 	(*CreateObjectGroupResponse_ObjectLinks)(nil),               // 15: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
@@ -1429,7 +1430,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectGroupUploadRequest); i {
+			switch v := v.(*FinishObjectGroupRevisionUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1441,7 +1442,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectGroupUploadResponse); i {
+			switch v := v.(*FinishObjectGroupRevisionUploadResponse); i {
 			case 0:
 				return &v.state
 			case 1:

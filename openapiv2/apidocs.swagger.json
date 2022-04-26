@@ -906,12 +906,12 @@
     "/api/v1/objectgroup/finish": {
       "post": {
         "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
-        "operationId": "DatasetObjectsService_FinishObjectGroupUpload",
+        "operationId": "DatasetObjectsService_FinishObjectGroupRevisionUpload",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1FinishObjectGroupUploadResponse"
+              "$ref": "#/definitions/v1FinishObjectGroupRevisionUploadResponse"
             }
           },
           "403": {
@@ -946,7 +946,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1FinishObjectGroupUploadRequest"
+              "$ref": "#/definitions/v1FinishObjectGroupRevisionUploadRequest"
             }
           }
         ],
@@ -2749,7 +2749,7 @@
         }
       }
     },
-    "v1FinishObjectGroupUploadRequest": {
+    "v1FinishObjectGroupRevisionUploadRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -2757,7 +2757,7 @@
         }
       }
     },
-    "v1FinishObjectGroupUploadResponse": {
+    "v1FinishObjectGroupRevisionUploadResponse": {
       "type": "object"
     },
     "v1FinishObjectUploadRequest": {
