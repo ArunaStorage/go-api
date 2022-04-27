@@ -1163,12 +1163,12 @@
     "/api/v1/objectgroupsindaterange/query": {
       "post": {
         "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
-        "operationId": "DatasetService_GetObjectGroupsInDateRange",
+        "operationId": "DatasetService_GetObjectGroupRevisionsInDateRange",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeResponse"
+              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeResponse"
             }
           },
           "403": {
@@ -1203,7 +1203,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeRequest"
+              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeRequest"
             }
           }
         ],
@@ -2929,7 +2929,7 @@
         }
       }
     },
-    "v1GetObjectGroupsInDateRangeRequest": {
+    "v1GetObjectGroupRevisionsInDateRangeRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -2945,13 +2945,13 @@
         }
       }
     },
-    "v1GetObjectGroupsInDateRangeResponse": {
+    "v1GetObjectGroupRevisionsInDateRangeResponse": {
       "type": "object",
       "properties": {
-        "objectGroups": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         }
       }
