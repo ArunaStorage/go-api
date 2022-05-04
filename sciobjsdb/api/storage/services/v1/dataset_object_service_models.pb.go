@@ -637,6 +637,214 @@ func (x *GetObjectGroupRevisionResponse) GetObjectGroupRevision() *v1.ObjectGrou
 	return nil
 }
 
+type UpdateObjectGroup struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ParentRevisionId  string                 `protobuf:"bytes,2,opt,name=parent_revision_id,json=parentRevisionId,proto3" json:"parent_revision_id,omitempty"`
+	UpdateObjects     *UpdateObjectsRequests `protobuf:"bytes,3,opt,name=update_objects,json=updateObjects,proto3" json:"update_objects,omitempty"`
+	UpdateMetaObjects *UpdateObjectsRequests `protobuf:"bytes,4,opt,name=update_meta_objects,json=updateMetaObjects,proto3" json:"update_meta_objects,omitempty"`
+}
+
+func (x *UpdateObjectGroup) Reset() {
+	*x = UpdateObjectGroup{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateObjectGroup) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateObjectGroup) ProtoMessage() {}
+
+func (x *UpdateObjectGroup) ProtoReflect() protoreflect.Message {
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateObjectGroup.ProtoReflect.Descriptor instead.
+func (*UpdateObjectGroup) Descriptor() ([]byte, []int) {
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateObjectGroup) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *UpdateObjectGroup) GetParentRevisionId() string {
+	if x != nil {
+		return x.ParentRevisionId
+	}
+	return ""
+}
+
+func (x *UpdateObjectGroup) GetUpdateObjects() *UpdateObjectsRequests {
+	if x != nil {
+		return x.UpdateObjects
+	}
+	return nil
+}
+
+func (x *UpdateObjectGroup) GetUpdateMetaObjects() *UpdateObjectsRequests {
+	if x != nil {
+		return x.UpdateMetaObjects
+	}
+	return nil
+}
+
+type UpdateObjectsRequests struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AddObjects    []*CreateObjectRequest `protobuf:"bytes,1,rep,name=add_objects,json=addObjects,proto3" json:"add_objects,omitempty"`
+	UpdateObject  []*UpdateObjectRequest `protobuf:"bytes,2,rep,name=update_object,json=updateObject,proto3" json:"update_object,omitempty"`
+	DeleteObjects []string               `protobuf:"bytes,3,rep,name=delete_objects,json=deleteObjects,proto3" json:"delete_objects,omitempty"`
+}
+
+func (x *UpdateObjectsRequests) Reset() {
+	*x = UpdateObjectsRequests{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateObjectsRequests) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateObjectsRequests) ProtoMessage() {}
+
+func (x *UpdateObjectsRequests) ProtoReflect() protoreflect.Message {
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateObjectsRequests.ProtoReflect.Descriptor instead.
+func (*UpdateObjectsRequests) Descriptor() ([]byte, []int) {
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpdateObjectsRequests) GetAddObjects() []*CreateObjectRequest {
+	if x != nil {
+		return x.AddObjects
+	}
+	return nil
+}
+
+func (x *UpdateObjectsRequests) GetUpdateObject() []*UpdateObjectRequest {
+	if x != nil {
+		return x.UpdateObject
+	}
+	return nil
+}
+
+func (x *UpdateObjectsRequests) GetDeleteObjects() []string {
+	if x != nil {
+		return x.DeleteObjects
+	}
+	return nil
+}
+
+type UpdateObjectRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Types that are assignable to UpdateObject:
+	//	*UpdateObjectRequest_UpdatedObject
+	UpdateObject isUpdateObjectRequest_UpdateObject `protobuf_oneof:"update_object"`
+}
+
+func (x *UpdateObjectRequest) Reset() {
+	*x = UpdateObjectRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateObjectRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateObjectRequest) ProtoMessage() {}
+
+func (x *UpdateObjectRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateObjectRequest.ProtoReflect.Descriptor instead.
+func (*UpdateObjectRequest) Descriptor() ([]byte, []int) {
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *UpdateObjectRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (m *UpdateObjectRequest) GetUpdateObject() isUpdateObjectRequest_UpdateObject {
+	if m != nil {
+		return m.UpdateObject
+	}
+	return nil
+}
+
+func (x *UpdateObjectRequest) GetUpdatedObject() *CreateObjectRequest {
+	if x, ok := x.GetUpdateObject().(*UpdateObjectRequest_UpdatedObject); ok {
+		return x.UpdatedObject
+	}
+	return nil
+}
+
+type isUpdateObjectRequest_UpdateObject interface {
+	isUpdateObjectRequest_UpdateObject()
+}
+
+type UpdateObjectRequest_UpdatedObject struct {
+	UpdatedObject *CreateObjectRequest `protobuf:"bytes,2,opt,name=updated_object,json=updatedObject,proto3,oneof"`
+}
+
+func (*UpdateObjectRequest_UpdatedObject) isUpdateObjectRequest_UpdateObject() {}
+
 type FinishObjectUploadRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -648,7 +856,7 @@ type FinishObjectUploadRequest struct {
 func (x *FinishObjectUploadRequest) Reset() {
 	*x = FinishObjectUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[9]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -661,7 +869,7 @@ func (x *FinishObjectUploadRequest) String() string {
 func (*FinishObjectUploadRequest) ProtoMessage() {}
 
 func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[9]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -674,7 +882,7 @@ func (x *FinishObjectUploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadRequest.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadRequest) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{9}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *FinishObjectUploadRequest) GetId() string {
@@ -693,7 +901,7 @@ type FinishObjectUploadResponse struct {
 func (x *FinishObjectUploadResponse) Reset() {
 	*x = FinishObjectUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[10]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -706,7 +914,7 @@ func (x *FinishObjectUploadResponse) String() string {
 func (*FinishObjectUploadResponse) ProtoMessage() {}
 
 func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[10]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -719,7 +927,7 @@ func (x *FinishObjectUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishObjectUploadResponse.ProtoReflect.Descriptor instead.
 func (*FinishObjectUploadResponse) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{10}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{13}
 }
 
 type FinishObjectGroupRevisionUploadRequest struct {
@@ -733,7 +941,7 @@ type FinishObjectGroupRevisionUploadRequest struct {
 func (x *FinishObjectGroupRevisionUploadRequest) Reset() {
 	*x = FinishObjectGroupRevisionUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -746,7 +954,7 @@ func (x *FinishObjectGroupRevisionUploadRequest) String() string {
 func (*FinishObjectGroupRevisionUploadRequest) ProtoMessage() {}
 
 func (x *FinishObjectGroupRevisionUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -759,7 +967,7 @@ func (x *FinishObjectGroupRevisionUploadRequest) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use FinishObjectGroupRevisionUploadRequest.ProtoReflect.Descriptor instead.
 func (*FinishObjectGroupRevisionUploadRequest) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{11}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FinishObjectGroupRevisionUploadRequest) GetId() string {
@@ -778,7 +986,7 @@ type FinishObjectGroupRevisionUploadResponse struct {
 func (x *FinishObjectGroupRevisionUploadResponse) Reset() {
 	*x = FinishObjectGroupRevisionUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -791,7 +999,7 @@ func (x *FinishObjectGroupRevisionUploadResponse) String() string {
 func (*FinishObjectGroupRevisionUploadResponse) ProtoMessage() {}
 
 func (x *FinishObjectGroupRevisionUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -804,7 +1012,7 @@ func (x *FinishObjectGroupRevisionUploadResponse) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use FinishObjectGroupRevisionUploadResponse.ProtoReflect.Descriptor instead.
 func (*FinishObjectGroupRevisionUploadResponse) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{12}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{15}
 }
 
 type DeleteObjectGroupRequest struct {
@@ -818,7 +1026,7 @@ type DeleteObjectGroupRequest struct {
 func (x *DeleteObjectGroupRequest) Reset() {
 	*x = DeleteObjectGroupRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[13]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -831,7 +1039,7 @@ func (x *DeleteObjectGroupRequest) String() string {
 func (*DeleteObjectGroupRequest) ProtoMessage() {}
 
 func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[13]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -844,7 +1052,7 @@ func (x *DeleteObjectGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupRequest.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupRequest) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{13}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *DeleteObjectGroupRequest) GetId() string {
@@ -863,7 +1071,7 @@ type DeleteObjectGroupResponse struct {
 func (x *DeleteObjectGroupResponse) Reset() {
 	*x = DeleteObjectGroupResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[14]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -876,7 +1084,7 @@ func (x *DeleteObjectGroupResponse) String() string {
 func (*DeleteObjectGroupResponse) ProtoMessage() {}
 
 func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[14]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -889,7 +1097,7 @@ func (x *DeleteObjectGroupResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectGroupResponse.ProtoReflect.Descriptor instead.
 func (*DeleteObjectGroupResponse) Descriptor() ([]byte, []int) {
-	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{14}
+	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescGZIP(), []int{17}
 }
 
 type CreateObjectGroupResponse_ObjectLinks struct {
@@ -906,7 +1114,7 @@ type CreateObjectGroupResponse_ObjectLinks struct {
 func (x *CreateObjectGroupResponse_ObjectLinks) Reset() {
 	*x = CreateObjectGroupResponse_ObjectLinks{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[15]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -919,7 +1127,7 @@ func (x *CreateObjectGroupResponse_ObjectLinks) String() string {
 func (*CreateObjectGroupResponse_ObjectLinks) ProtoMessage() {}
 
 func (x *CreateObjectGroupResponse_ObjectLinks) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[15]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -975,7 +1183,7 @@ type GetObjectGroupRequest_ObjectGroupRevisionPagination struct {
 func (x *GetObjectGroupRequest_ObjectGroupRevisionPagination) Reset() {
 	*x = GetObjectGroupRequest_ObjectGroupRevisionPagination{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[16]
+		mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -988,7 +1196,7 @@ func (x *GetObjectGroupRequest_ObjectGroupRevisionPagination) String() string {
 func (*GetObjectGroupRequest_ObjectGroupRevisionPagination) ProtoMessage() {}
 
 func (x *GetObjectGroupRequest_ObjectGroupRevisionPagination) ProtoReflect() protoreflect.Message {
-	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[16]
+	mi := &file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1196,7 +1404,50 @@ var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_r
 	0x72, 0x61, 0x67, 0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f,
 	0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69,
 	0x6f, 0x6e, 0x52, 0x13, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
-	0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x2b, 0x0a, 0x19, 0x46, 0x69, 0x6e, 0x69, 0x73,
+	0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x9c, 0x02, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x2c, 0x0a,
+	0x12, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x5f, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e,
+	0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x10, 0x70, 0x61, 0x72, 0x65, 0x6e,
+	0x74, 0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x5f, 0x0a, 0x0e, 0x75,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x38, 0x2e, 0x73, 0x63, 0x69, 0x6f, 0x62, 0x6a, 0x73, 0x64, 0x62, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73, 0x52, 0x0d, 0x75,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x12, 0x68, 0x0a, 0x13,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x6d, 0x65, 0x74, 0x61, 0x5f, 0x6f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x38, 0x2e, 0x73, 0x63, 0x69, 0x6f,
+	0x62, 0x6a, 0x73, 0x64, 0x62, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67,
+	0x65, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x73, 0x52, 0x11, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x4f,
+	0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x22, 0xf4, 0x01, 0x0a, 0x15, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73,
+	0x12, 0x57, 0x0a, 0x0b, 0x61, 0x64, 0x64, 0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x18,
+	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x36, 0x2e, 0x73, 0x63, 0x69, 0x6f, 0x62, 0x6a, 0x73, 0x64,
+	0x62, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a, 0x61,
+	0x64, 0x64, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x12, 0x5b, 0x0a, 0x0d, 0x75, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x36, 0x2e, 0x73, 0x63, 0x69, 0x6f, 0x62, 0x6a, 0x73, 0x64, 0x62, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0c, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d,
+	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x22, 0x97, 0x01,
+	0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x5f, 0x0a, 0x0e, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64,
+	0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x36, 0x2e,
+	0x73, 0x63, 0x69, 0x6f, 0x62, 0x6a, 0x73, 0x64, 0x62, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x74,
+	0x6f, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x48, 0x00, 0x52, 0x0d, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64,
+	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x42, 0x0f, 0x0a, 0x0d, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x5f, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x22, 0x2b, 0x0a, 0x19, 0x46, 0x69, 0x6e, 0x69, 0x73,
 	0x68, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x02, 0x69, 0x64, 0x22, 0x1c, 0x0a, 0x1a, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4f, 0x62,
@@ -1238,7 +1489,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 	return file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDescData
 }
 
-var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_goTypes = []interface{}{
 	(*CreateObjectGroupRequest)(nil),                            // 0: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest
 	(*CreateObjectGroupBatchRequest)(nil),                       // 1: sciobjsdb.api.storage.services.v1.CreateObjectGroupBatchRequest
@@ -1249,46 +1500,54 @@ var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_g
 	(*GetObjectGroupResponse)(nil),                              // 6: sciobjsdb.api.storage.services.v1.GetObjectGroupResponse
 	(*GetObjectGroupRevisionRequest)(nil),                       // 7: sciobjsdb.api.storage.services.v1.GetObjectGroupRevisionRequest
 	(*GetObjectGroupRevisionResponse)(nil),                      // 8: sciobjsdb.api.storage.services.v1.GetObjectGroupRevisionResponse
-	(*FinishObjectUploadRequest)(nil),                           // 9: sciobjsdb.api.storage.services.v1.FinishObjectUploadRequest
-	(*FinishObjectUploadResponse)(nil),                          // 10: sciobjsdb.api.storage.services.v1.FinishObjectUploadResponse
-	(*FinishObjectGroupRevisionUploadRequest)(nil),              // 11: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadRequest
-	(*FinishObjectGroupRevisionUploadResponse)(nil),             // 12: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadResponse
-	(*DeleteObjectGroupRequest)(nil),                            // 13: sciobjsdb.api.storage.services.v1.DeleteObjectGroupRequest
-	(*DeleteObjectGroupResponse)(nil),                           // 14: sciobjsdb.api.storage.services.v1.DeleteObjectGroupResponse
-	(*CreateObjectGroupResponse_ObjectLinks)(nil),               // 15: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
-	(*GetObjectGroupRequest_ObjectGroupRevisionPagination)(nil), // 16: sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.ObjectGroupRevisionPagination
-	(*v1.Label)(nil),                                            // 17: sciobjsdb.api.storage.models.v1.Label
-	(*v1.Annotation)(nil),                                       // 18: sciobjsdb.api.storage.models.v1.Annotation
-	(*timestamppb.Timestamp)(nil),                               // 19: google.protobuf.Timestamp
-	(*v1.Subpath)(nil),                                          // 20: sciobjsdb.api.storage.models.v1.Subpath
-	(*v1.Origin)(nil),                                           // 21: sciobjsdb.api.storage.models.v1.Origin
-	(*v1.ObjectGroup)(nil),                                      // 22: sciobjsdb.api.storage.models.v1.ObjectGroup
-	(*v1.ObjectGroupRevision)(nil),                              // 23: sciobjsdb.api.storage.models.v1.ObjectGroupRevision
+	(*UpdateObjectGroup)(nil),                                   // 9: sciobjsdb.api.storage.services.v1.UpdateObjectGroup
+	(*UpdateObjectsRequests)(nil),                               // 10: sciobjsdb.api.storage.services.v1.UpdateObjectsRequests
+	(*UpdateObjectRequest)(nil),                                 // 11: sciobjsdb.api.storage.services.v1.UpdateObjectRequest
+	(*FinishObjectUploadRequest)(nil),                           // 12: sciobjsdb.api.storage.services.v1.FinishObjectUploadRequest
+	(*FinishObjectUploadResponse)(nil),                          // 13: sciobjsdb.api.storage.services.v1.FinishObjectUploadResponse
+	(*FinishObjectGroupRevisionUploadRequest)(nil),              // 14: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadRequest
+	(*FinishObjectGroupRevisionUploadResponse)(nil),             // 15: sciobjsdb.api.storage.services.v1.FinishObjectGroupRevisionUploadResponse
+	(*DeleteObjectGroupRequest)(nil),                            // 16: sciobjsdb.api.storage.services.v1.DeleteObjectGroupRequest
+	(*DeleteObjectGroupResponse)(nil),                           // 17: sciobjsdb.api.storage.services.v1.DeleteObjectGroupResponse
+	(*CreateObjectGroupResponse_ObjectLinks)(nil),               // 18: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
+	(*GetObjectGroupRequest_ObjectGroupRevisionPagination)(nil), // 19: sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.ObjectGroupRevisionPagination
+	(*v1.Label)(nil),                                            // 20: sciobjsdb.api.storage.models.v1.Label
+	(*v1.Annotation)(nil),                                       // 21: sciobjsdb.api.storage.models.v1.Annotation
+	(*timestamppb.Timestamp)(nil),                               // 22: google.protobuf.Timestamp
+	(*v1.Subpath)(nil),                                          // 23: sciobjsdb.api.storage.models.v1.Subpath
+	(*v1.Origin)(nil),                                           // 24: sciobjsdb.api.storage.models.v1.Origin
+	(*v1.ObjectGroup)(nil),                                      // 25: sciobjsdb.api.storage.models.v1.ObjectGroup
+	(*v1.ObjectGroupRevision)(nil),                              // 26: sciobjsdb.api.storage.models.v1.ObjectGroupRevision
 }
 var file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_depIdxs = []int32{
-	17, // 0: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.labels:type_name -> sciobjsdb.api.storage.models.v1.Label
-	18, // 1: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.annotations:type_name -> sciobjsdb.api.storage.models.v1.Annotation
+	20, // 0: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.labels:type_name -> sciobjsdb.api.storage.models.v1.Label
+	21, // 1: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.annotations:type_name -> sciobjsdb.api.storage.models.v1.Annotation
 	4,  // 2: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.objects:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectRequest
 	4,  // 3: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.metadata_objects:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectRequest
-	19, // 4: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
-	20, // 5: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.subpath:type_name -> sciobjsdb.api.storage.models.v1.Subpath
+	22, // 4: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.generated:type_name -> google.protobuf.Timestamp
+	23, // 5: sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest.subpath:type_name -> sciobjsdb.api.storage.models.v1.Subpath
 	0,  // 6: sciobjsdb.api.storage.services.v1.CreateObjectGroupBatchRequest.requests:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupRequest
 	3,  // 7: sciobjsdb.api.storage.services.v1.CreateObjectGroupBatchResponse.responses:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse
-	15, // 8: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.object_links:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
-	15, // 9: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.metadata_object_links:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
-	17, // 10: sciobjsdb.api.storage.services.v1.CreateObjectRequest.labels:type_name -> sciobjsdb.api.storage.models.v1.Label
-	18, // 11: sciobjsdb.api.storage.services.v1.CreateObjectRequest.annotations:type_name -> sciobjsdb.api.storage.models.v1.Annotation
-	21, // 12: sciobjsdb.api.storage.services.v1.CreateObjectRequest.origin:type_name -> sciobjsdb.api.storage.models.v1.Origin
-	20, // 13: sciobjsdb.api.storage.services.v1.CreateObjectRequest.subpath:type_name -> sciobjsdb.api.storage.models.v1.Subpath
-	16, // 14: sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.pagination:type_name -> sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.ObjectGroupRevisionPagination
-	22, // 15: sciobjsdb.api.storage.services.v1.GetObjectGroupResponse.object_group:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroup
-	23, // 16: sciobjsdb.api.storage.services.v1.GetObjectGroupResponse.object_group_revisions:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroupRevision
-	23, // 17: sciobjsdb.api.storage.services.v1.GetObjectGroupRevisionResponse.object_group_revision:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroupRevision
-	18, // [18:18] is the sub-list for method output_type
-	18, // [18:18] is the sub-list for method input_type
-	18, // [18:18] is the sub-list for extension type_name
-	18, // [18:18] is the sub-list for extension extendee
-	0,  // [0:18] is the sub-list for field type_name
+	18, // 8: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.object_links:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
+	18, // 9: sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.metadata_object_links:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectGroupResponse.ObjectLinks
+	20, // 10: sciobjsdb.api.storage.services.v1.CreateObjectRequest.labels:type_name -> sciobjsdb.api.storage.models.v1.Label
+	21, // 11: sciobjsdb.api.storage.services.v1.CreateObjectRequest.annotations:type_name -> sciobjsdb.api.storage.models.v1.Annotation
+	24, // 12: sciobjsdb.api.storage.services.v1.CreateObjectRequest.origin:type_name -> sciobjsdb.api.storage.models.v1.Origin
+	23, // 13: sciobjsdb.api.storage.services.v1.CreateObjectRequest.subpath:type_name -> sciobjsdb.api.storage.models.v1.Subpath
+	19, // 14: sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.pagination:type_name -> sciobjsdb.api.storage.services.v1.GetObjectGroupRequest.ObjectGroupRevisionPagination
+	25, // 15: sciobjsdb.api.storage.services.v1.GetObjectGroupResponse.object_group:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroup
+	26, // 16: sciobjsdb.api.storage.services.v1.GetObjectGroupResponse.object_group_revisions:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroupRevision
+	26, // 17: sciobjsdb.api.storage.services.v1.GetObjectGroupRevisionResponse.object_group_revision:type_name -> sciobjsdb.api.storage.models.v1.ObjectGroupRevision
+	10, // 18: sciobjsdb.api.storage.services.v1.UpdateObjectGroup.update_objects:type_name -> sciobjsdb.api.storage.services.v1.UpdateObjectsRequests
+	10, // 19: sciobjsdb.api.storage.services.v1.UpdateObjectGroup.update_meta_objects:type_name -> sciobjsdb.api.storage.services.v1.UpdateObjectsRequests
+	4,  // 20: sciobjsdb.api.storage.services.v1.UpdateObjectsRequests.add_objects:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectRequest
+	11, // 21: sciobjsdb.api.storage.services.v1.UpdateObjectsRequests.update_object:type_name -> sciobjsdb.api.storage.services.v1.UpdateObjectRequest
+	4,  // 22: sciobjsdb.api.storage.services.v1.UpdateObjectRequest.updated_object:type_name -> sciobjsdb.api.storage.services.v1.CreateObjectRequest
+	23, // [23:23] is the sub-list for method output_type
+	23, // [23:23] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_init() }
@@ -1406,7 +1665,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectUploadRequest); i {
+			switch v := v.(*UpdateObjectGroup); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1418,7 +1677,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectUploadResponse); i {
+			switch v := v.(*UpdateObjectsRequests); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1430,7 +1689,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectGroupRevisionUploadRequest); i {
+			switch v := v.(*UpdateObjectRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1442,7 +1701,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishObjectGroupRevisionUploadResponse); i {
+			switch v := v.(*FinishObjectUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1454,7 +1713,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectGroupRequest); i {
+			switch v := v.(*FinishObjectUploadResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1466,7 +1725,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectGroupResponse); i {
+			switch v := v.(*FinishObjectGroupRevisionUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1478,7 +1737,7 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateObjectGroupResponse_ObjectLinks); i {
+			switch v := v.(*FinishObjectGroupRevisionUploadResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1490,6 +1749,42 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteObjectGroupRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteObjectGroupResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateObjectGroupResponse_ObjectLinks); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetObjectGroupRequest_ObjectGroupRevisionPagination); i {
 			case 0:
 				return &v.state
@@ -1502,13 +1797,16 @@ func file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_
 			}
 		}
 	}
+	file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_msgTypes[11].OneofWrappers = []interface{}{
+		(*UpdateObjectRequest_UpdatedObject)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_sciobjsdb_api_storage_services_v1_dataset_object_service_models_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
