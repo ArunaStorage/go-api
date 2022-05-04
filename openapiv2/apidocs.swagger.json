@@ -801,7 +801,7 @@
     },
     "/api/v1/object/finish": {
       "post": {
-        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
+        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"",
         "operationId": "DatasetObjectsService_FinishObjectUpload",
         "responses": {
           "200": {
@@ -905,7 +905,7 @@
     },
     "/api/v1/objectgroup/finish": {
       "post": {
-        "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
+        "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"",
         "operationId": "DatasetObjectsService_FinishObjectGroupRevisionUpload",
         "responses": {
           "200": {
@@ -998,6 +998,58 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
+    },
+    "/api/v1/objectgroup/update": {
+      "post": {
+        "summary": "Updates an ObjectGroup\nThis creates a new ObjectGroupRevisions\nIt needs to be finished via FinishObjectGroupRevisionUpload before it is actually available\nCurrently experimental",
+        "operationId": "DatasetObjectsService_UpdateObjectGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateObjectGroupResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateObjectGroupRequest"
             }
           }
         ],
@@ -3585,6 +3637,60 @@
         "updatedStringFields": {
           "type": "object",
           "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1UpdateObjectGroupRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parentRevisionId": {
+          "type": "string"
+        },
+        "updateObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        },
+        "updateMetaObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        }
+      }
+    },
+    "v1UpdateObjectGroupResponse": {
+      "type": "object"
+    },
+    "v1UpdateObjectRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "updatedObject": {
+          "$ref": "#/definitions/v1CreateObjectRequest"
+        }
+      }
+    },
+    "v1UpdateObjectsRequests": {
+      "type": "object",
+      "properties": {
+        "addObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
+          }
+        },
+        "updateObject": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UpdateObjectRequest"
+          }
+        },
+        "deleteObjects": {
+          "type": "array",
+          "items": {
             "type": "string"
           }
         }
