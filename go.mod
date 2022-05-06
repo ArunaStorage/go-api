@@ -3,8 +3,8 @@ module github.com/ScienceObjectsDB/go-api
 go 1.17
 
 require (
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3
-	google.golang.org/genproto v0.0.0-20220211171837-173942840c17
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
+	google.golang.org/genproto v0.0.0-20220317150908-0efb43f6373e
 	google.golang.org/grpc v1.46.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
