@@ -3134,6 +3134,9 @@
         },
         "index": {
           "$ref": "#/definitions/v1Index"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
         }
       },
       "title": "A location in S3"
@@ -3258,7 +3261,10 @@
           "format": "date-time"
         },
         "location": {
-          "$ref": "#/definitions/modelsv1Location"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Location"
+          }
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
@@ -3415,6 +3421,9 @@
         },
         "url": {
           "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
         }
       },
       "title": "A location in S3"
