@@ -2157,9 +2157,6 @@
       "properties": {
         "objectLocation": {
           "$ref": "#/definitions/v1ObjectLocation"
-        },
-        "objectIndexLocation": {
-          "$ref": "#/definitions/v1IndexedObjectLocation"
         }
       }
     },
@@ -3107,40 +3104,6 @@
         }
       }
     },
-    "v1Index": {
-      "type": "object",
-      "properties": {
-        "startByte": {
-          "type": "string",
-          "format": "int64"
-        },
-        "endByte": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "v1IndexedObjectLocation": {
-      "type": "object",
-      "properties": {
-        "bucket": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "index": {
-          "$ref": "#/definitions/v1Index"
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        }
-      },
-      "title": "A location in S3"
-    },
     "v1InnerLinksResponse": {
       "type": "object",
       "properties": {
@@ -3272,9 +3235,6 @@
         "contentLen": {
           "type": "string",
           "format": "int64"
-        },
-        "uploadId": {
-          "type": "string"
         },
         "generated": {
           "type": "string",
@@ -3413,6 +3373,9 @@
     "v1ObjectLocation": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "bucket": {
           "type": "string"
         },
@@ -3424,6 +3387,9 @@
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
+        },
+        "uploadId": {
+          "type": "string"
         }
       },
       "title": "A location in S3"
