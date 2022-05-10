@@ -3223,11 +3223,14 @@
           "type": "string",
           "format": "date-time"
         },
-        "location": {
+        "locations": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Location"
           }
+        },
+        "defaultLocation": {
+          "$ref": "#/definitions/modelsv1Location"
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
