@@ -27,16 +27,20 @@ type DatasetObjectsServiceClient interface {
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
-	//Returns the object group with the given ID
 	GetObjectGroup(ctx context.Context, in *GetObjectGroupRequest, opts ...grpc.CallOption) (*GetObjectGroupResponse, error)
+	//Returns the object group with the given ID
+	GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error)
+	// Updates an ObjectGroup
+	// This creates a new ObjectGroupRevisions
+	// It needs to be finished via FinishObjectGroupRevisionUpload before it is actually available
+	// Currently experimental
+	UpdateObjectGroup(ctx context.Context, in *UpdateObjectGroupRequest, opts ...grpc.CallOption) (*UpdateObjectGroupResponse, error)
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
-	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error)
 	// Finishes the upload process for an objectgroup
 	// This will change the status of the objectgroup to "available"
-	// Experimental, might change this to FinishObjectGroupUpload
-	FinishObjectGroupUpload(ctx context.Context, in *FinishObjectGroupUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupUploadResponse, error)
+	FinishObjectGroupRevisionUpload(ctx context.Context, in *FinishObjectGroupRevisionUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupRevisionUploadResponse, error)
 	// Deletes the given object group
 	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
@@ -77,6 +81,24 @@ func (c *datasetObjectsServiceClient) GetObjectGroup(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *datasetObjectsServiceClient) GetObjectGroupRevision(ctx context.Context, in *GetObjectGroupRevisionRequest, opts ...grpc.CallOption) (*GetObjectGroupRevisionResponse, error) {
+	out := new(GetObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/GetObjectGroupRevision", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetObjectsServiceClient) UpdateObjectGroup(ctx context.Context, in *UpdateObjectGroupRequest, opts ...grpc.CallOption) (*UpdateObjectGroupResponse, error) {
+	out := new(UpdateObjectGroupResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/UpdateObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error) {
 	out := new(FinishObjectUploadResponse)
 	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectUpload", in, out, opts...)
@@ -86,9 +108,9 @@ func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) FinishObjectGroupUpload(ctx context.Context, in *FinishObjectGroupUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupUploadResponse, error) {
-	out := new(FinishObjectGroupUploadResponse)
-	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupUpload", in, out, opts...)
+func (c *datasetObjectsServiceClient) FinishObjectGroupRevisionUpload(ctx context.Context, in *FinishObjectGroupRevisionUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupRevisionUploadResponse, error) {
+	out := new(FinishObjectGroupRevisionUploadResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupRevisionUpload", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -113,16 +135,20 @@ type DatasetObjectsServiceServer interface {
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
-	//Returns the object group with the given ID
 	GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error)
+	//Returns the object group with the given ID
+	GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*GetObjectGroupRevisionResponse, error)
+	// Updates an ObjectGroup
+	// This creates a new ObjectGroupRevisions
+	// It needs to be finished via FinishObjectGroupRevisionUpload before it is actually available
+	// Currently experimental
+	UpdateObjectGroup(context.Context, *UpdateObjectGroupRequest) (*UpdateObjectGroupResponse, error)
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
-	// Experimental, might change this to FinishObjectGroupUpload
 	FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error)
 	// Finishes the upload process for an objectgroup
 	// This will change the status of the objectgroup to "available"
-	// Experimental, might change this to FinishObjectGroupUpload
-	FinishObjectGroupUpload(context.Context, *FinishObjectGroupUploadRequest) (*FinishObjectGroupUploadResponse, error)
+	FinishObjectGroupRevisionUpload(context.Context, *FinishObjectGroupRevisionUploadRequest) (*FinishObjectGroupRevisionUploadResponse, error)
 	// Deletes the given object group
 	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
@@ -141,11 +167,17 @@ func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupBatch(context.C
 func (UnimplementedDatasetObjectsServiceServer) GetObjectGroup(context.Context, *GetObjectGroupRequest) (*GetObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroup not implemented")
 }
+func (UnimplementedDatasetObjectsServiceServer) GetObjectGroupRevision(context.Context, *GetObjectGroupRevisionRequest) (*GetObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectGroupRevision not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) UpdateObjectGroup(context.Context, *UpdateObjectGroupRequest) (*UpdateObjectGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateObjectGroup not implemented")
+}
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) FinishObjectGroupUpload(context.Context, *FinishObjectGroupUploadRequest) (*FinishObjectGroupUploadResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectGroupUpload not implemented")
+func (UnimplementedDatasetObjectsServiceServer) FinishObjectGroupRevisionUpload(context.Context, *FinishObjectGroupRevisionUploadRequest) (*FinishObjectGroupRevisionUploadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectGroupRevisionUpload not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectGroup not implemented")
@@ -216,6 +248,42 @@ func _DatasetObjectsService_GetObjectGroup_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetObjectsService_GetObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectGroupRevisionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/GetObjectGroupRevision",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).GetObjectGroupRevision(ctx, req.(*GetObjectGroupRevisionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetObjectsService_UpdateObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateObjectGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).UpdateObjectGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/UpdateObjectGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).UpdateObjectGroup(ctx, req.(*UpdateObjectGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FinishObjectUploadRequest)
 	if err := dec(in); err != nil {
@@ -234,20 +302,20 @@ func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_FinishObjectGroupUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FinishObjectGroupUploadRequest)
+func _DatasetObjectsService_FinishObjectGroupRevisionUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FinishObjectGroupRevisionUploadRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).FinishObjectGroupUpload(ctx, in)
+		return srv.(DatasetObjectsServiceServer).FinishObjectGroupRevisionUpload(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupUpload",
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupRevisionUpload",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).FinishObjectGroupUpload(ctx, req.(*FinishObjectGroupUploadRequest))
+		return srv.(DatasetObjectsServiceServer).FinishObjectGroupRevisionUpload(ctx, req.(*FinishObjectGroupRevisionUploadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -290,12 +358,20 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetObjectsService_GetObjectGroup_Handler,
 		},
 		{
+			MethodName: "GetObjectGroupRevision",
+			Handler:    _DatasetObjectsService_GetObjectGroupRevision_Handler,
+		},
+		{
+			MethodName: "UpdateObjectGroup",
+			Handler:    _DatasetObjectsService_UpdateObjectGroup_Handler,
+		},
+		{
 			MethodName: "FinishObjectUpload",
 			Handler:    _DatasetObjectsService_FinishObjectUpload_Handler,
 		},
 		{
-			MethodName: "FinishObjectGroupUpload",
-			Handler:    _DatasetObjectsService_FinishObjectGroupUpload_Handler,
+			MethodName: "FinishObjectGroupRevisionUpload",
+			Handler:    _DatasetObjectsService_FinishObjectGroupRevisionUpload_Handler,
 		},
 		{
 			MethodName: "DeleteObjectGroup",

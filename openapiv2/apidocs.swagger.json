@@ -76,6 +76,7 @@
     },
     "/api/v1/apitoken/{id}/delete": {
       "delete": {
+        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
         "operationId": "ProjectService_DeleteAPIToken",
         "responses": {
           "200": {
@@ -125,7 +126,7 @@
     },
     "/api/v1/createapitoken": {
       "get": {
-        "summary": "Creates an API token to authenticate",
+        "summary": "CreateAPIToken Creates an API token to authenticate",
         "operationId": "ProjectService_CreateAPIToken",
         "responses": {
           "200": {
@@ -800,7 +801,7 @@
     },
     "/api/v1/object/finish": {
       "post": {
-        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
+        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"",
         "operationId": "DatasetObjectsService_FinishObjectUpload",
         "responses": {
           "200": {
@@ -904,13 +905,13 @@
     },
     "/api/v1/objectgroup/finish": {
       "post": {
-        "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"\nExperimental, might change this to FinishObjectGroupUpload",
-        "operationId": "DatasetObjectsService_FinishObjectGroupUpload",
+        "summary": "Finishes the upload process for an objectgroup\nThis will change the status of the objectgroup to \"available\"",
+        "operationId": "DatasetObjectsService_FinishObjectGroupRevisionUpload",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1FinishObjectGroupUploadResponse"
+              "$ref": "#/definitions/v1FinishObjectGroupRevisionUploadResponse"
             }
           },
           "403": {
@@ -945,7 +946,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1FinishObjectGroupUploadRequest"
+              "$ref": "#/definitions/v1FinishObjectGroupRevisionUploadRequest"
             }
           }
         ],
@@ -956,7 +957,6 @@
     },
     "/api/v1/objectgroup/get": {
       "post": {
-        "summary": "Returns the object group with the given ID",
         "operationId": "DatasetObjectsService_GetObjectGroup",
         "responses": {
           "200": {
@@ -998,6 +998,58 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
+    },
+    "/api/v1/objectgroup/update": {
+      "post": {
+        "summary": "Updates an ObjectGroup\nThis creates a new ObjectGroupRevisions\nIt needs to be finished via FinishObjectGroupRevisionUpload before it is actually available\nCurrently experimental",
+        "operationId": "DatasetObjectsService_UpdateObjectGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateObjectGroupResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateObjectGroupRequest"
             }
           }
         ],
@@ -1108,15 +1160,15 @@
         ]
       }
     },
-    "/api/v1/objectgroupsindaterange/query": {
+    "/api/v1/objectgrouprevision/get": {
       "post": {
-        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
-        "operationId": "DatasetService_GetObjectGroupsInDateRange",
+        "summary": "Returns the object group with the given ID",
+        "operationId": "DatasetObjectsService_GetObjectGroupRevision",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeResponse"
+              "$ref": "#/definitions/v1GetObjectGroupRevisionResponse"
             }
           },
           "403": {
@@ -1151,7 +1203,59 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsInDateRangeRequest"
+              "$ref": "#/definitions/v1GetObjectGroupRevisionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
+    },
+    "/api/v1/objectgroupsindaterange/query": {
+      "post": {
+        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
+        "operationId": "DatasetService_GetObjectGroupRevisionsInDateRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeRequest"
             }
           }
         ],
@@ -1214,6 +1318,7 @@
     },
     "/api/v1/objectload/complete_multipart": {
       "post": {
+        "summary": "CompleteMultipartUploadRequest Finishes a multipart upload after all parts have been uploaded",
         "operationId": "ObjectLoadService_CompleteMultipartUpload",
         "responses": {
           "200": {
@@ -1542,6 +1647,7 @@
     },
     "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
       "get": {
+        "summary": "Returns a part of an multipart upload.\nEach but the last part needs to be bigger than 5MB in order to use this functionality",
         "operationId": "ObjectLoadService_GetMultipartUploadLink",
         "responses": {
           "200": {
@@ -1598,7 +1704,7 @@
     },
     "/api/v1/project/addusertoproject": {
       "post": {
-        "summary": "AddUserToProject Adds a new user to a given project",
+        "summary": "AddUserToProject Adds a new user to a given project by its id",
         "operationId": "ProjectService_AddUserToProject",
         "responses": {
           "200": {
@@ -1702,6 +1808,7 @@
     },
     "/api/v1/project/{id}": {
       "get": {
+        "summary": "GetProject Returns the specified project",
         "operationId": "ProjectService_GetProject",
         "responses": {
           "200": {
@@ -1948,6 +2055,19 @@
       ],
       "default": "UPDATE_TYPE_UNSPECIFIED"
     },
+    "GetObjectGroupRequestObjectGroupRevisionPagination": {
+      "type": "object",
+      "properties": {
+        "startRevisionNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "lastRevisionNumber": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
       "type": "object",
       "properties": {
@@ -2010,6 +2130,17 @@
         }
       }
     },
+    "modelsv1Annotation": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "modelsv1Label": {
       "type": "object",
       "properties": {
@@ -2026,9 +2157,6 @@
       "properties": {
         "objectLocation": {
           "$ref": "#/definitions/v1ObjectLocation"
-        },
-        "objectIndexLocation": {
-          "$ref": "#/definitions/v1IndexedObjectLocation"
         }
       }
     },
@@ -2040,7 +2168,8 @@
         "STATUS_AVAILABLE",
         "STATUS_UPDATING",
         "STATUS_ARCHIVED",
-        "STATUS_DELETING"
+        "STATUS_DELETING",
+        "STATUS_STAGING"
       ],
       "default": "STATUS_UNSPECIFIED"
     },
@@ -2088,7 +2217,8 @@
         "projectId": {
           "type": "string"
         }
-      }
+      },
+      "title": "AddUserToProjectRequest Request to add a user to a project"
     },
     "v1AddUserToProjectResponse": {
       "type": "object"
@@ -2148,10 +2278,16 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
+          }
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
           }
         }
       },
@@ -2343,13 +2479,19 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
+          }
+        },
+        "metadataObjects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1CreateObjectRequest"
@@ -2364,6 +2506,9 @@
         },
         "uuid": {
           "type": "string"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
         }
       }
     },
@@ -2379,10 +2524,19 @@
             "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
           }
         },
+        "metadataObjectLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
+          }
+        },
         "objectGroupName": {
           "type": "string"
         },
         "uuid": {
+          "type": "string"
+        },
+        "objectGroupRevisionId": {
           "type": "string"
         }
       }
@@ -2402,10 +2556,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "contentLen": {
@@ -2414,6 +2568,9 @@
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
         }
       }
     },
@@ -2426,16 +2583,16 @@
         "description": {
           "type": "string"
         },
-        "metadata": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Metadata"
-          }
-        },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         }
       },
@@ -2447,7 +2604,8 @@
         "id": {
           "type": "string"
         }
-      }
+      },
+      "title": "CreateProjectResponse Returns the id of the created project"
     },
     "v1CreateUploadLinkResponse": {
       "type": "object",
@@ -2479,10 +2637,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "projectId": {
@@ -2499,6 +2657,12 @@
         },
         "stats": {
           "$ref": "#/definitions/v1DatasetStats"
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         }
       }
     },
@@ -2544,10 +2708,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "created": {
@@ -2575,6 +2739,12 @@
         },
         "stats": {
           "$ref": "#/definitions/v1DatasetVersionStats"
+        },
+        "metadataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         }
       }
     },
@@ -2628,7 +2798,7 @@
         }
       }
     },
-    "v1FinishObjectGroupUploadRequest": {
+    "v1FinishObjectGroupRevisionUploadRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -2636,7 +2806,7 @@
         }
       }
     },
-    "v1FinishObjectGroupUploadResponse": {
+    "v1FinishObjectGroupRevisionUploadResponse": {
       "type": "object"
     },
     "v1FinishObjectUploadRequest": {
@@ -2713,10 +2883,10 @@
     "v1GetDatasetVersionObjectGroupsResponse": {
       "type": "object",
       "properties": {
-        "objectGroup": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         }
       }
@@ -2772,6 +2942,9 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "pagination": {
+          "$ref": "#/definitions/GetObjectGroupRequestObjectGroupRevisionPagination"
         }
       }
     },
@@ -2780,10 +2953,32 @@
       "properties": {
         "objectGroup": {
           "$ref": "#/definitions/v1ObjectGroup"
+        },
+        "objectGroupRevisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupRevision"
+          }
         }
       }
     },
-    "v1GetObjectGroupsInDateRangeRequest": {
+    "v1GetObjectGroupRevisionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetObjectGroupRevisionResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroupRevision": {
+          "$ref": "#/definitions/v1ObjectGroupRevision"
+        }
+      }
+    },
+    "v1GetObjectGroupRevisionsInDateRangeRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -2799,13 +2994,13 @@
         }
       }
     },
-    "v1GetObjectGroupsInDateRangeResponse": {
+    "v1GetObjectGroupRevisionsInDateRangeResponse": {
       "type": "object",
       "properties": {
-        "objectGroups": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         }
       }
@@ -2909,37 +3104,6 @@
         }
       }
     },
-    "v1Index": {
-      "type": "object",
-      "properties": {
-        "startByte": {
-          "type": "string",
-          "format": "int64"
-        },
-        "endByte": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "v1IndexedObjectLocation": {
-      "type": "object",
-      "properties": {
-        "bucket": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "index": {
-          "$ref": "#/definitions/v1Index"
-        }
-      },
-      "title": "A location in S3"
-    },
     "v1InnerLinksResponse": {
       "type": "object",
       "properties": {
@@ -2954,38 +3118,17 @@
     "v1LinksResponse": {
       "type": "object",
       "properties": {
-        "objectGroups": {
+        "objectGroupRevisions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
+            "$ref": "#/definitions/v1ObjectGroupRevision"
           }
         },
-        "objectGroupLinks": {
+        "objectGroupRevisionLinks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1InnerLinksResponse"
           }
-        }
-      }
-    },
-    "v1Metadata": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "metadata": {
-          "type": "string",
-          "format": "byte"
-        },
-        "simpleSchema": {
-          "type": "string"
         }
       }
     },
@@ -3070,17 +3213,23 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "created": {
           "type": "string",
           "format": "date-time"
         },
-        "location": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Location"
+          }
+        },
+        "defaultLocation": {
           "$ref": "#/definitions/modelsv1Location"
         },
         "origin": {
@@ -3089,9 +3238,6 @@
         "contentLen": {
           "type": "string",
           "format": "int64"
-        },
-        "uploadId": {
-          "type": "string"
         },
         "generated": {
           "type": "string",
@@ -3111,10 +3257,34 @@
         },
         "stats": {
           "$ref": "#/definitions/v1ObjectStats"
+        },
+        "fileformat": {
+          "type": "string"
         }
       }
     },
     "v1ObjectGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "revisionCounter": {
+          "type": "string",
+          "format": "int64"
+        },
+        "currentRevision": {
+          "$ref": "#/definitions/v1ObjectGroupRevision"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ObjectGroupRevision": {
       "type": "object",
       "properties": {
         "id": {
@@ -3138,16 +3308,22 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
         },
         "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "metadataObjects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Object"
@@ -3163,6 +3339,16 @@
         },
         "stats": {
           "$ref": "#/definitions/v1ObjectGroupStats"
+        },
+        "subpath": {
+          "$ref": "#/definitions/v1Subpath"
+        },
+        "objectGroupId": {
+          "type": "string"
+        },
+        "revisionNumber": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -3180,12 +3366,19 @@
         "avgObjectSize": {
           "type": "number",
           "format": "double"
+        },
+        "metaObjectCount": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
     "v1ObjectLocation": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "bucket": {
           "type": "string"
         },
@@ -3193,6 +3386,12 @@
           "type": "string"
         },
         "url": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/modelsv1Status"
+        },
+        "uploadId": {
           "type": "string"
         }
       },
@@ -3246,10 +3445,10 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
         "users": {
@@ -3312,13 +3511,13 @@
             "$ref": "#/definitions/modelsv1Label"
           }
         },
-        "metadata": {
+        "annotations": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Metadata"
+            "$ref": "#/definitions/modelsv1Annotation"
           }
         },
-        "objectGroupIds": {
+        "objectGroupRevisionIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -3388,6 +3587,14 @@
         }
       }
     },
+    "v1Subpath": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        }
+      }
+    },
     "v1UpdateDatasetFieldRequest": {
       "type": "object",
       "properties": {
@@ -3408,6 +3615,60 @@
         "updatedStringFields": {
           "type": "object",
           "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1UpdateObjectGroupRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parentRevisionId": {
+          "type": "string"
+        },
+        "updateObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        },
+        "updateMetaObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        }
+      }
+    },
+    "v1UpdateObjectGroupResponse": {
+      "type": "object"
+    },
+    "v1UpdateObjectRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "updatedObject": {
+          "$ref": "#/definitions/v1CreateObjectRequest"
+        }
+      }
+    },
+    "v1UpdateObjectsRequests": {
+      "type": "object",
+      "properties": {
+        "addObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CreateObjectRequest"
+          }
+        },
+        "updateObject": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UpdateObjectRequest"
+          }
+        },
+        "deleteObjects": {
+          "type": "array",
+          "items": {
             "type": "string"
           }
         }
