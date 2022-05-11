@@ -64,7 +64,7 @@ func upload() {
 
 	}
 
-	objectGroupClient.FinishObjectGroupUpload(context.Background(), &v1Storage.FinishObjectGroupUploadRequest{
+	objectGroupClient.FinishObjectGroupRevisionUpload(context.Background(), &v1Storage.FinishObjectGroupRevisionUploadRequest{
 		Id: objectGroup.ObjectGroupId,
 	})
 
@@ -72,7 +72,7 @@ func upload() {
 		Id: objectGroup.GetObjectGroupId(),
 	})
 
-	for _, object := range objectGroup2.GetObjectGroup().Objects {
+	for _, object := range objectGroup2.GetObjectGroup().CurrentRevision.Objects {
 		downloadLink, _ := loadClient.CreateDownloadLink(context.Background(), &v1Storage.CreateDownloadLinkRequest{
 			Id: object.Id,
 		})
