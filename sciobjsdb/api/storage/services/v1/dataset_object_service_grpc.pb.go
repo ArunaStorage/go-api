@@ -28,7 +28,7 @@ type DatasetObjectsServiceClient interface {
 	// The created revision will be associated with an objectgroup but is not part of its revision history
 	// The revision needs to be finished and in available status. After that the UpdateObjectGroup request can be issued to actually add the revision to
 	// the objectgroups revision history.
-	CreateObjectGroupRevisionFromRevision(ctx context.Context, in *CreateObjectGroupRevisionFromRevisionRequest, opts ...grpc.CallOption) (*CreateObjectGroupRevisionFromRevisionResponse, error)
+	CreateObjectGroupRevision(ctx context.Context, in *CreateObjectGroupRevisionRequest, opts ...grpc.CallOption) (*CreateObjectGroupRevisionResponse, error)
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(ctx context.Context, in *CreateObjectGroupBatchRequest, opts ...grpc.CallOption) (*CreateObjectGroupBatchResponse, error)
@@ -66,9 +66,9 @@ func (c *datasetObjectsServiceClient) CreateObjectGroup(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) CreateObjectGroupRevisionFromRevision(ctx context.Context, in *CreateObjectGroupRevisionFromRevisionRequest, opts ...grpc.CallOption) (*CreateObjectGroupRevisionFromRevisionResponse, error) {
-	out := new(CreateObjectGroupRevisionFromRevisionResponse)
-	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObjectGroupRevisionFromRevision", in, out, opts...)
+func (c *datasetObjectsServiceClient) CreateObjectGroupRevision(ctx context.Context, in *CreateObjectGroupRevisionRequest, opts ...grpc.CallOption) (*CreateObjectGroupRevisionResponse, error) {
+	out := new(CreateObjectGroupRevisionResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObjectGroupRevision", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ type DatasetObjectsServiceServer interface {
 	// The created revision will be associated with an objectgroup but is not part of its revision history
 	// The revision needs to be finished and in available status. After that the UpdateObjectGroup request can be issued to actually add the revision to
 	// the objectgroups revision history.
-	CreateObjectGroupRevisionFromRevision(context.Context, *CreateObjectGroupRevisionFromRevisionRequest) (*CreateObjectGroupRevisionFromRevisionResponse, error)
+	CreateObjectGroupRevision(context.Context, *CreateObjectGroupRevisionRequest) (*CreateObjectGroupRevisionResponse, error)
 	// Batch request of CreateObjectGroup
 	// The call will preserve the ordering of the request in the response
 	CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error)
@@ -176,8 +176,8 @@ type UnimplementedDatasetObjectsServiceServer struct {
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroup not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupRevisionFromRevision(context.Context, *CreateObjectGroupRevisionFromRevisionRequest) (*CreateObjectGroupRevisionFromRevisionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupRevisionFromRevision not implemented")
+func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupRevision(context.Context, *CreateObjectGroupRevisionRequest) (*CreateObjectGroupRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupRevision not implemented")
 }
 func (UnimplementedDatasetObjectsServiceServer) CreateObjectGroupBatch(context.Context, *CreateObjectGroupBatchRequest) (*CreateObjectGroupBatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectGroupBatch not implemented")
@@ -230,20 +230,20 @@ func _DatasetObjectsService_CreateObjectGroup_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_CreateObjectGroupRevisionFromRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateObjectGroupRevisionFromRevisionRequest)
+func _DatasetObjectsService_CreateObjectGroupRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateObjectGroupRevisionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).CreateObjectGroupRevisionFromRevision(ctx, in)
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroupRevision(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObjectGroupRevisionFromRevision",
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObjectGroupRevision",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).CreateObjectGroupRevisionFromRevision(ctx, req.(*CreateObjectGroupRevisionFromRevisionRequest))
+		return srv.(DatasetObjectsServiceServer).CreateObjectGroupRevision(ctx, req.(*CreateObjectGroupRevisionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -386,8 +386,8 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetObjectsService_CreateObjectGroup_Handler,
 		},
 		{
-			MethodName: "CreateObjectGroupRevisionFromRevision",
-			Handler:    _DatasetObjectsService_CreateObjectGroupRevisionFromRevision_Handler,
+			MethodName: "CreateObjectGroupRevision",
+			Handler:    _DatasetObjectsService_CreateObjectGroupRevision_Handler,
 		},
 		{
 			MethodName: "CreateObjectGroupBatch",

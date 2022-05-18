@@ -1163,12 +1163,12 @@
     "/api/v1/objectgrouprevision/createfromrevision": {
       "post": {
         "summary": "Creates a new ObjectGroupRevision from an existing revision\nThe created revision will be associated with an objectgroup but is not part of its revision history\nThe revision needs to be finished and in available status. After that the UpdateObjectGroup request can be issued to actually add the revision to\nthe objectgroups revision history.",
-        "operationId": "DatasetObjectsService_CreateObjectGroupRevisionFromRevision",
+        "operationId": "DatasetObjectsService_CreateObjectGroupRevision",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateObjectGroupRevisionFromRevisionResponse"
+              "$ref": "#/definitions/v1CreateObjectGroupRevisionResponse"
             }
           },
           "403": {
@@ -1203,7 +1203,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateObjectGroupRevisionFromRevisionRequest"
+              "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
             }
           }
         ],
@@ -2516,51 +2516,11 @@
     "v1CreateObjectGroupRequest": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
+        "createRevisionRequest": {
+          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
         },
         "datasetId": {
           "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateObjectRequest"
-          }
-        },
-        "metadataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateObjectRequest"
-          }
-        },
-        "includeObjectLink": {
-          "type": "boolean"
-        },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "uuid": {
-          "type": "string"
-        },
-        "subpath": {
-          "$ref": "#/definitions/v1Subpath"
         }
       }
     },
@@ -2593,7 +2553,7 @@
         }
       }
     },
-    "v1CreateObjectGroupRevisionFromRevisionRequest": {
+    "v1CreateObjectGroupRevisionRequest": {
       "type": "object",
       "properties": {
         "revisionId": {
@@ -2607,10 +2567,35 @@
         },
         "objectGroupId": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
+          }
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Annotation"
+          }
+        },
+        "includeObjectLink": {
+          "type": "boolean"
+        },
+        "generated": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
-    "v1CreateObjectGroupRevisionFromRevisionResponse": {
+    "v1CreateObjectGroupRevisionResponse": {
       "type": "object",
       "properties": {
         "id": {
