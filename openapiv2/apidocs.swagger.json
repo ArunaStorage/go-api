@@ -1008,7 +1008,7 @@
     },
     "/api/v1/objectgroup/update": {
       "post": {
-        "summary": "Updates an ObjectGroup\nThis creates a new ObjectGroupRevisions\nIt needs to be finished via FinishObjectGroupRevisionUpload before it is actually available\nCurrently experimental",
+        "summary": "Updates an ObjectGroup\nAdds an existing ObjectGroupRevision as a new revision to the objectgroup",
         "operationId": "DatasetObjectsService_UpdateObjectGroup",
         "responses": {
           "200": {
@@ -1160,9 +1160,61 @@
         ]
       }
     },
+    "/api/v1/objectgrouprevision/createfromrevision": {
+      "post": {
+        "summary": "Creates a new ObjectGroupRevision from an existing revision\nThe created revision will be associated with an objectgroup but is not part of its revision history\nThe revision needs to be finished and in available status. After that the UpdateObjectGroup request can be issued to actually add the revision to\nthe objectgroups revision history.",
+        "operationId": "DatasetObjectsService_CreateObjectGroupRevisionFromRevision",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectGroupRevisionFromRevisionResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "418": {
+            "description": "I'm a teapot.",
+            "schema": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {}
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectGroupRevisionFromRevisionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetObjectsService"
+        ]
+      }
+    },
     "/api/v1/objectgrouprevision/get": {
       "post": {
-        "summary": "Returns the object group with the given ID",
+        "summary": "Returns the object group revision with the given id",
         "operationId": "DatasetObjectsService_GetObjectGroupRevision",
         "responses": {
           "200": {
@@ -2541,6 +2593,31 @@
         }
       }
     },
+    "v1CreateObjectGroupRevisionFromRevisionRequest": {
+      "type": "object",
+      "properties": {
+        "revisionId": {
+          "type": "string"
+        },
+        "updateObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        },
+        "updateMetaObjects": {
+          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        },
+        "objectGroupId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateObjectGroupRevisionFromRevisionResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "v1CreateObjectRequest": {
       "type": "object",
       "properties": {
@@ -3626,14 +3703,8 @@
         "id": {
           "type": "string"
         },
-        "parentRevisionId": {
+        "revisionId": {
           "type": "string"
-        },
-        "updateObjects": {
-          "$ref": "#/definitions/v1UpdateObjectsRequests"
-        },
-        "updateMetaObjects": {
-          "$ref": "#/definitions/v1UpdateObjectsRequests"
         }
       }
     },

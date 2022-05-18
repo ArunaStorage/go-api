@@ -120,7 +120,7 @@ type ObjectGroupRevision struct {
 	Stats           *ObjectGroupStats      `protobuf:"bytes,13,opt,name=stats,proto3" json:"stats,omitempty"`
 	Subpath         *Subpath               `protobuf:"bytes,15,opt,name=subpath,proto3" json:"subpath,omitempty"` // Expected external path; Can be used when downloading data; Should be a relative path
 	ObjectGroupId   string                 `protobuf:"bytes,16,opt,name=object_group_id,json=objectGroupId,proto3" json:"object_group_id,omitempty"`
-	RevisionNumber  int64                  `protobuf:"varint,17,opt,name=revision_number,json=revisionNumber,proto3" json:"revision_number,omitempty"` //Number in the history, will be assigned after the ObjectGroupRevision has been finalized
+	RevisionNumber  int64                  `protobuf:"varint,17,opt,name=revision_number,json=revisionNumber,proto3" json:"revision_number,omitempty"` //Number in the history, will be assigned after the ObjectGroupRevision has been finalized and added to the objectgroups history
 }
 
 func (x *ObjectGroupRevision) Reset() {
