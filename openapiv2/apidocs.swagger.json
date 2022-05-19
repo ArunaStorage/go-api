@@ -2860,6 +2860,14 @@
         }
       }
     },
+    "v1ExistingObjectRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "v1FinishObjectGroupRevisionUploadRequest": {
       "type": "object",
       "properties": {
@@ -3716,16 +3724,16 @@
             "$ref": "#/definitions/v1CreateObjectRequest"
           }
         },
-        "updateObject": {
+        "updateObjects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1UpdateObjectRequest"
           }
         },
-        "deleteObjects": {
+        "existingObjects": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/v1ExistingObjectRequest"
           }
         }
       }
