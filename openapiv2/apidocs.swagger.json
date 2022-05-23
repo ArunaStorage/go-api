@@ -3696,8 +3696,8 @@
         "id": {
           "type": "string"
         },
-        "update": {
-          "$ref": "#/definitions/v1UpdateObjectsRequests"
+        "revisionId": {
+          "type": "string"
         }
       }
     },
