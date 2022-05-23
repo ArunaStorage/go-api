@@ -2077,7 +2077,7 @@
       ],
       "default": "EVENT_RESOURCES_UNSPECIFIED"
     },
-    "CreateObjectGroupResponseObjectLinks": {
+    "CreateObjectGroupRevisionResponseObjectLinks": {
       "type": "object",
       "properties": {
         "filename": {
@@ -2530,26 +2530,11 @@
         "objectGroupId": {
           "type": "string"
         },
-        "objectLinks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
-          }
-        },
-        "metadataObjectLinks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CreateObjectGroupResponseObjectLinks"
-          }
-        },
         "objectGroupName": {
           "type": "string"
         },
-        "uuid": {
-          "type": "string"
-        },
-        "objectGroupRevisionId": {
-          "type": "string"
+        "createRevisionResponse": {
+          "$ref": "#/definitions/v1CreateObjectGroupRevisionResponse"
         }
       }
     },
@@ -2600,6 +2585,18 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "objectLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateObjectGroupRevisionResponseObjectLinks"
+          }
+        },
+        "metadataObjectLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateObjectGroupRevisionResponseObjectLinks"
+          }
         }
       }
     },
