@@ -3416,6 +3416,9 @@
         "revisionNumber": {
           "type": "string",
           "format": "int64"
+        },
+        "changes": {
+          "$ref": "#/definitions/v1RevisionChanges"
         }
       }
     },
@@ -3615,6 +3618,35 @@
         "RESOURCE_OBJECT_GROUP_REVISION"
       ],
       "default": "RESOURCE_UNSPECIFIED"
+    },
+    "v1RevisionChanges": {
+      "type": "object",
+      "properties": {
+        "addedObjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updatedObjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "existingObjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deletedObjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "v1Right": {
       "type": "string",
