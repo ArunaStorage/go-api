@@ -2080,18 +2080,11 @@
     "CreateObjectGroupRevisionResponseObjectLinks": {
       "type": "object",
       "properties": {
-        "filename": {
-          "type": "string"
-        },
         "link": {
           "type": "string"
         },
         "objectId": {
           "type": "string"
-        },
-        "index": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
@@ -2585,6 +2578,18 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "dataObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "metaObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         },
         "objectLinks": {
           "type": "array",
