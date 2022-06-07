@@ -2639,6 +2639,9 @@
         },
         "subpath": {
           "$ref": "#/definitions/v1Subpath"
+        },
+        "datasetId": {
+          "type": "string"
         }
       }
     },
