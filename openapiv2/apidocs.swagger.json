@@ -3705,8 +3705,8 @@
         "id": {
           "type": "string"
         },
-        "revisionId": {
-          "type": "string"
+        "createRevisionRequest": {
+          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
         }
       }
     },
