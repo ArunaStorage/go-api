@@ -41,12 +41,10 @@ type DatasetObjectsServiceClient interface {
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
 	FinishObjectUpload(ctx context.Context, in *FinishObjectUploadRequest, opts ...grpc.CallOption) (*FinishObjectUploadResponse, error)
-	// Finishes the upload process for an objectgroup
-	// This will change the status of the objectgroup to "available"
-	FinishObjectGroupRevisionUpload(ctx context.Context, in *FinishObjectGroupRevisionUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupRevisionUploadResponse, error)
 	// Deletes the given object group
 	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
+	CreateObject(ctx context.Context, in *CreateObjectRequest, opts ...grpc.CallOption) (*CreateObjectResponse, error)
 }
 
 type datasetObjectsServiceClient struct {
@@ -120,18 +118,18 @@ func (c *datasetObjectsServiceClient) FinishObjectUpload(ctx context.Context, in
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) FinishObjectGroupRevisionUpload(ctx context.Context, in *FinishObjectGroupRevisionUploadRequest, opts ...grpc.CallOption) (*FinishObjectGroupRevisionUploadResponse, error) {
-	out := new(FinishObjectGroupRevisionUploadResponse)
-	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupRevisionUpload", in, out, opts...)
+func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error) {
+	out := new(DeleteObjectGroupResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/DeleteObjectGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *datasetObjectsServiceClient) DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error) {
-	out := new(DeleteObjectGroupResponse)
-	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/DeleteObjectGroup", in, out, opts...)
+func (c *datasetObjectsServiceClient) CreateObject(ctx context.Context, in *CreateObjectRequest, opts ...grpc.CallOption) (*CreateObjectResponse, error) {
+	out := new(CreateObjectResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -161,12 +159,10 @@ type DatasetObjectsServiceServer interface {
 	// Finishes the upload process for an object
 	// This will change the status of the objects to "available"
 	FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error)
-	// Finishes the upload process for an objectgroup
-	// This will change the status of the objectgroup to "available"
-	FinishObjectGroupRevisionUpload(context.Context, *FinishObjectGroupRevisionUploadRequest) (*FinishObjectGroupRevisionUploadResponse, error)
 	// Deletes the given object group
 	// This will also delete all associated objects both as metadata objects and the actual objects in the object storage
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
+	CreateObject(context.Context, *CreateObjectRequest) (*CreateObjectResponse, error)
 }
 
 // UnimplementedDatasetObjectsServiceServer should be embedded to have forward compatible implementations.
@@ -194,11 +190,11 @@ func (UnimplementedDatasetObjectsServiceServer) UpdateObjectGroup(context.Contex
 func (UnimplementedDatasetObjectsServiceServer) FinishObjectUpload(context.Context, *FinishObjectUploadRequest) (*FinishObjectUploadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectUpload not implemented")
 }
-func (UnimplementedDatasetObjectsServiceServer) FinishObjectGroupRevisionUpload(context.Context, *FinishObjectGroupRevisionUploadRequest) (*FinishObjectGroupRevisionUploadResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FinishObjectGroupRevisionUpload not implemented")
-}
 func (UnimplementedDatasetObjectsServiceServer) DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectGroup not implemented")
+}
+func (UnimplementedDatasetObjectsServiceServer) CreateObject(context.Context, *CreateObjectRequest) (*CreateObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateObject not implemented")
 }
 
 // UnsafeDatasetObjectsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -338,24 +334,6 @@ func _DatasetObjectsService_FinishObjectUpload_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DatasetObjectsService_FinishObjectGroupRevisionUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FinishObjectGroupRevisionUploadRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DatasetObjectsServiceServer).FinishObjectGroupRevisionUpload(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/FinishObjectGroupRevisionUpload",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DatasetObjectsServiceServer).FinishObjectGroupRevisionUpload(ctx, req.(*FinishObjectGroupRevisionUploadRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _DatasetObjectsService_DeleteObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteObjectGroupRequest)
 	if err := dec(in); err != nil {
@@ -370,6 +348,24 @@ func _DatasetObjectsService_DeleteObjectGroup_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetObjectsServiceServer).DeleteObjectGroup(ctx, req.(*DeleteObjectGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetObjectsService_CreateObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateObjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetObjectsServiceServer).CreateObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetObjectsService/CreateObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetObjectsServiceServer).CreateObject(ctx, req.(*CreateObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -410,12 +406,12 @@ var DatasetObjectsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetObjectsService_FinishObjectUpload_Handler,
 		},
 		{
-			MethodName: "FinishObjectGroupRevisionUpload",
-			Handler:    _DatasetObjectsService_FinishObjectGroupRevisionUpload_Handler,
-		},
-		{
 			MethodName: "DeleteObjectGroup",
 			Handler:    _DatasetObjectsService_DeleteObjectGroup_Handler,
+		},
+		{
+			MethodName: "CreateObject",
+			Handler:    _DatasetObjectsService_CreateObject_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
