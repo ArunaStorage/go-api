@@ -2942,6 +2942,9 @@
         },
         "pageRequest": {
           "$ref": "#/definitions/v1PageRequest"
+        },
+        "labelFilter": {
+          "$ref": "#/definitions/v1LabelFilter"
         }
       }
     },
@@ -3214,6 +3217,17 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "v1LabelFilter": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsv1Label"
           }
         }
       }
