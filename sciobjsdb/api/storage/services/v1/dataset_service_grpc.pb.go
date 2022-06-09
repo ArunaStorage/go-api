@@ -26,6 +26,7 @@ type DatasetServiceClient interface {
 	CreateDataset(ctx context.Context, in *CreateDatasetRequest, opts ...grpc.CallOption) (*CreateDatasetResponse, error)
 	// Dataset Returns a specific dataset
 	GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error)
+	GetDatasetObjects(ctx context.Context, in *GetDatasetObjectsRequest, opts ...grpc.CallOption) (*GetDatasetObjectsResponse, error)
 	// Lists Versions of a dataset
 	GetDatasetVersions(ctx context.Context, in *GetDatasetVersionsRequest, opts ...grpc.CallOption) (*GetDatasetVersionsResponse, error)
 	// Lists all object groups of a dataset
@@ -70,6 +71,15 @@ func (c *datasetServiceClient) CreateDataset(ctx context.Context, in *CreateData
 func (c *datasetServiceClient) GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error) {
 	out := new(GetDatasetResponse)
 	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetService/GetDataset", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetServiceClient) GetDatasetObjects(ctx context.Context, in *GetDatasetObjectsRequest, opts ...grpc.CallOption) (*GetDatasetObjectsResponse, error) {
+	out := new(GetDatasetObjectsResponse)
+	err := c.cc.Invoke(ctx, "/sciobjsdb.api.storage.services.v1.DatasetService/GetDatasetObjects", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,6 +184,7 @@ type DatasetServiceServer interface {
 	CreateDataset(context.Context, *CreateDatasetRequest) (*CreateDatasetResponse, error)
 	// Dataset Returns a specific dataset
 	GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error)
+	GetDatasetObjects(context.Context, *GetDatasetObjectsRequest) (*GetDatasetObjectsResponse, error)
 	// Lists Versions of a dataset
 	GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error)
 	// Lists all object groups of a dataset
@@ -207,6 +218,9 @@ func (UnimplementedDatasetServiceServer) CreateDataset(context.Context, *CreateD
 }
 func (UnimplementedDatasetServiceServer) GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataset not implemented")
+}
+func (UnimplementedDatasetServiceServer) GetDatasetObjects(context.Context, *GetDatasetObjectsRequest) (*GetDatasetObjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetObjects not implemented")
 }
 func (UnimplementedDatasetServiceServer) GetDatasetVersions(context.Context, *GetDatasetVersionsRequest) (*GetDatasetVersionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetVersions not implemented")
@@ -282,6 +296,24 @@ func _DatasetService_GetDataset_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetServiceServer).GetDataset(ctx, req.(*GetDatasetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetService_GetDatasetObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDatasetObjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).GetDatasetObjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sciobjsdb.api.storage.services.v1.DatasetService/GetDatasetObjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).GetDatasetObjects(ctx, req.(*GetDatasetObjectsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -480,6 +512,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataset",
 			Handler:    _DatasetService_GetDataset_Handler,
+		},
+		{
+			MethodName: "GetDatasetObjects",
+			Handler:    _DatasetService_GetDatasetObjects_Handler,
 		},
 		{
 			MethodName: "GetDatasetVersions",
