@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	v1 "github.com/ScienceObjectsDB/go-api/sciobjsdb/api/storage/models/v1"
 	v1Storage "github.com/ScienceObjectsDB/go-api/sciobjsdb/api/storage/services/v1"
 	"google.golang.org/grpc"
 )
@@ -30,42 +31,70 @@ func upload() {
 		ProjectId:   projectID,
 	})
 
+	object1, _ := objectGroupClient.CreateObject(context.Background(), &v1Storage.CreateObjectRequest{
+		Filename:  "test",
+		Filetype:  "bin",
+		DatasetId: dataset.GetId(),
+		Labels: []*v1.Label{&v1.Label{
+			Key:   "testkey",
+			Value: "testvalue",
+		}},
+	})
+
+	object2, _ := objectGroupClient.CreateObject(context.Background(), &v1Storage.CreateObjectRequest{
+		Filename:  "test",
+		Filetype:  "meta",
+		DatasetId: dataset.GetId(),
+		Labels: []*v1.Label{&v1.Label{
+			Key:   "testkey",
+			Value: "testvalue",
+		}},
+	})
+
+	link := object1.UploadLink
+	putRequest, _ := http.NewRequest("PUT", link, bytes.NewBufferString("abcdefghi"))
+	http.DefaultClient.Do(putRequest)
+
+	objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
+		Id: object1.Id,
+	})
+
+	link2 := object2.UploadLink
+	putRequest2, _ := http.NewRequest("PUT", link2, bytes.NewBufferString("abcdefghi"))
+	http.DefaultClient.Do(putRequest2)
+
+	objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
+		Id: object2.Id,
+	})
+
 	// Data objects can be stored in object groups that represent a set of closely related objects.
 	// E.g. A data file with an associated index file that points to various features in the data file
 	objectGroup, _ := objectGroupClient.CreateObjectGroup(context.Background(), &v1Storage.CreateObjectGroupRequest{
-		Name:              "testobjectgroup",
-		Description:       "A test objectgroup",
-		DatasetId:         dataset.GetId(),
-		IncludeObjectLink: true, // Returns presigned upload links for all objects. For large objects please use the multipart upload
-		Objects: []*v1Storage.CreateObjectRequest{
-			&v1Storage.CreateObjectRequest{
-				Filename:   "foo.txt",
-				Filetype:   "txt",
-				ContentLen: 9, // The content length is currently not checked, but might be required in the future
+		DatasetId: dataset.GetId(),
+		CreateRevisionRequest: &v1Storage.CreateObjectGroupRevisionRequest{
+			Name:        "testobjectgroup",
+			Description: "a test",
+			Labels: []*v1.Label{
+				&v1.Label{
+					Key:   "testkey",
+					Value: "testvalue",
+				},
 			},
-			&v1Storage.CreateObjectRequest{
-				Filename:   "foo.bin",
-				Filetype:   "bin",
-				ContentLen: 9,
+			UpdateObjects: &v1Storage.UpdateObjectsRequests{
+				AddObjects: []*v1Storage.AddObjectRequest{
+					&v1Storage.AddObjectRequest{
+						Id: object1.Id,
+					},
+				},
+			},
+			UpdateMetaObjects: &v1Storage.UpdateObjectsRequests{
+				AddObjects: []*v1Storage.AddObjectRequest{
+					&v1Storage.AddObjectRequest{
+						Id: object2.Id,
+					},
+				},
 			},
 		},
-	})
-
-	// The link order is the same as the request order in the createobjectgrouprequest
-	for _, object := range objectGroup.ObjectLinks {
-		link := object.Link
-		putRequest, _ := http.NewRequest("PUT", link, bytes.NewBufferString("abcdefghi"))
-		http.DefaultClient.Do(putRequest)
-
-		//This is currently not required but will be used in the future to perform checks on metadata, execute additional tasks and so on...
-		objectGroupClient.FinishObjectUpload(context.Background(), &v1Storage.FinishObjectUploadRequest{
-			Id: object.ObjectId,
-		})
-
-	}
-
-	objectGroupClient.FinishObjectGroupRevisionUpload(context.Background(), &v1Storage.FinishObjectGroupRevisionUploadRequest{
-		Id: objectGroup.ObjectGroupId,
 	})
 
 	objectGroup2, _ := objectGroupClient.GetObjectGroup(context.Background(), &v1Storage.GetObjectGroupRequest{
