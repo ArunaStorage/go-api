@@ -303,6 +303,9 @@ func (x *GetDatasetResponse) GetDataset() *v1.Dataset {
 	return nil
 }
 
+// Returns all objects of a dataset, the label filter option can be used to find only objects that at least have a specific set of labels (but can have more)
+// For returning large numbers of objects the query can be paginated
+// There is no guarantee that paginated queries return consistent results, since they can reflect changes that were made between two different pagianted calls.
 type GetDatasetObjectsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

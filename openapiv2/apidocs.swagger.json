@@ -2946,7 +2946,8 @@
         "labelFilter": {
           "$ref": "#/definitions/v1LabelFilter"
         }
-      }
+      },
+      "description": "Returns all objects of a dataset, the label filter option can be used to find only objects that at least have a specific set of labels (but can have more)\nFor returning large numbers of objects the query can be paginated\nThere is no guarantee that paginated queries return consistent results, since they can reflect changes that were made between two different pagianted calls."
     },
     "v1GetDatasetObjectsResponse": {
       "type": "object",
