@@ -3,13 +3,51 @@ package examples
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	v1 "github.com/ScienceObjectsDB/go-api/sciobjsdb/api/storage/models/v1"
 	v1Storage "github.com/ScienceObjectsDB/go-api/sciobjsdb/api/storage/services/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
 )
+
+func api_key_example() {
+	projectID := "<id>"
+
+	host := "host"
+	port := 443
+
+	var tlsConf tls.Config
+	credentials := credentials.NewTLS(&tlsConf)
+	dialOptions := grpc.WithTransportCredentials(credentials)
+
+	conn, err := grpc.Dial(fmt.Sprintf("%v:%v", host, port), dialOptions)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	datasetClient := v1Storage.NewDatasetServiceClient(conn)
+
+	mdMap := make(map[string]string)
+	mdMap["API_TOKEN"] = "token"
+	tokenMetadata := metadata.New(mdMap)
+
+	outContext := metadata.NewOutgoingContext(context.Background(), tokenMetadata)
+
+	dataset, _ := datasetClient.CreateDataset(outContext, &v1Storage.CreateDatasetRequest{
+		Name:        "testdataset",
+		Description: "A test dataset",
+		ProjectId:   projectID,
+	})
+
+	println(dataset.Id)
+
+}
 
 func upload() {
 	projectID := "<id>"
