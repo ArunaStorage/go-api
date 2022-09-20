@@ -11,6 +11,8 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
+require github.com/ArunaStorage/go-api v0.4.0-alpha.1
+
 require (
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
