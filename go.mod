@@ -1,6 +1,6 @@
-module github.com/ScienceObjectsDB/go-api
+module github.com/ArunaStorage/go-api
 
-go 1.17
+go 1.19
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
