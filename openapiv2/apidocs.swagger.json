@@ -1,29 +1,34 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "ScienceObjectsDB REST API",
-    "version": "0.1"
+    "title": "aruna/api/internal/v1/proxy.proto",
+    "version": "version not set"
   },
   "tags": [
     {
-      "name": "ProjectService"
+      "name": "InternalProxyService"
     },
     {
       "name": "UpdateNotificationService"
     },
     {
-      "name": "DatasetObjectsService"
+      "name": "CollectionService"
     },
     {
-      "name": "DatasetService"
+      "name": "EndpointService"
     },
     {
-      "name": "ObjectLoadService"
+      "name": "ObjectService"
+    },
+    {
+      "name": "ObjectGroupService"
+    },
+    {
+      "name": "ProjectService"
+    },
+    {
+      "name": "UserService"
     }
-  ],
-  "schemes": [
-    "https",
-    "http"
   ],
   "consumes": [
     "application/json"
@@ -32,10 +37,42 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/apitoken": {
+    "/v1/auth/register": {
+      "post": {
+        "operationId": "UserService_RegisterUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/auth/token": {
       "get": {
-        "summary": "Returns all API token for a specific user, based on the provided oauth2 token",
-        "operationId": "ProjectService_GetAPIToken",
+        "summary": "Returns one API token by id",
+        "operationId": "UserService_GetAPIToken",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -43,67 +80,6 @@
               "$ref": "#/definitions/v1GetAPITokenResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "ProjectService"
-        ]
-      }
-    },
-    "/api/v1/apitoken/{id}/delete": {
-      "delete": {
-        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
-        "operationId": "ProjectService_DeleteAPIToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteAPITokenResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -113,21 +89,27 @@
         },
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
+            "name": "tokenId",
+            "description": "The token id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "or the user_defined name",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
         "tags": [
-          "ProjectService"
+          "UserService"
         ]
-      }
-    },
-    "/api/v1/createapitoken": {
-      "get": {
+      },
+      "post": {
         "summary": "CreateAPIToken Creates an API token to authenticate",
-        "operationId": "ProjectService_CreateAPIToken",
+        "operationId": "UserService_CreateAPIToken",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -135,24 +117,38 @@
               "$ref": "#/definitions/v1CreateAPITokenResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
+          "default": {
+            "description": "An unexpected error response.",
             "schema": {
-              "type": "string",
-              "format": "string"
+              "$ref": "#/definitions/googlerpcStatus"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateAPITokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/auth/token/{tokenId}": {
+      "delete": {
+        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
+        "operationId": "UserService_DeleteAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteAPITokenResponse"
+            }
           },
           "default": {
             "description": "An unexpected error response.",
@@ -163,46 +159,81 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "tokenId",
+            "description": "The token_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/auth/tokens": {
+      "get": {
+        "summary": "Returns all API token for a specific user",
+        "operationId": "UserService_GetAPITokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAPITokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
+        "operationId": "UserService_DeleteAPITokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteAPITokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "This request invalidates all tokens of a specific user\nusually the user_id is specified via the provided oidc or aruna token\nThis user_id can be used by admins to invalidate all tokens of a specific\nuser",
             "in": "query",
             "required": false,
             "type": "string"
           }
         ],
         "tags": [
-          "ProjectService"
+          "UserService"
         ]
       }
     },
-    "/api/v1/dataset/create": {
+    "/v1/collection": {
       "post": {
-        "summary": "CreateNewDataset Creates a new dataset and associates it with a dataset",
-        "operationId": "DatasetService_CreateDataset",
+        "summary": "CreateNewCollection creates a new Collection",
+        "operationId": "CollectionService_CreateNewCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateDatasetResponse"
+              "$ref": "#/definitions/v1CreateNewCollectionResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -217,44 +248,25 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateDatasetRequest"
+              "$ref": "#/definitions/v1CreateNewCollectionRequest"
             }
           }
         ],
         "tags": [
-          "DatasetService"
+          "CollectionService"
         ]
       }
     },
-    "/api/v1/dataset/get": {
-      "post": {
-        "summary": "Dataset Returns a specific dataset",
-        "operationId": "DatasetService_GetDataset",
+    "/v1/collection/{collectionId}": {
+      "get": {
+        "summary": "GetCollection queries a specific Collection by ID\nThe result can be one_of:\nCollectionOverview -\u003e default\nCollectionWithID\nCollection (full)\nThis can be modified with the optional OutputFormat parameter",
+        "operationId": "CollectionService_GetCollectionByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetDatasetResponse"
+              "$ref": "#/definitions/v1GetCollectionByIDResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -265,406 +277,25 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/dataset/list": {
-      "post": {
-        "summary": "Lists all object groups of a dataset",
-        "operationId": "DatasetService_GetDatasetObjectGroups",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetObjectGroupsResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetObjectGroupsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/dataset/update": {
-      "post": {
-        "summary": "Updates a field of a dataset",
-        "operationId": "DatasetService_UpdateDatasetField",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateDatasetFieldResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateDatasetFieldRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/dataset/{id}": {
-      "delete": {
-        "summary": "DeleteDataset Delete a dataset",
-        "operationId": "DatasetService_DeleteDataset",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteDatasetResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
+            "name": "collectionId",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "DatasetService"
+          "CollectionService"
         ]
-      }
-    },
-    "/api/v1/datasetobjects/get": {
-      "post": {
-        "operationId": "DatasetService_GetDatasetObjects",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetObjectsResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetObjectsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/datasetversion/create": {
-      "post": {
-        "summary": "ReleaseDatasetVersion Release a new dataset version",
-        "operationId": "DatasetService_ReleaseDatasetVersion",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ReleaseDatasetVersionResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ReleaseDatasetVersionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/datasetversion/get": {
-      "post": {
-        "operationId": "DatasetService_GetDatasetVersion",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/datasetversion/list": {
-      "post": {
-        "operationId": "DatasetService_GetDatasetVersionObjectGroups",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionObjectGroupsResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionObjectGroupsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/datasetversion/{id}": {
+      },
       "delete": {
-        "operationId": "DatasetService_DeleteDatasetVersion",
+        "summary": "This request deletes the collection.\nIf with_version is true, it deletes the collection and all its versions.\nIf cascade is true, all objects that are owned by the collection will also\ndeleted. This should be avoided",
+        "operationId": "CollectionService_DeleteCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteDatasetVersionResponse"
+              "$ref": "#/definitions/v1DeleteCollectionResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -675,46 +306,37 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "collectionId",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
-          "DatasetService"
+          "CollectionService"
         ]
-      }
-    },
-    "/api/v1/datasetversions/list": {
-      "post": {
-        "summary": "Lists Versions of a dataset",
-        "operationId": "DatasetService_GetDatasetVersions",
+      },
+      "put": {
+        "summary": "UpdateCollection updates the current collection\nThis will update the collection in place if it is unversioned / latest\nA versioned (pinned) collection requires a new semantic version after the\nupdate This can be used to pin a collection to a specific version similar\nto the PinCollectionVersion request",
+        "operationId": "CollectionService_UpdateCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionsResponse"
+              "$ref": "#/definitions/v1UpdateCollectionResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -725,159 +347,73 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "collectionId",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetDatasetVersionsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/eventstream/createstreaminggroup": {
-      "post": {
-        "operationId": "UpdateNotificationService_CreateEventStreamingGroup",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateEventStreamingGroupResponse"
-            }
+            "type": "string"
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateEventStreamingGroupRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UpdateNotificationService"
-        ]
-      }
-    },
-    "/api/v1/eventstreamgroup/notifications": {
-      "post": {
-        "operationId": "UpdateNotificationService_NotificationStreamGroup",
-        "responses": {
-          "200": {
-            "description": "A successful response.(streaming responses)",
             "schema": {
               "type": "object",
               "properties": {
-                "result": {
-                  "$ref": "#/definitions/v1NotificationStreamGroupResponse"
+                "projectId": {
+                  "type": "string"
                 },
-                "error": {
-                  "$ref": "#/definitions/googlerpcStatus"
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                },
+                "hooks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                },
+                "labelOntology": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1LabelOntology"
+                  }
+                },
+                "dataclass": {
+                  "$ref": "#/definitions/v1DataClass",
+                  "title": "Optional update Dataclass, this will not overwrite\nthe dataclass of all existing associated objects\nNew objects can only have this dataclass"
+                },
+                "version": {
+                  "$ref": "#/definitions/v1Version",
+                  "title": "If this is set, the collection will be automatically pinned to this version\nSimilar to the more explicit Pin request\nUpdating a pinned collection will make this field required\n(optional if unpinned || required if pinned)"
                 }
               },
-              "title": "Stream result of v1NotificationStreamGroupResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": " (streaming inputs)",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1NotificationStreamGroupRequest"
+              "title": "This updates the collection\nUpdating a pinned collection will require a new version to be created"
             }
           }
         ],
         "tags": [
-          "UpdateNotificationService"
+          "CollectionService"
         ]
       }
     },
-    "/api/v1/object": {
-      "post": {
-        "operationId": "DatasetObjectsService_CreateObject",
+    "/v1/collection/{collectionId}/group": {
+      "get": {
+        "summary": "GetObjectGroups is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
+        "operationId": "ObjectGroupService_GetObjectGroups",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateObjectResponse"
+              "$ref": "#/definitions/v1GetObjectGroupsResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -888,75 +424,56 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "collectionId",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateObjectRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/object/finish": {
-      "post": {
-        "summary": "Finishes the upload process for an object\nThis will change the status of the objects to \"available\"",
-        "operationId": "DatasetObjectsService_FinishObjectUpload",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1FinishObjectUploadResponse"
-            }
+            "type": "string"
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1FinishObjectUploadRequest"
-            }
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "labelIdFilter.labels.andOrOr",
+            "description": "True if and, if empty or false or",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.labels.keysOnly",
+            "description": "Should only the keys be considered ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
           }
         ],
         "tags": [
-          "DatasetObjectsService"
+          "ObjectGroupService"
         ]
-      }
-    },
-    "/api/v1/objectgroup/create": {
+      },
       "post": {
-        "summary": "Creates a new object group",
-        "operationId": "DatasetObjectsService_CreateObjectGroup",
+        "summary": "CreateObjectGroup creates a new ObjectGroup in the collection",
+        "operationId": "ObjectGroupService_CreateObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -964,25 +481,6 @@
               "$ref": "#/definitions/v1CreateObjectGroupResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -992,47 +490,69 @@
         },
         "parameters": [
           {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateObjectGroupRequest"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "objectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "This is the reference to the Objects that should be added to the group"
+                },
+                "metaObjectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "This is a reference to the Objects that are associated with \"meta\" data\nabout corresponding objects in the group"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                },
+                "hooks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                }
+              }
             }
           }
         ],
         "tags": [
-          "DatasetObjectsService"
+          "ObjectGroupService"
         ]
       }
     },
-    "/api/v1/objectgroup/get": {
-      "post": {
-        "operationId": "DatasetObjectsService_GetObjectGroup",
+    "/v1/collection/{collectionId}/group/{groupId}": {
+      "get": {
+        "summary": "GetObjectGroupById gets a specific ObjectGroup by ID\nBy default the latest revision is always returned, older revisions need to\nbe specified separately",
+        "operationId": "ObjectGroupService_GetObjectGroupById",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupResponse"
+              "$ref": "#/definitions/v1GetObjectGroupByIdResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1043,75 +563,25 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "collectionId",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/objectgroup/update": {
-      "post": {
-        "summary": "Updates an ObjectGroup\nAdds an existing ObjectGroupRevision as a new revision to the objectgroup",
-        "operationId": "DatasetObjectsService_UpdateObjectGroup",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateObjectGroupResponse"
-            }
+            "type": "string"
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "groupId",
+            "in": "path",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateObjectGroupRequest"
-            }
+            "type": "string"
           }
         ],
         "tags": [
-          "DatasetObjectsService"
+          "ObjectGroupService"
         ]
-      }
-    },
-    "/api/v1/objectgroup/{id}": {
+      },
       "delete": {
-        "summary": "Deletes the given object group\nThis will also delete all associated objects both as metadata objects and the actual objects in the object storage",
-        "operationId": "DatasetObjectsService_DeleteObjectGroup",
+        "summary": "DeleteObjectGroup is a request that deletes a specified ObjectGroup\nThis does not delete the associated Objects",
+        "operationId": "ObjectGroupService_DeleteObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1119,25 +589,6 @@
               "$ref": "#/definitions/v1DeleteObjectGroupResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1147,46 +598,31 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "tags": [
-          "DatasetObjectsService"
+          "ObjectGroupService"
         ]
-      }
-    },
-    "/api/v1/objectgroupbatch/create": {
-      "post": {
-        "summary": "Batch request of CreateObjectGroup\nThe call will preserve the ordering of the request in the response",
-        "operationId": "DatasetObjectsService_CreateObjectGroupBatch",
+      },
+      "put": {
+        "summary": "UpdateObjectGroup creates an updated ObjectGroup\nObjectGroups are immutable\nUpdating an ObjectGroup will create a new Revision of the ObjectGroup",
+        "operationId": "ObjectGroupService_UpdateObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateObjectGroupBatchResponse"
+              "$ref": "#/definitions/v1UpdateObjectGroupResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1197,381 +633,74 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateObjectGroupBatchRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/objectgrouprevision/get": {
-      "post": {
-        "summary": "Returns the object group revision with the given id",
-        "operationId": "DatasetObjectsService_GetObjectGroupRevision",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetObjectsService"
-        ]
-      }
-    },
-    "/api/v1/objectgroupsindaterange/query": {
-      "post": {
-        "summary": "Returns all object groups that were created within a specific date range\nThe date range is not the date when the data was created in the system but\nbyte the externally date that indicates the actual creation of the data\nrather than the date the data was ingested into the system",
-        "operationId": "DatasetService_GetObjectGroupRevisionsInDateRange",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupRevisionsInDateRangeRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/objectgroupsstream": {
-      "post": {
-        "summary": "Returns a signed link that can be used to download all objects from the\nspecified request The link is signed using hmac and the resulting data can\nbe shared without exposing any secrets",
-        "operationId": "DatasetService_GetObjectGroupsStreamLink",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/api/v1/objectload/complete_multipart": {
-      "post": {
-        "summary": "CompleteMultipartUploadRequest Finishes a multipart upload after all parts have been uploaded",
-        "operationId": "ObjectLoadService_CompleteMultipartUpload",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CompleteMultipartUploadResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CompleteMultipartUploadRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectLoadService"
-        ]
-      }
-    },
-    "/api/v1/objectload/download/{id}": {
-      "get": {
-        "summary": "Creates a download link for an object\nReturns a presigned https GET request",
-        "operationId": "ObjectLoadService_CreateDownloadLink",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateDownloadLinkResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
+            "name": "collectionId",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "range.startByte",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
-          {
-            "name": "range.endByte",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "ObjectLoadService"
-        ]
-      }
-    },
-    "/api/v1/objectload/download_batch": {
-      "post": {
-        "summary": "Creates links for multiple objects at once\nThe order of the requested objects is preserved in the response",
-        "operationId": "ObjectLoadService_CreateDownloadLinkBatch",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateDownloadLinkBatchResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateDownloadLinkBatchRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ObjectLoadService"
-        ]
-      }
-    },
-    "/api/v1/objectload/download_batch_stream": {
-      "post": {
-        "summary": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of ObjectGroups as a stream that would otherwise cause issues with the connection",
-        "operationId": "ObjectLoadService_CreateDownloadLinkStream",
-        "responses": {
-          "200": {
-            "description": "A successful response.(streaming responses)",
             "schema": {
               "type": "object",
               "properties": {
-                "result": {
-                  "$ref": "#/definitions/v1CreateDownloadLinkStreamResponse"
+                "name": {
+                  "type": "string"
                 },
-                "error": {
-                  "$ref": "#/definitions/googlerpcStatus"
+                "description": {
+                  "type": "string"
+                },
+                "objectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "This is the reference to the Objects that should be added to the group"
+                },
+                "metaObjectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "This is a reference to the Objects that are associated with \"meta\" data\nabout corresponding objects in the group"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                },
+                "hooks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
                 }
-              },
-              "title": "Stream result of v1CreateDownloadLinkStreamResponse"
+              }
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
+          }
+        ],
+        "tags": [
+          "ObjectGroupService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/group/{groupId}/history": {
+      "get": {
+        "operationId": "ObjectGroupService_GetObjectGroupHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
             "schema": {
-              "type": "string",
-              "format": "string"
+              "$ref": "#/definitions/v1GetObjectGroupHistoryResponse"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1581,49 +710,160 @@
           }
         },
         "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ObjectGroupService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/group/{groupId}/objects": {
+      "get": {
+        "operationId": "ObjectGroupService_GetObjectGroupObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupObjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "metaOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectGroupService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object": {
+      "post": {
+        "summary": "This initializes a new object\nInitializing an object will put it in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "operationId": "ObjectService_InitializeNewObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InitializeNewObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "Collection id of the collection to which the object will be added.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateDownloadLinkStreamRequest"
+              "type": "object",
+              "properties": {
+                "object": {
+                  "$ref": "#/definitions/v1StageObject",
+                  "description": "This describes the object to be initialized."
+                },
+                "preferredEndpointId": {
+                  "type": "string",
+                  "title": "(optional) Used to specify a preferred endpoint by id\nthis can be used to specify which endpoint this object should use\nonly needed if it is not the default endpoint for the current server\ninstance"
+                },
+                "multipart": {
+                  "type": "boolean",
+                  "title": "Should the object be uploaded via multipart?"
+                },
+                "isSpecification": {
+                  "type": "boolean",
+                  "title": "Is specification ?\nShould this object contain a specification for the collection ?"
+                }
+              }
             }
           }
         ],
         "tags": [
-          "ObjectLoadService"
+          "ObjectService"
         ]
       }
     },
-    "/api/v1/objectload/init_multipart/{id}": {
-      "post": {
-        "summary": "Initiates a multipart upload for an object\nThis is intended to be used for larger objects\nFor further information please read the Amazon S3 documentation on multipart uploads\nHas to be used together with GetMultipartUploadLink and CompleteMultipartUpload",
-        "operationId": "ObjectLoadService_StartMultipartUpload",
+    "/v1/collection/{collectionId}/object/{objectId}": {
+      "get": {
+        "summary": "GetObjectByID gets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
+        "operationId": "ObjectService_GetObjectByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1StartMultipartUploadResponse"
+              "$ref": "#/definitions/v1GetObjectByIDResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1634,105 +874,11 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "collectionId",
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "ObjectLoadService"
-        ]
-      }
-    },
-    "/api/v1/objectload/upload/{id}": {
-      "get": {
-        "summary": "Creates an upload link for an object to upload the actual data object\nReturns a presigned https PUT request\nCan only be used to upload objects \u003c 4GB",
-        "operationId": "ObjectLoadService_CreateUploadLink",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateUploadLinkResponse"
-            }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ObjectLoadService"
-        ]
-      }
-    },
-    "/api/v1/objectload/upload_multipart_part/{objectId}/{uploadPart}": {
-      "get": {
-        "summary": "Returns a part of an multipart upload.\nEach but the last part needs to be bigger than 5MB in order to use this functionality",
-        "operationId": "ObjectLoadService_GetMultipartUploadLink",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetMultipartUploadLinkResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
           {
             "name": "objectId",
             "in": "path",
@@ -1740,47 +886,993 @@
             "type": "string"
           },
           {
-            "name": "uploadPart",
+            "name": "withUrl",
+            "description": "With URL: Include URL in response ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      },
+      "delete": {
+        "summary": "Deletes the object with the complete revision history.\nThis should be avoided if possible.\nThis method allows the owner to cascade the deletion of all objects that\nwere cloned from this object.\n-\u003e GDPR compliant procedure.",
+        "operationId": "ObjectService_DeleteObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "description": "ObjectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "withRevisions",
+            "description": "Delete including revisions",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "force",
+            "description": "Force delete including revisions",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/add_labels": {
+      "post": {
+        "summary": "AddLabelToObject is a specific request to add a new label\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
+        "operationId": "ObjectService_AddLabelToObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddLabelToObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/clone": {
+      "post": {
+        "summary": "This method clones an object and creates a copy in the same collection.\nThis copy has a new id and revision and will not receive any updates from\nthe original object.",
+        "operationId": "ObjectService_CloneObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CloneObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "From CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "description": "ObjectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "targetCollectionId": {
+                  "type": "string",
+                  "title": "Target CollectionID"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/download": {
+      "get": {
+        "summary": "This method will return a url that can be used to download a file from S3.",
+        "operationId": "ObjectService_GetDownloadURL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDownloadURLResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/endpoints": {
+      "get": {
+        "summary": "GetObjectEndpoints returns a list of endpoints\nOne endpoint will be the \"default\" endpoint",
+        "operationId": "ObjectService_GetObjectEndpoints",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectEndpointsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/groups": {
+      "get": {
+        "summary": "GetObjectGroupsFromObject gets all ObjectGroups associated to a specific\nObject Objects can be part of multiple ObjectGroups at once",
+        "operationId": "ObjectGroupService_GetObjectGroupsFromObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsFromObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
             "type": "string",
             "format": "int64"
           }
         ],
         "tags": [
-          "ObjectLoadService"
+          "ObjectGroupService"
         ]
       }
     },
-    "/api/v1/project/addusertoproject": {
-      "post": {
-        "summary": "AddUserToProject Adds a new user to a given project by its id",
-        "operationId": "ProjectService_AddUserToProject",
+    "/v1/collection/{collectionId}/object/{objectId}/latest": {
+      "get": {
+        "summary": "GetLatestObjectRevision returns the latest revision of a specific object\nThe returned `latest` object will have a different id if the current\nobject is not the latest revision",
+        "operationId": "ObjectService_GetLatestObjectRevision",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AddUserToProjectResponse"
+              "$ref": "#/definitions/v1GetLatestObjectRevisionResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
+          "default": {
+            "description": "An unexpected error response.",
             "schema": {
-              "type": "string",
-              "format": "string"
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/reference/{targetCollectionId}": {
+      "post": {
+        "operationId": "ObjectService_CreateObjectReference",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectReferenceResponse"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "OwnerCollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
-          "500": {
-            "description": "Server error",
-            "schema": {}
+          {
+            "name": "objectId",
+            "description": "ObjectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetCollectionId",
+            "description": "BorrowerCollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "writeable": {
+                  "type": "boolean",
+                  "title": "Should the other collection have permissions to edit the ressource"
+                },
+                "autoUpdate": {
+                  "type": "boolean",
+                  "title": "Should the borrowed ressource be automatically updated ?"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/references": {
+      "post": {
+        "summary": "Get a list of references for this object (optional) including all revisions",
+        "operationId": "ObjectService_GetReferences",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetReferencesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "withRevisions",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/revisions": {
+      "get": {
+        "summary": "GetObjectRevisions returns the full list of revisions of a specified object\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This is by default a paginated request",
+        "operationId": "ObjectService_GetObjectRevisions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectRevisionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "withUrl",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/set_hooks": {
+      "post": {
+        "summary": "SetHooksOfObject is a specific request to update the complete list\nof hooks for a specific object. This will not update the object\nand create a new id, instead it will overwrite all hooks of the existing\nobject.",
+        "operationId": "ObjectService_SetHooksOfObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetHooksOfObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/finish": {
+      "post": {
+        "summary": "This method completes the staging of an object.",
+        "operationId": "ObjectService_FinishObjectStaging",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1FinishObjectStagingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "description": "ObjectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uploadId",
+            "description": "Always the S3 upload_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hash": {
+                  "$ref": "#/definitions/v1Hash",
+                  "description": "Hash of the uploaded data - used to verify the data integrity.\nThis supports multiple hashing algorithms."
+                },
+                "noUpload": {
+                  "type": "boolean",
+                  "title": "If the staging object had no uploads\nUse this argument to skip the finish upload request"
+                },
+                "completedParts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1CompletedParts"
+                  },
+                  "title": "If the upload was multipart, this is the list of parts that were uploaded.\nShould be empty if the upload was not multipart.\n(optional)"
+                },
+                "autoUpdate": {
+                  "type": "boolean",
+                  "title": "Should the object be auto-updated in the collection?\ndefault: false"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/upload": {
+      "get": {
+        "summary": "This method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
+        "operationId": "ObjectService_GetUploadURL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUploadURLResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "description": "ObjectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uploadId",
+            "description": "Upload ID, a ID used to identify the upload / staging object",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "multipart",
+            "description": "Is this a multipart upload?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "partNumber",
+            "description": "(optional) if multi was initialized",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/update": {
+      "post": {
+        "summary": "Objects are immutable!\nUpdating an object will create a new revision for the object\nThis method will put the new revision in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "operationId": "ObjectService_UpdateObject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateObjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "collection ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "description": "Existing object ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "object": {
+                  "$ref": "#/definitions/v1StageObject",
+                  "title": "New object data"
+                },
+                "reupload": {
+                  "type": "boolean",
+                  "title": "Should new data be uploaded ?"
+                },
+                "preferredEndpointId": {
+                  "type": "string",
+                  "title": "If this is an reupload a preferred endpoint\ncan be specified by id"
+                },
+                "multiPart": {
+                  "type": "boolean",
+                  "title": "Should a multipart upload be used?"
+                },
+                "isSpecification": {
+                  "type": "boolean",
+                  "title": "Is specification ?\nShould this object contain a specification for the collection ?"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/objects": {
+      "get": {
+        "summary": "GetObjects returns a (paginated) list of objects in a specific collection\nBy default only the latest revisions of all objects will be shown\nThis behaviour can be changed with the include_history flag\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This request contains a LabelOrIDQuery message,\nthis is either a list of request ObjectIDs or a query filtered by Labels",
+        "operationId": "ObjectService_GetObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "labelIdFilter.labels.andOrOr",
+            "description": "True if and, if empty or false or",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.labels.keysOnly",
+            "description": "Should only the keys be considered ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "withUrl",
+            "description": "With URL: Include URL in response ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeHistory",
+            "description": "Should this request consider older revisions of Objects ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/objects/stream": {
+      "get": {
+        "summary": "This method can be used to get download urls for multiple objects.\nThe order of the returned urls will be the same as the order of the object\nids in the request.",
+        "operationId": "ObjectService_GetDownloadLinksBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDownloadLinksBatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objects",
+            "description": "ObjectIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      },
+      "post": {
+        "summary": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of Objects as a stream that would\notherwise cause issues with the connection",
+        "operationId": "ObjectService_CreateDownloadLinksStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1CreateDownloadLinksStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v1CreateDownloadLinksStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "objects": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "ObjectIds"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/pin": {
+      "post": {
+        "summary": "PinCollectionVersion this pins the current status of the version to a\nspecific version This effectively creates a copy of the collection with a\nstable version All objects will be pinned to an explicit revision number\nPinned collections can not be updated in place",
+        "operationId": "CollectionService_PinCollectionVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PinCollectionVersionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "$ref": "#/definitions/v1Version"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
+    "/v1/endpoint": {
+      "get": {
+        "summary": "Gets an specific endpoint by ID or Name",
+        "operationId": "EndpointService_GetEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      },
+      "post": {
+        "operationId": "EndpointService_AddEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddEndpointResponse"
+            }
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1795,18 +1887,95 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AddUserToProjectRequest"
+              "$ref": "#/definitions/v1AddEndpointRequest"
             }
           }
         ],
         "tags": [
-          "ProjectService"
+          "EndpointService"
         ]
       }
     },
-    "/api/v1/project/createproject": {
+    "/v1/endpoint/default": {
+      "get": {
+        "summary": "This request returns the default endpoint for the current server\nIt may produce different results depending on the used server",
+        "operationId": "EndpointService_GetDefaultEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDefaultEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/endpoint/{endpointId}": {
+      "delete": {
+        "summary": "Deletes a specific endpoint by id\nThis needs admin permissions",
+        "operationId": "EndpointService_DeleteEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/endpoints": {
+      "get": {
+        "summary": "Gets all available endpoints",
+        "operationId": "EndpointService_GetEndpoints",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEndpointsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/project": {
       "post": {
-        "summary": "CreateProject creates a new projects",
+        "summary": "This creates a new authorization group.option\nAll users and collections are bundled in a authorization group.",
         "operationId": "ProjectService_CreateProject",
         "responses": {
           "200": {
@@ -1814,25 +1983,6 @@
             "schema": {
               "$ref": "#/definitions/v1CreateProjectResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1856,7 +2006,52 @@
         ]
       }
     },
-    "/api/v1/project/{id}": {
+    "/v1/project/{projectId_1}/collections": {
+      "get": {
+        "summary": "GetProjectCollections Returns all collections that belong to a certain\nproject",
+        "operationId": "ProjectService_GetProjectCollections",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetProjectCollectionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId_1",
+            "description": "The id of the project to get the collections for",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v1/project/{projectId}": {
       "get": {
         "summary": "GetProject Returns the specified project",
         "operationId": "ProjectService_GetProject",
@@ -1867,25 +2062,6 @@
               "$ref": "#/definitions/v1GetProjectResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1895,7 +2071,8 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "projectId",
+            "description": "The id of the project to get",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1904,37 +2081,16 @@
         "tags": [
           "ProjectService"
         ]
-      }
-    },
-    "/api/v1/project/{id}/delete": {
-      "get": {
-        "summary": "DeleteProject Deletes a specific project\nWill also delete all associated resources (Datasets/Objects/etc...) both from objects storage and the database",
-        "operationId": "ProjectService_DeleteProject",
+      },
+      "delete": {
+        "summary": "Destroys the project and all its associated data. Must be empty\n(cannot contain any collections).",
+        "operationId": "ProjectService_DestroyProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteProjectResponse"
+              "$ref": "#/definitions/v1DestroyProjectResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1945,7 +2101,8 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "projectId",
+            "description": "The id of the project to destroy",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1954,37 +2111,16 @@
         "tags": [
           "ProjectService"
         ]
-      }
-    },
-    "/api/v1/project/{id}/projectdatasets": {
-      "get": {
-        "summary": "GetProjectDatasets Returns all datasets that belong to a certain project",
-        "operationId": "ProjectService_GetProjectDatasets",
+      },
+      "put": {
+        "summary": "Updates the project. All (meta) data will be overwritten.",
+        "operationId": "ProjectService_UpdateProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetProjectDatasetsResponse"
+              "$ref": "#/definitions/v1UpdateProjectResponse"
             }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1995,9 +2131,23 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "projectId",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "Updated name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "description": "Update description",
+            "in": "query",
+            "required": false,
             "type": "string"
           }
         ],
@@ -2006,10 +2156,356 @@
         ]
       }
     },
-    "/api/v1/projects": {
+    "/v1/project/{projectId}/adduser": {
+      "post": {
+        "summary": "AddUserToProject Adds a new user to a given project by its id",
+        "operationId": "ProjectService_AddUserToProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddUserToProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "description": "The id of the project to add the user to",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userPermission": {
+                  "$ref": "#/definitions/v1ProjectPermission"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v1/project/{projectId}/collections": {
       "get": {
-        "summary": "GetUserProjects Returns all projects that a specified user has access to",
-        "operationId": "ProjectService_GetUserProjects",
+        "summary": "GetCollections queries multiple collections by ID or by LabelFilter\nThis returns by default a paginated result with 20 entries.",
+        "operationId": "CollectionService_GetCollections",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCollectionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "description": "Filter by Labels (optional) OR request a specific list of Collections by id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "labelOrIdFilter.labels.andOrOr",
+            "description": "True if and, if empty or false or",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelOrIdFilter.labels.keysOnly",
+            "description": "Should only the keys be considered ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelOrIdFilter.ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
+    "/v1/project/{projectId}/edit_user": {
+      "post": {
+        "summary": "Edit the user_permission of a specific user for the project.",
+        "operationId": "ProjectService_EditUserPermissionsForProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EditUserPermissionsForProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userPermission.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userPermission.projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userPermission.permission",
+            "description": " - PERMISSION_READ: project but have no default permissions\n - PERMISSION_ADMIN: that owns the object / Create new collections",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PERMISSION_UNSPECIFIED",
+              "PERMISSION_NONE",
+              "PERMISSION_READ",
+              "PERMISSION_APPEND",
+              "PERMISSION_MODIFY",
+              "PERMISSION_ADMIN"
+            ],
+            "default": "PERMISSION_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v1/project/{projectId}/get_user": {
+      "post": {
+        "summary": "Get the user_permission of a specific user for the project.",
+        "operationId": "ProjectService_GetUserPermissionsForProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserPermissionsForProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v1/project/{projectId}/remove_user": {
+      "post": {
+        "summary": "Removes a specified user from the project.",
+        "operationId": "ProjectService_RemoveUserFromProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RemoveUserFromProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v1/user": {
+      "get": {
+        "summary": "GetUserRequest is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user",
+        "operationId": "UserService_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/display_name": {
+      "post": {
+        "summary": "UserWhoAmI is a request that returns the user information of the current\nuser",
+        "operationId": "UserService_UpdateUserDisplayName",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserDisplayNameResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "newDisplayName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/{userId}/activate": {
+      "post": {
+        "operationId": "UserService_ActivateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/{userId}/projects": {
+      "delete": {
+        "operationId": "UserService_GetUserProjects",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -2017,25 +2513,6 @@
               "$ref": "#/definitions/v1GetUserProjectsResponse"
             }
           },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
-          "500": {
-            "description": "Server error",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2043,49 +2520,21 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "tags": [
-          "ProjectService"
+          "UserService"
         ]
       }
     }
   },
   "definitions": {
-    "CreateDownloadLinkRequestRange": {
-      "type": "object",
-      "properties": {
-        "startByte": {
-          "type": "string",
-          "format": "int64"
-        },
-        "endByte": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "CreateEventStreamingGroupRequestEventResources": {
-      "type": "string",
-      "enum": [
-        "EVENT_RESOURCES_UNSPECIFIED",
-        "EVENT_RESOURCES_PROJECT_RESOURCE",
-        "EVENT_RESOURCES_DATASET_RESOURCE",
-        "EVENT_RESOURCES_DATASET_VERSION_RESOURCE",
-        "EVENT_RESOURCES_OBJECT_GROUP_RESOURCE",
-        "EVENT_RESOURCES_ALL_RESOURCE"
-      ],
-      "default": "EVENT_RESOURCES_UNSPECIFIED"
-    },
-    "CreateObjectGroupRevisionResponseObjectLinks": {
-      "type": "object",
-      "properties": {
-        "link": {
-          "type": "string"
-        },
-        "objectId": {
-          "type": "string"
-        }
-      }
-    },
     "EventNotificationMessageUpdateType": {
       "type": "string",
       "enum": [
@@ -2097,63 +2546,6 @@
         "UPDATE_TYPE_DELETED"
       ],
       "default": "UPDATE_TYPE_UNSPECIFIED"
-    },
-    "GetObjectGroupRequestObjectGroupRevisionPagination": {
-      "type": "object",
-      "properties": {
-        "startRevisionNumber": {
-          "type": "string",
-          "format": "int64"
-        },
-        "lastRevisionNumber": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "GetObjectGroupsStreamLinkRequestGroupIDsQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        },
-        "objectGroups": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "GetObjectGroupsStreamLinkRequestStreamType": {
-      "type": "string",
-      "enum": [
-        "STREAM_TYPE_UNSPECIFIED",
-        "STREAM_TYPE_BASE64NEWLINE",
-        "STREAM_TYPE_ZIP",
-        "STREAM_TYPE_TARGZ"
-      ],
-      "default": "STREAM_TYPE_UNSPECIFIED"
-    },
-    "OriginOriginType": {
-      "type": "string",
-      "enum": [
-        "ORIGIN_TYPE_UNSPECIFIED",
-        "ORIGIN_TYPE_OBJECT_STORAGE",
-        "ORIGIN_TYPE_ORIGIN_LINK"
-      ],
-      "default": "ORIGIN_TYPE_UNSPECIFIED"
-    },
-    "VersionVersionStage": {
-      "type": "string",
-      "enum": [
-        "VERSION_STAGE_UNSPECIFIED",
-        "VERSION_STAGE_STABLE",
-        "VERSION_STAGE_RC",
-        "VERSION_STAGE_BETA",
-        "VERSION_STAGE_ALPHA"
-      ],
-      "default": "VERSION_STAGE_UNSPECIFIED"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -2173,48 +2565,34 @@
         }
       }
     },
-    "modelsv1Annotation": {
+    "internalv1Location": {
       "type": "object",
       "properties": {
-        "key": {
+        "type": {
+          "$ref": "#/definitions/v1LocationType"
+        },
+        "bucket": {
           "type": "string"
         },
-        "value": {
-          "type": "string"
+        "path": {
+          "type": "string",
+          "description": "for local file."
         }
-      }
-    },
-    "modelsv1Label": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
-    "modelsv1Location": {
-      "type": "object",
-      "properties": {
-        "objectLocation": {
-          "$ref": "#/definitions/v1ObjectLocation"
-        }
-      }
+      },
+      "description": "Locations is the path to the requested data."
     },
     "modelsv1Status": {
       "type": "string",
       "enum": [
         "STATUS_UNSPECIFIED",
-        "STATUS_INITIATING",
+        "STATUS_INITIALIZING",
         "STATUS_AVAILABLE",
-        "STATUS_UPDATING",
-        "STATUS_ARCHIVED",
-        "STATUS_DELETING",
-        "STATUS_STAGING"
+        "STATUS_UNAVAILABLE",
+        "STATUS_ERROR",
+        "STATUS_TRASH"
       ],
-      "default": "STATUS_UNSPECIFIED"
+      "default": "STATUS_UNSPECIFIED",
+      "title": "An arbitrary status for Objects"
     },
     "protobufAny": {
       "type": "object",
@@ -2225,81 +2603,168 @@
       },
       "additionalProperties": {}
     },
-    "v1APIToken": {
+    "v1ActivateUserResponse": {
+      "type": "object"
+    },
+    "v1AddEndpointRequest": {
       "type": "object",
       "properties": {
-        "id": {
+        "name": {
           "type": "string"
         },
-        "token": {
+        "epType": {
+          "$ref": "#/definitions/v1EndpointType"
+        },
+        "proxyHostname": {
           "type": "string"
         },
-        "rights": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Right"
-          }
-        },
-        "projectId": {
+        "internalHostname": {
           "type": "string"
+        },
+        "documentationPath": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
         }
       }
     },
-    "v1AddObjectRequest": {
+    "v1AddEndpointResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "endpoint": {
+          "$ref": "#/definitions/v1Endpoint"
         }
       }
     },
-    "v1AddUserToProjectRequest": {
+    "v1AddLabelToObjectResponse": {
       "type": "object",
       "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "scope": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Right"
-          }
-        },
-        "projectId": {
-          "type": "string"
+        "object": {
+          "$ref": "#/definitions/v1Object",
+          "title": "Returns the updated Object"
         }
-      },
-      "title": "AddUserToProjectRequest Request to add a user to a project"
+      }
     },
     "v1AddUserToProjectResponse": {
       "type": "object"
     },
-    "v1CompleteMultipartUploadRequest": {
+    "v1CloneObjectResponse": {
       "type": "object",
       "properties": {
-        "objectId": {
-          "type": "string"
-        },
-        "parts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CompletedParts"
-          }
+        "object": {
+          "$ref": "#/definitions/v1Object",
+          "description": "This describes the new object."
         }
       }
     },
-    "v1CompleteMultipartUploadResponse": {
-      "type": "object"
+    "v1CollectionOverview": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1KeyValue"
+          }
+        },
+        "hooks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1KeyValue"
+          }
+        },
+        "labelOntology": {
+          "$ref": "#/definitions/v1LabelOntology"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "semanticVersion": {
+          "$ref": "#/definitions/v1Version"
+        },
+        "latest": {
+          "type": "boolean"
+        },
+        "stats": {
+          "$ref": "#/definitions/v1CollectionStats"
+        },
+        "isPublic": {
+          "type": "boolean"
+        }
+      },
+      "title": "This is a representation of the Collection without the recursive nature of\nobjectreferences"
+    },
+    "v1CollectionOverviews": {
+      "type": "object",
+      "properties": {
+        "collectionOverviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CollectionOverview"
+          }
+        }
+      },
+      "title": "Multiple CollectionOverviews"
+    },
+    "v1CollectionStats": {
+      "type": "object",
+      "properties": {
+        "objectStats": {
+          "$ref": "#/definitions/v1Stats"
+        },
+        "objectGroupCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "Stats for a collection"
     },
     "v1CompletedParts": {
       "type": "object",
       "properties": {
         "etag": {
-          "type": "string"
+          "type": "string",
+          "title": "Multipart identifier"
         },
         "part": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "Part number"
+        }
+      }
+    },
+    "v1CreateAPITokenRequest": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "title": "Empty if token_type is personal, otherwise the id of the collection or\nproject to create the token for"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "$ref": "#/definitions/v1ExpiresAt"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
         }
       }
     },
@@ -2307,177 +2772,34 @@
       "type": "object",
       "properties": {
         "token": {
-          "$ref": "#/definitions/v1APIToken"
-        }
-      }
-    },
-    "v1CreateDatasetRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+          "$ref": "#/definitions/v1Token",
+          "title": "This contains only the token description"
         },
-        "description": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "metadataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateObjectRequest"
-          }
-        }
-      },
-      "title": "Dataset related Models"
-    },
-    "v1CreateDatasetResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateDownloadLinkBatchRequest": {
-      "type": "object",
-      "properties": {
-        "requests": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateDownloadLinkRequest"
-          }
-        }
-      }
-    },
-    "v1CreateDownloadLinkBatchResponse": {
-      "type": "object",
-      "properties": {
-        "links": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateDownloadLinkResponse"
-          }
-        }
-      }
-    },
-    "v1CreateDownloadLinkRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "range": {
-          "$ref": "#/definitions/CreateDownloadLinkRequestRange"
-        }
-      }
-    },
-    "v1CreateDownloadLinkResponse": {
-      "type": "object",
-      "properties": {
-        "downloadLink": {
-          "type": "string"
-        },
-        "object": {
-          "$ref": "#/definitions/v1Object"
-        }
-      }
-    },
-    "v1CreateDownloadLinkStreamRequest": {
-      "type": "object",
-      "properties": {
-        "dataset": {
-          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDatasetQuery"
-        },
-        "datasetVersion": {
-          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDatasetVersionQuery"
-        },
-        "dateRange": {
-          "$ref": "#/definitions/v1CreateDownloadLinkStreamRequestDateRangeQuery"
-        }
-      }
-    },
-    "v1CreateDownloadLinkStreamRequestDatasetQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateDownloadLinkStreamRequestDatasetVersionQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        },
-        "datasetVersionId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateDownloadLinkStreamRequestDateRangeQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        },
-        "start": {
+        "tokenSecret": {
           "type": "string",
-          "format": "date-time"
-        },
-        "end": {
-          "type": "string",
-          "format": "date-time"
+          "title": "This is the actual secret token\nAttention, this can not be recreated and needs to be stored securely\nNew tokens will always contain a new secret"
         }
       }
     },
-    "v1CreateDownloadLinkStreamResponse": {
+    "v1CreateBucketResponse": {
+      "type": "object"
+    },
+    "v1CreateDownloadLinksStreamResponse": {
       "type": "object",
       "properties": {
-        "links": {
-          "$ref": "#/definitions/v1LinksResponse"
+        "url": {
+          "$ref": "#/definitions/v1URL"
         }
       }
     },
-    "v1CreateEventStreamingGroupRequest": {
-      "type": "object",
-      "properties": {
-        "resource": {
-          "$ref": "#/definitions/CreateEventStreamingGroupRequestEventResources"
-        },
-        "resourceId": {
-          "type": "string"
-        },
-        "includeSubresource": {
-          "type": "boolean"
-        },
-        "streamAll": {
-          "$ref": "#/definitions/v1StreamAll"
-        },
-        "streamFromDate": {
-          "$ref": "#/definitions/v1StreamFromDate"
-        },
-        "streamFromSequence": {
-          "$ref": "#/definitions/v1StreamFromSequence"
-        },
-        "streamGroupId": {
-          "type": "string"
-        }
-      }
+    "v1CreateEventStreamingGroupRequestEventResources": {
+      "type": "string",
+      "enum": [
+        "EVENT_RESOURCES_UNSPECIFIED",
+        "EVENT_RESOURCES_COLLECTION_RESOURCE",
+        "EVENT_RESOURCES_ALL_RESOURCE"
+      ],
+      "default": "EVENT_RESOURCES_UNSPECIFIED"
     },
     "v1CreateEventStreamingGroupResponse": {
       "type": "object",
@@ -2487,38 +2809,40 @@
         }
       }
     },
-    "v1CreateObjectGroupBatchRequest": {
+    "v1CreateNewCollectionRequest": {
       "type": "object",
       "properties": {
-        "requests": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "labels": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1CreateObjectGroupRequest"
+            "$ref": "#/definitions/v1KeyValue"
           }
         },
-        "includeObjectLink": {
-          "type": "boolean"
+        "hooks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1KeyValue"
+          }
+        },
+        "dataclass": {
+          "$ref": "#/definitions/v1DataClass",
+          "title": "Optional dataclass"
         }
       }
     },
-    "v1CreateObjectGroupBatchResponse": {
+    "v1CreateNewCollectionResponse": {
       "type": "object",
       "properties": {
-        "responses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CreateObjectGroupResponse"
-          }
-        }
-      }
-    },
-    "v1CreateObjectGroupRequest": {
-      "type": "object",
-      "properties": {
-        "createRevisionRequest": {
-          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
-        },
-        "datasetId": {
+        "collectionId": {
           "type": "string"
         }
       }
@@ -2526,132 +2850,29 @@
     "v1CreateObjectGroupResponse": {
       "type": "object",
       "properties": {
-        "objectGroupId": {
-          "type": "string"
-        },
-        "objectGroupName": {
-          "type": "string"
-        },
-        "createRevisionResponse": {
-          "$ref": "#/definitions/v1CreateObjectGroupRevisionResponse"
+        "objectGroup": {
+          "$ref": "#/definitions/v1ObjectGroupOverview"
         }
       }
     },
-    "v1CreateObjectGroupRevisionRequest": {
+    "v1CreateObjectReferenceResponse": {
+      "type": "object"
+    },
+    "v1CreatePresignedDownloadResponse": {
       "type": "object",
       "properties": {
-        "updateObjects": {
-          "$ref": "#/definitions/v1UpdateObjectsRequests"
-        },
-        "updateMetaObjects": {
-          "$ref": "#/definitions/v1UpdateObjectsRequests"
-        },
-        "objectGroupId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "includeObjectLink": {
-          "type": "boolean"
-        },
-        "generated": {
+        "url": {
           "type": "string",
-          "format": "date-time"
+          "description": "The presigned URL to download the file to."
         }
       }
     },
-    "v1CreateObjectGroupRevisionResponse": {
+    "v1CreatePresignedUploadUrlResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "dataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "metaObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "objectLinks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CreateObjectGroupRevisionResponseObjectLinks"
-          }
-        },
-        "metadataObjectLinks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CreateObjectGroupRevisionResponseObjectLinks"
-          }
-        }
-      }
-    },
-    "v1CreateObjectRequest": {
-      "type": "object",
-      "properties": {
-        "filename": {
-          "type": "string"
-        },
-        "filetype": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "contentLen": {
+        "url": {
           "type": "string",
-          "format": "int64"
-        },
-        "origin": {
-          "$ref": "#/definitions/v1Origin"
-        },
-        "subpath": {
-          "$ref": "#/definitions/v1Subpath"
-        },
-        "datasetId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateObjectResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "uploadLink": {
-          "type": "string"
+          "description": "The presigned URL to upload the file to."
         }
       }
     },
@@ -2663,221 +2884,96 @@
         },
         "description": {
           "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
         }
-      },
-      "title": "Request to create a project"
+      }
     },
     "v1CreateProjectResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        }
-      },
-      "title": "CreateProjectResponse Returns the id of the created project"
-    },
-    "v1CreateUploadLinkResponse": {
-      "type": "object",
-      "properties": {
-        "uploadLink": {
-          "type": "string"
-        }
-      }
-    },
-    "v1Dataset": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
         "projectId": {
           "type": "string"
-        },
-        "isPublic": {
-          "type": "boolean"
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        },
-        "bucket": {
-          "type": "string"
-        },
-        "stats": {
-          "$ref": "#/definitions/v1DatasetStats"
-        },
-        "metadataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
         }
       }
     },
-    "v1DatasetStats": {
-      "type": "object",
-      "properties": {
-        "objectCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "objectGroupCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "accSize": {
-          "type": "string",
-          "format": "int64"
-        },
-        "avgObjectSize": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "v1DatasetVersion": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "datasetId": {
-          "type": "string"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "version": {
-          "$ref": "#/definitions/v1Version"
-        },
-        "objectGroupIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "objectCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        },
-        "projectId": {
-          "type": "string"
-        },
-        "stats": {
-          "$ref": "#/definitions/v1DatasetVersionStats"
-        },
-        "metadataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        }
-      }
-    },
-    "v1DatasetVersionStats": {
-      "type": "object",
-      "properties": {
-        "objectCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "objectGroupCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "accSize": {
-          "type": "string",
-          "format": "int64"
-        },
-        "avgObjectSize": {
-          "type": "number",
-          "format": "double"
-        }
-      }
+    "v1DataClass": {
+      "type": "string",
+      "enum": [
+        "DATA_CLASS_UNSPECIFIED",
+        "DATA_CLASS_PUBLIC",
+        "DATA_CLASS_PRIVATE",
+        "DATA_CLASS_CONFIDENTIAL",
+        "DATA_CLASS_PROTECTED"
+      ],
+      "default": "DATA_CLASS_UNSPECIFIED",
+      "title": "Dataclass defines the confidentiality of the object"
     },
     "v1DeleteAPITokenResponse": {
       "type": "object"
     },
-    "v1DeleteDatasetResponse": {
+    "v1DeleteAPITokensResponse": {
       "type": "object"
     },
-    "v1DeleteDatasetVersionResponse": {
+    "v1DeleteCollectionResponse": {
+      "type": "object"
+    },
+    "v1DeleteEndpointResponse": {
       "type": "object"
     },
     "v1DeleteObjectGroupResponse": {
       "type": "object"
     },
-    "v1DeleteObjectRequest": {
+    "v1DeleteObjectResponse": {
+      "type": "object"
+    },
+    "v1DestroyProjectResponse": {
+      "type": "object"
+    },
+    "v1EditUserPermissionsForProjectResponse": {
+      "type": "object"
+    },
+    "v1Endpoint": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
+        },
+        "epType": {
+          "$ref": "#/definitions/v1EndpointType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "proxyHostname": {
+          "type": "string"
+        },
+        "internalHostname": {
+          "type": "string"
+        },
+        "documentationPath": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "isDefault": {
+          "type": "boolean"
         }
       }
     },
-    "v1DeleteProjectResponse": {
-      "type": "object"
+    "v1EndpointType": {
+      "type": "string",
+      "enum": [
+        "ENDPOINT_TYPE_UNSPECIFIED",
+        "ENDPOINT_TYPE_S3",
+        "ENDPOINT_TYPE_FILE"
+      ],
+      "default": "ENDPOINT_TYPE_UNSPECIFIED"
     },
     "v1EventNotificationMessage": {
       "type": "object",
       "properties": {
         "resource": {
-          "$ref": "#/definitions/v1Resource"
+          "$ref": "#/definitions/v1EventNotificationMessageEventResources"
         },
         "resourceId": {
           "type": "string"
@@ -2887,306 +2983,226 @@
         }
       }
     },
-    "v1FinishObjectUploadRequest": {
+    "v1EventNotificationMessageEventResources": {
+      "type": "string",
+      "enum": [
+        "EVENT_RESOURCES_UNSPECIFIED",
+        "EVENT_RESOURCES_COLLECTION_RESOURCE",
+        "EVENT_RESOURCES_ALL_RESOURCE"
+      ],
+      "default": "EVENT_RESOURCES_UNSPECIFIED"
+    },
+    "v1ExpiresAt": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
-    "v1FinishObjectUploadResponse": {
-      "type": "object"
-    },
-    "v1GetAPITokenResponse": {
+    "v1FinishObjectStagingResponse": {
       "type": "object",
       "properties": {
-        "token": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1APIToken"
-          }
-        }
-      }
-    },
-    "v1GetDatasetObjectGroupsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "pageRequest": {
-          "$ref": "#/definitions/v1PageRequest"
-        },
-        "labelFilter": {
-          "$ref": "#/definitions/modelsv1Label"
-        }
-      }
-    },
-    "v1GetDatasetObjectGroupsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroup"
-          }
-        }
-      }
-    },
-    "v1GetDatasetObjectsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "pageRequest": {
-          "$ref": "#/definitions/v1PageRequest"
-        },
-        "labelFilter": {
-          "$ref": "#/definitions/v1LabelFilter"
-        }
-      }
-    },
-    "v1GetDatasetObjectsResponse": {
-      "type": "object",
-      "properties": {
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        }
-      }
-    },
-    "v1GetDatasetRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetDatasetResponse": {
-      "type": "object",
-      "properties": {
-        "dataset": {
-          "$ref": "#/definitions/v1Dataset"
-        }
-      }
-    },
-    "v1GetDatasetVersionObjectGroupsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "pageRequest": {
-          "$ref": "#/definitions/v1PageRequest"
-        }
-      }
-    },
-    "v1GetDatasetVersionObjectGroupsResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevisions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
-          }
-        }
-      }
-    },
-    "v1GetDatasetVersionRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetDatasetVersionResponse": {
-      "type": "object",
-      "properties": {
-        "datasetVersion": {
-          "$ref": "#/definitions/v1DatasetVersion"
-        }
-      }
-    },
-    "v1GetDatasetVersionsRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetDatasetVersionsResponse": {
-      "type": "object",
-      "properties": {
-        "datasetVersions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1DatasetVersion"
-          }
-        }
-      }
-    },
-    "v1GetMultipartUploadLinkResponse": {
-      "type": "object",
-      "properties": {
-        "uploadLink": {
-          "type": "string"
-        },
         "object": {
           "$ref": "#/definitions/v1Object"
         }
       }
     },
-    "v1GetObjectGroupRequest": {
+    "v1FinishPresignedUploadResponse": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "pagination": {
-          "$ref": "#/definitions/GetObjectGroupRequestObjectGroupRevisionPagination"
+        "ok": {
+          "type": "boolean",
+          "description": "If the upload finished successfully."
         }
       }
     },
-    "v1GetObjectGroupResponse": {
+    "v1GetAPITokenResponse": {
       "type": "object",
       "properties": {
-        "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroup"
-        },
-        "objectGroupRevisions": {
+        "token": {
+          "$ref": "#/definitions/v1Token",
+          "title": "List of API tokens"
+        }
+      }
+    },
+    "v1GetAPITokensResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
+            "$ref": "#/definitions/v1Token"
+          },
+          "title": "List of API tokens with redacted actual token"
+        }
+      }
+    },
+    "v1GetCollectionByIDResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v1CollectionOverview"
+        }
+      }
+    },
+    "v1GetCollectionsResponse": {
+      "type": "object",
+      "properties": {
+        "collections": {
+          "$ref": "#/definitions/v1CollectionOverviews",
+          "title": "These are plural representations of their specific single counterparts"
+        }
+      }
+    },
+    "v1GetDefaultEndpointResponse": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/v1Endpoint"
+        }
+      }
+    },
+    "v1GetDownloadLinksBatchResponse": {
+      "type": "object",
+      "properties": {
+        "urls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1URL"
           }
         }
       }
     },
-    "v1GetObjectGroupRevisionRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevision": {
-          "$ref": "#/definitions/v1ObjectGroupRevision"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionsInDateRangeRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "start": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "end": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "v1GetObjectGroupRevisionsInDateRangeResponse": {
-      "type": "object",
-      "properties": {
-        "objectGroupRevisions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
-          }
-        }
-      }
-    },
-    "v1GetObjectGroupsStreamLinkRequest": {
-      "type": "object",
-      "properties": {
-        "streamType": {
-          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestStreamType"
-        },
-        "groupIds": {
-          "$ref": "#/definitions/GetObjectGroupsStreamLinkRequestGroupIDsQuery"
-        },
-        "dateRange": {
-          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDateRangeQuery"
-        },
-        "dataset": {
-          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDatasetQuery"
-        },
-        "datasetVersion": {
-          "$ref": "#/definitions/v1GetObjectGroupsStreamLinkRequestDatasetVersionQuery"
-        },
-        "expiry": {
-          "type": "string",
-          "format": "date-time",
-          "title": "Expiry time of the link\nThis is the maximum expiry time, implementations can set maximum durations that can be shorter than this"
-        }
-      },
-      "title": "GetObjectGroupsStreamLinkRequest a request for a get link to stream a set of object groups\nThe query defines what object groups should be part of the stream\nThe steam type defines how the individual objects are packed\nZIP and TARGZ will bundle objectgroups into subfolders"
-    },
-    "v1GetObjectGroupsStreamLinkRequestDatasetQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetObjectGroupsStreamLinkRequestDatasetVersionQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        },
-        "datasetVersionId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1GetObjectGroupsStreamLinkRequestDateRangeQuery": {
-      "type": "object",
-      "properties": {
-        "datasetId": {
-          "type": "string"
-        },
-        "start": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "end": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "v1GetObjectGroupsStreamLinkResponse": {
+    "v1GetDownloadURLResponse": {
       "type": "object",
       "properties": {
         "url": {
-          "type": "string"
+          "$ref": "#/definitions/v1URL"
         }
       }
     },
-    "v1GetProjectDatasetsResponse": {
+    "v1GetEndpointResponse": {
       "type": "object",
       "properties": {
-        "datasets": {
+        "endpoint": {
+          "$ref": "#/definitions/v1Endpoint"
+        }
+      }
+    },
+    "v1GetEndpointsResponse": {
+      "type": "object",
+      "properties": {
+        "endpoints": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Dataset"
+            "$ref": "#/definitions/v1Endpoint"
+          }
+        }
+      }
+    },
+    "v1GetLatestObjectRevisionResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v1Object",
+          "title": "The object with the latest revision"
+        }
+      }
+    },
+    "v1GetObjectByIDResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v1ObjectWithURL"
+        }
+      }
+    },
+    "v1GetObjectEndpointsResponse": {
+      "type": "object",
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Endpoint"
+          }
+        }
+      }
+    },
+    "v1GetObjectGroupByIdResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroup": {
+          "$ref": "#/definitions/v1ObjectGroupOverview"
+        }
+      }
+    },
+    "v1GetObjectGroupHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "$ref": "#/definitions/v1ObjectGroupOverviews"
+        }
+      }
+    },
+    "v1GetObjectGroupObjectsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroupObjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupObject"
+          }
+        }
+      }
+    },
+    "v1GetObjectGroupsFromObjectResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "$ref": "#/definitions/v1ObjectGroupOverviews"
+        }
+      }
+    },
+    "v1GetObjectGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroups": {
+          "$ref": "#/definitions/v1ObjectGroupOverviews"
+        }
+      }
+    },
+    "v1GetObjectRevisionsResponse": {
+      "type": "object",
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectWithURL"
+          }
+        }
+      }
+    },
+    "v1GetObjectsResponse": {
+      "type": "object",
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectWithURL"
+          },
+          "title": "A List of objects with (optional) associated URLs"
+        }
+      }
+    },
+    "v1GetProjectCollectionsResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CollectionOverview"
           }
         }
       }
@@ -3195,7 +3211,35 @@
       "type": "object",
       "properties": {
         "project": {
-          "$ref": "#/definitions/v1Project"
+          "$ref": "#/definitions/v1ProjectOverview"
+        }
+      }
+    },
+    "v1GetReferencesResponse": {
+      "type": "object",
+      "properties": {
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectReference"
+          }
+        }
+      }
+    },
+    "v1GetUploadURLResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "$ref": "#/definitions/v1URL",
+          "title": "URL"
+        }
+      }
+    },
+    "v1GetUserPermissionsForProjectResponse": {
+      "type": "object",
+      "properties": {
+        "userPermission": {
+          "$ref": "#/definitions/v1ProjectPermission"
         }
       }
     },
@@ -3205,21 +3249,85 @@
         "projects": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Project"
+            "$ref": "#/definitions/v1UserProject"
           }
         }
       }
     },
-    "v1InnerLinksResponse": {
+    "v1GetUserResponse": {
       "type": "object",
       "properties": {
-        "objectLinks": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        },
+        "projectPermissions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/v1ProjectPermission"
           }
         }
       }
+    },
+    "v1Hash": {
+      "type": "object",
+      "properties": {
+        "alg": {
+          "$ref": "#/definitions/v1Hashalgorithm"
+        },
+        "hash": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Hashalgorithm": {
+      "type": "string",
+      "enum": [
+        "HASHALGORITHM_UNSPECIFIED",
+        "HASHALGORITHM_MD5",
+        "HASHALGORITHM_SHA1",
+        "HASHALGORITHM_SHA256",
+        "HASHALGORITHM_SHA512",
+        "HASHALGORITHM_MURMUR3A32",
+        "HASHALGORITHM_XXHASH32"
+      ],
+      "default": "HASHALGORITHM_UNSPECIFIED"
+    },
+    "v1InitPresignedUploadResponse": {
+      "type": "object",
+      "properties": {
+        "uploadId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1InitializeNewObjectResponse": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string",
+          "title": "ObjectId"
+        },
+        "uploadId": {
+          "type": "string",
+          "title": "Upload ID, a ID used to identify the upload / staging object"
+        },
+        "collectionId": {
+          "type": "string",
+          "title": "CollectionID"
+        }
+      }
+    },
+    "v1KeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "A key value pair for hooks and labels"
     },
     "v1LabelFilter": {
       "type": "object",
@@ -3227,27 +3335,56 @@
         "labels": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Label"
+            "$ref": "#/definitions/v1KeyValue"
           }
+        },
+        "andOrOr": {
+          "type": "boolean",
+          "title": "True if and, if empty or false or"
+        },
+        "keysOnly": {
+          "type": "boolean",
+          "title": "Should only the keys be considered ?"
+        }
+      },
+      "description": "LabelFilter is used to filter resources by labels.\nThe labels are specified as a map of key-value pairs."
+    },
+    "v1LabelOntology": {
+      "type": "object",
+      "properties": {
+        "requiredLabelKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "These are the keys for labels that are required for the collection\nAdding an Object without these keys will result in an error\nDefaults to empty string if not specified"
         }
       }
     },
-    "v1LinksResponse": {
+    "v1LabelOrIDQuery": {
       "type": "object",
       "properties": {
-        "objectGroupRevisions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1ObjectGroupRevision"
-          }
+        "labels": {
+          "$ref": "#/definitions/v1LabelFilter"
         },
-        "objectGroupRevisionLinks": {
+        "ids": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1InnerLinksResponse"
+            "type": "string"
           }
         }
-      }
+      },
+      "title": "This is a combined query for either a list of resource IDs or filtered by\nLabel Can be expanded in the future to allow for more complex queries"
+    },
+    "v1LocationType": {
+      "type": "string",
+      "enum": [
+        "LOCATION_TYPE_UNSPECIFIED",
+        "LOCATION_TYPE_S3",
+        "LOCATION_TYPE_FILE"
+      ],
+      "default": "LOCATION_TYPE_UNSPECIFIED",
+      "description": "Enum to support multiple target Locations."
     },
     "v1NotficationStreamAck": {
       "type": "object",
@@ -3257,20 +3394,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "v1NotificationStreamGroupRequest": {
-      "type": "object",
-      "properties": {
-        "init": {
-          "$ref": "#/definitions/v1NotificationStreamInit"
-        },
-        "ack": {
-          "$ref": "#/definitions/v1NotficationStreamAck"
-        },
-        "close": {
-          "type": "boolean"
         }
       }
     },
@@ -3321,87 +3444,67 @@
         "filename": {
           "type": "string"
         },
-        "filetype": {
-          "type": "string"
-        },
         "labels": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Label"
+            "$ref": "#/definitions/v1KeyValue"
           }
         },
-        "annotations": {
+        "hooks": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
+            "$ref": "#/definitions/v1KeyValue"
           }
         },
         "created": {
           "type": "string",
           "format": "date-time"
         },
-        "locations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Location"
-          }
-        },
-        "defaultLocation": {
-          "$ref": "#/definitions/modelsv1Location"
-        },
-        "origin": {
-          "$ref": "#/definitions/v1Origin"
-        },
         "contentLen": {
           "type": "string",
           "format": "int64"
         },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "objectGroupId": {
-          "type": "string"
-        },
-        "datasetId": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
         "status": {
           "$ref": "#/definitions/modelsv1Status"
         },
-        "stats": {
-          "$ref": "#/definitions/v1ObjectStats"
+        "origin": {
+          "$ref": "#/definitions/v1Origin"
         },
-        "fileformat": {
-          "type": "string"
-        }
-      }
-    },
-    "v1ObjectGroup": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
+        "dataClass": {
+          "$ref": "#/definitions/v1DataClass"
         },
-        "revisionCounter": {
+        "hash": {
+          "$ref": "#/definitions/v1Hash"
+        },
+        "revNumber": {
           "type": "string",
           "format": "int64"
         },
-        "currentRevision": {
-          "$ref": "#/definitions/v1ObjectGroupRevision"
+        "source": {
+          "$ref": "#/definitions/v1Source"
         },
-        "datasetId": {
-          "type": "string"
+        "latest": {
+          "type": "boolean"
         },
-        "projectId": {
-          "type": "string"
+        "autoUpdate": {
+          "type": "boolean",
+          "title": "This is a collection specific attribute\nMust be false if collection is immutable"
         }
       }
     },
-    "v1ObjectGroupRevision": {
+    "v1ObjectGroupObject": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v1Object"
+        },
+        "isMetadata": {
+          "type": "boolean"
+        }
+      },
+      "title": "Objectgroup objects are a combination of \"object\" and the boolean is_metadata\nflag Returned as single list to allow for more precise queries"
+    },
+    "v1ObjectGroupOverview": {
       "type": "object",
       "properties": {
         "id": {
@@ -3413,123 +3516,105 @@
         "description": {
           "type": "string"
         },
-        "datasetId": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
         "labels": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Label"
+            "$ref": "#/definitions/v1KeyValue"
           }
         },
-        "annotations": {
+        "hooks": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
+            "$ref": "#/definitions/v1KeyValue"
           }
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        },
-        "objects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "metadataObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Object"
-          }
-        },
-        "generated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
         },
         "stats": {
           "$ref": "#/definitions/v1ObjectGroupStats"
         },
-        "subpath": {
-          "$ref": "#/definitions/v1Subpath"
+        "revNumber": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "This is a representation of the ObjectGroup without the recursive nature of\nobject references"
+    },
+    "v1ObjectGroupOverviews": {
+      "type": "object",
+      "properties": {
+        "objectGroupOverviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupOverview"
+          }
+        }
+      },
+      "title": "Multiple ObjectGroupOverviews"
+    },
+    "v1ObjectGroupStats": {
+      "type": "object",
+      "properties": {
+        "objectStats": {
+          "$ref": "#/definitions/v1Stats"
         },
-        "objectGroupId": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "Stats for an object group"
+    },
+    "v1ObjectReference": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "collectionId": {
           "type": "string"
         },
         "revisionNumber": {
           "type": "string",
           "format": "int64"
+        },
+        "isWriteable": {
+          "type": "boolean"
         }
       }
     },
-    "v1ObjectGroupStats": {
+    "v1ObjectWithURL": {
       "type": "object",
       "properties": {
-        "objectCount": {
-          "type": "string",
-          "format": "int64"
-        },
-        "accSize": {
-          "type": "string",
-          "format": "int64"
-        },
-        "avgObjectSize": {
-          "type": "number",
-          "format": "double"
-        },
-        "metaObjectCount": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "v1ObjectLocation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "bucket": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
+        "object": {
+          "$ref": "#/definitions/v1Object",
+          "title": "Description of a specified object"
         },
         "url": {
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        },
-        "uploadId": {
-          "type": "string"
+          "type": "string",
+          "title": "This is a associated download URL\nWill be empty if request does not contain the associated with_url flag"
         }
-      },
-      "title": "A location in S3"
-    },
-    "v1ObjectStats": {
-      "type": "object"
+      }
     },
     "v1Origin": {
       "type": "object",
       "properties": {
-        "link": {
+        "type": {
+          "$ref": "#/definitions/v1OriginType"
+        },
+        "id": {
           "type": "string"
-        },
-        "objectLocation": {
-          "$ref": "#/definitions/v1ObjectLocation"
-        },
-        "originType": {
-          "$ref": "#/definitions/OriginOriginType"
         }
-      }
+      },
+      "title": "Origin of the object -\u003e To be GDPA compliant"
+    },
+    "v1OriginType": {
+      "type": "string",
+      "enum": [
+        "ORIGIN_TYPE_UNSPECIFIED",
+        "ORIGIN_TYPE_USER",
+        "ORIGIN_TYPE_OBJCLONE"
+      ],
+      "default": "ORIGIN_TYPE_UNSPECIFIED",
+      "title": "Specifies the Origin of the object"
     },
     "v1PageRequest": {
       "type": "object",
@@ -3539,12 +3624,46 @@
         },
         "pageSize": {
           "type": "string",
-          "format": "uint64"
+          "format": "int64"
         }
       },
-      "title": "Request for paginated result retrival\nIf the page size is zero, the backends default page size will be used\nIf the page size exceeds the backends maximum, an error will be returned\nConsistency of results will only be guaranteed for DatasetVersions\nFor the initial request leave last_uuid empty"
+      "description": "This file contains parameters for queries that return a list of resources.\nThe results are paginated.\nThe page request specifies the page size and last_id.\nIf page_size is not specified, it defaults to 20.\nIf page_size is -1, it returns all objects."
     },
-    "v1Project": {
+    "v1PartETag": {
+      "type": "object",
+      "properties": {
+        "partNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "etag": {
+          "type": "string"
+        }
+      },
+      "description": "Etag / Part combination to finish a presigned multipart upload."
+    },
+    "v1Permission": {
+      "type": "string",
+      "enum": [
+        "PERMISSION_UNSPECIFIED",
+        "PERMISSION_NONE",
+        "PERMISSION_READ",
+        "PERMISSION_APPEND",
+        "PERMISSION_MODIFY",
+        "PERMISSION_ADMIN"
+      ],
+      "default": "PERMISSION_UNSPECIFIED",
+      "title": "- PERMISSION_READ: project but have no default permissions\n - PERMISSION_ADMIN: that owns the object / Create new collections"
+    },
+    "v1PinCollectionVersionResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v1CollectionOverview"
+        }
+      }
+    },
+    "v1ProjectOverview": {
       "type": "object",
       "properties": {
         "id": {
@@ -3556,132 +3675,146 @@
         "description": {
           "type": "string"
         },
-        "labels": {
+        "collectionIds": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Label"
+            "type": "string"
           }
         },
-        "annotations": {
+        "userIds": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
+            "type": "string"
           }
-        },
-        "users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1User"
-          }
-        },
-        "bucket": {
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/definitions/modelsv1Status"
-        },
-        "stats": {
-          "$ref": "#/definitions/v1ProjectStats"
         }
       }
     },
-    "v1ProjectStats": {
+    "v1ProjectPermission": {
       "type": "object",
       "properties": {
-        "objectCount": {
+        "userId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
+        }
+      }
+    },
+    "v1Range": {
+      "type": "object",
+      "properties": {
+        "start": {
           "type": "string",
           "format": "int64"
         },
-        "objectGroupCount": {
+        "end": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1RegisterUserRequest": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RegisterUserResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RemoveUserFromProjectResponse": {
+      "type": "object"
+    },
+    "v1SetHooksOfObjectResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v1Object",
+          "title": "Returns the updated Object"
+        }
+      }
+    },
+    "v1Source": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "title": "This is a URL / DOI"
+        },
+        "sourceType": {
+          "$ref": "#/definitions/v1SourceType",
+          "title": "Either URL oder DOI"
+        }
+      }
+    },
+    "v1SourceType": {
+      "type": "string",
+      "enum": [
+        "SOURCE_TYPE_UNSPECIFIED",
+        "SOURCE_TYPE_URL",
+        "SOURCE_TYPE_DOI"
+      ],
+      "default": "SOURCE_TYPE_UNSPECIFIED"
+    },
+    "v1StageObject": {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "contentLen": {
+          "type": "string",
+          "format": "int64"
+        },
+        "source": {
+          "$ref": "#/definitions/v1Source"
+        },
+        "dataclass": {
+          "$ref": "#/definitions/v1DataClass"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1KeyValue"
+          }
+        },
+        "hooks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1KeyValue"
+          }
+        }
+      }
+    },
+    "v1Stats": {
+      "type": "object",
+      "properties": {
+        "count": {
           "type": "string",
           "format": "int64"
         },
         "accSize": {
           "type": "string",
           "format": "int64"
-        },
-        "avgObjectSize": {
-          "type": "number",
-          "format": "double"
-        },
-        "userCount": {
-          "type": "string",
-          "format": "int64"
         }
-      }
-    },
-    "v1ReleaseDatasetVersionRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "datasetId": {
-          "type": "string"
-        },
-        "version": {
-          "$ref": "#/definitions/v1Version"
-        },
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Label"
-          }
-        },
-        "annotations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/modelsv1Annotation"
-          }
-        },
-        "objectGroupRevisionIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "description": {
-          "type": "string"
-        }
-      }
-    },
-    "v1ReleaseDatasetVersionResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1Resource": {
-      "type": "string",
-      "enum": [
-        "RESOURCE_UNSPECIFIED",
-        "RESOURCE_PROJECT",
-        "RESOURCE_DATASET",
-        "RESOURCE_DATASET_VERSION",
-        "RESOURCE_OBJECT",
-        "RESOURCE_OBJECT_GROUP",
-        "RESOURCE_OBJECT_GROUP_REVISION"
-      ],
-      "default": "RESOURCE_UNSPECIFIED"
-    },
-    "v1Right": {
-      "type": "string",
-      "enum": [
-        "RIGHT_UNSPECIFIED",
-        "RIGHT_READ",
-        "RIGHT_WRITE"
-      ],
-      "default": "RIGHT_UNSPECIFIED"
-    },
-    "v1StartMultipartUploadResponse": {
-      "type": "object",
-      "properties": {
-        "object": {
-          "$ref": "#/definitions/v1Object"
-        }
-      }
+      },
+      "title": "Stats for a set of objects"
     },
     "v1StreamAll": {
       "type": "object"
@@ -3704,93 +3837,135 @@
         }
       }
     },
-    "v1Subpath": {
-      "type": "object",
-      "properties": {
-        "path": {
-          "type": "string"
-        }
-      }
-    },
-    "v1UpdateDatasetFieldRequest": {
-      "type": "object",
-      "properties": {
-        "updateRequest": {
-          "$ref": "#/definitions/v1UpdateFieldsRequest"
-        }
-      }
-    },
-    "v1UpdateDatasetFieldResponse": {
-      "type": "object"
-    },
-    "v1UpdateFieldsRequest": {
+    "v1Token": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
-        "updatedStringFields": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "name": {
+          "type": "string"
+        },
+        "tokenType": {
+          "$ref": "#/definitions/v1TokenType"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
         }
       }
     },
-    "v1UpdateObjectGroupRequest": {
+    "v1TokenType": {
+      "type": "string",
+      "enum": [
+        "TOKEN_TYPE_UNSPECIFIED",
+        "TOKEN_TYPE_PERSONAL",
+        "TOKEN_TYPE_SCOPED"
+      ],
+      "default": "TOKEN_TYPE_UNSPECIFIED"
+    },
+    "v1URL": {
       "type": "object",
       "properties": {
-        "id": {
+        "url": {
           "type": "string"
-        },
-        "createRevisionRequest": {
-          "$ref": "#/definitions/v1CreateObjectGroupRevisionRequest"
+        }
+      }
+    },
+    "v1UpdateCollectionResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v1CollectionOverview"
         }
       }
     },
     "v1UpdateObjectGroupResponse": {
-      "type": "object"
-    },
-    "v1UpdateObjectRequest": {
-      "type": "object"
-    },
-    "v1UpdateObjectsRequests": {
       "type": "object",
       "properties": {
-        "addObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1AddObjectRequest"
-          }
+        "objectGroup": {
+          "$ref": "#/definitions/v1ObjectGroupOverview"
+        }
+      }
+    },
+    "v1UpdateObjectResponse": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string",
+          "title": "ObjectId"
         },
-        "updateObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1UpdateObjectRequest"
-          }
+        "stagingId": {
+          "type": "string",
+          "description": "Staging ID, a generic ID when multipart is not enabled, otherwise the\nmultipart upload ID."
         },
-        "deleteObjects": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1DeleteObjectRequest"
-          }
+        "collectionId": {
+          "type": "string",
+          "title": "CollectionID"
+        }
+      }
+    },
+    "v1UpdateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/v1ProjectOverview"
+        }
+      }
+    },
+    "v1UpdateUserDisplayNameResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
         }
       }
     },
     "v1User": {
       "type": "object",
       "properties": {
-        "userId": {
+        "id": {
+          "type": "string",
+          "title": "Internal Aruna UserID"
+        },
+        "externalId": {
+          "type": "string",
+          "title": "Oidc subject ID"
+        },
+        "displayName": {
+          "type": "string",
+          "title": "(optional) User display_name"
+        },
+        "active": {
+          "type": "boolean",
+          "title": "Is the user activated"
+        }
+      }
+    },
+    "v1UserProject": {
+      "type": "object",
+      "properties": {
+        "id": {
           "type": "string"
         },
-        "rights": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Right"
-          }
+        "name": {
+          "type": "string"
         },
-        "resource": {
-          "$ref": "#/definitions/v1Resource"
+        "description": {
+          "type": "string"
         }
       }
     },
@@ -3808,33 +3983,9 @@
         "patch": {
           "type": "integer",
           "format": "int32"
-        },
-        "revision": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "stage": {
-          "$ref": "#/definitions/VersionVersionStage"
         }
-      }
+      },
+      "title": "Semver version -\u003e Alpha Beta release are not supported -\u003e Use \"latest\" for\nmutable collections that are in development"
     }
-  },
-  "securityDefinitions": {
-    "AccessKeyAuth": {
-      "type": "apiKey",
-      "name": "Grpc-Metadata-accesstoken",
-      "in": "header"
-    },
-    "ApiKeyAuth": {
-      "type": "apiKey",
-      "name": "Grpc-Metadata-API_TOKEN",
-      "in": "header"
-    }
-  },
-  "security": [
-    {
-      "AccessKeyAuth": [],
-      "ApiKeyAuth": []
-    }
-  ]
+  }
 }

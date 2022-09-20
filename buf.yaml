@@ -27,15 +27,15 @@ lint:
       - google/api/http.proto
       - google/api/httpbody.proto
     FIELD_LOWER_SNAKE_CASE:
-      - api/models/*
+      - aruna/api/storage/*
     SERVICE_SUFFIX:
-      - api/models/*
+      - aruna/api/storage/*
     RPC_REQUEST_RESPONSE_UNIQUE:
-      - api/models/*
+      - aruna/api/storage/*
     RPC_REQUEST_STANDARD_NAME:
-      - api/models/*
+      - aruna/api/storage/*
     RPC_RESPONSE_STANDARD_NAME:
-      - api/models/*
+      - aruna/api/storage/*
 deps:
   - buf.build/grpc-ecosystem/grpc-gateway
   - buf.build/googleapis/googleapis
