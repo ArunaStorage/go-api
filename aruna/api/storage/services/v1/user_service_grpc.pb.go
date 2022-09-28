@@ -37,8 +37,6 @@ type UserServiceClient interface {
 	// GetUserRequest is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
-	// UserWhoAmI is a request that returns the user information of the current
-	// user
 	UpdateUserDisplayName(ctx context.Context, in *UpdateUserDisplayNameRequest, opts ...grpc.CallOption) (*UpdateUserDisplayNameResponse, error)
 	GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error)
 }
@@ -160,8 +158,6 @@ type UserServiceServer interface {
 	// GetUserRequest is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
-	// UserWhoAmI is a request that returns the user information of the current
-	// user
 	UpdateUserDisplayName(context.Context, *UpdateUserDisplayNameRequest) (*UpdateUserDisplayNameResponse, error)
 	GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error)
 }
