@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.4"
+    "version": "0.4.1"
   },
   "tags": [
     {
@@ -43,6 +43,7 @@
   "paths": {
     "/v1/auth/register": {
       "post": {
+        "summary": "This request should be called when a new user logs in for the first time",
         "operationId": "UserService_RegisterUser",
         "responses": {
           "200": {
@@ -61,10 +62,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -109,10 +106,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -162,10 +155,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -210,10 +199,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -257,10 +242,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -292,10 +273,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -339,10 +316,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -388,10 +361,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -431,10 +400,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -487,10 +452,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -580,10 +541,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -660,10 +617,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -749,10 +702,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -799,10 +748,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -848,10 +793,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -942,10 +883,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1005,10 +942,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1076,10 +1009,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1150,10 +1079,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1206,10 +1131,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1275,10 +1196,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1326,10 +1243,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1395,10 +1308,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1447,10 +1356,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1498,10 +1403,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1564,10 +1465,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1614,10 +1511,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1694,10 +1587,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1751,10 +1640,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1823,10 +1708,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1874,10 +1755,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -1965,10 +1842,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2040,10 +1913,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2124,10 +1993,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2222,10 +2087,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2287,10 +2148,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2351,10 +2208,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2410,10 +2263,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2459,10 +2308,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2507,10 +2352,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2544,10 +2385,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2591,10 +2428,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2628,10 +2461,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2676,10 +2505,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2761,10 +2586,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2806,10 +2627,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2850,10 +2667,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -2911,10 +2724,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2971,10 +2780,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -3030,10 +2835,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -3105,10 +2906,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -3156,10 +2953,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -3209,10 +3002,6 @@
               "format": "string"
             }
           },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -3235,6 +3024,7 @@
     },
     "/v1/user/display_name": {
       "post": {
+        "summary": "Updates the Displayname for the user (Personal only)",
         "operationId": "UserService_UpdateUserDisplayName",
         "responses": {
           "200": {
@@ -3253,10 +3043,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -3278,8 +3064,43 @@
         ]
       }
     },
+    "/v1/user/unregistered": {
+      "get": {
+        "summary": "Get all \"unregistered\" users (Admin only)",
+        "operationId": "UserService_GetUsersUnregistered",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUsersUnregisteredResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {}
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v1/user/{userId}/activate": {
       "post": {
+        "summary": "ActivateUser enables a specific user (Admin request)",
         "operationId": "UserService_ActivateUser",
         "responses": {
           "200": {
@@ -3298,10 +3119,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -3332,7 +3149,8 @@
       }
     },
     "/v1/user/{userId}/projects": {
-      "delete": {
+      "get": {
+        "summary": "Gets all project_ids a user is member of",
         "operationId": "UserService_GetUserProjects",
         "responses": {
           "200": {
@@ -3351,10 +3169,6 @@
               "type": "string",
               "format": "string"
             }
-          },
-          "418": {
-            "description": "I'm a teapot.",
-            "schema": {}
           },
           "default": {
             "description": "An unexpected error response.",
@@ -4107,6 +3921,17 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1ProjectPermission"
+          }
+        }
+      }
+    },
+    "v1GetUsersUnregisteredResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1User"
           }
         }
       }

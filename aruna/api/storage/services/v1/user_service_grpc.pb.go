@@ -22,7 +22,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
+	// This request should be called when a new user logs in for the first time
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
+	// ActivateUser enables a specific user (Admin request)
 	ActivateUser(ctx context.Context, in *ActivateUserRequest, opts ...grpc.CallOption) (*ActivateUserResponse, error)
 	// CreateAPIToken Creates an API token to authenticate
 	CreateAPIToken(ctx context.Context, in *CreateAPITokenRequest, opts ...grpc.CallOption) (*CreateAPITokenResponse, error)
@@ -37,8 +39,12 @@ type UserServiceClient interface {
 	// GetUserRequest is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(ctx context.Context, in *UpdateUserDisplayNameRequest, opts ...grpc.CallOption) (*UpdateUserDisplayNameResponse, error)
+	// Gets all project_ids a user is member of
 	GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error)
+	// Get all "unregistered" users (Admin only)
+	GetUsersUnregistered(ctx context.Context, in *GetUsersUnregisteredRequest, opts ...grpc.CallOption) (*GetUsersUnregisteredResponse, error)
 }
 
 type userServiceClient struct {
@@ -139,11 +145,22 @@ func (c *userServiceClient) GetUserProjects(ctx context.Context, in *GetUserProj
 	return out, nil
 }
 
+func (c *userServiceClient) GetUsersUnregistered(ctx context.Context, in *GetUsersUnregisteredRequest, opts ...grpc.CallOption) (*GetUsersUnregisteredResponse, error) {
+	out := new(GetUsersUnregisteredResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/GetUsersUnregistered", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
+	// This request should be called when a new user logs in for the first time
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
+	// ActivateUser enables a specific user (Admin request)
 	ActivateUser(context.Context, *ActivateUserRequest) (*ActivateUserResponse, error)
 	// CreateAPIToken Creates an API token to authenticate
 	CreateAPIToken(context.Context, *CreateAPITokenRequest) (*CreateAPITokenResponse, error)
@@ -158,8 +175,12 @@ type UserServiceServer interface {
 	// GetUserRequest is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
+	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(context.Context, *UpdateUserDisplayNameRequest) (*UpdateUserDisplayNameResponse, error)
+	// Gets all project_ids a user is member of
 	GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error)
+	// Get all "unregistered" users (Admin only)
+	GetUsersUnregistered(context.Context, *GetUsersUnregisteredRequest) (*GetUsersUnregisteredResponse, error)
 }
 
 // UnimplementedUserServiceServer should be embedded to have forward compatible implementations.
@@ -195,6 +216,9 @@ func (UnimplementedUserServiceServer) UpdateUserDisplayName(context.Context, *Up
 }
 func (UnimplementedUserServiceServer) GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserProjects not implemented")
+}
+func (UnimplementedUserServiceServer) GetUsersUnregistered(context.Context, *GetUsersUnregisteredRequest) (*GetUsersUnregisteredResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUsersUnregistered not implemented")
 }
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -388,6 +412,24 @@ func _UserService_GetUserProjects_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUsersUnregistered_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersUnregisteredRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUsersUnregistered(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.UserService/GetUsersUnregistered",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUsersUnregistered(ctx, req.(*GetUsersUnregisteredRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -434,6 +476,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserProjects",
 			Handler:    _UserService_GetUserProjects_Handler,
+		},
+		{
+			MethodName: "GetUsersUnregistered",
+			Handler:    _UserService_GetUsersUnregistered_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
