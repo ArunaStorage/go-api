@@ -17,4 +17,3 @@ plugins:
     out: openapiv2
     opt:
       - allow_merge=true
-      - visibility_restriction_selectors=INTERNAL
