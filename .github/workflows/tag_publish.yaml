@@ -1,0 +1,34 @@
+name: automatic_test_build_publish
+on: repository_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Git Submodule Update
+        run: |
+          git pull --recurse-submodules
+          git submodule update --init --recursive
+          git submodule update --remote --recursive
+      - name: Setup buf
+        uses: bufbuild/buf-setup-action@v1
+      - name: Lint protofiles with buf
+        uses: bufbuild/buf-lint-action@v1
+      - name: Generate buf files
+        run: buf generate
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Update to version to ${{ github.event.client_payload.version }}" -a
+          git tag -a v${{ github.event.client_payload.version }} -m "Published new version: ${{ github.event.client_payload.version }}, see API for detailed changelog."
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
+      - name: Create release
+        run: gh release create v${{ github.event.client_payload.version }}
