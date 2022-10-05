@@ -9,12 +9,6 @@
       "name": "ProjectService"
     },
     {
-      "name": "InternalProxyService"
-    },
-    {
-      "name": "UpdateNotificationService"
-    },
-    {
       "name": "CollectionService"
     },
     {
@@ -416,16 +410,20 @@
             "type": "string"
           },
           {
-            "name": "projectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "force",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectId": {
+                  "type": "string"
+                },
+                "force": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -1155,18 +1153,22 @@
             "type": "string"
           },
           {
-            "name": "withRevisions",
-            "description": "Delete including revisions",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "force",
-            "description": "Force delete including revisions",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "withRevisions": {
+                  "type": "boolean",
+                  "title": "Delete including revisions"
+                },
+                "force": {
+                  "type": "boolean",
+                  "title": "Force delete including revisions"
+                }
+              }
+            }
           }
         ],
         "tags": [

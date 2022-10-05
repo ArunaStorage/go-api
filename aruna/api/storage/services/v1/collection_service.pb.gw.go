@@ -323,13 +323,17 @@ func local_request_CollectionService_PinCollectionVersion_0(ctx context.Context,
 
 }
 
-var (
-	filter_CollectionService_DeleteCollection_0 = &utilities.DoubleArray{Encoding: map[string]int{"collection_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
-
 func request_CollectionService_DeleteCollection_0(ctx context.Context, marshaler runtime.Marshaler, client CollectionServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteCollectionRequest
 	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
 	var (
 		val string
@@ -346,13 +350,6 @@ func request_CollectionService_DeleteCollection_0(ctx context.Context, marshaler
 	protoReq.CollectionId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CollectionService_DeleteCollection_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteCollection(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -364,6 +361,14 @@ func local_request_CollectionService_DeleteCollection_0(ctx context.Context, mar
 	var protoReq DeleteCollectionRequest
 	var metadata runtime.ServerMetadata
 
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	var (
 		val string
 		ok  bool
@@ -379,13 +384,6 @@ func local_request_CollectionService_DeleteCollection_0(ctx context.Context, mar
 	protoReq.CollectionId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_CollectionService_DeleteCollection_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.DeleteCollection(ctx, &protoReq)
