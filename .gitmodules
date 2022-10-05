@@ -1,3 +1,5 @@
 [submodule "API"]
 	path = API
 	url = git@github.com:ArunaStorage/ArunaAPI.git
+	branch = main
+
