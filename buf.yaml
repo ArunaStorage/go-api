@@ -4,6 +4,7 @@ build:
     - API
   excludes:
     - API/aruna/api/protoc-gen-openapiv2
+    - API/aruna/api/google
 lint:
   use:
     - DEFAULT
