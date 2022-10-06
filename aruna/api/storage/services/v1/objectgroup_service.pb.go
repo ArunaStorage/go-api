@@ -27,16 +27,21 @@ type CreateObjectGroupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name         string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Description  string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	// ObjectGroup name
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Description for group
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	// Collection Id
 	CollectionId string `protobuf:"bytes,3,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
 	// This is the reference to the Objects that should be added to the group
 	ObjectIds []string `protobuf:"bytes,4,rep,name=object_ids,json=objectIds,proto3" json:"object_ids,omitempty"`
 	// This is a reference to the Objects that are associated with "meta" data
 	// about corresponding objects in the group
-	MetaObjectIds []string       `protobuf:"bytes,5,rep,name=meta_object_ids,json=metaObjectIds,proto3" json:"meta_object_ids,omitempty"`
-	Labels        []*v1.KeyValue `protobuf:"bytes,6,rep,name=labels,proto3" json:"labels,omitempty"`
-	Hooks         []*v1.KeyValue `protobuf:"bytes,7,rep,name=hooks,proto3" json:"hooks,omitempty"`
+	MetaObjectIds []string `protobuf:"bytes,5,rep,name=meta_object_ids,json=metaObjectIds,proto3" json:"meta_object_ids,omitempty"`
+	// List of label key-value pairs
+	Labels []*v1.KeyValue `protobuf:"bytes,6,rep,name=labels,proto3" json:"labels,omitempty"`
+	// List of hooks key-value pairs
+	Hooks []*v1.KeyValue `protobuf:"bytes,7,rep,name=hooks,proto3" json:"hooks,omitempty"`
 }
 
 func (x *CreateObjectGroupRequest) Reset() {
@@ -125,6 +130,7 @@ type CreateObjectGroupResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overview of the new objectgroup
 	ObjectGroup *v1.ObjectGroupOverview `protobuf:"bytes,1,opt,name=object_group,json=objectGroup,proto3" json:"object_group,omitempty"`
 }
 
@@ -172,17 +178,23 @@ type UpdateObjectGroupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupId      string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	Name         string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Description  string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	// Old group id
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// New name
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// New description
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	// Collection id
 	CollectionId string `protobuf:"bytes,4,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
 	// This is the reference to the Objects that should be added to the group
 	ObjectIds []string `protobuf:"bytes,5,rep,name=object_ids,json=objectIds,proto3" json:"object_ids,omitempty"`
 	// This is a reference to the Objects that are associated with "meta" data
 	// about corresponding objects in the group
-	MetaObjectIds []string       `protobuf:"bytes,6,rep,name=meta_object_ids,json=metaObjectIds,proto3" json:"meta_object_ids,omitempty"`
-	Labels        []*v1.KeyValue `protobuf:"bytes,7,rep,name=labels,proto3" json:"labels,omitempty"`
-	Hooks         []*v1.KeyValue `protobuf:"bytes,8,rep,name=hooks,proto3" json:"hooks,omitempty"`
+	MetaObjectIds []string `protobuf:"bytes,6,rep,name=meta_object_ids,json=metaObjectIds,proto3" json:"meta_object_ids,omitempty"`
+	// List of label key-value pairs
+	Labels []*v1.KeyValue `protobuf:"bytes,7,rep,name=labels,proto3" json:"labels,omitempty"`
+	// List of hooks key-value pairs
+	Hooks []*v1.KeyValue `protobuf:"bytes,8,rep,name=hooks,proto3" json:"hooks,omitempty"`
 }
 
 func (x *UpdateObjectGroupRequest) Reset() {
@@ -278,6 +290,7 @@ type UpdateObjectGroupResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overview of the updated objectgroup
 	ObjectGroup *v1.ObjectGroupOverview `protobuf:"bytes,1,opt,name=object_group,json=objectGroup,proto3" json:"object_group,omitempty"`
 }
 
@@ -325,7 +338,9 @@ type GetObjectGroupByIdRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupId      string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Object group id
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Collection id
 	CollectionId string `protobuf:"bytes,2,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
 }
 
@@ -380,6 +395,7 @@ type GetObjectGroupByIdResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overview of the objectgroup
 	ObjectGroup *v1.ObjectGroupOverview `protobuf:"bytes,1,opt,name=object_group,json=objectGroup,proto3" json:"object_group,omitempty"`
 }
 
@@ -427,9 +443,12 @@ type GetObjectGroupsFromObjectRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ObjectId     string          `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
-	CollectionId string          `protobuf:"bytes,2,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
-	PageRequest  *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
+	// Object id
+	ObjectId string `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	// Collection id
+	CollectionId string `protobuf:"bytes,2,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
+	// Page request
+	PageRequest *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
 }
 
 func (x *GetObjectGroupsFromObjectRequest) Reset() {
@@ -490,6 +509,7 @@ type GetObjectGroupsFromObjectResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overviews of multiple objectgroups
 	ObjectGroups *v1.ObjectGroupOverviews `protobuf:"bytes,1,opt,name=object_groups,json=objectGroups,proto3" json:"object_groups,omitempty"`
 }
 
@@ -537,7 +557,9 @@ type DeleteObjectGroupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	GroupId      string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Objectgroup id
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Collection id
 	CollectionId string `protobuf:"bytes,2,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
 }
 
@@ -630,6 +652,7 @@ type GetObjectGroupsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Collection id
 	CollectionId string `protobuf:"bytes,1,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
 	// Paginate the results: Default is 20
 	PageRequest *v1.PageRequest `protobuf:"bytes,2,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
@@ -695,6 +718,7 @@ type GetObjectGroupsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overviews of multiple objectgroups
 	ObjectGroups *v1.ObjectGroupOverviews `protobuf:"bytes,1,opt,name=object_groups,json=objectGroups,proto3" json:"object_groups,omitempty"`
 }
 
@@ -742,9 +766,12 @@ type GetObjectGroupHistoryRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	CollectionId string          `protobuf:"bytes,1,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
-	GroupId      string          `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	PageRequest  *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
+	// Collection id
+	CollectionId string `protobuf:"bytes,1,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
+	// Objectgroup id
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Pagerequest
+	PageRequest *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
 }
 
 func (x *GetObjectGroupHistoryRequest) Reset() {
@@ -805,6 +832,7 @@ type GetObjectGroupHistoryResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overviews of multiple objectgroups
 	ObjectGroups *v1.ObjectGroupOverviews `protobuf:"bytes,1,opt,name=object_groups,json=objectGroups,proto3" json:"object_groups,omitempty"`
 }
 
@@ -852,10 +880,14 @@ type GetObjectGroupObjectsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	CollectionId string          `protobuf:"bytes,1,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
-	GroupId      string          `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	PageRequest  *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
-	MetaOnly     bool            `protobuf:"varint,4,opt,name=meta_only,json=metaOnly,proto3" json:"meta_only,omitempty"` // Should only the "meta" objects be returned
+	// Collection id
+	CollectionId string `protobuf:"bytes,1,opt,name=collection_id,json=collectionId,proto3" json:"collection_id,omitempty"`
+	// Objectgroup id
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// Pagerequest
+	PageRequest *v1.PageRequest `protobuf:"bytes,3,opt,name=page_request,json=pageRequest,proto3" json:"page_request,omitempty"`
+	// Include meta objects only
+	MetaOnly bool `protobuf:"varint,4,opt,name=meta_only,json=metaOnly,proto3" json:"meta_only,omitempty"` // Should only the "meta" objects be returned
 }
 
 func (x *GetObjectGroupObjectsRequest) Reset() {
@@ -925,8 +957,10 @@ type ObjectGroupObject struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Object     *v1.Object `protobuf:"bytes,1,opt,name=object,proto3" json:"object,omitempty"`
-	IsMetadata bool       `protobuf:"varint,2,opt,name=is_metadata,json=isMetadata,proto3" json:"is_metadata,omitempty"`
+	// Object
+	Object *v1.Object `protobuf:"bytes,1,opt,name=object,proto3" json:"object,omitempty"`
+	// Is this objet a meta object
+	IsMetadata bool `protobuf:"varint,2,opt,name=is_metadata,json=isMetadata,proto3" json:"is_metadata,omitempty"`
 }
 
 func (x *ObjectGroupObject) Reset() {
@@ -980,6 +1014,7 @@ type GetObjectGroupObjectsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// List of associated object group objects
 	ObjectGroupObjects []*ObjectGroupObject `protobuf:"bytes,1,rep,name=object_group_objects,json=objectGroupObjects,proto3" json:"object_group_objects,omitempty"`
 }
 
@@ -1222,7 +1257,7 @@ var file_aruna_api_storage_services_v1_objectgroup_service_proto_rawDesc = []byt
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x73, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f,
 	0x62, 0x6a, 0x65, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x3a, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x34, 0x3a, 0x01, 0x2a, 0x1a, 0x2f, 0x2f,
+	0x73, 0x65, 0x22, 0x3a, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x34, 0x3a, 0x01, 0x2a, 0x22, 0x2f, 0x2f,
 	0x76, 0x31, 0x2f, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x63,
 	0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x7d, 0x2f, 0x67, 0x72,
 	0x6f, 0x75, 0x70, 0x2f, 0x7b, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x7d, 0x12, 0xc2,

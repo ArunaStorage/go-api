@@ -22,29 +22,42 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CollectionServiceClient interface {
-	// CreateNewCollection creates a new Collection
+	// CreateNewCollection
+	//
+	// creates a new Collection
 	CreateNewCollection(ctx context.Context, in *CreateNewCollectionRequest, opts ...grpc.CallOption) (*CreateNewCollectionResponse, error)
-	// GetCollection queries a specific Collection by ID
+	// GetCollectionByID
+	//
+	// Queries a specific Collection by ID
 	// The result can be one_of:
 	// CollectionOverview -> default
 	// CollectionWithID
 	// Collection (full)
 	// This can be modified with the optional OutputFormat parameter
 	GetCollectionByID(ctx context.Context, in *GetCollectionByIDRequest, opts ...grpc.CallOption) (*GetCollectionByIDResponse, error)
-	// GetCollections queries multiple collections by ID or by LabelFilter
+	// GetCollections
+	//
+	// queries multiple collections by ID or by LabelFilter
 	// This returns by default a paginated result with 20 entries.
+	// Must specify a project_id as context
 	GetCollections(ctx context.Context, in *GetCollectionsRequest, opts ...grpc.CallOption) (*GetCollectionsResponse, error)
-	// UpdateCollection updates the current collection
+	// UpdateCollection
+	//
+	// Updates the current collection
 	// This will update the collection in place if it is unversioned / latest
 	// A versioned (pinned) collection requires a new semantic version after the
 	// update This can be used to pin a collection to a specific version similar
 	// to the PinCollectionVersion request
 	UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*UpdateCollectionResponse, error)
-	// PinCollectionVersion this pins the current status of the version to a
-	// specific version This effectively creates a copy of the collection with a
+	// PinCollectionVersion
+	//
+	// This pins the current status of the version to a
+	// specific version. Effectively creating a copy of the collection with a
 	// stable version All objects will be pinned to an explicit revision number
 	// Pinned collections can not be updated in place
 	PinCollectionVersion(ctx context.Context, in *PinCollectionVersionRequest, opts ...grpc.CallOption) (*PinCollectionVersionResponse, error)
+	// DeleteCollection
+	//
 	// This request deletes the collection.
 	// If with_version is true, it deletes the collection and all its versions.
 	// If cascade is true, all objects that are owned by the collection will also
@@ -118,29 +131,42 @@ func (c *collectionServiceClient) DeleteCollection(ctx context.Context, in *Dele
 // All implementations should embed UnimplementedCollectionServiceServer
 // for forward compatibility
 type CollectionServiceServer interface {
-	// CreateNewCollection creates a new Collection
+	// CreateNewCollection
+	//
+	// creates a new Collection
 	CreateNewCollection(context.Context, *CreateNewCollectionRequest) (*CreateNewCollectionResponse, error)
-	// GetCollection queries a specific Collection by ID
+	// GetCollectionByID
+	//
+	// Queries a specific Collection by ID
 	// The result can be one_of:
 	// CollectionOverview -> default
 	// CollectionWithID
 	// Collection (full)
 	// This can be modified with the optional OutputFormat parameter
 	GetCollectionByID(context.Context, *GetCollectionByIDRequest) (*GetCollectionByIDResponse, error)
-	// GetCollections queries multiple collections by ID or by LabelFilter
+	// GetCollections
+	//
+	// queries multiple collections by ID or by LabelFilter
 	// This returns by default a paginated result with 20 entries.
+	// Must specify a project_id as context
 	GetCollections(context.Context, *GetCollectionsRequest) (*GetCollectionsResponse, error)
-	// UpdateCollection updates the current collection
+	// UpdateCollection
+	//
+	// Updates the current collection
 	// This will update the collection in place if it is unversioned / latest
 	// A versioned (pinned) collection requires a new semantic version after the
 	// update This can be used to pin a collection to a specific version similar
 	// to the PinCollectionVersion request
 	UpdateCollection(context.Context, *UpdateCollectionRequest) (*UpdateCollectionResponse, error)
-	// PinCollectionVersion this pins the current status of the version to a
-	// specific version This effectively creates a copy of the collection with a
+	// PinCollectionVersion
+	//
+	// This pins the current status of the version to a
+	// specific version. Effectively creating a copy of the collection with a
 	// stable version All objects will be pinned to an explicit revision number
 	// Pinned collections can not be updated in place
 	PinCollectionVersion(context.Context, *PinCollectionVersionRequest) (*PinCollectionVersionResponse, error)
+	// DeleteCollection
+	//
 	// This request deletes the collection.
 	// If with_version is true, it deletes the collection and all its versions.
 	// If cascade is true, all objects that are owned by the collection will also

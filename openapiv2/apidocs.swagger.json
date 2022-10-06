@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-alpha.2"
+    "version": "0.5.0-alpha.3"
   },
   "tags": [
     {
@@ -25,8 +25,7 @@
     }
   ],
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -37,24 +36,14 @@
   "paths": {
     "/v1/auth/register": {
       "post": {
-        "summary": "This request should be called when a new user logs in for the first time",
+        "summary": "RegisterUser",
+        "description": "This request should be called when a new user logs in for the first time",
         "operationId": "UserService_RegisterUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1RegisterUserResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -80,73 +69,15 @@
       }
     },
     "/v1/auth/token": {
-      "get": {
-        "summary": "Returns one API token by id",
-        "operationId": "UserService_GetAPIToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetAPITokenResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "tokenId",
-            "description": "The token id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "description": "or the user_defined name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      },
       "post": {
-        "summary": "CreateAPIToken Creates an API token to authenticate",
+        "summary": "CreateAPIToken",
+        "description": "Creates an API token to authenticate",
         "operationId": "UserService_CreateAPIToken",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CreateAPITokenResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -172,25 +103,46 @@
       }
     },
     "/v1/auth/token/{tokenId}": {
+      "get": {
+        "summary": "GetAPIToken",
+        "description": "Returns one API token by id",
+        "operationId": "UserService_GetAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAPITokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tokenId",
+            "description": "The token id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
       "delete": {
-        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
+        "summary": "DeleteAPIToken",
+        "description": "Deletes the specified API Token",
         "operationId": "UserService_DeleteAPIToken",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteAPITokenResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -216,24 +168,14 @@
     },
     "/v1/auth/tokens": {
       "get": {
-        "summary": "Returns all API token for a specific user",
+        "summary": "GetAPITokens",
+        "description": "Returns a list of API tokens for a specific user",
         "operationId": "UserService_GetAPITokens",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetAPITokensResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -248,24 +190,14 @@
         ]
       },
       "delete": {
-        "summary": "DeleteAPITokenRequest Deletes the specified API Token",
+        "summary": "DeleteAPITokens",
+        "description": "Deletes the specified API Token",
         "operationId": "UserService_DeleteAPITokens",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteAPITokensResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -291,24 +223,14 @@
     },
     "/v1/collection": {
       "post": {
-        "summary": "CreateNewCollection creates a new Collection",
+        "summary": "CreateNewCollection",
+        "description": "creates a new Collection",
         "operationId": "CollectionService_CreateNewCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CreateNewCollectionResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -335,24 +257,14 @@
     },
     "/v1/collection/{collectionId}": {
       "get": {
-        "summary": "GetCollection queries a specific Collection by ID\nThe result can be one_of:\nCollectionOverview -\u003e default\nCollectionWithID\nCollection (full)\nThis can be modified with the optional OutputFormat parameter",
+        "summary": "GetCollectionByID",
+        "description": "Queries a specific Collection by ID\nThe result can be one_of:\nCollectionOverview -\u003e default\nCollectionWithID\nCollection (full)\nThis can be modified with the optional OutputFormat parameter",
         "operationId": "CollectionService_GetCollectionByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetCollectionByIDResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -365,6 +277,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Requested id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -375,24 +288,14 @@
         ]
       },
       "delete": {
-        "summary": "This request deletes the collection.\nIf with_version is true, it deletes the collection and all its versions.\nIf cascade is true, all objects that are owned by the collection will also\ndeleted. This should be avoided",
+        "summary": "DeleteCollection",
+        "description": "This request deletes the collection.\nIf with_version is true, it deletes the collection and all its versions.\nIf cascade is true, all objects that are owned by the collection will also\ndeleted. This should be avoided",
         "operationId": "CollectionService_DeleteCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteCollectionResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -405,6 +308,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -417,10 +321,12 @@
               "type": "object",
               "properties": {
                 "projectId": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "Project id"
                 },
                 "force": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "title": "Force delete"
                 }
               }
             }
@@ -431,24 +337,14 @@
         ]
       },
       "put": {
-        "summary": "UpdateCollection updates the current collection\nThis will update the collection in place if it is unversioned / latest\nA versioned (pinned) collection requires a new semantic version after the\nupdate This can be used to pin a collection to a specific version similar\nto the PinCollectionVersion request",
+        "summary": "UpdateCollection",
+        "description": "Updates the current collection\nThis will update the collection in place if it is unversioned / latest\nA versioned (pinned) collection requires a new semantic version after the\nupdate This can be used to pin a collection to a specific version similar\nto the PinCollectionVersion request",
         "operationId": "CollectionService_UpdateCollection",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1UpdateCollectionResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -461,6 +357,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Old collection_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -473,31 +370,34 @@
               "type": "object",
               "properties": {
                 "projectId": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "Project id"
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "New name"
                 },
                 "description": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "New description"
                 },
                 "labels": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "New list of labels"
                 },
                 "hooks": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "New list of hooks"
                 },
                 "labelOntology": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/v1LabelOntology"
-                  }
+                  "$ref": "#/definitions/v1LabelOntology",
+                  "title": "(optional) LabelOntology"
                 },
                 "dataclass": {
                   "$ref": "#/definitions/v1DataClass",
@@ -519,24 +419,14 @@
     },
     "/v1/collection/{collectionId}/group": {
       "get": {
-        "summary": "GetObjectGroups is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
+        "summary": "GetObjectGroups",
+        "description": "This is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
         "operationId": "ObjectGroupService_GetObjectGroups",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -549,6 +439,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -596,24 +487,14 @@
         ]
       },
       "post": {
-        "summary": "CreateObjectGroup creates a new ObjectGroup in the collection",
+        "summary": "CreateObjectGroup",
+        "description": "This creates a new ObjectGroup in the collection",
         "operationId": "ObjectGroupService_CreateObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CreateObjectGroupResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -626,6 +507,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection Id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -638,10 +520,12 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "ObjectGroup name"
                 },
                 "description": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "Description for group"
                 },
                 "objectIds": {
                   "type": "array",
@@ -661,13 +545,15 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "List of label key-value pairs"
                 },
                 "hooks": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "List of hooks key-value pairs"
                 }
               }
             }
@@ -680,24 +566,14 @@
     },
     "/v1/collection/{collectionId}/group/{groupId}": {
       "get": {
-        "summary": "GetObjectGroupById gets a specific ObjectGroup by ID\nBy default the latest revision is always returned, older revisions need to\nbe specified separately",
+        "summary": "GetObjectGroupById",
+        "description": "This gets a specific ObjectGroup by ID\nBy default the latest revision is always returned, older revisions need to\nbe specified separately",
         "operationId": "ObjectGroupService_GetObjectGroupById",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupByIdResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -710,12 +586,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "groupId",
+            "description": "Object group id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -726,24 +604,14 @@
         ]
       },
       "delete": {
-        "summary": "DeleteObjectGroup is a request that deletes a specified ObjectGroup\nThis does not delete the associated Objects",
+        "summary": "DeleteObjectGroup",
+        "description": "This is a request that deletes a specified ObjectGroup\nThis does not delete the associated Objects",
         "operationId": "ObjectGroupService_DeleteObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteObjectGroupResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -756,12 +624,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "groupId",
+            "description": "Objectgroup id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -771,25 +641,15 @@
           "ObjectGroupService"
         ]
       },
-      "put": {
-        "summary": "UpdateObjectGroup creates an updated ObjectGroup\nObjectGroups are immutable\nUpdating an ObjectGroup will create a new Revision of the ObjectGroup",
+      "post": {
+        "summary": "UpdateObjectGroup",
+        "description": "This creates an updated ObjectGroup\nObjectGroups are immutable\nUpdating an ObjectGroup will create a new Revision of the ObjectGroup",
         "operationId": "ObjectGroupService_UpdateObjectGroup",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1UpdateObjectGroupResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -802,12 +662,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "groupId",
+            "description": "Old group id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -820,10 +682,12 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "New name"
                 },
                 "description": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "New description"
                 },
                 "objectIds": {
                   "type": "array",
@@ -843,13 +707,15 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "List of label key-value pairs"
                 },
                 "hooks": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1KeyValue"
-                  }
+                  },
+                  "title": "List of hooks key-value pairs"
                 }
               }
             }
@@ -862,23 +728,14 @@
     },
     "/v1/collection/{collectionId}/group/{groupId}/history": {
       "get": {
+        "summary": "GetObjectGroupHistory",
+        "description": "This requests a full history with all objectgroups\nthat are part of this objectgroups history",
         "operationId": "ObjectGroupService_GetObjectGroupHistory",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupHistoryResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -891,12 +748,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "groupId",
+            "description": "Objectgroup id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -922,23 +781,14 @@
     },
     "/v1/collection/{collectionId}/group/{groupId}/objects": {
       "get": {
+        "summary": "GetObjectGroupObjects",
+        "description": "Requests a list of paginated objects associated with this\nspecific objectgroup",
         "operationId": "ObjectGroupService_GetObjectGroupObjects",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupObjectsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -951,12 +801,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "groupId",
+            "description": "Objectgroup id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -976,6 +828,7 @@
           },
           {
             "name": "metaOnly",
+            "description": "Include meta objects only",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -988,24 +841,14 @@
     },
     "/v1/collection/{collectionId}/object": {
       "post": {
-        "summary": "This initializes a new object\nInitializing an object will put it in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "summary": "InitializeNewObject",
+        "description": "This initializes a new object\nInitializing an object will put it in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
         "operationId": "ObjectService_InitializeNewObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1InitializeNewObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1057,24 +900,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}": {
       "get": {
-        "summary": "GetObjectByID gets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
+        "summary": "GetObjectByID",
+        "description": "gets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
         "operationId": "ObjectService_GetObjectByID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectByIDResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1087,12 +920,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection Id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object Id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1110,24 +945,14 @@
         ]
       },
       "delete": {
-        "summary": "Deletes the object with the complete revision history.\nThis should be avoided if possible.\nThis method allows the owner to cascade the deletion of all objects that\nwere cloned from this object.\n-\u003e GDPR compliant procedure.",
+        "summary": "DeleteObject",
+        "description": "Deletes the object with the complete revision history.\nThis should be avoided if possible.\nThis method allows the owner to cascade the deletion of all objects that\nwere cloned from this object.\n-\u003e GDPR compliant procedure.",
         "operationId": "ObjectService_DeleteObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1177,25 +1002,15 @@
       }
     },
     "/v1/collection/{collectionId}/object/{objectId}/add_labels": {
-      "post": {
-        "summary": "AddLabelToObject is a specific request to add a new label\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
+      "patch": {
+        "summary": "AddLabelToObject",
+        "description": "This is a specific request to add a new label\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
         "operationId": "ObjectService_AddLabelToObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1AddLabelToObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1208,15 +1023,34 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "labelsToAdd": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  },
+                  "title": "List of labels that should be added to the list of labels"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -1226,24 +1060,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/clone": {
       "post": {
-        "summary": "This method clones an object and creates a copy in the same collection.\nThis copy has a new id and revision and will not receive any updates from\nthe original object.",
+        "summary": "CloneObject",
+        "description": "This method clones an object and creates a copy in the same collection.\nThis copy has a new id and revision and will not receive any updates from\nthe original object.",
         "operationId": "ObjectService_CloneObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CloneObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1290,24 +1114,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/download": {
       "get": {
-        "summary": "This method will return a url that can be used to download a file from S3.",
+        "summary": "GetDownloadUrl",
+        "description": "This method will return a url that can be used to download a file from S3.",
         "operationId": "ObjectService_GetDownloadURL",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetDownloadURLResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1320,12 +1134,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1338,24 +1154,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/endpoints": {
       "get": {
-        "summary": "GetObjectEndpoints returns a list of endpoints\nOne endpoint will be the \"default\" endpoint",
+        "summary": "GetObjectEndpoints",
+        "description": "This returns a list of endpoints\nOne endpoint will be the \"default\" endpoint",
         "operationId": "ObjectService_GetObjectEndpoints",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectEndpointsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1368,12 +1174,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1386,24 +1194,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/groups": {
       "get": {
-        "summary": "GetObjectGroupsFromObject gets all ObjectGroups associated to a specific\nObject Objects can be part of multiple ObjectGroups at once",
+        "summary": "GetObjectGroupsFromObject",
+        "description": "This gets all ObjectGroups associated to a specific\nObject Objects can be part of multiple ObjectGroups at once",
         "operationId": "ObjectGroupService_GetObjectGroupsFromObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectGroupsFromObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1416,12 +1214,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1447,24 +1247,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/latest": {
       "get": {
-        "summary": "GetLatestObjectRevision returns the latest revision of a specific object\nThe returned `latest` object will have a different id if the current\nobject is not the latest revision",
+        "summary": "GetLatestObjectRevision",
+        "description": "This returns the latest revision of a specific object\nThe returned `latest` object will have a different id if the current\nobject is not the latest revision",
         "operationId": "ObjectService_GetLatestObjectRevision",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetLatestObjectRevisionResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1477,12 +1267,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1495,23 +1287,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/reference/{targetCollectionId}": {
       "post": {
+        "summary": "CreateObjectReference",
+        "description": "Creates a new reference of this object in another collection",
         "operationId": "ObjectService_CreateObjectReference",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CreateObjectReferenceResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1568,25 +1351,15 @@
       }
     },
     "/v1/collection/{collectionId}/object/{objectId}/references": {
-      "post": {
-        "summary": "Get a list of references for this object (optional) including all revisions",
+      "get": {
+        "summary": "GetReferences",
+        "description": "Get a list of references for this object (optional) including all revisions",
         "operationId": "ObjectService_GetReferences",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetReferencesResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1599,18 +1372,21 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "withRevisions",
+            "description": "Should all revisions be included?",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -1623,24 +1399,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/revisions": {
       "get": {
-        "summary": "GetObjectRevisions returns the full list of revisions of a specified object\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This is by default a paginated request",
+        "summary": "GetObjectRevisions",
+        "description": "This returns the full list of revisions of a specified object\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This is by default a paginated request",
         "operationId": "ObjectService_GetObjectRevisions",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectRevisionsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1653,12 +1419,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1678,6 +1446,7 @@
           },
           {
             "name": "withUrl",
+            "description": "Should the response include download urls ?",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -1689,25 +1458,15 @@
       }
     },
     "/v1/collection/{collectionId}/object/{objectId}/set_hooks": {
-      "post": {
-        "summary": "SetHooksOfObject is a specific request to update the complete list\nof hooks for a specific object. This will not update the object\nand create a new id, instead it will overwrite all hooks of the existing\nobject.",
+      "patch": {
+        "summary": "SetHooksOfObject",
+        "description": "This is a specific request to update the complete list\nof hooks for a specific object. This will not update the object\nand create a new id, instead it will overwrite all hooks of the existing\nobject.",
         "operationId": "ObjectService_SetHooksOfObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1SetHooksOfObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1720,15 +1479,34 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "objectId",
+            "description": "Object id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hooks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  },
+                  "title": "This will overwrite all existing hooks\nCan be empty to remove all hooks"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -1737,25 +1515,15 @@
       }
     },
     "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/finish": {
-      "post": {
-        "summary": "This method completes the staging of an object.",
+      "patch": {
+        "summary": "FinishObjectStaging",
+        "description": "This method completes the staging of an object.",
         "operationId": "ObjectService_FinishObjectStaging",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1FinishObjectStagingResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1824,24 +1592,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/upload": {
       "get": {
-        "summary": "This method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
+        "summary": "GetUploadURL",
+        "description": "This method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
         "operationId": "ObjectService_GetUploadURL",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetUploadURLResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1896,24 +1654,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/update": {
       "post": {
-        "summary": "Objects are immutable!\nUpdating an object will create a new revision for the object\nThis method will put the new revision in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "summary": "UpdateObject",
+        "description": "Objects are immutable!\nUpdating an object will create a new revision for the object\nThis method will put the new revision in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
         "operationId": "ObjectService_UpdateObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1UpdateObjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -1976,24 +1724,14 @@
     },
     "/v1/collection/{collectionId}/objects": {
       "get": {
-        "summary": "GetObjects returns a (paginated) list of objects in a specific collection\nBy default only the latest revisions of all objects will be shown\nThis behaviour can be changed with the include_history flag\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This request contains a LabelOrIDQuery message,\nthis is either a list of request ObjectIDs or a query filtered by Labels",
+        "summary": "GetObjects",
+        "description": "GetObjects returns a (paginated) list of objects in a specific collection\nBy default only the latest revisions of all objects will be shown\nThis behaviour can be changed with the include_history flag\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This request contains a LabelOrIDQuery message,\nthis is either a list of request ObjectIDs or a query filtered by Labels",
         "operationId": "ObjectService_GetObjects",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetObjectsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2006,6 +1744,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Collection id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2067,26 +1806,16 @@
         ]
       }
     },
-    "/v1/collection/{collectionId}/objects/stream": {
+    "/v1/collection/{collectionId}/objects/batch": {
       "get": {
-        "summary": "This method can be used to get download urls for multiple objects.\nThe order of the returned urls will be the same as the order of the object\nids in the request.",
+        "summary": "GetDownloadLinksBatch",
+        "description": "This method can be used to get download urls for multiple objects.\nThe order of the returned urls will be the same as the order of the object\nids in the request.",
         "operationId": "ObjectService_GetDownloadLinksBatch",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetDownloadLinksBatchResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2119,9 +1848,12 @@
         "tags": [
           "ObjectService"
         ]
-      },
+      }
+    },
+    "/v1/collection/{collectionId}/objects/stream": {
       "post": {
-        "summary": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of Objects as a stream that would\notherwise cause issues with the connection",
+        "summary": "CreateDownloadLinksStream",
+        "description": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of Objects as a stream that would\notherwise cause issues with the connection",
         "operationId": "ObjectService_CreateDownloadLinksStream",
         "responses": {
           "200": {
@@ -2137,17 +1869,6 @@
                 }
               },
               "title": "Stream result of v1CreateDownloadLinksStreamResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2190,24 +1911,14 @@
     },
     "/v1/collection/{collectionId}/pin": {
       "post": {
-        "summary": "PinCollectionVersion this pins the current status of the version to a\nspecific version This effectively creates a copy of the collection with a\nstable version All objects will be pinned to an explicit revision number\nPinned collections can not be updated in place",
+        "summary": "PinCollectionVersion",
+        "description": "This pins the current status of the version to a\nspecific version. Effectively creating a copy of the collection with a\nstable version All objects will be pinned to an explicit revision number\nPinned collections can not be updated in place",
         "operationId": "CollectionService_PinCollectionVersion",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1PinCollectionVersionResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2220,6 +1931,7 @@
         "parameters": [
           {
             "name": "collectionId",
+            "description": "Old collection_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2232,7 +1944,8 @@
               "type": "object",
               "properties": {
                 "version": {
-                  "$ref": "#/definitions/v1Version"
+                  "$ref": "#/definitions/v1Version",
+                  "title": "New version"
                 }
               }
             }
@@ -2243,252 +1956,10 @@
         ]
       }
     },
-    "/v1/endpoint": {
+    "/v1/collections/{projectId}": {
       "get": {
-        "summary": "Gets an specific endpoint by ID or Name",
-        "operationId": "EndpointService_GetEndpoint",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetEndpointResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "endpointName",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "endpointId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "EndpointService"
-        ]
-      },
-      "post": {
-        "operationId": "EndpointService_AddEndpoint",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1AddEndpointResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1AddEndpointRequest"
-            }
-          }
-        ],
-        "tags": [
-          "EndpointService"
-        ]
-      }
-    },
-    "/v1/endpoint/default": {
-      "get": {
-        "summary": "This request returns the default endpoint for the current server\nIt may produce different results depending on the used server",
-        "operationId": "EndpointService_GetDefaultEndpoint",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetDefaultEndpointResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "EndpointService"
-        ]
-      }
-    },
-    "/v1/endpoint/{endpointId}": {
-      "delete": {
-        "summary": "Deletes a specific endpoint by id\nThis needs admin permissions",
-        "operationId": "EndpointService_DeleteEndpoint",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteEndpointResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "endpointId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "EndpointService"
-        ]
-      }
-    },
-    "/v1/endpoints": {
-      "get": {
-        "summary": "Gets all available endpoints",
-        "operationId": "EndpointService_GetEndpoints",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetEndpointsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "EndpointService"
-        ]
-      }
-    },
-    "/v1/project": {
-      "post": {
-        "summary": "This creates a new authorization group.option\nAll users and collections are bundled in a authorization group.",
-        "operationId": "ProjectService_CreateProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateProjectRequest"
-            }
-          }
-        ],
-        "tags": [
-          "ProjectService"
-        ]
-      }
-    },
-    "/v1/project/{projectId_1}/collections": {
-      "get": {
-        "summary": "GetCollections queries multiple collections by ID or by LabelFilter\nThis returns by default a paginated result with 20 entries.",
+        "summary": "GetCollections",
+        "description": "queries multiple collections by ID or by LabelFilter\nThis returns by default a paginated result with 20 entries.\nMust specify a project_id as context",
         "operationId": "CollectionService_GetCollections",
         "responses": {
           "200": {
@@ -2497,17 +1968,6 @@
               "$ref": "#/definitions/v1GetCollectionsResponse"
             }
           },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2517,8 +1977,8 @@
         },
         "parameters": [
           {
-            "name": "projectId_1",
-            "description": "Filter by Labels (optional) OR request a specific list of Collections by id",
+            "name": "projectId",
+            "description": "Project id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2566,26 +2026,203 @@
         ]
       }
     },
+    "/v1/endpoint": {
+      "get": {
+        "summary": "GetEndpoint",
+        "description": "Gets an specific endpoint by ID or Name",
+        "operationId": "EndpointService_GetEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointName",
+            "description": "The name of the endpoint",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "description": "Id of the endpoint",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      },
+      "post": {
+        "summary": "AddEndpoint",
+        "description": "Registers a new Endpoint (Aruna DataProxy) to the server\nNeeds admin permissions",
+        "operationId": "EndpointService_AddEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AddEndpointRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/endpoint/default": {
+      "get": {
+        "summary": "GetDefaultEndpoint",
+        "description": "This request returns the default endpoint for the current aruna_server\nIt may produce different results depending on the used server",
+        "operationId": "EndpointService_GetDefaultEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDefaultEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/endpoint/{endpointId}": {
+      "delete": {
+        "summary": "DeleteEndpoint",
+        "description": "Deletes a specific endpoint by id\nThis needs admin permissions",
+        "operationId": "EndpointService_DeleteEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "description": "Endpoint_id to delete",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/endpoints": {
+      "get": {
+        "summary": "GetEndpoints",
+        "description": "Gets all available endpoints",
+        "operationId": "EndpointService_GetEndpoints",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEndpointsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
+    "/v1/project": {
+      "post": {
+        "summary": "CreateProject",
+        "description": "Creates a new project all users and collections are bundled in a project.",
+        "operationId": "ProjectService_CreateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
     "/v1/project/{projectId}": {
       "get": {
-        "summary": "GetProject Returns the specified project",
+        "summary": "GetProject",
+        "description": "Requests a project by id",
         "operationId": "ProjectService_GetProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2609,24 +2246,14 @@
         ]
       },
       "delete": {
-        "summary": "Destroys the project and all its associated data. Must be empty\n(cannot contain any collections).",
+        "summary": "DestroyProject",
+        "description": "Destroys the project and all its associated data. Must be empty\n(cannot contain any collections).",
         "operationId": "ProjectService_DestroyProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DestroyProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2650,24 +2277,14 @@
         ]
       },
       "put": {
-        "summary": "Updates the project. All (meta) data will be overwritten.",
+        "summary": "UpdateProject",
+        "description": "Updates the project. All (meta) data will be overwritten.",
         "operationId": "ProjectService_UpdateProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1UpdateProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2680,6 +2297,7 @@
         "parameters": [
           {
             "name": "projectId",
+            "description": "Project id to update",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2704,26 +2322,16 @@
         ]
       }
     },
-    "/v1/project/{projectId}/adduser": {
+    "/v1/project/{projectId}/add_user": {
       "post": {
-        "summary": "AddUserToProject Adds a new user to a given project by its id",
+        "summary": "AddUserToProject",
+        "description": "Adds a new user to a given project by its id",
         "operationId": "ProjectService_AddUserToProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1AddUserToProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2749,7 +2357,8 @@
               "type": "object",
               "properties": {
                 "userPermission": {
-                  "$ref": "#/definitions/v1ProjectPermission"
+                  "$ref": "#/definitions/v1ProjectPermission",
+                  "title": "Permissions for the user"
                 }
               }
             }
@@ -2760,65 +2369,10 @@
         ]
       }
     },
-    "/v1/project/{projectId}/collections": {
-      "get": {
-        "summary": "GetProjectCollections Returns all collections that belong to a certain\nproject",
-        "operationId": "ProjectService_GetProjectCollections",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetProjectCollectionsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectId",
-            "description": "The id of the project to get the collections for",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pageRequest.lastUuid",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageRequest.pageSize",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "ProjectService"
-        ]
-      }
-    },
     "/v1/project/{projectId}/edit_user": {
-      "post": {
-        "summary": "Edit the user_permission of a specific user for the project.",
+      "patch": {
+        "summary": "EditUserPermissionsForProject",
+        "description": "Modifies the user_permission of a specific user for the project.",
         "operationId": "ProjectService_EditUserPermissionsForProject",
         "responses": {
           "200": {
@@ -2827,17 +2381,6 @@
               "$ref": "#/definitions/v1EditUserPermissionsForProjectResponse"
             }
           },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
-            }
-          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -2848,37 +2391,24 @@
         "parameters": [
           {
             "name": "projectId",
+            "description": "Project id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "userPermission.userId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "userPermission.projectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "userPermission.permission",
-            "description": " - PERMISSION_READ: project but have no default permissions\n - PERMISSION_ADMIN: that owns the object / Create new collections",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "PERMISSION_UNSPECIFIED",
-              "PERMISSION_NONE",
-              "PERMISSION_READ",
-              "PERMISSION_APPEND",
-              "PERMISSION_MODIFY",
-              "PERMISSION_ADMIN"
-            ],
-            "default": "PERMISSION_UNSPECIFIED"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userPermission": {
+                  "$ref": "#/definitions/v1ProjectPermission",
+                  "title": "This contains the user_id and the \"new permission\""
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -2887,25 +2417,15 @@
       }
     },
     "/v1/project/{projectId}/get_user": {
-      "post": {
-        "summary": "Get the user_permission of a specific user for the project.",
+      "get": {
+        "summary": "GetUserPermissionsForProject",
+        "description": "Get the user_permission of a specific user for the project.",
         "operationId": "ProjectService_GetUserPermissionsForProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetUserPermissionsForProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2918,12 +2438,14 @@
         "parameters": [
           {
             "name": "projectId",
+            "description": "Project id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "User id",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2935,25 +2457,15 @@
       }
     },
     "/v1/project/{projectId}/remove_user": {
-      "post": {
-        "summary": "Removes a specified user from the project.",
+      "delete": {
+        "summary": "RemoveUserFromProject",
+        "description": "Removes a specified user from the project.",
         "operationId": "ProjectService_RemoveUserFromProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1RemoveUserFromProjectResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -2966,12 +2478,14 @@
         "parameters": [
           {
             "name": "projectId",
+            "description": "Project id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "User that should be removed",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2984,24 +2498,14 @@
     },
     "/v1/user": {
       "get": {
-        "summary": "GetUserRequest is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user",
+        "summary": "GetUserRequest",
+        "description": "This is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user",
         "operationId": "UserService_GetUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetUserResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -3014,6 +2518,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "Optional user_id",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3025,25 +2530,15 @@
       }
     },
     "/v1/user/display_name": {
-      "post": {
-        "summary": "Updates the Displayname for the user (Personal only)",
+      "patch": {
+        "summary": "UpdateUserDisplayName",
+        "description": "Updates the Displayname for the user (Personal only)",
         "operationId": "UserService_UpdateUserDisplayName",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1UpdateUserDisplayNameResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -3055,10 +2550,12 @@
         },
         "parameters": [
           {
-            "name": "newDisplayName",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserDisplayNameRequest"
+            }
           }
         ],
         "tags": [
@@ -3066,26 +2563,16 @@
         ]
       }
     },
-    "/v1/user/unregistered": {
+    "/v1/user/not_activated": {
       "get": {
-        "summary": "Get all \"unregistered\" users (Admin only)",
-        "operationId": "UserService_GetUsersUnregistered",
+        "summary": "GetNotActivatedUsers",
+        "description": "Get all not activated users (Admin only)",
+        "operationId": "UserService_GetNotActivatedUsers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetUsersUnregisteredResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
+              "$ref": "#/definitions/v1GetNotActivatedUsersResponse"
             }
           },
           "default": {
@@ -3101,25 +2588,15 @@
       }
     },
     "/v1/user/{userId}/activate": {
-      "post": {
-        "summary": "ActivateUser enables a specific user (Admin request)",
+      "patch": {
+        "summary": "ActivateUser",
+        "description": "This activates a specific user (Admin request)",
         "operationId": "UserService_ActivateUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1ActivateUserResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -3132,6 +2609,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "User to activate",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3152,24 +2630,14 @@
     },
     "/v1/user/{userId}/projects": {
       "get": {
-        "summary": "Gets all project_ids a user is member of",
+        "summary": "GetUserProjects",
+        "description": "Gets all project_ids a user is member of",
         "operationId": "UserService_GetUserProjects",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetUserProjectsResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {}
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "string",
-              "format": "string"
             }
           },
           "default": {
@@ -3182,6 +2650,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "User id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3269,22 +2738,28 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Endpoint name"
         },
         "epType": {
-          "$ref": "#/definitions/v1EndpointType"
+          "$ref": "#/definitions/v1EndpointType",
+          "title": "Endpoint type"
         },
         "proxyHostname": {
-          "type": "string"
+          "type": "string",
+          "title": "Public hostname of the proxy"
         },
         "internalHostname": {
-          "type": "string"
+          "type": "string",
+          "title": "Internal hostname for the proxy"
         },
         "documentationPath": {
-          "type": "string"
+          "type": "string",
+          "title": "(optional) URL to a offsite documentation"
         },
         "isPublic": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "Is this endpoint public"
         }
       }
     },
@@ -3292,7 +2767,8 @@
       "type": "object",
       "properties": {
         "endpoint": {
-          "$ref": "#/definitions/v1Endpoint"
+          "$ref": "#/definitions/v1Endpoint",
+          "title": "Overview of the requested endpoint"
         }
       }
     },
@@ -3411,19 +2887,23 @@
       "properties": {
         "projectId": {
           "type": "string",
-          "title": "Empty if token_type is personal, otherwise the id of the collection or\nproject to create the token for"
+          "title": "Project id"
         },
         "collectionId": {
-          "type": "string"
+          "type": "string",
+          "title": "Collection id"
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Token name"
         },
         "expiresAt": {
-          "$ref": "#/definitions/v1ExpiresAt"
+          "$ref": "#/definitions/v1ExpiresAt",
+          "title": "Token expiry"
         },
         "permission": {
-          "$ref": "#/definitions/v1Permission"
+          "$ref": "#/definitions/v1Permission",
+          "title": "Token permissions"
         }
       }
     },
@@ -3472,29 +2952,38 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Collection name"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "Description"
         },
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "title": "Project id"
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1KeyValue"
-          }
+          },
+          "title": "List of associated labels"
         },
         "hooks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1KeyValue"
-          }
+          },
+          "title": "List of associated hooks"
+        },
+        "labelOntology": {
+          "$ref": "#/definitions/v1LabelOntology",
+          "title": "Optional LabelOntology with required labels"
         },
         "dataclass": {
           "$ref": "#/definitions/v1DataClass",
-          "title": "Optional dataclass"
+          "title": "Optional Dataclass"
         }
       }
     },
@@ -3502,7 +2991,8 @@
       "type": "object",
       "properties": {
         "collectionId": {
-          "type": "string"
+          "type": "string",
+          "title": "The new collection_id"
         }
       }
     },
@@ -3510,7 +3000,8 @@
       "type": "object",
       "properties": {
         "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroupOverview"
+          "$ref": "#/definitions/v1ObjectGroupOverview",
+          "title": "Overview of the new objectgroup"
         }
       }
     },
@@ -3539,10 +3030,12 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Project name"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "Description for the project"
         }
       }
     },
@@ -3550,7 +3043,8 @@
       "type": "object",
       "properties": {
         "projectId": {
-          "type": "string"
+          "type": "string",
+          "title": "The freshly created project_id"
         }
       }
     },
@@ -3656,7 +3150,8 @@
       "properties": {
         "timestamp": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "Expiry time"
         }
       }
     },
@@ -3664,7 +3159,8 @@
       "type": "object",
       "properties": {
         "object": {
-          "$ref": "#/definitions/v1Object"
+          "$ref": "#/definitions/v1Object",
+          "title": "(new) Object overview"
         }
       }
     },
@@ -3702,7 +3198,8 @@
       "type": "object",
       "properties": {
         "collection": {
-          "$ref": "#/definitions/v1CollectionOverview"
+          "$ref": "#/definitions/v1CollectionOverview",
+          "title": "Overview of the requested collection"
         }
       }
     },
@@ -3711,7 +3208,7 @@
       "properties": {
         "collections": {
           "$ref": "#/definitions/v1CollectionOverviews",
-          "title": "These are plural representations of their specific single counterparts"
+          "title": "List of collection overviews"
         }
       }
     },
@@ -3719,7 +3216,8 @@
       "type": "object",
       "properties": {
         "endpoint": {
-          "$ref": "#/definitions/v1Endpoint"
+          "$ref": "#/definitions/v1Endpoint",
+          "title": "Default endpoint of the server instance"
         }
       }
     },
@@ -3730,7 +3228,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1URL"
-          }
+          },
+          "title": "List of URLs"
         }
       }
     },
@@ -3738,7 +3237,8 @@
       "type": "object",
       "properties": {
         "url": {
-          "$ref": "#/definitions/v1URL"
+          "$ref": "#/definitions/v1URL",
+          "title": "URL"
         }
       }
     },
@@ -3746,7 +3246,8 @@
       "type": "object",
       "properties": {
         "endpoint": {
-          "$ref": "#/definitions/v1Endpoint"
+          "$ref": "#/definitions/v1Endpoint",
+          "title": "Overview of the requested endpoint"
         }
       }
     },
@@ -3757,7 +3258,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Endpoint"
-          }
+          },
+          "title": "List of endpoints"
         }
       }
     },
@@ -3767,6 +3269,18 @@
         "object": {
           "$ref": "#/definitions/v1Object",
           "title": "The object with the latest revision"
+        }
+      }
+    },
+    "v1GetNotActivatedUsersResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1User"
+          },
+          "title": "List of users that are not yet activated"
         }
       }
     },
@@ -3785,7 +3299,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Endpoint"
-          }
+          },
+          "title": "List of endpoints"
         }
       }
     },
@@ -3793,7 +3308,8 @@
       "type": "object",
       "properties": {
         "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroupOverview"
+          "$ref": "#/definitions/v1ObjectGroupOverview",
+          "title": "Overview of the objectgroup"
         }
       }
     },
@@ -3801,7 +3317,8 @@
       "type": "object",
       "properties": {
         "objectGroups": {
-          "$ref": "#/definitions/v1ObjectGroupOverviews"
+          "$ref": "#/definitions/v1ObjectGroupOverviews",
+          "title": "Overviews of multiple objectgroups"
         }
       }
     },
@@ -3812,7 +3329,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1ObjectGroupObject"
-          }
+          },
+          "title": "List of associated object group objects"
         }
       }
     },
@@ -3820,7 +3338,8 @@
       "type": "object",
       "properties": {
         "objectGroups": {
-          "$ref": "#/definitions/v1ObjectGroupOverviews"
+          "$ref": "#/definitions/v1ObjectGroupOverviews",
+          "title": "Overviews of multiple objectgroups"
         }
       }
     },
@@ -3828,7 +3347,8 @@
       "type": "object",
       "properties": {
         "objectGroups": {
-          "$ref": "#/definitions/v1ObjectGroupOverviews"
+          "$ref": "#/definitions/v1ObjectGroupOverviews",
+          "title": "Overviews of multiple objectgroups"
         }
       }
     },
@@ -3839,7 +3359,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1ObjectWithURL"
-          }
+          },
+          "title": "List of objects with (optional) URLs"
         }
       }
     },
@@ -3855,22 +3376,12 @@
         }
       }
     },
-    "v1GetProjectCollectionsResponse": {
-      "type": "object",
-      "properties": {
-        "collection": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1CollectionOverview"
-          }
-        }
-      }
-    },
     "v1GetProjectResponse": {
       "type": "object",
       "properties": {
         "project": {
-          "$ref": "#/definitions/v1ProjectOverview"
+          "$ref": "#/definitions/v1ProjectOverview",
+          "title": "Overview of the projectroject"
         }
       }
     },
@@ -3881,7 +3392,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1ObjectReference"
-          }
+          },
+          "title": "List of object references"
         }
       }
     },
@@ -3898,7 +3410,8 @@
       "type": "object",
       "properties": {
         "userPermission": {
-          "$ref": "#/definitions/v1ProjectPermission"
+          "$ref": "#/definitions/v1ProjectPermission",
+          "title": "Userpermission for a specific user"
         }
       }
     },
@@ -3909,7 +3422,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1UserProject"
-          }
+          },
+          "title": "List of associated projects"
         }
       }
     },
@@ -3917,24 +3431,15 @@
       "type": "object",
       "properties": {
         "user": {
-          "$ref": "#/definitions/v1User"
+          "$ref": "#/definitions/v1User",
+          "title": "User info"
         },
         "projectPermissions": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1ProjectPermission"
-          }
-        }
-      }
-    },
-    "v1GetUsersUnregisteredResponse": {
-      "type": "object",
-      "properties": {
-        "users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1User"
-          }
+          },
+          "title": "User permissions per project"
         }
       }
     },
@@ -4166,10 +3671,12 @@
       "type": "object",
       "properties": {
         "object": {
-          "$ref": "#/definitions/v1Object"
+          "$ref": "#/definitions/v1Object",
+          "title": "Object"
         },
         "isMetadata": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "Is this objet a meta object"
         }
       },
       "title": "Objectgroup objects are a combination of \"object\" and the boolean is_metadata\nflag Returned as single list to allow for more precise queries"
@@ -4237,17 +3744,21 @@
       "type": "object",
       "properties": {
         "objectId": {
-          "type": "string"
+          "type": "string",
+          "title": "Object id"
         },
         "collectionId": {
-          "type": "string"
+          "type": "string",
+          "title": "Collection id"
         },
         "revisionNumber": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "Specific revision number"
         },
         "isWriteable": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "Is the writeable?"
         }
       }
     },
@@ -4329,7 +3840,8 @@
       "type": "object",
       "properties": {
         "collection": {
-          "$ref": "#/definitions/v1CollectionOverview"
+          "$ref": "#/definitions/v1CollectionOverview",
+          "title": "New collection overview"
         }
       }
     },
@@ -4390,7 +3902,8 @@
       "type": "object",
       "properties": {
         "displayName": {
-          "type": "string"
+          "type": "string",
+          "title": "Optional user_displayname"
         }
       }
     },
@@ -4398,7 +3911,8 @@
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "Created user id"
         }
       }
     },
@@ -4440,35 +3954,43 @@
       "type": "object",
       "properties": {
         "filename": {
-          "type": "string"
+          "type": "string",
+          "title": "Filename"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "File description"
         },
         "collectionId": {
-          "type": "string"
+          "type": "string",
+          "title": "Collection Id"
         },
         "contentLen": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "Content length"
         },
         "source": {
-          "$ref": "#/definitions/v1Source"
+          "$ref": "#/definitions/v1Source",
+          "title": "Source of the object (e.g. wikipedia)"
         },
         "dataclass": {
-          "$ref": "#/definitions/v1DataClass"
+          "$ref": "#/definitions/v1DataClass",
+          "title": "Dataclass public / private"
         },
         "labels": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1KeyValue"
-          }
+          },
+          "title": "List of label key-values"
         },
         "hooks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1KeyValue"
-          }
+          },
+          "title": "List of hook key-values"
         }
       }
     },
@@ -4551,7 +4073,8 @@
       "type": "object",
       "properties": {
         "url": {
-          "type": "string"
+          "type": "string",
+          "title": "URL response"
         }
       }
     },
@@ -4559,7 +4082,8 @@
       "type": "object",
       "properties": {
         "collection": {
-          "$ref": "#/definitions/v1CollectionOverview"
+          "$ref": "#/definitions/v1CollectionOverview",
+          "title": "New collection overview"
         }
       }
     },
@@ -4567,7 +4091,8 @@
       "type": "object",
       "properties": {
         "objectGroup": {
-          "$ref": "#/definitions/v1ObjectGroupOverview"
+          "$ref": "#/definitions/v1ObjectGroupOverview",
+          "title": "Overview of the updated objectgroup"
         }
       }
     },
@@ -4592,7 +4117,17 @@
       "type": "object",
       "properties": {
         "project": {
-          "$ref": "#/definitions/v1ProjectOverview"
+          "$ref": "#/definitions/v1ProjectOverview",
+          "title": "Updated project overview"
+        }
+      }
+    },
+    "v1UpdateUserDisplayNameRequest": {
+      "type": "object",
+      "properties": {
+        "newDisplayName": {
+          "type": "string",
+          "title": "New display name"
         }
       }
     },
@@ -4600,7 +4135,8 @@
       "type": "object",
       "properties": {
         "user": {
-          "$ref": "#/definitions/v1User"
+          "$ref": "#/definitions/v1User",
+          "title": "Updated user info"
         }
       }
     },
@@ -4633,13 +4169,16 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "title": "Project id"
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "Project name"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "title": "Project description"
         }
       }
     },

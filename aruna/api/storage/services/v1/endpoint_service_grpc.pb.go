@@ -22,15 +22,27 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EndpointServiceClient interface {
+	// AddEndpoint
+	//
+	// Registers a new Endpoint (Aruna DataProxy) to the server
+	// Needs admin permissions
 	AddEndpoint(ctx context.Context, in *AddEndpointRequest, opts ...grpc.CallOption) (*AddEndpointResponse, error)
+	// GetEndpoint
+	//
 	// Gets an specific endpoint by ID or Name
 	GetEndpoint(ctx context.Context, in *GetEndpointRequest, opts ...grpc.CallOption) (*GetEndpointResponse, error)
+	// GetEndpoints
+	//
 	// Gets all available endpoints
 	GetEndpoints(ctx context.Context, in *GetEndpointsRequest, opts ...grpc.CallOption) (*GetEndpointsResponse, error)
+	// DeleteEndpoint
+	//
 	// Deletes a specific endpoint by id
 	// This needs admin permissions
 	DeleteEndpoint(ctx context.Context, in *DeleteEndpointRequest, opts ...grpc.CallOption) (*DeleteEndpointResponse, error)
-	// This request returns the default endpoint for the current server
+	// GetDefaultEndpoint
+	//
+	// This request returns the default endpoint for the current aruna_server
 	// It may produce different results depending on the used server
 	GetDefaultEndpoint(ctx context.Context, in *GetDefaultEndpointRequest, opts ...grpc.CallOption) (*GetDefaultEndpointResponse, error)
 }
@@ -92,15 +104,27 @@ func (c *endpointServiceClient) GetDefaultEndpoint(ctx context.Context, in *GetD
 // All implementations should embed UnimplementedEndpointServiceServer
 // for forward compatibility
 type EndpointServiceServer interface {
+	// AddEndpoint
+	//
+	// Registers a new Endpoint (Aruna DataProxy) to the server
+	// Needs admin permissions
 	AddEndpoint(context.Context, *AddEndpointRequest) (*AddEndpointResponse, error)
+	// GetEndpoint
+	//
 	// Gets an specific endpoint by ID or Name
 	GetEndpoint(context.Context, *GetEndpointRequest) (*GetEndpointResponse, error)
+	// GetEndpoints
+	//
 	// Gets all available endpoints
 	GetEndpoints(context.Context, *GetEndpointsRequest) (*GetEndpointsResponse, error)
+	// DeleteEndpoint
+	//
 	// Deletes a specific endpoint by id
 	// This needs admin permissions
 	DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error)
-	// This request returns the default endpoint for the current server
+	// GetDefaultEndpoint
+	//
+	// This request returns the default endpoint for the current aruna_server
 	// It may produce different results depending on the used server
 	GetDefaultEndpoint(context.Context, *GetDefaultEndpointRequest) (*GetDefaultEndpointResponse, error)
 }

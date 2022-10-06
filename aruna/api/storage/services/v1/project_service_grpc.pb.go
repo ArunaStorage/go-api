@@ -22,26 +22,38 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProjectServiceClient interface {
-	// This creates a new authorization group.option
-	// All users and collections are bundled in a authorization group.
+	// CreateProject
+	//
+	// Creates a new project all users and collections are bundled in a project.
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
-	// AddUserToProject Adds a new user to a given project by its id
+	// AddUserToProject
+	//
+	// Adds a new user to a given project by its id
 	AddUserToProject(ctx context.Context, in *AddUserToProjectRequest, opts ...grpc.CallOption) (*AddUserToProjectResponse, error)
-	// GetProjectCollections Returns all collections that belong to a certain
-	// project
-	GetProjectCollections(ctx context.Context, in *GetProjectCollectionsRequest, opts ...grpc.CallOption) (*GetProjectCollectionsResponse, error)
-	// GetProject Returns the specified project
+	// GetProject
+	//
+	// Requests a project by id
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
+	// DestroyProject
+	//
 	// Destroys the project and all its associated data. Must be empty
 	// (cannot contain any collections).
 	DestroyProject(ctx context.Context, in *DestroyProjectRequest, opts ...grpc.CallOption) (*DestroyProjectResponse, error)
+	// UpdateProject
+	//
 	// Updates the project. All (meta) data will be overwritten.
 	UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...grpc.CallOption) (*UpdateProjectResponse, error)
+	// RemoveUserFromProject
+	//
 	// Removes a specified user from the project.
 	RemoveUserFromProject(ctx context.Context, in *RemoveUserFromProjectRequest, opts ...grpc.CallOption) (*RemoveUserFromProjectResponse, error)
+	// GetUserPermissionsForProject
+	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(ctx context.Context, in *GetUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*GetUserPermissionsForProjectResponse, error)
-	// Edit the user_permission of a specific user for the project.
+	// EditUserPermissionsForProject
+	//
+	// Modifies the user_permission of a specific user for the project.
 	EditUserPermissionsForProject(ctx context.Context, in *EditUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*EditUserPermissionsForProjectResponse, error)
 }
 
@@ -65,15 +77,6 @@ func (c *projectServiceClient) CreateProject(ctx context.Context, in *CreateProj
 func (c *projectServiceClient) AddUserToProject(ctx context.Context, in *AddUserToProjectRequest, opts ...grpc.CallOption) (*AddUserToProjectResponse, error) {
 	out := new(AddUserToProjectResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/AddUserToProject", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectServiceClient) GetProjectCollections(ctx context.Context, in *GetProjectCollectionsRequest, opts ...grpc.CallOption) (*GetProjectCollectionsResponse, error) {
-	out := new(GetProjectCollectionsResponse)
-	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/GetProjectCollections", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,26 +141,38 @@ func (c *projectServiceClient) EditUserPermissionsForProject(ctx context.Context
 // All implementations should embed UnimplementedProjectServiceServer
 // for forward compatibility
 type ProjectServiceServer interface {
-	// This creates a new authorization group.option
-	// All users and collections are bundled in a authorization group.
+	// CreateProject
+	//
+	// Creates a new project all users and collections are bundled in a project.
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
-	// AddUserToProject Adds a new user to a given project by its id
+	// AddUserToProject
+	//
+	// Adds a new user to a given project by its id
 	AddUserToProject(context.Context, *AddUserToProjectRequest) (*AddUserToProjectResponse, error)
-	// GetProjectCollections Returns all collections that belong to a certain
-	// project
-	GetProjectCollections(context.Context, *GetProjectCollectionsRequest) (*GetProjectCollectionsResponse, error)
-	// GetProject Returns the specified project
+	// GetProject
+	//
+	// Requests a project by id
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
+	// DestroyProject
+	//
 	// Destroys the project and all its associated data. Must be empty
 	// (cannot contain any collections).
 	DestroyProject(context.Context, *DestroyProjectRequest) (*DestroyProjectResponse, error)
+	// UpdateProject
+	//
 	// Updates the project. All (meta) data will be overwritten.
 	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectResponse, error)
+	// RemoveUserFromProject
+	//
 	// Removes a specified user from the project.
 	RemoveUserFromProject(context.Context, *RemoveUserFromProjectRequest) (*RemoveUserFromProjectResponse, error)
+	// GetUserPermissionsForProject
+	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(context.Context, *GetUserPermissionsForProjectRequest) (*GetUserPermissionsForProjectResponse, error)
-	// Edit the user_permission of a specific user for the project.
+	// EditUserPermissionsForProject
+	//
+	// Modifies the user_permission of a specific user for the project.
 	EditUserPermissionsForProject(context.Context, *EditUserPermissionsForProjectRequest) (*EditUserPermissionsForProjectResponse, error)
 }
 
@@ -170,9 +185,6 @@ func (UnimplementedProjectServiceServer) CreateProject(context.Context, *CreateP
 }
 func (UnimplementedProjectServiceServer) AddUserToProject(context.Context, *AddUserToProjectRequest) (*AddUserToProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUserToProject not implemented")
-}
-func (UnimplementedProjectServiceServer) GetProjectCollections(context.Context, *GetProjectCollectionsRequest) (*GetProjectCollectionsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProjectCollections not implemented")
 }
 func (UnimplementedProjectServiceServer) GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
@@ -236,24 +248,6 @@ func _ProjectService_AddUserToProject_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).AddUserToProject(ctx, req.(*AddUserToProjectRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProjectService_GetProjectCollections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProjectCollectionsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProjectServiceServer).GetProjectCollections(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/aruna.api.storage.services.v1.ProjectService/GetProjectCollections",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectServiceServer).GetProjectCollections(ctx, req.(*GetProjectCollectionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -380,10 +374,6 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddUserToProject",
 			Handler:    _ProjectService_AddUserToProject_Handler,
-		},
-		{
-			MethodName: "GetProjectCollections",
-			Handler:    _ProjectService_GetProjectCollections_Handler,
 		},
 		{
 			MethodName: "GetProject",

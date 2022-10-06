@@ -22,25 +22,45 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ObjectGroupServiceClient interface {
-	// CreateObjectGroup creates a new ObjectGroup in the collection
+	// CreateObjectGroup
+	//
+	// This creates a new ObjectGroup in the collection
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error)
-	// UpdateObjectGroup creates an updated ObjectGroup
+	// UpdateObjectGroup
+	//
+	// This creates an updated ObjectGroup
 	// ObjectGroups are immutable
 	// Updating an ObjectGroup will create a new Revision of the ObjectGroup
 	UpdateObjectGroup(ctx context.Context, in *UpdateObjectGroupRequest, opts ...grpc.CallOption) (*UpdateObjectGroupResponse, error)
-	// GetObjectGroupById gets a specific ObjectGroup by ID
+	// GetObjectGroupById
+	//
+	// This gets a specific ObjectGroup by ID
 	// By default the latest revision is always returned, older revisions need to
 	// be specified separately
 	GetObjectGroupById(ctx context.Context, in *GetObjectGroupByIdRequest, opts ...grpc.CallOption) (*GetObjectGroupByIdResponse, error)
-	// GetObjectGroupsFromObject gets all ObjectGroups associated to a specific
+	// GetObjectGroupsFromObject
+	//
+	// This gets all ObjectGroups associated to a specific
 	// Object Objects can be part of multiple ObjectGroups at once
 	GetObjectGroupsFromObject(ctx context.Context, in *GetObjectGroupsFromObjectRequest, opts ...grpc.CallOption) (*GetObjectGroupsFromObjectResponse, error)
-	// GetObjectGroups is a request that returns a (paginated) list of
+	// GetObjectGroups
+	//
+	// This is a request that returns a (paginated) list of
 	// ObjectGroups that contain a specific set of labels.
 	GetObjectGroups(ctx context.Context, in *GetObjectGroupsRequest, opts ...grpc.CallOption) (*GetObjectGroupsResponse, error)
+	// GetObjectGroupHistory
+	//
+	// This requests a full history with all objectgroups
+	// that are part of this objectgroups history
 	GetObjectGroupHistory(ctx context.Context, in *GetObjectGroupHistoryRequest, opts ...grpc.CallOption) (*GetObjectGroupHistoryResponse, error)
+	// GetObjectGroupObjects
+	//
+	// Requests a list of paginated objects associated with this
+	// specific objectgroup
 	GetObjectGroupObjects(ctx context.Context, in *GetObjectGroupObjectsRequest, opts ...grpc.CallOption) (*GetObjectGroupObjectsResponse, error)
-	// DeleteObjectGroup is a request that deletes a specified ObjectGroup
+	// DeleteObjectGroup
+	//
+	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
 }
@@ -129,25 +149,45 @@ func (c *objectGroupServiceClient) DeleteObjectGroup(ctx context.Context, in *De
 // All implementations should embed UnimplementedObjectGroupServiceServer
 // for forward compatibility
 type ObjectGroupServiceServer interface {
-	// CreateObjectGroup creates a new ObjectGroup in the collection
+	// CreateObjectGroup
+	//
+	// This creates a new ObjectGroup in the collection
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error)
-	// UpdateObjectGroup creates an updated ObjectGroup
+	// UpdateObjectGroup
+	//
+	// This creates an updated ObjectGroup
 	// ObjectGroups are immutable
 	// Updating an ObjectGroup will create a new Revision of the ObjectGroup
 	UpdateObjectGroup(context.Context, *UpdateObjectGroupRequest) (*UpdateObjectGroupResponse, error)
-	// GetObjectGroupById gets a specific ObjectGroup by ID
+	// GetObjectGroupById
+	//
+	// This gets a specific ObjectGroup by ID
 	// By default the latest revision is always returned, older revisions need to
 	// be specified separately
 	GetObjectGroupById(context.Context, *GetObjectGroupByIdRequest) (*GetObjectGroupByIdResponse, error)
-	// GetObjectGroupsFromObject gets all ObjectGroups associated to a specific
+	// GetObjectGroupsFromObject
+	//
+	// This gets all ObjectGroups associated to a specific
 	// Object Objects can be part of multiple ObjectGroups at once
 	GetObjectGroupsFromObject(context.Context, *GetObjectGroupsFromObjectRequest) (*GetObjectGroupsFromObjectResponse, error)
-	// GetObjectGroups is a request that returns a (paginated) list of
+	// GetObjectGroups
+	//
+	// This is a request that returns a (paginated) list of
 	// ObjectGroups that contain a specific set of labels.
 	GetObjectGroups(context.Context, *GetObjectGroupsRequest) (*GetObjectGroupsResponse, error)
+	// GetObjectGroupHistory
+	//
+	// This requests a full history with all objectgroups
+	// that are part of this objectgroups history
 	GetObjectGroupHistory(context.Context, *GetObjectGroupHistoryRequest) (*GetObjectGroupHistoryResponse, error)
+	// GetObjectGroupObjects
+	//
+	// Requests a list of paginated objects associated with this
+	// specific objectgroup
 	GetObjectGroupObjects(context.Context, *GetObjectGroupObjectsRequest) (*GetObjectGroupObjectsResponse, error)
-	// DeleteObjectGroup is a request that deletes a specified ObjectGroup
+	// DeleteObjectGroup
+	//
+	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
 }

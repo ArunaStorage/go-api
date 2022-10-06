@@ -22,49 +22,74 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ObjectServiceClient interface {
+	// InitializeNewObject
+	//
 	// This initializes a new object
 	// Initializing an object will put it in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
 	// before they can be used.
 	InitializeNewObject(ctx context.Context, in *InitializeNewObjectRequest, opts ...grpc.CallOption) (*InitializeNewObjectResponse, error)
+	// GetUploadURL
+	//
 	// This method will return a (multi-part) url that can be used to upload a
 	// file to S3. Part is a optional query parameter that can be used to upload a
 	// part of the file / multipart upload.
 	GetUploadURL(ctx context.Context, in *GetUploadURLRequest, opts ...grpc.CallOption) (*GetUploadURLResponse, error)
+	// GetDownloadUrl
+	//
 	// This method will return a url that can be used to download a file from S3.
 	GetDownloadURL(ctx context.Context, in *GetDownloadURLRequest, opts ...grpc.CallOption) (*GetDownloadURLResponse, error)
+	// GetDownloadLinksBatch
+	//
 	// This method can be used to get download urls for multiple objects.
 	// The order of the returned urls will be the same as the order of the object
 	// ids in the request.
 	GetDownloadLinksBatch(ctx context.Context, in *GetDownloadLinksBatchRequest, opts ...grpc.CallOption) (*GetDownloadLinksBatchResponse, error)
+	// CreateDownloadLinksStream
+	//
 	// Creates a stream of objects and presigned links based on the provided query
 	// This can be used retrieve a large number of Objects as a stream that would
 	// otherwise cause issues with the connection
 	CreateDownloadLinksStream(ctx context.Context, in *CreateDownloadLinksStreamRequest, opts ...grpc.CallOption) (ObjectService_CreateDownloadLinksStreamClient, error)
+	// FinishObjectStaging
+	//
 	// This method completes the staging of an object.
 	FinishObjectStaging(ctx context.Context, in *FinishObjectStagingRequest, opts ...grpc.CallOption) (*FinishObjectStagingResponse, error)
+	// UpdateObject
+	//
 	// Objects are immutable!
 	// Updating an object will create a new revision for the object
 	// This method will put the new revision in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
 	// before they can be used.
 	UpdateObject(ctx context.Context, in *UpdateObjectRequest, opts ...grpc.CallOption) (*UpdateObjectResponse, error)
+	// CreateObjectReference
+	//
+	// Creates a new reference of this object in another collection
 	CreateObjectReference(ctx context.Context, in *CreateObjectReferenceRequest, opts ...grpc.CallOption) (*CreateObjectReferenceResponse, error)
+	// CloneObject
+	//
 	// This method clones an object and creates a copy in the same collection.
 	// This copy has a new id and revision and will not receive any updates from
 	// the original object.
 	CloneObject(ctx context.Context, in *CloneObjectRequest, opts ...grpc.CallOption) (*CloneObjectResponse, error)
+	// DeleteObject
+	//
 	// Deletes the object with the complete revision history.
 	// This should be avoided if possible.
 	// This method allows the owner to cascade the deletion of all objects that
 	// were cloned from this object.
 	// -> GDPR compliant procedure.
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
-	// GetObjectByID gets a specific Object by ID that is associated to the
+	// GetObjectByID
+	//
+	// gets a specific Object by ID that is associated to the
 	// current collection By default only the latest revision of an object will be
 	// returned Specify a revision_number to select an older revision With the
 	// optional with_url boolean a download link can automatically be requested
 	GetObjectByID(ctx context.Context, in *GetObjectByIDRequest, opts ...grpc.CallOption) (*GetObjectByIDResponse, error)
+	// GetObjects
+	//
 	// GetObjects returns a (paginated) list of objects in a specific collection
 	// By default only the latest revisions of all objects will be shown
 	// This behaviour can be changed with the include_history flag
@@ -72,27 +97,39 @@ type ObjectServiceClient interface {
 	// requested for each Object This request contains a LabelOrIDQuery message,
 	// this is either a list of request ObjectIDs or a query filtered by Labels
 	GetObjects(ctx context.Context, in *GetObjectsRequest, opts ...grpc.CallOption) (*GetObjectsResponse, error)
-	// GetObjectRevisions returns the full list of revisions of a specified object
+	// GetObjectRevisions
+	//
+	// This returns the full list of revisions of a specified object
 	// With the optional with_url boolean a download link can automatically be
 	// requested for each Object This is by default a paginated request
 	GetObjectRevisions(ctx context.Context, in *GetObjectRevisionsRequest, opts ...grpc.CallOption) (*GetObjectRevisionsResponse, error)
-	// GetLatestObjectRevision returns the latest revision of a specific object
+	// GetLatestObjectRevision
+	//
+	// This returns the latest revision of a specific object
 	// The returned `latest` object will have a different id if the current
 	// object is not the latest revision
 	GetLatestObjectRevision(ctx context.Context, in *GetLatestObjectRevisionRequest, opts ...grpc.CallOption) (*GetLatestObjectRevisionResponse, error)
-	// GetObjectEndpoints returns a list of endpoints
+	// GetObjectEndpoints
+	//
+	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(ctx context.Context, in *GetObjectEndpointsRequest, opts ...grpc.CallOption) (*GetObjectEndpointsResponse, error)
-	// AddLabelToObject is a specific request to add a new label
+	// AddLabelToObject
+	//
+	// This is a specific request to add a new label
 	// to an existing object, in contrast to UpdateObject
 	// this will not create a new object in the staging area
 	// Instead it will directly add the specified label(s) to the object
 	AddLabelToObject(ctx context.Context, in *AddLabelToObjectRequest, opts ...grpc.CallOption) (*AddLabelToObjectResponse, error)
-	// SetHooksOfObject is a specific request to update the complete list
+	// SetHooksOfObject
+	//
+	// This is a specific request to update the complete list
 	// of hooks for a specific object. This will not update the object
 	// and create a new id, instead it will overwrite all hooks of the existing
 	// object.
 	SetHooksOfObject(ctx context.Context, in *SetHooksOfObjectRequest, opts ...grpc.CallOption) (*SetHooksOfObjectResponse, error)
+	// GetReferences
+	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(ctx context.Context, in *GetReferencesRequest, opts ...grpc.CallOption) (*GetReferencesResponse, error)
 }
@@ -294,49 +331,74 @@ func (c *objectServiceClient) GetReferences(ctx context.Context, in *GetReferenc
 // All implementations should embed UnimplementedObjectServiceServer
 // for forward compatibility
 type ObjectServiceServer interface {
+	// InitializeNewObject
+	//
 	// This initializes a new object
 	// Initializing an object will put it in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
 	// before they can be used.
 	InitializeNewObject(context.Context, *InitializeNewObjectRequest) (*InitializeNewObjectResponse, error)
+	// GetUploadURL
+	//
 	// This method will return a (multi-part) url that can be used to upload a
 	// file to S3. Part is a optional query parameter that can be used to upload a
 	// part of the file / multipart upload.
 	GetUploadURL(context.Context, *GetUploadURLRequest) (*GetUploadURLResponse, error)
+	// GetDownloadUrl
+	//
 	// This method will return a url that can be used to download a file from S3.
 	GetDownloadURL(context.Context, *GetDownloadURLRequest) (*GetDownloadURLResponse, error)
+	// GetDownloadLinksBatch
+	//
 	// This method can be used to get download urls for multiple objects.
 	// The order of the returned urls will be the same as the order of the object
 	// ids in the request.
 	GetDownloadLinksBatch(context.Context, *GetDownloadLinksBatchRequest) (*GetDownloadLinksBatchResponse, error)
+	// CreateDownloadLinksStream
+	//
 	// Creates a stream of objects and presigned links based on the provided query
 	// This can be used retrieve a large number of Objects as a stream that would
 	// otherwise cause issues with the connection
 	CreateDownloadLinksStream(*CreateDownloadLinksStreamRequest, ObjectService_CreateDownloadLinksStreamServer) error
+	// FinishObjectStaging
+	//
 	// This method completes the staging of an object.
 	FinishObjectStaging(context.Context, *FinishObjectStagingRequest) (*FinishObjectStagingResponse, error)
+	// UpdateObject
+	//
 	// Objects are immutable!
 	// Updating an object will create a new revision for the object
 	// This method will put the new revision in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
 	// before they can be used.
 	UpdateObject(context.Context, *UpdateObjectRequest) (*UpdateObjectResponse, error)
+	// CreateObjectReference
+	//
+	// Creates a new reference of this object in another collection
 	CreateObjectReference(context.Context, *CreateObjectReferenceRequest) (*CreateObjectReferenceResponse, error)
+	// CloneObject
+	//
 	// This method clones an object and creates a copy in the same collection.
 	// This copy has a new id and revision and will not receive any updates from
 	// the original object.
 	CloneObject(context.Context, *CloneObjectRequest) (*CloneObjectResponse, error)
+	// DeleteObject
+	//
 	// Deletes the object with the complete revision history.
 	// This should be avoided if possible.
 	// This method allows the owner to cascade the deletion of all objects that
 	// were cloned from this object.
 	// -> GDPR compliant procedure.
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
-	// GetObjectByID gets a specific Object by ID that is associated to the
+	// GetObjectByID
+	//
+	// gets a specific Object by ID that is associated to the
 	// current collection By default only the latest revision of an object will be
 	// returned Specify a revision_number to select an older revision With the
 	// optional with_url boolean a download link can automatically be requested
 	GetObjectByID(context.Context, *GetObjectByIDRequest) (*GetObjectByIDResponse, error)
+	// GetObjects
+	//
 	// GetObjects returns a (paginated) list of objects in a specific collection
 	// By default only the latest revisions of all objects will be shown
 	// This behaviour can be changed with the include_history flag
@@ -344,27 +406,39 @@ type ObjectServiceServer interface {
 	// requested for each Object This request contains a LabelOrIDQuery message,
 	// this is either a list of request ObjectIDs or a query filtered by Labels
 	GetObjects(context.Context, *GetObjectsRequest) (*GetObjectsResponse, error)
-	// GetObjectRevisions returns the full list of revisions of a specified object
+	// GetObjectRevisions
+	//
+	// This returns the full list of revisions of a specified object
 	// With the optional with_url boolean a download link can automatically be
 	// requested for each Object This is by default a paginated request
 	GetObjectRevisions(context.Context, *GetObjectRevisionsRequest) (*GetObjectRevisionsResponse, error)
-	// GetLatestObjectRevision returns the latest revision of a specific object
+	// GetLatestObjectRevision
+	//
+	// This returns the latest revision of a specific object
 	// The returned `latest` object will have a different id if the current
 	// object is not the latest revision
 	GetLatestObjectRevision(context.Context, *GetLatestObjectRevisionRequest) (*GetLatestObjectRevisionResponse, error)
-	// GetObjectEndpoints returns a list of endpoints
+	// GetObjectEndpoints
+	//
+	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(context.Context, *GetObjectEndpointsRequest) (*GetObjectEndpointsResponse, error)
-	// AddLabelToObject is a specific request to add a new label
+	// AddLabelToObject
+	//
+	// This is a specific request to add a new label
 	// to an existing object, in contrast to UpdateObject
 	// this will not create a new object in the staging area
 	// Instead it will directly add the specified label(s) to the object
 	AddLabelToObject(context.Context, *AddLabelToObjectRequest) (*AddLabelToObjectResponse, error)
-	// SetHooksOfObject is a specific request to update the complete list
+	// SetHooksOfObject
+	//
+	// This is a specific request to update the complete list
 	// of hooks for a specific object. This will not update the object
 	// and create a new id, instead it will overwrite all hooks of the existing
 	// object.
 	SetHooksOfObject(context.Context, *SetHooksOfObjectRequest) (*SetHooksOfObjectResponse, error)
+	// GetReferences
+	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(context.Context, *GetReferencesRequest) (*GetReferencesResponse, error)
 }

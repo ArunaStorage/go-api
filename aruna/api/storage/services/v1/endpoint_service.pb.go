@@ -27,12 +27,18 @@ type AddEndpointRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name              string          `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	EpType            v1.EndpointType `protobuf:"varint,2,opt,name=ep_type,json=epType,proto3,enum=aruna.api.storage.models.v1.EndpointType" json:"ep_type,omitempty"`
-	ProxyHostname     string          `protobuf:"bytes,3,opt,name=proxy_hostname,json=proxyHostname,proto3" json:"proxy_hostname,omitempty"`
-	InternalHostname  string          `protobuf:"bytes,4,opt,name=internal_hostname,json=internalHostname,proto3" json:"internal_hostname,omitempty"`
-	DocumentationPath string          `protobuf:"bytes,5,opt,name=documentation_path,json=documentationPath,proto3" json:"documentation_path,omitempty"`
-	IsPublic          bool            `protobuf:"varint,6,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
+	// Endpoint name
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Endpoint type
+	EpType v1.EndpointType `protobuf:"varint,2,opt,name=ep_type,json=epType,proto3,enum=aruna.api.storage.models.v1.EndpointType" json:"ep_type,omitempty"`
+	// Public hostname of the proxy
+	ProxyHostname string `protobuf:"bytes,3,opt,name=proxy_hostname,json=proxyHostname,proto3" json:"proxy_hostname,omitempty"`
+	// Internal hostname for the proxy
+	InternalHostname string `protobuf:"bytes,4,opt,name=internal_hostname,json=internalHostname,proto3" json:"internal_hostname,omitempty"`
+	// (optional) URL to a offsite documentation
+	DocumentationPath string `protobuf:"bytes,5,opt,name=documentation_path,json=documentationPath,proto3" json:"documentation_path,omitempty"`
+	// Is this endpoint public
+	IsPublic bool `protobuf:"varint,6,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
 }
 
 func (x *AddEndpointRequest) Reset() {
@@ -114,6 +120,7 @@ type AddEndpointResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overview of the requested endpoint
 	Endpoint *v1.Endpoint `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
 }
 
@@ -161,6 +168,8 @@ type GetEndpointRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Either endpoint_name or id
+	//
 	// Types that are assignable to Endpoint:
 	//	*GetEndpointRequest_EndpointName
 	//	*GetEndpointRequest_EndpointId
@@ -225,10 +234,12 @@ type isGetEndpointRequest_Endpoint interface {
 }
 
 type GetEndpointRequest_EndpointName struct {
+	// The name of the endpoint
 	EndpointName string `protobuf:"bytes,1,opt,name=endpoint_name,json=endpointName,proto3,oneof"`
 }
 
 type GetEndpointRequest_EndpointId struct {
+	// Id of the endpoint
 	EndpointId string `protobuf:"bytes,2,opt,name=endpoint_id,json=endpointId,proto3,oneof"`
 }
 
@@ -241,6 +252,7 @@ type GetEndpointResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Overview of the requested endpoint
 	Endpoint *v1.Endpoint `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
 }
 
@@ -326,6 +338,7 @@ type GetEndpointsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// List of endpoints
 	Endpoints []*v1.Endpoint `protobuf:"bytes,1,rep,name=endpoints,proto3" json:"endpoints,omitempty"`
 }
 
@@ -373,6 +386,7 @@ type DeleteEndpointRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Endpoint_id to delete
 	EndpointId string `protobuf:"bytes,1,opt,name=endpoint_id,json=endpointId,proto3" json:"endpoint_id,omitempty"`
 }
 
@@ -496,6 +510,7 @@ type GetDefaultEndpointResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Default endpoint of the server instance
 	Endpoint *v1.Endpoint `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
 }
 
