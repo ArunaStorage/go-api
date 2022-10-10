@@ -34,6 +34,10 @@ type ProjectServiceClient interface {
 	//
 	// Requests a project by id
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
+	// GetProject
+	//
+	// Admin request to get all projects
+	GetProjects(ctx context.Context, in *GetProjectsRequest, opts ...grpc.CallOption) (*GetProjectsResponse, error)
 	// DestroyProject
 	//
 	// Destroys the project and all its associated data. Must be empty
@@ -86,6 +90,15 @@ func (c *projectServiceClient) AddUserToProject(ctx context.Context, in *AddUser
 func (c *projectServiceClient) GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error) {
 	out := new(GetProjectResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/GetProject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectServiceClient) GetProjects(ctx context.Context, in *GetProjectsRequest, opts ...grpc.CallOption) (*GetProjectsResponse, error) {
+	out := new(GetProjectsResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/GetProjects", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -153,6 +166,10 @@ type ProjectServiceServer interface {
 	//
 	// Requests a project by id
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
+	// GetProject
+	//
+	// Admin request to get all projects
+	GetProjects(context.Context, *GetProjectsRequest) (*GetProjectsResponse, error)
 	// DestroyProject
 	//
 	// Destroys the project and all its associated data. Must be empty
@@ -188,6 +205,9 @@ func (UnimplementedProjectServiceServer) AddUserToProject(context.Context, *AddU
 }
 func (UnimplementedProjectServiceServer) GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
+}
+func (UnimplementedProjectServiceServer) GetProjects(context.Context, *GetProjectsRequest) (*GetProjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjects not implemented")
 }
 func (UnimplementedProjectServiceServer) DestroyProject(context.Context, *DestroyProjectRequest) (*DestroyProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DestroyProject not implemented")
@@ -266,6 +286,24 @@ func _ProjectService_GetProject_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).GetProject(ctx, req.(*GetProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProjectService_GetProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).GetProjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ProjectService/GetProjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).GetProjects(ctx, req.(*GetProjectsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -378,6 +416,10 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProject",
 			Handler:    _ProjectService_GetProject_Handler,
+		},
+		{
+			MethodName: "GetProjects",
+			Handler:    _ProjectService_GetProjects_Handler,
 		},
 		{
 			MethodName: "DestroyProject",

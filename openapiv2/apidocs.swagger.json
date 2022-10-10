@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-alpha.3"
+    "version": "0.5.0-alpha.4"
   },
   "tags": [
     {
@@ -2496,6 +2496,30 @@
         ]
       }
     },
+    "/v1/projects": {
+      "get": {
+        "summary": "GetProject",
+        "description": "Admin request to get all projects",
+        "operationId": "ProjectService_GetProjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetProjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
     "/v1/user": {
       "get": {
         "summary": "GetUserRequest",
@@ -3382,6 +3406,18 @@
         "project": {
           "$ref": "#/definitions/v1ProjectOverview",
           "title": "Overview of the projectroject"
+        }
+      }
+    },
+    "v1GetProjectsResponse": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ProjectOverview"
+          },
+          "title": "Overview of the projects"
         }
       }
     },
