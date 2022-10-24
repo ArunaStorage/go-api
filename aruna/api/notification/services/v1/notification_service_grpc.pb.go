@@ -22,8 +22,18 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UpdateNotificationServiceClient interface {
+	// CreateEventStreamingGroup
+	//
+	// Creates a new EventStreamingGroup
 	CreateEventStreamingGroup(ctx context.Context, in *CreateEventStreamingGroupRequest, opts ...grpc.CallOption) (*CreateEventStreamingGroupResponse, error)
-	NotificationStreamGroup(ctx context.Context, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamGroupClient, error)
+	// DeleteEventStreamingGroup
+	//
+	// Deletes a existing EventStreamingGroup by ID
+	DeleteEventStreamingGroup(ctx context.Context, in *DeleteEventStreamingGroupRequest, opts ...grpc.CallOption) (*DeleteEventStreamingGroupResponse, error)
+	// ReadStreamGroupMessages
+	//
+	// Reads a stream of messages for a specific StreamGroup
+	ReadStreamGroupMessages(ctx context.Context, opts ...grpc.CallOption) (UpdateNotificationService_ReadStreamGroupMessagesClient, error)
 }
 
 type updateNotificationServiceClient struct {
@@ -43,31 +53,40 @@ func (c *updateNotificationServiceClient) CreateEventStreamingGroup(ctx context.
 	return out, nil
 }
 
-func (c *updateNotificationServiceClient) NotificationStreamGroup(ctx context.Context, opts ...grpc.CallOption) (UpdateNotificationService_NotificationStreamGroupClient, error) {
-	stream, err := c.cc.NewStream(ctx, &UpdateNotificationService_ServiceDesc.Streams[0], "/aruna.api.notification.services.v1.UpdateNotificationService/NotificationStreamGroup", opts...)
+func (c *updateNotificationServiceClient) DeleteEventStreamingGroup(ctx context.Context, in *DeleteEventStreamingGroupRequest, opts ...grpc.CallOption) (*DeleteEventStreamingGroupResponse, error) {
+	out := new(DeleteEventStreamingGroupResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.notification.services.v1.UpdateNotificationService/DeleteEventStreamingGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &updateNotificationServiceNotificationStreamGroupClient{stream}
+	return out, nil
+}
+
+func (c *updateNotificationServiceClient) ReadStreamGroupMessages(ctx context.Context, opts ...grpc.CallOption) (UpdateNotificationService_ReadStreamGroupMessagesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &UpdateNotificationService_ServiceDesc.Streams[0], "/aruna.api.notification.services.v1.UpdateNotificationService/ReadStreamGroupMessages", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &updateNotificationServiceReadStreamGroupMessagesClient{stream}
 	return x, nil
 }
 
-type UpdateNotificationService_NotificationStreamGroupClient interface {
-	Send(*NotificationStreamGroupRequest) error
-	Recv() (*NotificationStreamGroupResponse, error)
+type UpdateNotificationService_ReadStreamGroupMessagesClient interface {
+	Send(*ReadStreamGroupMessagesRequest) error
+	Recv() (*ReadStreamGroupMessagesResponse, error)
 	grpc.ClientStream
 }
 
-type updateNotificationServiceNotificationStreamGroupClient struct {
+type updateNotificationServiceReadStreamGroupMessagesClient struct {
 	grpc.ClientStream
 }
 
-func (x *updateNotificationServiceNotificationStreamGroupClient) Send(m *NotificationStreamGroupRequest) error {
+func (x *updateNotificationServiceReadStreamGroupMessagesClient) Send(m *ReadStreamGroupMessagesRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *updateNotificationServiceNotificationStreamGroupClient) Recv() (*NotificationStreamGroupResponse, error) {
-	m := new(NotificationStreamGroupResponse)
+func (x *updateNotificationServiceReadStreamGroupMessagesClient) Recv() (*ReadStreamGroupMessagesResponse, error) {
+	m := new(ReadStreamGroupMessagesResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -78,8 +97,18 @@ func (x *updateNotificationServiceNotificationStreamGroupClient) Recv() (*Notifi
 // All implementations should embed UnimplementedUpdateNotificationServiceServer
 // for forward compatibility
 type UpdateNotificationServiceServer interface {
+	// CreateEventStreamingGroup
+	//
+	// Creates a new EventStreamingGroup
 	CreateEventStreamingGroup(context.Context, *CreateEventStreamingGroupRequest) (*CreateEventStreamingGroupResponse, error)
-	NotificationStreamGroup(UpdateNotificationService_NotificationStreamGroupServer) error
+	// DeleteEventStreamingGroup
+	//
+	// Deletes a existing EventStreamingGroup by ID
+	DeleteEventStreamingGroup(context.Context, *DeleteEventStreamingGroupRequest) (*DeleteEventStreamingGroupResponse, error)
+	// ReadStreamGroupMessages
+	//
+	// Reads a stream of messages for a specific StreamGroup
+	ReadStreamGroupMessages(UpdateNotificationService_ReadStreamGroupMessagesServer) error
 }
 
 // UnimplementedUpdateNotificationServiceServer should be embedded to have forward compatible implementations.
@@ -89,8 +118,11 @@ type UnimplementedUpdateNotificationServiceServer struct {
 func (UnimplementedUpdateNotificationServiceServer) CreateEventStreamingGroup(context.Context, *CreateEventStreamingGroupRequest) (*CreateEventStreamingGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEventStreamingGroup not implemented")
 }
-func (UnimplementedUpdateNotificationServiceServer) NotificationStreamGroup(UpdateNotificationService_NotificationStreamGroupServer) error {
-	return status.Errorf(codes.Unimplemented, "method NotificationStreamGroup not implemented")
+func (UnimplementedUpdateNotificationServiceServer) DeleteEventStreamingGroup(context.Context, *DeleteEventStreamingGroupRequest) (*DeleteEventStreamingGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteEventStreamingGroup not implemented")
+}
+func (UnimplementedUpdateNotificationServiceServer) ReadStreamGroupMessages(UpdateNotificationService_ReadStreamGroupMessagesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ReadStreamGroupMessages not implemented")
 }
 
 // UnsafeUpdateNotificationServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -122,26 +154,44 @@ func _UpdateNotificationService_CreateEventStreamingGroup_Handler(srv interface{
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UpdateNotificationService_NotificationStreamGroup_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(UpdateNotificationServiceServer).NotificationStreamGroup(&updateNotificationServiceNotificationStreamGroupServer{stream})
+func _UpdateNotificationService_DeleteEventStreamingGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteEventStreamingGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UpdateNotificationServiceServer).DeleteEventStreamingGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.notification.services.v1.UpdateNotificationService/DeleteEventStreamingGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UpdateNotificationServiceServer).DeleteEventStreamingGroup(ctx, req.(*DeleteEventStreamingGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-type UpdateNotificationService_NotificationStreamGroupServer interface {
-	Send(*NotificationStreamGroupResponse) error
-	Recv() (*NotificationStreamGroupRequest, error)
+func _UpdateNotificationService_ReadStreamGroupMessages_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(UpdateNotificationServiceServer).ReadStreamGroupMessages(&updateNotificationServiceReadStreamGroupMessagesServer{stream})
+}
+
+type UpdateNotificationService_ReadStreamGroupMessagesServer interface {
+	Send(*ReadStreamGroupMessagesResponse) error
+	Recv() (*ReadStreamGroupMessagesRequest, error)
 	grpc.ServerStream
 }
 
-type updateNotificationServiceNotificationStreamGroupServer struct {
+type updateNotificationServiceReadStreamGroupMessagesServer struct {
 	grpc.ServerStream
 }
 
-func (x *updateNotificationServiceNotificationStreamGroupServer) Send(m *NotificationStreamGroupResponse) error {
+func (x *updateNotificationServiceReadStreamGroupMessagesServer) Send(m *ReadStreamGroupMessagesResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *updateNotificationServiceNotificationStreamGroupServer) Recv() (*NotificationStreamGroupRequest, error) {
-	m := new(NotificationStreamGroupRequest)
+func (x *updateNotificationServiceReadStreamGroupMessagesServer) Recv() (*ReadStreamGroupMessagesRequest, error) {
+	m := new(ReadStreamGroupMessagesRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -159,11 +209,15 @@ var UpdateNotificationService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CreateEventStreamingGroup",
 			Handler:    _UpdateNotificationService_CreateEventStreamingGroup_Handler,
 		},
+		{
+			MethodName: "DeleteEventStreamingGroup",
+			Handler:    _UpdateNotificationService_DeleteEventStreamingGroup_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "NotificationStreamGroup",
-			Handler:       _UpdateNotificationService_NotificationStreamGroup_Handler,
+			StreamName:    "ReadStreamGroupMessages",
+			Handler:       _UpdateNotificationService_ReadStreamGroupMessages_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

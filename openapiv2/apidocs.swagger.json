@@ -2,11 +2,14 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-alpha.5"
+    "version": "0.5.0-beta.1"
   },
   "tags": [
     {
       "name": "ProjectService"
+    },
+    {
+      "name": "UpdateNotificationService"
     },
     {
       "name": "CollectionService"
@@ -2687,18 +2690,6 @@
     }
   },
   "definitions": {
-    "EventNotificationMessageUpdateType": {
-      "type": "string",
-      "enum": [
-        "UPDATE_TYPE_UNSPECIFIED",
-        "UPDATE_TYPE_CREATED",
-        "UPDATE_TYPE_AVAILABLE",
-        "UPDATE_TYPE_UPDATED",
-        "UPDATE_TYPE_METADATA_UPDATED",
-        "UPDATE_TYPE_DELETED"
-      ],
-      "default": "UPDATE_TYPE_UNSPECIFIED"
-    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -2807,6 +2798,15 @@
     },
     "v1AddUserToProjectResponse": {
       "type": "object"
+    },
+    "v1AuthorizeResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "title": "Ok -\u003e Authorization granted, empty or not ok -\u003e dismiss"
+        }
+      }
     },
     "v1CloneObjectResponse": {
       "type": "object",
@@ -2955,15 +2955,6 @@
         }
       }
     },
-    "v1CreateEventStreamingGroupRequestEventResources": {
-      "type": "string",
-      "enum": [
-        "EVENT_RESOURCES_UNSPECIFIED",
-        "EVENT_RESOURCES_COLLECTION_RESOURCE",
-        "EVENT_RESOURCES_ALL_RESOURCE"
-      ],
-      "default": "EVENT_RESOURCES_UNSPECIFIED"
-    },
     "v1CreateEventStreamingGroupResponse": {
       "type": "object",
       "properties": {
@@ -3096,6 +3087,9 @@
     "v1DeleteEndpointResponse": {
       "type": "object"
     },
+    "v1DeleteEventStreamingGroupResponse": {
+      "type": "object"
+    },
     "v1DeleteObjectGroupResponse": {
       "type": "object"
     },
@@ -3150,24 +3144,27 @@
       "type": "object",
       "properties": {
         "resource": {
-          "$ref": "#/definitions/v1EventNotificationMessageEventResources"
+          "$ref": "#/definitions/v1ResourceType"
         },
         "resourceId": {
           "type": "string"
         },
         "updatedType": {
-          "$ref": "#/definitions/EventNotificationMessageUpdateType"
+          "$ref": "#/definitions/v1EventType"
         }
       }
     },
-    "v1EventNotificationMessageEventResources": {
+    "v1EventType": {
       "type": "string",
       "enum": [
-        "EVENT_RESOURCES_UNSPECIFIED",
-        "EVENT_RESOURCES_COLLECTION_RESOURCE",
-        "EVENT_RESOURCES_ALL_RESOURCE"
+        "EVENT_TYPE_UNSPECIFIED",
+        "EVENT_TYPE_CREATED",
+        "EVENT_TYPE_AVAILABLE",
+        "EVENT_TYPE_UPDATED",
+        "EVENT_TYPE_METADATA_UPDATED",
+        "EVENT_TYPE_DELETED"
       ],
-      "default": "EVENT_RESOURCES_UNSPECIFIED"
+      "default": "EVENT_TYPE_UNSPECIFIED"
     },
     "v1ExpiresAt": {
       "type": "object",
@@ -3446,7 +3443,7 @@
       "type": "object",
       "properties": {
         "userPermission": {
-          "$ref": "#/definitions/v1ProjectPermission",
+          "$ref": "#/definitions/v1ProjectPermissionDisplayName",
           "title": "Userpermission for a specific user"
         }
       }
@@ -3605,20 +3602,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "v1NotificationStreamGroupResponse": {
-      "type": "object",
-      "properties": {
-        "notification": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1NotificationStreamResponse"
-          }
-        },
-        "ackChunkId": {
-          "type": "string"
         }
       }
     },
@@ -3918,6 +3901,20 @@
         },
         "permission": {
           "$ref": "#/definitions/v1Permission"
+        }
+      }
+    },
+    "v1ProjectPermissionDisplayName": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
         },
         "displayName": {
           "type": "string"
@@ -3936,6 +3933,23 @@
           "format": "int64"
         }
       }
+    },
+    "v1ReadStreamGroupMessagesResponse": {
+      "type": "object",
+      "properties": {
+        "notification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1NotificationStreamResponse"
+          }
+        },
+        "ackChunkId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RegisterEventResponse": {
+      "type": "object"
     },
     "v1RegisterUserRequest": {
       "type": "object",
@@ -3957,6 +3971,32 @@
     },
     "v1RemoveUserFromProjectResponse": {
       "type": "object"
+    },
+    "v1ResourceAction": {
+      "type": "string",
+      "enum": [
+        "RESOURCE_ACTION_UNSPECIFIED",
+        "RESOURCE_ACTION_CREATE",
+        "RESOURCE_ACTION_APPEND",
+        "RESOURCE_ACTION_UPDATE",
+        "RESOURCE_ACTION_READ",
+        "RESOURCE_ACTION_DELETE"
+      ],
+      "default": "RESOURCE_ACTION_UNSPECIFIED",
+      "title": "Used for the internal associated services to validate permissions\nActions are similar to HTTP verbs"
+    },
+    "v1ResourceType": {
+      "type": "string",
+      "enum": [
+        "RESOURCE_TYPE_UNSPECIFIED",
+        "RESOURCE_TYPE_PROJECT",
+        "RESOURCE_TYPE_COLLECTION",
+        "RESOURCE_TYPE_OBJECT_GROUP",
+        "RESOURCE_TYPE_OBJECT",
+        "RESOURCE_TYPE_ALL"
+      ],
+      "default": "RESOURCE_TYPE_UNSPECIFIED",
+      "title": "An resourcetype used to identify generic authorizations"
     },
     "v1SetHooksOfObjectResponse": {
       "type": "object",
