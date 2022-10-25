@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-beta.3"
+    "version": "0.5.0-beta.4"
   },
   "tags": [
     {
@@ -3063,6 +3063,15 @@
         }
       }
     },
+    "v1CreateStreamGroupResponse": {
+      "type": "object",
+      "properties": {
+        "streamGroup": {
+          "$ref": "#/definitions/v1StreamGroup",
+          "title": "The stream_group"
+        }
+      }
+    },
     "v1DataClass": {
       "type": "string",
       "enum": [
@@ -3096,10 +3105,16 @@
     "v1DeleteObjectResponse": {
       "type": "object"
     },
+    "v1DeleteStreamGroupResponse": {
+      "type": "object"
+    },
     "v1DestroyProjectResponse": {
       "type": "object"
     },
     "v1EditUserPermissionsForProjectResponse": {
+      "type": "object"
+    },
+    "v1EmitEventResponse": {
       "type": "object"
     },
     "v1Endpoint": {
@@ -3162,7 +3177,8 @@
         "EVENT_TYPE_AVAILABLE",
         "EVENT_TYPE_UPDATED",
         "EVENT_TYPE_METADATA_UPDATED",
-        "EVENT_TYPE_DELETED"
+        "EVENT_TYPE_DELETED",
+        "EVENT_TYPE_ALL"
       ],
       "default": "EVENT_TYPE_UNSPECIFIED"
     },
@@ -3427,6 +3443,24 @@
             "$ref": "#/definitions/v1ObjectReference"
           },
           "title": "List of object references"
+        }
+      }
+    },
+    "v1GetSharedRevisionResponse": {
+      "type": "object",
+      "properties": {
+        "sharedRevisionId": {
+          "type": "string",
+          "title": "Shared revision ID"
+        }
+      }
+    },
+    "v1GetStreamGroupResponse": {
+      "type": "object",
+      "properties": {
+        "streamGroup": {
+          "$ref": "#/definitions/v1StreamGroup",
+          "title": "Stream group"
         }
       }
     },
@@ -3948,9 +3982,6 @@
         }
       }
     },
-    "v1RegisterEventResponse": {
-      "type": "object"
-    },
     "v1RegisterUserRequest": {
       "type": "object",
       "properties": {
@@ -3966,6 +3997,31 @@
         "userId": {
           "type": "string",
           "title": "Created user id"
+        }
+      }
+    },
+    "v1Relations": {
+      "type": "object",
+      "properties": {
+        "sharedObject": {
+          "type": "string",
+          "title": "The shared revision id of an object"
+        },
+        "objectGroup": {
+          "type": "string",
+          "title": "The associated objectgroup"
+        },
+        "sharedObjectGroup": {
+          "type": "string",
+          "title": "The shared revision id of the object_group"
+        },
+        "collection": {
+          "type": "string",
+          "title": "Collection ID"
+        },
+        "project": {
+          "type": "string",
+          "title": "Project ID"
         }
       }
     },
@@ -4105,6 +4161,31 @@
         "sequence": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "v1StreamGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Stream group ID"
+        },
+        "eventType": {
+          "$ref": "#/definitions/v1EventType",
+          "title": "Event this streamgroup is listening for"
+        },
+        "resourceType": {
+          "$ref": "#/definitions/v1ResourceType",
+          "title": "Type of the resource (Collection, Object etc.)"
+        },
+        "resourceId": {
+          "type": "string",
+          "title": "Resource ID"
+        },
+        "notifyOnSubResource": {
+          "type": "boolean",
+          "title": "Should all \"sub\" resources be included"
         }
       }
     },

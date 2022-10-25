@@ -18,11 +18,98 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
+// InternalEventEmitterServiceClient is the client API for InternalEventEmitterService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type InternalEventEmitterServiceClient interface {
+	EmitEvent(ctx context.Context, in *EmitEventRequest, opts ...grpc.CallOption) (*EmitEventResponse, error)
+}
+
+type internalEventEmitterServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewInternalEventEmitterServiceClient(cc grpc.ClientConnInterface) InternalEventEmitterServiceClient {
+	return &internalEventEmitterServiceClient{cc}
+}
+
+func (c *internalEventEmitterServiceClient) EmitEvent(ctx context.Context, in *EmitEventRequest, opts ...grpc.CallOption) (*EmitEventResponse, error) {
+	out := new(EmitEventResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventEmitterService/EmitEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// InternalEventEmitterServiceServer is the server API for InternalEventEmitterService service.
+// All implementations should embed UnimplementedInternalEventEmitterServiceServer
+// for forward compatibility
+type InternalEventEmitterServiceServer interface {
+	EmitEvent(context.Context, *EmitEventRequest) (*EmitEventResponse, error)
+}
+
+// UnimplementedInternalEventEmitterServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedInternalEventEmitterServiceServer struct {
+}
+
+func (UnimplementedInternalEventEmitterServiceServer) EmitEvent(context.Context, *EmitEventRequest) (*EmitEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EmitEvent not implemented")
+}
+
+// UnsafeInternalEventEmitterServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InternalEventEmitterServiceServer will
+// result in compilation errors.
+type UnsafeInternalEventEmitterServiceServer interface {
+	mustEmbedUnimplementedInternalEventEmitterServiceServer()
+}
+
+func RegisterInternalEventEmitterServiceServer(s grpc.ServiceRegistrar, srv InternalEventEmitterServiceServer) {
+	s.RegisterService(&InternalEventEmitterService_ServiceDesc, srv)
+}
+
+func _InternalEventEmitterService_EmitEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmitEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalEventEmitterServiceServer).EmitEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalEventEmitterService/EmitEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalEventEmitterServiceServer).EmitEvent(ctx, req.(*EmitEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// InternalEventEmitterService_ServiceDesc is the grpc.ServiceDesc for InternalEventEmitterService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var InternalEventEmitterService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "aruna.api.internal.v1.InternalEventEmitterService",
+	HandlerType: (*InternalEventEmitterServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EmitEvent",
+			Handler:    _InternalEventEmitterService_EmitEvent_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aruna/api/internal/v1/notification.proto",
+}
+
 // InternalEventServiceClient is the client API for InternalEventService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InternalEventServiceClient interface {
-	RegisterEvent(ctx context.Context, in *RegisterEventRequest, opts ...grpc.CallOption) (*RegisterEventResponse, error)
+	CreateStreamGroup(ctx context.Context, in *CreateStreamGroupRequest, opts ...grpc.CallOption) (*CreateStreamGroupResponse, error)
+	GetStreamGroup(ctx context.Context, in *GetStreamGroupRequest, opts ...grpc.CallOption) (*GetStreamGroupResponse, error)
+	DeleteStreamGroup(ctx context.Context, in *DeleteStreamGroupRequest, opts ...grpc.CallOption) (*DeleteStreamGroupResponse, error)
+	GetSharedRevision(ctx context.Context, in *GetSharedRevisionRequest, opts ...grpc.CallOption) (*GetSharedRevisionResponse, error)
 }
 
 type internalEventServiceClient struct {
@@ -33,9 +120,36 @@ func NewInternalEventServiceClient(cc grpc.ClientConnInterface) InternalEventSer
 	return &internalEventServiceClient{cc}
 }
 
-func (c *internalEventServiceClient) RegisterEvent(ctx context.Context, in *RegisterEventRequest, opts ...grpc.CallOption) (*RegisterEventResponse, error) {
-	out := new(RegisterEventResponse)
-	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventService/RegisterEvent", in, out, opts...)
+func (c *internalEventServiceClient) CreateStreamGroup(ctx context.Context, in *CreateStreamGroupRequest, opts ...grpc.CallOption) (*CreateStreamGroupResponse, error) {
+	out := new(CreateStreamGroupResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventService/CreateStreamGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *internalEventServiceClient) GetStreamGroup(ctx context.Context, in *GetStreamGroupRequest, opts ...grpc.CallOption) (*GetStreamGroupResponse, error) {
+	out := new(GetStreamGroupResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventService/GetStreamGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *internalEventServiceClient) DeleteStreamGroup(ctx context.Context, in *DeleteStreamGroupRequest, opts ...grpc.CallOption) (*DeleteStreamGroupResponse, error) {
+	out := new(DeleteStreamGroupResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventService/DeleteStreamGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *internalEventServiceClient) GetSharedRevision(ctx context.Context, in *GetSharedRevisionRequest, opts ...grpc.CallOption) (*GetSharedRevisionResponse, error) {
+	out := new(GetSharedRevisionResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalEventService/GetSharedRevision", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,15 +160,27 @@ func (c *internalEventServiceClient) RegisterEvent(ctx context.Context, in *Regi
 // All implementations should embed UnimplementedInternalEventServiceServer
 // for forward compatibility
 type InternalEventServiceServer interface {
-	RegisterEvent(context.Context, *RegisterEventRequest) (*RegisterEventResponse, error)
+	CreateStreamGroup(context.Context, *CreateStreamGroupRequest) (*CreateStreamGroupResponse, error)
+	GetStreamGroup(context.Context, *GetStreamGroupRequest) (*GetStreamGroupResponse, error)
+	DeleteStreamGroup(context.Context, *DeleteStreamGroupRequest) (*DeleteStreamGroupResponse, error)
+	GetSharedRevision(context.Context, *GetSharedRevisionRequest) (*GetSharedRevisionResponse, error)
 }
 
 // UnimplementedInternalEventServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedInternalEventServiceServer struct {
 }
 
-func (UnimplementedInternalEventServiceServer) RegisterEvent(context.Context, *RegisterEventRequest) (*RegisterEventResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterEvent not implemented")
+func (UnimplementedInternalEventServiceServer) CreateStreamGroup(context.Context, *CreateStreamGroupRequest) (*CreateStreamGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateStreamGroup not implemented")
+}
+func (UnimplementedInternalEventServiceServer) GetStreamGroup(context.Context, *GetStreamGroupRequest) (*GetStreamGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStreamGroup not implemented")
+}
+func (UnimplementedInternalEventServiceServer) DeleteStreamGroup(context.Context, *DeleteStreamGroupRequest) (*DeleteStreamGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteStreamGroup not implemented")
+}
+func (UnimplementedInternalEventServiceServer) GetSharedRevision(context.Context, *GetSharedRevisionRequest) (*GetSharedRevisionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSharedRevision not implemented")
 }
 
 // UnsafeInternalEventServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -68,20 +194,74 @@ func RegisterInternalEventServiceServer(s grpc.ServiceRegistrar, srv InternalEve
 	s.RegisterService(&InternalEventService_ServiceDesc, srv)
 }
 
-func _InternalEventService_RegisterEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterEventRequest)
+func _InternalEventService_CreateStreamGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateStreamGroupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InternalEventServiceServer).RegisterEvent(ctx, in)
+		return srv.(InternalEventServiceServer).CreateStreamGroup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/aruna.api.internal.v1.InternalEventService/RegisterEvent",
+		FullMethod: "/aruna.api.internal.v1.InternalEventService/CreateStreamGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InternalEventServiceServer).RegisterEvent(ctx, req.(*RegisterEventRequest))
+		return srv.(InternalEventServiceServer).CreateStreamGroup(ctx, req.(*CreateStreamGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InternalEventService_GetStreamGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStreamGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalEventServiceServer).GetStreamGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalEventService/GetStreamGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalEventServiceServer).GetStreamGroup(ctx, req.(*GetStreamGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InternalEventService_DeleteStreamGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteStreamGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalEventServiceServer).DeleteStreamGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalEventService/DeleteStreamGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalEventServiceServer).DeleteStreamGroup(ctx, req.(*DeleteStreamGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InternalEventService_GetSharedRevision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSharedRevisionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalEventServiceServer).GetSharedRevision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalEventService/GetSharedRevision",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalEventServiceServer).GetSharedRevision(ctx, req.(*GetSharedRevisionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -94,8 +274,20 @@ var InternalEventService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*InternalEventServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RegisterEvent",
-			Handler:    _InternalEventService_RegisterEvent_Handler,
+			MethodName: "CreateStreamGroup",
+			Handler:    _InternalEventService_CreateStreamGroup_Handler,
+		},
+		{
+			MethodName: "GetStreamGroup",
+			Handler:    _InternalEventService_GetStreamGroup_Handler,
+		},
+		{
+			MethodName: "DeleteStreamGroup",
+			Handler:    _InternalEventService_DeleteStreamGroup_Handler,
+		},
+		{
+			MethodName: "GetSharedRevision",
+			Handler:    _InternalEventService_GetSharedRevision_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
