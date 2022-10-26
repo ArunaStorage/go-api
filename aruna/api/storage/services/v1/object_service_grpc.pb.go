@@ -76,11 +76,11 @@ type ObjectServiceClient interface {
 	// DeleteObject
 	//
 	// Deletes the object with the complete revision history.
-	// This should be avoided if possible.
-	// This method allows the owner to cascade the deletion of all objects that
-	// were cloned from this object.
-	// -> GDPR compliant procedure.
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
+	// DeleteObjects
+	//
+	// Deletes multiple objects at once.
+	DeleteObjects(ctx context.Context, in *DeleteObjectsRequest, opts ...grpc.CallOption) (*DeleteObjectsResponse, error)
 	// GetObjectByID
 	//
 	// gets a specific Object by ID that is associated to the
@@ -255,6 +255,15 @@ func (c *objectServiceClient) DeleteObject(ctx context.Context, in *DeleteObject
 	return out, nil
 }
 
+func (c *objectServiceClient) DeleteObjects(ctx context.Context, in *DeleteObjectsRequest, opts ...grpc.CallOption) (*DeleteObjectsResponse, error) {
+	out := new(DeleteObjectsResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/DeleteObjects", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *objectServiceClient) GetObjectByID(ctx context.Context, in *GetObjectByIDRequest, opts ...grpc.CallOption) (*GetObjectByIDResponse, error) {
 	out := new(GetObjectByIDResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetObjectByID", in, out, opts...)
@@ -385,11 +394,11 @@ type ObjectServiceServer interface {
 	// DeleteObject
 	//
 	// Deletes the object with the complete revision history.
-	// This should be avoided if possible.
-	// This method allows the owner to cascade the deletion of all objects that
-	// were cloned from this object.
-	// -> GDPR compliant procedure.
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
+	// DeleteObjects
+	//
+	// Deletes multiple objects at once.
+	DeleteObjects(context.Context, *DeleteObjectsRequest) (*DeleteObjectsResponse, error)
 	// GetObjectByID
 	//
 	// gets a specific Object by ID that is associated to the
@@ -476,6 +485,9 @@ func (UnimplementedObjectServiceServer) CloneObject(context.Context, *CloneObjec
 }
 func (UnimplementedObjectServiceServer) DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
+}
+func (UnimplementedObjectServiceServer) DeleteObjects(context.Context, *DeleteObjectsRequest) (*DeleteObjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjects not implemented")
 }
 func (UnimplementedObjectServiceServer) GetObjectByID(context.Context, *GetObjectByIDRequest) (*GetObjectByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectByID not implemented")
@@ -696,6 +708,24 @@ func _ObjectService_DeleteObject_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectService_DeleteObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteObjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).DeleteObjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/DeleteObjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).DeleteObjects(ctx, req.(*DeleteObjectsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ObjectService_GetObjectByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetObjectByIDRequest)
 	if err := dec(in); err != nil {
@@ -882,6 +912,10 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteObject",
 			Handler:    _ObjectService_DeleteObject_Handler,
+		},
+		{
+			MethodName: "DeleteObjects",
+			Handler:    _ObjectService_DeleteObjects_Handler,
 		},
 		{
 			MethodName: "GetObjectByID",

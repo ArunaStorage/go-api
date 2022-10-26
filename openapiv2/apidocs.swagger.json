@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-beta.4"
+    "version": "0.5.0-beta.5"
   },
   "tags": [
     {
@@ -949,7 +949,7 @@
       },
       "delete": {
         "summary": "DeleteObject",
-        "description": "Deletes the object with the complete revision history.\nThis should be avoided if possible.\nThis method allows the owner to cascade the deletion of all objects that\nwere cloned from this object.\n-\u003e GDPR compliant procedure.",
+        "description": "Deletes the object with the complete revision history.",
         "operationId": "ObjectService_DeleteObject",
         "responses": {
           "200": {
@@ -1802,6 +1802,62 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteObjects",
+        "description": "Deletes multiple objects at once.",
+        "operationId": "ObjectService_DeleteObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteObjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "CollectionID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "objectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Multiple ObjectIds"
+                },
+                "withRevisions": {
+                  "type": "boolean",
+                  "title": "Delete including revisions"
+                },
+                "force": {
+                  "type": "boolean",
+                  "title": "Force delete including revisions"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -3103,6 +3159,9 @@
       "type": "object"
     },
     "v1DeleteObjectResponse": {
+      "type": "object"
+    },
+    "v1DeleteObjectsResponse": {
       "type": "object"
     },
     "v1DeleteStreamGroupResponse": {
