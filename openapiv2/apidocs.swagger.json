@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-beta.5"
+    "version": "0.5.0-beta.7"
   },
   "tags": [
     {
@@ -421,74 +421,6 @@
       }
     },
     "/v1/collection/{collectionId}/group": {
-      "get": {
-        "summary": "GetObjectGroups",
-        "description": "This is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
-        "operationId": "ObjectGroupService_GetObjectGroups",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetObjectGroupsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "collectionId",
-            "description": "Collection id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pageRequest.lastUuid",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageRequest.pageSize",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "labelIdFilter.labels.andOrOr",
-            "description": "True if and, if empty or false or",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "labelIdFilter.labels.keysOnly",
-            "description": "Should only the keys be considered ?",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "labelIdFilter.ids",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "tags": [
-          "ObjectGroupService"
-        ]
-      },
       "post": {
         "summary": "CreateObjectGroup",
         "description": "This creates a new ObjectGroup in the collection",
@@ -835,6 +767,76 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectGroupService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/groups": {
+      "get": {
+        "summary": "GetObjectGroups",
+        "description": "This is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
+        "operationId": "ObjectGroupService_GetObjectGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectGroupsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "Collection id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.lastUuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageRequest.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "labelIdFilter.labels.andOrOr",
+            "description": "True if and, if empty or false or",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.labels.keysOnly",
+            "description": "Should only the keys be considered ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labelIdFilter.ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
           }
         ],
         "tags": [
@@ -1792,13 +1794,6 @@
           {
             "name": "withUrl",
             "description": "With URL: Include URL in response ?",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "includeHistory",
-            "description": "Should this request consider older revisions of Objects ?",
             "in": "query",
             "required": false,
             "type": "boolean"
