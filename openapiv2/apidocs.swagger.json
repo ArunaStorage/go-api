@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-beta.7"
+    "version": "0.5.0-beta.8"
   },
   "tags": [
     {
@@ -16,6 +16,12 @@
     },
     {
       "name": "EndpointService"
+    },
+    {
+      "name": "ResourceInfoService"
+    },
+    {
+      "name": "StorageInfoService"
     },
     {
       "name": "ObjectService"
@@ -323,10 +329,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "projectId": {
-                  "type": "string",
-                  "title": "Project id"
-                },
                 "force": {
                   "type": "boolean",
                   "title": "Force delete"
@@ -372,10 +374,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "projectId": {
-                  "type": "string",
-                  "title": "Project id"
-                },
                 "name": {
                   "type": "string",
                   "title": "New name"
@@ -651,6 +649,63 @@
                     "$ref": "#/definitions/v1KeyValue"
                   },
                   "title": "List of hooks key-value pairs"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectGroupService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/group/{groupId}/add_labels": {
+      "patch": {
+        "summary": "AddLabelsToObjectGroup",
+        "description": "This is a specific request to add new label(s)\nto an existing object_group, in contrast to UpdateObjectGroup\nthis will not create a new revision for the specific object_group\nInstead it will directly add the specified label(s) to the object_group",
+        "operationId": "ObjectGroupService_AddLabelsToObjectGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddLabelsToObjectGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "description": "Collection id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "groupId",
+            "description": "ObjectGroup id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "labelsToAdd": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  },
+                  "title": "List of labels that should be added to the list of labels"
                 }
               }
             }
@@ -1008,14 +1063,14 @@
     },
     "/v1/collection/{collectionId}/object/{objectId}/add_labels": {
       "patch": {
-        "summary": "AddLabelToObject",
-        "description": "This is a specific request to add a new label\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
-        "operationId": "ObjectService_AddLabelToObject",
+        "summary": "AddLabelsToObject",
+        "description": "This is a specific request to add new label(s)\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
+        "operationId": "ObjectService_AddLabelsToObject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1AddLabelToObjectResponse"
+              "$ref": "#/definitions/v1AddLabelsToObjectResponse"
             }
           },
           "default": {
@@ -1717,6 +1772,10 @@
                 "isSpecification": {
                   "type": "boolean",
                   "title": "Is specification ?\nShould this object contain a specification for the collection ?"
+                },
+                "force": {
+                  "type": "boolean",
+                  "title": "When force == false the update will fail if another staging\nobject of the same shared_revision_id already exists\nThis prevents race conditions when two parties update the\nsame object simultaneously\nforce == true enforces will allow multiple concurrent updates\nat once"
                 }
               }
             }
@@ -2230,6 +2289,107 @@
         },
         "tags": [
           "EndpointService"
+        ]
+      }
+    },
+    "/v1/info/resource/hierarchy": {
+      "get": {
+        "summary": "GetResourceHierarchy",
+        "description": "This requests a hierarchy based on one resource (object / objectgroup or collection)\nand returns a hierarchy with all associated higherlevel objects up to projects.\nNeeds projects level read access.",
+        "operationId": "ResourceInfoService_GetResourceHierarchy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetResourceHierarchyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "resourceType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "RESOURCE_TYPE_UNSPECIFIED",
+              "RESOURCE_TYPE_PROJECT",
+              "RESOURCE_TYPE_COLLECTION",
+              "RESOURCE_TYPE_OBJECT_GROUP",
+              "RESOURCE_TYPE_OBJECT",
+              "RESOURCE_TYPE_ALL"
+            ],
+            "default": "RESOURCE_TYPE_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "ResourceInfoService"
+        ]
+      }
+    },
+    "/v1/info/status": {
+      "get": {
+        "summary": "GetStorageStatus",
+        "description": "A request to get the current status of the storage components by location(s)",
+        "operationId": "StorageInfoService_GetStorageStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetStorageStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "StorageInfoService"
+        ]
+      }
+    },
+    "/v1/info/version": {
+      "get": {
+        "summary": "GetStorageVersion",
+        "description": "A request to get the current version of the server application\nString representation and https://semver.org/",
+        "operationId": "StorageInfoService_GetStorageVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetStorageVersionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "StorageInfoService"
         ]
       }
     },
@@ -2775,7 +2935,16 @@
       },
       "description": "Locations is the path to the requested data."
     },
-    "modelsv1Status": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "storagemodelsv1Status": {
       "type": "string",
       "enum": [
         "STATUS_UNSPECIFIED",
@@ -2788,14 +2957,17 @@
       "default": "STATUS_UNSPECIFIED",
       "title": "An arbitrary status for Objects"
     },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "@type": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": {}
+    "storageservicesv1Status": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_AVAILABLE",
+        "STATUS_UNAVAILABLE",
+        "STATUS_DEGRADED",
+        "STATUS_UNKNOWN"
+      ],
+      "default": "STATUS_UNSPECIFIED",
+      "title": "- STATUS_UNSPECIFIED: Status of a specific component at a specific location"
     },
     "v1ActivateUserResponse": {
       "type": "object"
@@ -2838,7 +3010,16 @@
         }
       }
     },
-    "v1AddLabelToObjectResponse": {
+    "v1AddLabelsToObjectGroupResponse": {
+      "type": "object",
+      "properties": {
+        "objectGroup": {
+          "$ref": "#/definitions/v1ObjectGroupOverview",
+          "title": "Returns the updated ObjectGroup"
+        }
+      }
+    },
+    "v1AddLabelsToObjectResponse": {
       "type": "object",
       "properties": {
         "object": {
@@ -2954,6 +3135,36 @@
           "type": "string",
           "format": "int64",
           "title": "Part number"
+        }
+      }
+    },
+    "v1ComponentStatus": {
+      "type": "object",
+      "properties": {
+        "componentName": {
+          "type": "string",
+          "title": "Name of a specific component e.g. server, dataproxy etc. and their status by location"
+        },
+        "locationStatus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1LocationStatus"
+          }
+        }
+      }
+    },
+    "v1ComponentVersion": {
+      "type": "object",
+      "properties": {
+        "componentName": {
+          "type": "string",
+          "title": "Name of a specific component e.g. server, dataproxy etc. and their status by location"
+        },
+        "locationVersion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1LocationVersion"
+          }
         }
       }
     },
@@ -3500,12 +3711,47 @@
         }
       }
     },
+    "v1GetResourceHierarchyResponse": {
+      "type": "object",
+      "properties": {
+        "hierarchies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Hierarchy"
+          },
+          "title": "Returns a list of hierarchies\nfor collections n will be 1 \nfor objects this might contain more than one hierarchy\nstarting with the object_id but different collections / objectgroups"
+        }
+      }
+    },
     "v1GetSharedRevisionResponse": {
       "type": "object",
       "properties": {
         "sharedRevisionId": {
           "type": "string",
           "title": "Shared revision ID"
+        }
+      }
+    },
+    "v1GetStorageStatusResponse": {
+      "type": "object",
+      "properties": {
+        "componentStatus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ComponentStatus"
+          },
+          "title": "List of all components and their status"
+        }
+      }
+    },
+    "v1GetStorageVersionResponse": {
+      "type": "object",
+      "properties": {
+        "componentVersion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ComponentVersion"
+          }
         }
       }
     },
@@ -3587,6 +3833,30 @@
         "HASHALGORITHM_XXHASH32"
       ],
       "default": "HASHALGORITHM_UNSPECIFIED"
+    },
+    "v1Hierarchy": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string",
+          "title": "Starting with one object id \n(might be empty if higher is queried)"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "0..n object groups per object in one collection"
+        },
+        "collectionId": {
+          "type": "string",
+          "title": "one collection"
+        },
+        "projectId": {
+          "type": "string",
+          "title": "one project"
+        }
+      }
     },
     "v1InitPresignedUploadResponse": {
       "type": "object",
@@ -3672,6 +3942,18 @@
       },
       "title": "This is a combined query for either a list of resource IDs or filtered by\nLabel Can be expanded in the future to allow for more complex queries"
     },
+    "v1LocationStatus": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "title": "Status of a specific Location e.g Gießen / AVAILABLE"
+        },
+        "status": {
+          "$ref": "#/definitions/storageservicesv1Status"
+        }
+      }
+    },
     "v1LocationType": {
       "type": "string",
       "enum": [
@@ -3681,6 +3963,18 @@
       ],
       "default": "LOCATION_TYPE_UNSPECIFIED",
       "description": "Enum to support multiple target Locations."
+    },
+    "v1LocationVersion": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "title": "Status of a specific Location e.g Gießen / 0.5.0-beta.1"
+        },
+        "version": {
+          "$ref": "#/definitions/v1SemanticVersion"
+        }
+      }
     },
     "v1NotficationStreamAck": {
       "type": "object",
@@ -3747,7 +4041,7 @@
           "format": "int64"
         },
         "status": {
-          "$ref": "#/definitions/modelsv1Status"
+          "$ref": "#/definitions/storagemodelsv1Status"
         },
         "origin": {
           "$ref": "#/definitions/v1Origin"
@@ -3833,6 +4127,20 @@
         }
       },
       "title": "Multiple ObjectGroupOverviews"
+    },
+    "v1ObjectGroupRelation": {
+      "type": "object",
+      "properties": {
+        "sharedObjectGroupId": {
+          "type": "string"
+        },
+        "objectGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "v1ObjectGroupStats": {
       "type": "object",
@@ -4054,20 +4362,19 @@
         }
       }
     },
-    "v1Relations": {
+    "v1Relation": {
       "type": "object",
       "properties": {
         "sharedObject": {
           "type": "string",
           "title": "The shared revision id of an object"
         },
-        "objectGroup": {
-          "type": "string",
-          "title": "The associated objectgroup"
-        },
-        "sharedObjectGroup": {
-          "type": "string",
-          "title": "The shared revision id of the object_group"
+        "objectGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectGroupRelation"
+          },
+          "title": "The associated objectgroup(s)"
         },
         "collection": {
           "type": "string",
@@ -4107,6 +4414,31 @@
       ],
       "default": "RESOURCE_TYPE_UNSPECIFIED",
       "title": "An resourcetype used to identify generic authorizations"
+    },
+    "v1SemanticVersion": {
+      "type": "object",
+      "properties": {
+        "versionString": {
+          "type": "string",
+          "title": "Complete version string"
+        },
+        "major": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Semver according to https://semver.org/"
+        },
+        "minor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "patch": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "labels": {
+          "type": "string"
+        }
+      }
     },
     "v1SetHooksOfObjectResponse": {
       "type": "object",

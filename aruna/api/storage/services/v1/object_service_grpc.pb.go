@@ -114,13 +114,13 @@ type ObjectServiceClient interface {
 	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(ctx context.Context, in *GetObjectEndpointsRequest, opts ...grpc.CallOption) (*GetObjectEndpointsResponse, error)
-	// AddLabelToObject
+	// AddLabelsToObject
 	//
-	// This is a specific request to add a new label
+	// This is a specific request to add new label(s)
 	// to an existing object, in contrast to UpdateObject
 	// this will not create a new object in the staging area
 	// Instead it will directly add the specified label(s) to the object
-	AddLabelToObject(ctx context.Context, in *AddLabelToObjectRequest, opts ...grpc.CallOption) (*AddLabelToObjectResponse, error)
+	AddLabelsToObject(ctx context.Context, in *AddLabelsToObjectRequest, opts ...grpc.CallOption) (*AddLabelsToObjectResponse, error)
 	// SetHooksOfObject
 	//
 	// This is a specific request to update the complete list
@@ -309,9 +309,9 @@ func (c *objectServiceClient) GetObjectEndpoints(ctx context.Context, in *GetObj
 	return out, nil
 }
 
-func (c *objectServiceClient) AddLabelToObject(ctx context.Context, in *AddLabelToObjectRequest, opts ...grpc.CallOption) (*AddLabelToObjectResponse, error) {
-	out := new(AddLabelToObjectResponse)
-	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/AddLabelToObject", in, out, opts...)
+func (c *objectServiceClient) AddLabelsToObject(ctx context.Context, in *AddLabelsToObjectRequest, opts ...grpc.CallOption) (*AddLabelsToObjectResponse, error) {
+	out := new(AddLabelsToObjectResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/AddLabelsToObject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -432,13 +432,13 @@ type ObjectServiceServer interface {
 	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(context.Context, *GetObjectEndpointsRequest) (*GetObjectEndpointsResponse, error)
-	// AddLabelToObject
+	// AddLabelsToObject
 	//
-	// This is a specific request to add a new label
+	// This is a specific request to add new label(s)
 	// to an existing object, in contrast to UpdateObject
 	// this will not create a new object in the staging area
 	// Instead it will directly add the specified label(s) to the object
-	AddLabelToObject(context.Context, *AddLabelToObjectRequest) (*AddLabelToObjectResponse, error)
+	AddLabelsToObject(context.Context, *AddLabelsToObjectRequest) (*AddLabelsToObjectResponse, error)
 	// SetHooksOfObject
 	//
 	// This is a specific request to update the complete list
@@ -504,8 +504,8 @@ func (UnimplementedObjectServiceServer) GetLatestObjectRevision(context.Context,
 func (UnimplementedObjectServiceServer) GetObjectEndpoints(context.Context, *GetObjectEndpointsRequest) (*GetObjectEndpointsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectEndpoints not implemented")
 }
-func (UnimplementedObjectServiceServer) AddLabelToObject(context.Context, *AddLabelToObjectRequest) (*AddLabelToObjectResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddLabelToObject not implemented")
+func (UnimplementedObjectServiceServer) AddLabelsToObject(context.Context, *AddLabelsToObjectRequest) (*AddLabelsToObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddLabelsToObject not implemented")
 }
 func (UnimplementedObjectServiceServer) SetHooksOfObject(context.Context, *SetHooksOfObjectRequest) (*SetHooksOfObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetHooksOfObject not implemented")
@@ -816,20 +816,20 @@ func _ObjectService_GetObjectEndpoints_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ObjectService_AddLabelToObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddLabelToObjectRequest)
+func _ObjectService_AddLabelsToObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddLabelsToObjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ObjectServiceServer).AddLabelToObject(ctx, in)
+		return srv.(ObjectServiceServer).AddLabelsToObject(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/aruna.api.storage.services.v1.ObjectService/AddLabelToObject",
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/AddLabelsToObject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ObjectServiceServer).AddLabelToObject(ctx, req.(*AddLabelToObjectRequest))
+		return srv.(ObjectServiceServer).AddLabelsToObject(ctx, req.(*AddLabelsToObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -938,8 +938,8 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ObjectService_GetObjectEndpoints_Handler,
 		},
 		{
-			MethodName: "AddLabelToObject",
-			Handler:    _ObjectService_AddLabelToObject_Handler,
+			MethodName: "AddLabelsToObject",
+			Handler:    _ObjectService_AddLabelsToObject_Handler,
 		},
 		{
 			MethodName: "SetHooksOfObject",

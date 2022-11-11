@@ -1335,8 +1335,8 @@ func local_request_ObjectService_GetObjectEndpoints_0(ctx context.Context, marsh
 
 }
 
-func request_ObjectService_AddLabelToObject_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddLabelToObjectRequest
+func request_ObjectService_AddLabelsToObject_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq AddLabelsToObjectRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1374,13 +1374,13 @@ func request_ObjectService_AddLabelToObject_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
 	}
 
-	msg, err := client.AddLabelToObject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.AddLabelsToObject(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ObjectService_AddLabelToObject_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq AddLabelToObjectRequest
+func local_request_ObjectService_AddLabelsToObject_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq AddLabelsToObjectRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1418,7 +1418,7 @@ func local_request_ObjectService_AddLabelToObject_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
 	}
 
-	msg, err := server.AddLabelToObject(ctx, &protoReq)
+	msg, err := server.AddLabelsToObject(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1989,7 +1989,7 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 
 	})
 
-	mux.Handle("PATCH", pattern_ObjectService_AddLabelToObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_ObjectService_AddLabelsToObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1997,12 +1997,12 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/AddLabelToObject", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/add_labels"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/AddLabelsToObject", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/add_labels"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ObjectService_AddLabelToObject_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ObjectService_AddLabelsToObject_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2010,7 +2010,7 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 			return
 		}
 
-		forward_ObjectService_AddLabelToObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ObjectService_AddLabelsToObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2457,25 +2457,25 @@ func RegisterObjectServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 
 	})
 
-	mux.Handle("PATCH", pattern_ObjectService_AddLabelToObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_ObjectService_AddLabelsToObject_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/AddLabelToObject", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/add_labels"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/AddLabelsToObject", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/add_labels"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ObjectService_AddLabelToObject_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ObjectService_AddLabelsToObject_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ObjectService_AddLabelToObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ObjectService_AddLabelsToObject_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2559,7 +2559,7 @@ var (
 
 	pattern_ObjectService_GetObjectEndpoints_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "endpoints"}, ""))
 
-	pattern_ObjectService_AddLabelToObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "add_labels"}, ""))
+	pattern_ObjectService_AddLabelsToObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "add_labels"}, ""))
 
 	pattern_ObjectService_SetHooksOfObject_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "set_hooks"}, ""))
 
@@ -2599,7 +2599,7 @@ var (
 
 	forward_ObjectService_GetObjectEndpoints_0 = runtime.ForwardResponseMessage
 
-	forward_ObjectService_AddLabelToObject_0 = runtime.ForwardResponseMessage
+	forward_ObjectService_AddLabelsToObject_0 = runtime.ForwardResponseMessage
 
 	forward_ObjectService_SetHooksOfObject_0 = runtime.ForwardResponseMessage
 

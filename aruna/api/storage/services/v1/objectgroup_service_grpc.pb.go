@@ -63,6 +63,13 @@ type ObjectGroupServiceClient interface {
 	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
+	// AddLabelsToObjectGroup
+	//
+	// This is a specific request to add new label(s)
+	// to an existing object_group, in contrast to UpdateObjectGroup
+	// this will not create a new revision for the specific object_group
+	// Instead it will directly add the specified label(s) to the object_group
+	AddLabelsToObjectGroup(ctx context.Context, in *AddLabelsToObjectGroupRequest, opts ...grpc.CallOption) (*AddLabelsToObjectGroupResponse, error)
 }
 
 type objectGroupServiceClient struct {
@@ -145,6 +152,15 @@ func (c *objectGroupServiceClient) DeleteObjectGroup(ctx context.Context, in *De
 	return out, nil
 }
 
+func (c *objectGroupServiceClient) AddLabelsToObjectGroup(ctx context.Context, in *AddLabelsToObjectGroupRequest, opts ...grpc.CallOption) (*AddLabelsToObjectGroupResponse, error) {
+	out := new(AddLabelsToObjectGroupResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectGroupService/AddLabelsToObjectGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ObjectGroupServiceServer is the server API for ObjectGroupService service.
 // All implementations should embed UnimplementedObjectGroupServiceServer
 // for forward compatibility
@@ -190,6 +206,13 @@ type ObjectGroupServiceServer interface {
 	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
+	// AddLabelsToObjectGroup
+	//
+	// This is a specific request to add new label(s)
+	// to an existing object_group, in contrast to UpdateObjectGroup
+	// this will not create a new revision for the specific object_group
+	// Instead it will directly add the specified label(s) to the object_group
+	AddLabelsToObjectGroup(context.Context, *AddLabelsToObjectGroupRequest) (*AddLabelsToObjectGroupResponse, error)
 }
 
 // UnimplementedObjectGroupServiceServer should be embedded to have forward compatible implementations.
@@ -219,6 +242,9 @@ func (UnimplementedObjectGroupServiceServer) GetObjectGroupObjects(context.Conte
 }
 func (UnimplementedObjectGroupServiceServer) DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectGroup not implemented")
+}
+func (UnimplementedObjectGroupServiceServer) AddLabelsToObjectGroup(context.Context, *AddLabelsToObjectGroupRequest) (*AddLabelsToObjectGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddLabelsToObjectGroup not implemented")
 }
 
 // UnsafeObjectGroupServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -376,6 +402,24 @@ func _ObjectGroupService_DeleteObjectGroup_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectGroupService_AddLabelsToObjectGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddLabelsToObjectGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectGroupServiceServer).AddLabelsToObjectGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectGroupService/AddLabelsToObjectGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectGroupServiceServer).AddLabelsToObjectGroup(ctx, req.(*AddLabelsToObjectGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ObjectGroupService_ServiceDesc is the grpc.ServiceDesc for ObjectGroupService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -414,6 +458,10 @@ var ObjectGroupService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteObjectGroup",
 			Handler:    _ObjectGroupService_DeleteObjectGroup_Handler,
+		},
+		{
+			MethodName: "AddLabelsToObjectGroup",
+			Handler:    _ObjectGroupService_AddLabelsToObjectGroup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
