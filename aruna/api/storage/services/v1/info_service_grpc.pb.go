@@ -118,10 +118,14 @@ var ResourceInfoService_ServiceDesc = grpc.ServiceDesc{
 type StorageInfoServiceClient interface {
 	// GetStorageVersion
 	//
+	// Status: ALPHA
+	//
 	// A request to get the current version of the server application
 	// String representation and https://semver.org/
 	GetStorageVersion(ctx context.Context, in *GetStorageVersionRequest, opts ...grpc.CallOption) (*GetStorageVersionResponse, error)
 	// GetStorageStatus
+	//
+	// Status: ALPHA
 	//
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(ctx context.Context, in *GetStorageStatusRequest, opts ...grpc.CallOption) (*GetStorageStatusResponse, error)
@@ -159,10 +163,14 @@ func (c *storageInfoServiceClient) GetStorageStatus(ctx context.Context, in *Get
 type StorageInfoServiceServer interface {
 	// GetStorageVersion
 	//
+	// Status: ALPHA
+	//
 	// A request to get the current version of the server application
 	// String representation and https://semver.org/
 	GetStorageVersion(context.Context, *GetStorageVersionRequest) (*GetStorageVersionResponse, error)
 	// GetStorageStatus
+	//
+	// Status: ALPHA
 	//
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(context.Context, *GetStorageStatusRequest) (*GetStorageStatusResponse, error)

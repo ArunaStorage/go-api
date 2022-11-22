@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type ObjectServiceClient interface {
 	// InitializeNewObject
 	//
+	// Status: STABLE
+	//
 	// This initializes a new object
 	// Initializing an object will put it in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
@@ -31,15 +33,21 @@ type ObjectServiceClient interface {
 	InitializeNewObject(ctx context.Context, in *InitializeNewObjectRequest, opts ...grpc.CallOption) (*InitializeNewObjectResponse, error)
 	// GetUploadURL
 	//
+	// Status: STABLE
+	//
 	// This method will return a (multi-part) url that can be used to upload a
 	// file to S3. Part is a optional query parameter that can be used to upload a
 	// part of the file / multipart upload.
 	GetUploadURL(ctx context.Context, in *GetUploadURLRequest, opts ...grpc.CallOption) (*GetUploadURLResponse, error)
 	// GetDownloadUrl
 	//
+	// Status: STABLE
+	//
 	// This method will return a url that can be used to download a file from S3.
 	GetDownloadURL(ctx context.Context, in *GetDownloadURLRequest, opts ...grpc.CallOption) (*GetDownloadURLResponse, error)
 	// GetDownloadLinksBatch
+	//
+	// Status: BETA
 	//
 	// This method can be used to get download urls for multiple objects.
 	// The order of the returned urls will be the same as the order of the object
@@ -47,15 +55,21 @@ type ObjectServiceClient interface {
 	GetDownloadLinksBatch(ctx context.Context, in *GetDownloadLinksBatchRequest, opts ...grpc.CallOption) (*GetDownloadLinksBatchResponse, error)
 	// CreateDownloadLinksStream
 	//
+	// Status: BETA
+	//
 	// Creates a stream of objects and presigned links based on the provided query
 	// This can be used retrieve a large number of Objects as a stream that would
 	// otherwise cause issues with the connection
 	CreateDownloadLinksStream(ctx context.Context, in *CreateDownloadLinksStreamRequest, opts ...grpc.CallOption) (ObjectService_CreateDownloadLinksStreamClient, error)
 	// FinishObjectStaging
 	//
+	// Status: STABLE
+	//
 	// This method completes the staging of an object.
 	FinishObjectStaging(ctx context.Context, in *FinishObjectStagingRequest, opts ...grpc.CallOption) (*FinishObjectStagingResponse, error)
 	// UpdateObject
+	//
+	// Status: STABLE
 	//
 	// Objects are immutable!
 	// Updating an object will create a new revision for the object
@@ -65,9 +79,13 @@ type ObjectServiceClient interface {
 	UpdateObject(ctx context.Context, in *UpdateObjectRequest, opts ...grpc.CallOption) (*UpdateObjectResponse, error)
 	// CreateObjectReference
 	//
+	// Status: STABLE
+	//
 	// Creates a new reference of this object in another collection
 	CreateObjectReference(ctx context.Context, in *CreateObjectReferenceRequest, opts ...grpc.CallOption) (*CreateObjectReferenceResponse, error)
 	// CloneObject
+	//
+	// Status: STABLE
 	//
 	// This method clones an object and creates a copy in the same collection.
 	// This copy has a new id and revision and will not receive any updates from
@@ -75,13 +93,19 @@ type ObjectServiceClient interface {
 	CloneObject(ctx context.Context, in *CloneObjectRequest, opts ...grpc.CallOption) (*CloneObjectResponse, error)
 	// DeleteObject
 	//
+	// Status: STABLE
+	//
 	// Deletes the object with the complete revision history.
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
 	// DeleteObjects
 	//
+	// Status: STABLE
+	//
 	// Deletes multiple objects at once.
 	DeleteObjects(ctx context.Context, in *DeleteObjectsRequest, opts ...grpc.CallOption) (*DeleteObjectsResponse, error)
 	// GetObjectByID
+	//
+	// Status: STABLE
 	//
 	// gets a specific Object by ID that is associated to the
 	// current collection By default only the latest revision of an object will be
@@ -89,6 +113,8 @@ type ObjectServiceClient interface {
 	// optional with_url boolean a download link can automatically be requested
 	GetObjectByID(ctx context.Context, in *GetObjectByIDRequest, opts ...grpc.CallOption) (*GetObjectByIDResponse, error)
 	// GetObjects
+	//
+	// Status: STABLE
 	//
 	// GetObjects returns a (paginated) list of objects in a specific collection
 	// By default only the latest revisions of all objects will be shown
@@ -99,11 +125,15 @@ type ObjectServiceClient interface {
 	GetObjects(ctx context.Context, in *GetObjectsRequest, opts ...grpc.CallOption) (*GetObjectsResponse, error)
 	// GetObjectRevisions
 	//
+	// Status: STABLE
+	//
 	// This returns the full list of revisions of a specified object
 	// With the optional with_url boolean a download link can automatically be
 	// requested for each Object This is by default a paginated request
 	GetObjectRevisions(ctx context.Context, in *GetObjectRevisionsRequest, opts ...grpc.CallOption) (*GetObjectRevisionsResponse, error)
 	// GetLatestObjectRevision
+	//
+	// Status: STABLE
 	//
 	// This returns the latest revision of a specific object
 	// The returned `latest` object will have a different id if the current
@@ -111,10 +141,14 @@ type ObjectServiceClient interface {
 	GetLatestObjectRevision(ctx context.Context, in *GetLatestObjectRevisionRequest, opts ...grpc.CallOption) (*GetLatestObjectRevisionResponse, error)
 	// GetObjectEndpoints
 	//
+	// Status: BETA
+	//
 	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(ctx context.Context, in *GetObjectEndpointsRequest, opts ...grpc.CallOption) (*GetObjectEndpointsResponse, error)
 	// AddLabelsToObject
+	//
+	// Status: STABLE
 	//
 	// This is a specific request to add new label(s)
 	// to an existing object, in contrast to UpdateObject
@@ -123,12 +157,16 @@ type ObjectServiceClient interface {
 	AddLabelsToObject(ctx context.Context, in *AddLabelsToObjectRequest, opts ...grpc.CallOption) (*AddLabelsToObjectResponse, error)
 	// SetHooksOfObject
 	//
+	// Status: BETA
+	//
 	// This is a specific request to update the complete list
 	// of hooks for a specific object. This will not update the object
 	// and create a new id, instead it will overwrite all hooks of the existing
 	// object.
 	SetHooksOfObject(ctx context.Context, in *SetHooksOfObjectRequest, opts ...grpc.CallOption) (*SetHooksOfObjectResponse, error)
 	// GetReferences
+	//
+	// Status: STABLE
 	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(ctx context.Context, in *GetReferencesRequest, opts ...grpc.CallOption) (*GetReferencesResponse, error)
@@ -342,6 +380,8 @@ func (c *objectServiceClient) GetReferences(ctx context.Context, in *GetReferenc
 type ObjectServiceServer interface {
 	// InitializeNewObject
 	//
+	// Status: STABLE
+	//
 	// This initializes a new object
 	// Initializing an object will put it in a staging area.
 	// Staged objects will get a separate staging id and need to be finished
@@ -349,15 +389,21 @@ type ObjectServiceServer interface {
 	InitializeNewObject(context.Context, *InitializeNewObjectRequest) (*InitializeNewObjectResponse, error)
 	// GetUploadURL
 	//
+	// Status: STABLE
+	//
 	// This method will return a (multi-part) url that can be used to upload a
 	// file to S3. Part is a optional query parameter that can be used to upload a
 	// part of the file / multipart upload.
 	GetUploadURL(context.Context, *GetUploadURLRequest) (*GetUploadURLResponse, error)
 	// GetDownloadUrl
 	//
+	// Status: STABLE
+	//
 	// This method will return a url that can be used to download a file from S3.
 	GetDownloadURL(context.Context, *GetDownloadURLRequest) (*GetDownloadURLResponse, error)
 	// GetDownloadLinksBatch
+	//
+	// Status: BETA
 	//
 	// This method can be used to get download urls for multiple objects.
 	// The order of the returned urls will be the same as the order of the object
@@ -365,15 +411,21 @@ type ObjectServiceServer interface {
 	GetDownloadLinksBatch(context.Context, *GetDownloadLinksBatchRequest) (*GetDownloadLinksBatchResponse, error)
 	// CreateDownloadLinksStream
 	//
+	// Status: BETA
+	//
 	// Creates a stream of objects and presigned links based on the provided query
 	// This can be used retrieve a large number of Objects as a stream that would
 	// otherwise cause issues with the connection
 	CreateDownloadLinksStream(*CreateDownloadLinksStreamRequest, ObjectService_CreateDownloadLinksStreamServer) error
 	// FinishObjectStaging
 	//
+	// Status: STABLE
+	//
 	// This method completes the staging of an object.
 	FinishObjectStaging(context.Context, *FinishObjectStagingRequest) (*FinishObjectStagingResponse, error)
 	// UpdateObject
+	//
+	// Status: STABLE
 	//
 	// Objects are immutable!
 	// Updating an object will create a new revision for the object
@@ -383,9 +435,13 @@ type ObjectServiceServer interface {
 	UpdateObject(context.Context, *UpdateObjectRequest) (*UpdateObjectResponse, error)
 	// CreateObjectReference
 	//
+	// Status: STABLE
+	//
 	// Creates a new reference of this object in another collection
 	CreateObjectReference(context.Context, *CreateObjectReferenceRequest) (*CreateObjectReferenceResponse, error)
 	// CloneObject
+	//
+	// Status: STABLE
 	//
 	// This method clones an object and creates a copy in the same collection.
 	// This copy has a new id and revision and will not receive any updates from
@@ -393,13 +449,19 @@ type ObjectServiceServer interface {
 	CloneObject(context.Context, *CloneObjectRequest) (*CloneObjectResponse, error)
 	// DeleteObject
 	//
+	// Status: STABLE
+	//
 	// Deletes the object with the complete revision history.
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
 	// DeleteObjects
 	//
+	// Status: STABLE
+	//
 	// Deletes multiple objects at once.
 	DeleteObjects(context.Context, *DeleteObjectsRequest) (*DeleteObjectsResponse, error)
 	// GetObjectByID
+	//
+	// Status: STABLE
 	//
 	// gets a specific Object by ID that is associated to the
 	// current collection By default only the latest revision of an object will be
@@ -407,6 +469,8 @@ type ObjectServiceServer interface {
 	// optional with_url boolean a download link can automatically be requested
 	GetObjectByID(context.Context, *GetObjectByIDRequest) (*GetObjectByIDResponse, error)
 	// GetObjects
+	//
+	// Status: STABLE
 	//
 	// GetObjects returns a (paginated) list of objects in a specific collection
 	// By default only the latest revisions of all objects will be shown
@@ -417,11 +481,15 @@ type ObjectServiceServer interface {
 	GetObjects(context.Context, *GetObjectsRequest) (*GetObjectsResponse, error)
 	// GetObjectRevisions
 	//
+	// Status: STABLE
+	//
 	// This returns the full list of revisions of a specified object
 	// With the optional with_url boolean a download link can automatically be
 	// requested for each Object This is by default a paginated request
 	GetObjectRevisions(context.Context, *GetObjectRevisionsRequest) (*GetObjectRevisionsResponse, error)
 	// GetLatestObjectRevision
+	//
+	// Status: STABLE
 	//
 	// This returns the latest revision of a specific object
 	// The returned `latest` object will have a different id if the current
@@ -429,10 +497,14 @@ type ObjectServiceServer interface {
 	GetLatestObjectRevision(context.Context, *GetLatestObjectRevisionRequest) (*GetLatestObjectRevisionResponse, error)
 	// GetObjectEndpoints
 	//
+	// Status: BETA
+	//
 	// This returns a list of endpoints
 	// One endpoint will be the "default" endpoint
 	GetObjectEndpoints(context.Context, *GetObjectEndpointsRequest) (*GetObjectEndpointsResponse, error)
 	// AddLabelsToObject
+	//
+	// Status: STABLE
 	//
 	// This is a specific request to add new label(s)
 	// to an existing object, in contrast to UpdateObject
@@ -441,12 +513,16 @@ type ObjectServiceServer interface {
 	AddLabelsToObject(context.Context, *AddLabelsToObjectRequest) (*AddLabelsToObjectResponse, error)
 	// SetHooksOfObject
 	//
+	// Status: BETA
+	//
 	// This is a specific request to update the complete list
 	// of hooks for a specific object. This will not update the object
 	// and create a new id, instead it will overwrite all hooks of the existing
 	// object.
 	SetHooksOfObject(context.Context, *SetHooksOfObjectRequest) (*SetHooksOfObjectResponse, error)
 	// GetReferences
+	//
+	// Status: STABLE
 	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(context.Context, *GetReferencesRequest) (*GetReferencesResponse, error)

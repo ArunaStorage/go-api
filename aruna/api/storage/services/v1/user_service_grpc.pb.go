@@ -24,46 +24,68 @@ const _ = grpc.SupportPackageIsVersion7
 type UserServiceClient interface {
 	// RegisterUser
 	//
+	// Status: STABLE
+	//
 	// This request should be called when a new user logs in for the first time
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
 	// ActivateUser
+	//
+	// Status: STABLE
 	//
 	// This activates a specific user (Admin request)
 	ActivateUser(ctx context.Context, in *ActivateUserRequest, opts ...grpc.CallOption) (*ActivateUserResponse, error)
 	// CreateAPIToken
 	//
+	// Status: STABLE
+	//
 	// Creates an API token to authenticate
 	CreateAPIToken(ctx context.Context, in *CreateAPITokenRequest, opts ...grpc.CallOption) (*CreateAPITokenResponse, error)
 	// GetAPIToken
+	//
+	// Status: STABLE
 	//
 	// Returns one API token by id
 	GetAPIToken(ctx context.Context, in *GetAPITokenRequest, opts ...grpc.CallOption) (*GetAPITokenResponse, error)
 	// GetAPITokens
 	//
+	// Status: STABLE
+	//
 	// Returns a list of API tokens for a specific user
 	GetAPITokens(ctx context.Context, in *GetAPITokensRequest, opts ...grpc.CallOption) (*GetAPITokensResponse, error)
 	// DeleteAPIToken
+	//
+	// Status: STABLE
 	//
 	// Deletes the specified API Token
 	DeleteAPIToken(ctx context.Context, in *DeleteAPITokenRequest, opts ...grpc.CallOption) (*DeleteAPITokenResponse, error)
 	// DeleteAPITokens
 	//
+	// Status: STABLE
+	//
 	// Deletes the specified API Token
 	DeleteAPITokens(ctx context.Context, in *DeleteAPITokensRequest, opts ...grpc.CallOption) (*DeleteAPITokensResponse, error)
 	// GetUserRequest
+	//
+	// Status: STABLE
 	//
 	// This is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	// UpdateUserDisplayName
 	//
+	// Status: STABLE
+	//
 	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(ctx context.Context, in *UpdateUserDisplayNameRequest, opts ...grpc.CallOption) (*UpdateUserDisplayNameResponse, error)
 	// GetUserProjects
 	//
+	// Status: STABLE
+	//
 	// Gets all project_ids a user is member of
 	GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error)
 	// GetNotActivatedUsers
+	//
+	// Status: STABLE
 	//
 	// Get all not activated users (Admin only)
 	GetNotActivatedUsers(ctx context.Context, in *GetNotActivatedUsersRequest, opts ...grpc.CallOption) (*GetNotActivatedUsersResponse, error)
@@ -182,46 +204,68 @@ func (c *userServiceClient) GetNotActivatedUsers(ctx context.Context, in *GetNot
 type UserServiceServer interface {
 	// RegisterUser
 	//
+	// Status: STABLE
+	//
 	// This request should be called when a new user logs in for the first time
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
 	// ActivateUser
+	//
+	// Status: STABLE
 	//
 	// This activates a specific user (Admin request)
 	ActivateUser(context.Context, *ActivateUserRequest) (*ActivateUserResponse, error)
 	// CreateAPIToken
 	//
+	// Status: STABLE
+	//
 	// Creates an API token to authenticate
 	CreateAPIToken(context.Context, *CreateAPITokenRequest) (*CreateAPITokenResponse, error)
 	// GetAPIToken
+	//
+	// Status: STABLE
 	//
 	// Returns one API token by id
 	GetAPIToken(context.Context, *GetAPITokenRequest) (*GetAPITokenResponse, error)
 	// GetAPITokens
 	//
+	// Status: STABLE
+	//
 	// Returns a list of API tokens for a specific user
 	GetAPITokens(context.Context, *GetAPITokensRequest) (*GetAPITokensResponse, error)
 	// DeleteAPIToken
+	//
+	// Status: STABLE
 	//
 	// Deletes the specified API Token
 	DeleteAPIToken(context.Context, *DeleteAPITokenRequest) (*DeleteAPITokenResponse, error)
 	// DeleteAPITokens
 	//
+	// Status: STABLE
+	//
 	// Deletes the specified API Token
 	DeleteAPITokens(context.Context, *DeleteAPITokensRequest) (*DeleteAPITokensResponse, error)
 	// GetUserRequest
+	//
+	// Status: STABLE
 	//
 	// This is a request that returns the user information of the
 	// current user or if invoked by an admin from another user
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	// UpdateUserDisplayName
 	//
+	// Status: STABLE
+	//
 	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(context.Context, *UpdateUserDisplayNameRequest) (*UpdateUserDisplayNameResponse, error)
 	// GetUserProjects
 	//
+	// Status: STABLE
+	//
 	// Gets all project_ids a user is member of
 	GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error)
 	// GetNotActivatedUsers
+	//
+	// Status: STABLE
 	//
 	// Get all not activated users (Admin only)
 	GetNotActivatedUsers(context.Context, *GetNotActivatedUsersRequest) (*GetNotActivatedUsersResponse, error)

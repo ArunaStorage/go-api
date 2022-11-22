@@ -2,23 +2,17 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0-beta.8"
+    "version": "0.5.0-beta.10"
   },
   "tags": [
     {
       "name": "ProjectService"
     },
     {
-      "name": "UpdateNotificationService"
-    },
-    {
       "name": "CollectionService"
     },
     {
       "name": "EndpointService"
-    },
-    {
-      "name": "ResourceInfoService"
     },
     {
       "name": "StorageInfoService"
@@ -46,7 +40,7 @@
     "/v1/auth/register": {
       "post": {
         "summary": "RegisterUser",
-        "description": "This request should be called when a new user logs in for the first time",
+        "description": "Status: STABLE\n\nThis request should be called when a new user logs in for the first time",
         "operationId": "UserService_RegisterUser",
         "responses": {
           "200": {
@@ -80,7 +74,7 @@
     "/v1/auth/token": {
       "post": {
         "summary": "CreateAPIToken",
-        "description": "Creates an API token to authenticate",
+        "description": "Status: STABLE\n\nCreates an API token to authenticate",
         "operationId": "UserService_CreateAPIToken",
         "responses": {
           "200": {
@@ -114,7 +108,7 @@
     "/v1/auth/token/{tokenId}": {
       "get": {
         "summary": "GetAPIToken",
-        "description": "Returns one API token by id",
+        "description": "Status: STABLE\n\nReturns one API token by id",
         "operationId": "UserService_GetAPIToken",
         "responses": {
           "200": {
@@ -145,7 +139,7 @@
       },
       "delete": {
         "summary": "DeleteAPIToken",
-        "description": "Deletes the specified API Token",
+        "description": "Status: STABLE\n\nDeletes the specified API Token",
         "operationId": "UserService_DeleteAPIToken",
         "responses": {
           "200": {
@@ -178,7 +172,7 @@
     "/v1/auth/tokens": {
       "get": {
         "summary": "GetAPITokens",
-        "description": "Returns a list of API tokens for a specific user",
+        "description": "Status: STABLE\n\nReturns a list of API tokens for a specific user",
         "operationId": "UserService_GetAPITokens",
         "responses": {
           "200": {
@@ -200,7 +194,7 @@
       },
       "delete": {
         "summary": "DeleteAPITokens",
-        "description": "Deletes the specified API Token",
+        "description": "Status: STABLE\n\nDeletes the specified API Token",
         "operationId": "UserService_DeleteAPITokens",
         "responses": {
           "200": {
@@ -233,7 +227,7 @@
     "/v1/collection": {
       "post": {
         "summary": "CreateNewCollection",
-        "description": "creates a new Collection",
+        "description": "Status: STABLE\n\ncreates a new Collection",
         "operationId": "CollectionService_CreateNewCollection",
         "responses": {
           "200": {
@@ -267,7 +261,7 @@
     "/v1/collection/{collectionId}": {
       "get": {
         "summary": "GetCollectionByID",
-        "description": "Queries a specific Collection by ID\nThe result can be one_of:\nCollectionOverview -\u003e default\nCollectionWithID\nCollection (full)\nThis can be modified with the optional OutputFormat parameter",
+        "description": "Status: STABLE\n\nQueries a specific Collection by ID\nThe result can be one_of:\nCollectionOverview -\u003e default\nCollectionWithID\nCollection (full)\nThis can be modified with the optional OutputFormat parameter",
         "operationId": "CollectionService_GetCollectionByID",
         "responses": {
           "200": {
@@ -298,7 +292,7 @@
       },
       "delete": {
         "summary": "DeleteCollection",
-        "description": "This request deletes the collection.\nIf with_version is true, it deletes the collection and all its versions.\nIf cascade is true, all objects that are owned by the collection will also\ndeleted. This should be avoided",
+        "description": "Status: STABLE\n\nThis request deletes the collection.\nIf with_version is true, it deletes the collection and all its versions.\nIf cascade is true, all objects that are owned by the collection will also\ndeleted. This should be avoided",
         "operationId": "CollectionService_DeleteCollection",
         "responses": {
           "200": {
@@ -343,7 +337,7 @@
       },
       "put": {
         "summary": "UpdateCollection",
-        "description": "Updates the current collection\nThis will update the collection in place if it is unversioned / latest\nA versioned (pinned) collection requires a new semantic version after the\nupdate This can be used to pin a collection to a specific version similar\nto the PinCollectionVersion request",
+        "description": "Status: STABLE\n\nUpdates the current collection\nThis will update the collection in place if it is unversioned / latest\nA versioned (pinned) collection requires a new semantic version after the\nupdate This can be used to pin a collection to a specific version similar\nto the PinCollectionVersion request",
         "operationId": "CollectionService_UpdateCollection",
         "responses": {
           "200": {
@@ -421,7 +415,7 @@
     "/v1/collection/{collectionId}/group": {
       "post": {
         "summary": "CreateObjectGroup",
-        "description": "This creates a new ObjectGroup in the collection",
+        "description": "Status: STABLE\n\nThis creates a new ObjectGroup in the collection",
         "operationId": "ObjectGroupService_CreateObjectGroup",
         "responses": {
           "200": {
@@ -500,7 +494,7 @@
     "/v1/collection/{collectionId}/group/{groupId}": {
       "get": {
         "summary": "GetObjectGroupById",
-        "description": "This gets a specific ObjectGroup by ID\nBy default the latest revision is always returned, older revisions need to\nbe specified separately",
+        "description": "Status: STABLE\n\nThis gets a specific ObjectGroup by ID\nBy default the latest revision is always returned, older revisions need to\nbe specified separately",
         "operationId": "ObjectGroupService_GetObjectGroupById",
         "responses": {
           "200": {
@@ -538,7 +532,7 @@
       },
       "delete": {
         "summary": "DeleteObjectGroup",
-        "description": "This is a request that deletes a specified ObjectGroup\nThis does not delete the associated Objects",
+        "description": "Status: STABLE\n\nThis is a request that deletes a specified ObjectGroup\nThis does not delete the associated Objects",
         "operationId": "ObjectGroupService_DeleteObjectGroup",
         "responses": {
           "200": {
@@ -576,7 +570,7 @@
       },
       "post": {
         "summary": "UpdateObjectGroup",
-        "description": "This creates an updated ObjectGroup\nObjectGroups are immutable\nUpdating an ObjectGroup will create a new Revision of the ObjectGroup",
+        "description": "Status: STABLE\n\nThis creates an updated ObjectGroup\nObjectGroups are immutable\nUpdating an ObjectGroup will create a new Revision of the ObjectGroup",
         "operationId": "ObjectGroupService_UpdateObjectGroup",
         "responses": {
           "200": {
@@ -662,7 +656,7 @@
     "/v1/collection/{collectionId}/group/{groupId}/add_labels": {
       "patch": {
         "summary": "AddLabelsToObjectGroup",
-        "description": "This is a specific request to add new label(s)\nto an existing object_group, in contrast to UpdateObjectGroup\nthis will not create a new revision for the specific object_group\nInstead it will directly add the specified label(s) to the object_group",
+        "description": "Status: STABLE\n\nThis is a specific request to add new label(s)\nto an existing object_group, in contrast to UpdateObjectGroup\nthis will not create a new revision for the specific object_group\nInstead it will directly add the specified label(s) to the object_group",
         "operationId": "ObjectGroupService_AddLabelsToObjectGroup",
         "responses": {
           "200": {
@@ -719,7 +713,7 @@
     "/v1/collection/{collectionId}/group/{groupId}/history": {
       "get": {
         "summary": "GetObjectGroupHistory",
-        "description": "This requests a full history with all objectgroups\nthat are part of this objectgroups history",
+        "description": "Status: BETA\n\nThis requests a full history with all objectgroups\nthat are part of this objectgroups history",
         "operationId": "ObjectGroupService_GetObjectGroupHistory",
         "responses": {
           "200": {
@@ -772,7 +766,7 @@
     "/v1/collection/{collectionId}/group/{groupId}/objects": {
       "get": {
         "summary": "GetObjectGroupObjects",
-        "description": "Requests a list of paginated objects associated with this\nspecific objectgroup",
+        "description": "Status: STABLE\n\nRequests a list of paginated objects associated with this\nspecific objectgroup",
         "operationId": "ObjectGroupService_GetObjectGroupObjects",
         "responses": {
           "200": {
@@ -832,7 +826,7 @@
     "/v1/collection/{collectionId}/groups": {
       "get": {
         "summary": "GetObjectGroups",
-        "description": "This is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
+        "description": "Status: STABLE\n\nThis is a request that returns a (paginated) list of\nObjectGroups that contain a specific set of labels.",
         "operationId": "ObjectGroupService_GetObjectGroups",
         "responses": {
           "200": {
@@ -902,7 +896,7 @@
     "/v1/collection/{collectionId}/object": {
       "post": {
         "summary": "InitializeNewObject",
-        "description": "This initializes a new object\nInitializing an object will put it in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "description": "Status: STABLE\n\nThis initializes a new object\nInitializing an object will put it in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
         "operationId": "ObjectService_InitializeNewObject",
         "responses": {
           "200": {
@@ -961,7 +955,7 @@
     "/v1/collection/{collectionId}/object/{objectId}": {
       "get": {
         "summary": "GetObjectByID",
-        "description": "gets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
+        "description": "Status: STABLE\n\ngets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
         "operationId": "ObjectService_GetObjectByID",
         "responses": {
           "200": {
@@ -1006,7 +1000,7 @@
       },
       "delete": {
         "summary": "DeleteObject",
-        "description": "Deletes the object with the complete revision history.",
+        "description": "Status: STABLE\n\nDeletes the object with the complete revision history.",
         "operationId": "ObjectService_DeleteObject",
         "responses": {
           "200": {
@@ -1064,7 +1058,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/add_labels": {
       "patch": {
         "summary": "AddLabelsToObject",
-        "description": "This is a specific request to add new label(s)\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
+        "description": "Status: STABLE\n\nThis is a specific request to add new label(s)\nto an existing object, in contrast to UpdateObject\nthis will not create a new object in the staging area\nInstead it will directly add the specified label(s) to the object",
         "operationId": "ObjectService_AddLabelsToObject",
         "responses": {
           "200": {
@@ -1121,7 +1115,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/clone": {
       "post": {
         "summary": "CloneObject",
-        "description": "This method clones an object and creates a copy in the same collection.\nThis copy has a new id and revision and will not receive any updates from\nthe original object.",
+        "description": "Status: STABLE\n\nThis method clones an object and creates a copy in the same collection.\nThis copy has a new id and revision and will not receive any updates from\nthe original object.",
         "operationId": "ObjectService_CloneObject",
         "responses": {
           "200": {
@@ -1175,7 +1169,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/download": {
       "get": {
         "summary": "GetDownloadUrl",
-        "description": "This method will return a url that can be used to download a file from S3.",
+        "description": "Status: STABLE\n\nThis method will return a url that can be used to download a file from S3.",
         "operationId": "ObjectService_GetDownloadURL",
         "responses": {
           "200": {
@@ -1215,7 +1209,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/endpoints": {
       "get": {
         "summary": "GetObjectEndpoints",
-        "description": "This returns a list of endpoints\nOne endpoint will be the \"default\" endpoint",
+        "description": "Status: BETA\n\nThis returns a list of endpoints\nOne endpoint will be the \"default\" endpoint",
         "operationId": "ObjectService_GetObjectEndpoints",
         "responses": {
           "200": {
@@ -1255,7 +1249,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/groups": {
       "get": {
         "summary": "GetObjectGroupsFromObject",
-        "description": "This gets all ObjectGroups associated to a specific\nObject Objects can be part of multiple ObjectGroups at once",
+        "description": "Status: STABLE\n\nThis gets all ObjectGroups associated to a specific\nObject Objects can be part of multiple ObjectGroups at once",
         "operationId": "ObjectGroupService_GetObjectGroupsFromObject",
         "responses": {
           "200": {
@@ -1308,7 +1302,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/latest": {
       "get": {
         "summary": "GetLatestObjectRevision",
-        "description": "This returns the latest revision of a specific object\nThe returned `latest` object will have a different id if the current\nobject is not the latest revision",
+        "description": "Status: STABLE\n\nThis returns the latest revision of a specific object\nThe returned `latest` object will have a different id if the current\nobject is not the latest revision",
         "operationId": "ObjectService_GetLatestObjectRevision",
         "responses": {
           "200": {
@@ -1348,7 +1342,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/reference/{targetCollectionId}": {
       "post": {
         "summary": "CreateObjectReference",
-        "description": "Creates a new reference of this object in another collection",
+        "description": "Status: STABLE\n\nCreates a new reference of this object in another collection",
         "operationId": "ObjectService_CreateObjectReference",
         "responses": {
           "200": {
@@ -1413,7 +1407,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/references": {
       "get": {
         "summary": "GetReferences",
-        "description": "Get a list of references for this object (optional) including all revisions",
+        "description": "Status: STABLE\n\nGet a list of references for this object (optional) including all revisions",
         "operationId": "ObjectService_GetReferences",
         "responses": {
           "200": {
@@ -1460,7 +1454,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/revisions": {
       "get": {
         "summary": "GetObjectRevisions",
-        "description": "This returns the full list of revisions of a specified object\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This is by default a paginated request",
+        "description": "Status: STABLE\n\nThis returns the full list of revisions of a specified object\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This is by default a paginated request",
         "operationId": "ObjectService_GetObjectRevisions",
         "responses": {
           "200": {
@@ -1520,7 +1514,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/set_hooks": {
       "patch": {
         "summary": "SetHooksOfObject",
-        "description": "This is a specific request to update the complete list\nof hooks for a specific object. This will not update the object\nand create a new id, instead it will overwrite all hooks of the existing\nobject.",
+        "description": "Status: BETA\n\nThis is a specific request to update the complete list\nof hooks for a specific object. This will not update the object\nand create a new id, instead it will overwrite all hooks of the existing\nobject.",
         "operationId": "ObjectService_SetHooksOfObject",
         "responses": {
           "200": {
@@ -1577,7 +1571,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/finish": {
       "patch": {
         "summary": "FinishObjectStaging",
-        "description": "This method completes the staging of an object.",
+        "description": "Status: STABLE\n\nThis method completes the staging of an object.",
         "operationId": "ObjectService_FinishObjectStaging",
         "responses": {
           "200": {
@@ -1653,7 +1647,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/staging/{uploadId}/upload": {
       "get": {
         "summary": "GetUploadURL",
-        "description": "This method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
+        "description": "Status: STABLE\n\nThis method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
         "operationId": "ObjectService_GetUploadURL",
         "responses": {
           "200": {
@@ -1715,7 +1709,7 @@
     "/v1/collection/{collectionId}/object/{objectId}/update": {
       "post": {
         "summary": "UpdateObject",
-        "description": "Objects are immutable!\nUpdating an object will create a new revision for the object\nThis method will put the new revision in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
+        "description": "Status: STABLE\n\nObjects are immutable!\nUpdating an object will create a new revision for the object\nThis method will put the new revision in a staging area.\nStaged objects will get a separate staging id and need to be finished\nbefore they can be used.",
         "operationId": "ObjectService_UpdateObject",
         "responses": {
           "200": {
@@ -1789,7 +1783,7 @@
     "/v1/collection/{collectionId}/objects": {
       "get": {
         "summary": "GetObjects",
-        "description": "GetObjects returns a (paginated) list of objects in a specific collection\nBy default only the latest revisions of all objects will be shown\nThis behaviour can be changed with the include_history flag\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This request contains a LabelOrIDQuery message,\nthis is either a list of request ObjectIDs or a query filtered by Labels",
+        "description": "Status: STABLE\n\nGetObjects returns a (paginated) list of objects in a specific collection\nBy default only the latest revisions of all objects will be shown\nThis behaviour can be changed with the include_history flag\nWith the optional with_url boolean a download link can automatically be\nrequested for each Object This request contains a LabelOrIDQuery message,\nthis is either a list of request ObjectIDs or a query filtered by Labels",
         "operationId": "ObjectService_GetObjects",
         "responses": {
           "200": {
@@ -1864,7 +1858,7 @@
       },
       "delete": {
         "summary": "DeleteObjects",
-        "description": "Deletes multiple objects at once.",
+        "description": "Status: STABLE\n\nDeletes multiple objects at once.",
         "operationId": "ObjectService_DeleteObjects",
         "responses": {
           "200": {
@@ -1922,7 +1916,7 @@
     "/v1/collection/{collectionId}/objects/batch": {
       "get": {
         "summary": "GetDownloadLinksBatch",
-        "description": "This method can be used to get download urls for multiple objects.\nThe order of the returned urls will be the same as the order of the object\nids in the request.",
+        "description": "Status: BETA\n\nThis method can be used to get download urls for multiple objects.\nThe order of the returned urls will be the same as the order of the object\nids in the request.",
         "operationId": "ObjectService_GetDownloadLinksBatch",
         "responses": {
           "200": {
@@ -1966,7 +1960,7 @@
     "/v1/collection/{collectionId}/objects/stream": {
       "post": {
         "summary": "CreateDownloadLinksStream",
-        "description": "Creates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of Objects as a stream that would\notherwise cause issues with the connection",
+        "description": "Status: BETA\n\nCreates a stream of objects and presigned links based on the provided query\nThis can be used retrieve a large number of Objects as a stream that would\notherwise cause issues with the connection",
         "operationId": "ObjectService_CreateDownloadLinksStream",
         "responses": {
           "200": {
@@ -2025,7 +2019,7 @@
     "/v1/collection/{collectionId}/pin": {
       "post": {
         "summary": "PinCollectionVersion",
-        "description": "This pins the current status of the version to a\nspecific version. Effectively creating a copy of the collection with a\nstable version All objects will be pinned to an explicit revision number\nPinned collections can not be updated in place",
+        "description": "Status: STABLE\n\nThis pins the current status of the version to a\nspecific version. Effectively creating a copy of the collection with a\nstable version All objects will be pinned to an explicit revision number\nPinned collections can not be updated in place",
         "operationId": "CollectionService_PinCollectionVersion",
         "responses": {
           "200": {
@@ -2072,7 +2066,7 @@
     "/v1/collections/{projectId}": {
       "get": {
         "summary": "GetCollections",
-        "description": "queries multiple collections by ID or by LabelFilter\nThis returns by default a paginated result with 20 entries.\nMust specify a project_id as context",
+        "description": "Status: STABLE\n\nqueries multiple collections by ID or by LabelFilter\nThis returns by default a paginated result with 20 entries.\nMust specify a project_id as context",
         "operationId": "CollectionService_GetCollections",
         "responses": {
           "200": {
@@ -2142,7 +2136,7 @@
     "/v1/endpoint": {
       "get": {
         "summary": "GetEndpoint",
-        "description": "Gets an specific endpoint by ID or Name",
+        "description": "Status: BETA\n\nGets an specific endpoint by ID or Name",
         "operationId": "EndpointService_GetEndpoint",
         "responses": {
           "200": {
@@ -2180,7 +2174,7 @@
       },
       "post": {
         "summary": "AddEndpoint",
-        "description": "Registers a new Endpoint (Aruna DataProxy) to the server\nNeeds admin permissions",
+        "description": "Status: BETA\n\nRegisters a new Endpoint (Aruna DataProxy) to the server\nNeeds admin permissions",
         "operationId": "EndpointService_AddEndpoint",
         "responses": {
           "200": {
@@ -2214,7 +2208,7 @@
     "/v1/endpoint/default": {
       "get": {
         "summary": "GetDefaultEndpoint",
-        "description": "This request returns the default endpoint for the current aruna_server\nIt may produce different results depending on the used server",
+        "description": "Status: BETA\n\nThis request returns the default endpoint for the current aruna_server\nIt may produce different results depending on the used server",
         "operationId": "EndpointService_GetDefaultEndpoint",
         "responses": {
           "200": {
@@ -2238,7 +2232,7 @@
     "/v1/endpoint/{endpointId}": {
       "delete": {
         "summary": "DeleteEndpoint",
-        "description": "Deletes a specific endpoint by id\nThis needs admin permissions",
+        "description": "Status: BETA\n\nDeletes a specific endpoint by id\nThis needs admin permissions",
         "operationId": "EndpointService_DeleteEndpoint",
         "responses": {
           "200": {
@@ -2271,7 +2265,7 @@
     "/v1/endpoints": {
       "get": {
         "summary": "GetEndpoints",
-        "description": "Gets all available endpoints",
+        "description": "Status: BETA\n\nGets all available endpoints",
         "operationId": "EndpointService_GetEndpoints",
         "responses": {
           "200": {
@@ -2292,63 +2286,10 @@
         ]
       }
     },
-    "/v1/info/resource/hierarchy": {
-      "get": {
-        "summary": "GetResourceHierarchy",
-        "description": "This requests a hierarchy based on one resource (object / objectgroup or collection)\nand returns a hierarchy with all associated higherlevel objects up to projects.\nNeeds projects level read access.",
-        "operationId": "ResourceInfoService_GetResourceHierarchy",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetResourceHierarchyResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "resourceId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "resourceType",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "RESOURCE_TYPE_UNSPECIFIED",
-              "RESOURCE_TYPE_PROJECT",
-              "RESOURCE_TYPE_COLLECTION",
-              "RESOURCE_TYPE_OBJECT_GROUP",
-              "RESOURCE_TYPE_OBJECT",
-              "RESOURCE_TYPE_ALL"
-            ],
-            "default": "RESOURCE_TYPE_UNSPECIFIED"
-          }
-        ],
-        "tags": [
-          "ResourceInfoService"
-        ]
-      }
-    },
     "/v1/info/status": {
       "get": {
         "summary": "GetStorageStatus",
-        "description": "A request to get the current status of the storage components by location(s)",
+        "description": "Status: ALPHA\n\nA request to get the current status of the storage components by location(s)",
         "operationId": "StorageInfoService_GetStorageStatus",
         "responses": {
           "200": {
@@ -2372,7 +2313,7 @@
     "/v1/info/version": {
       "get": {
         "summary": "GetStorageVersion",
-        "description": "A request to get the current version of the server application\nString representation and https://semver.org/",
+        "description": "Status: ALPHA\n\nA request to get the current version of the server application\nString representation and https://semver.org/",
         "operationId": "StorageInfoService_GetStorageVersion",
         "responses": {
           "200": {
@@ -2396,7 +2337,7 @@
     "/v1/project": {
       "post": {
         "summary": "CreateProject",
-        "description": "Creates a new project all users and collections are bundled in a project.",
+        "description": "Status: STABLE\n\nCreates a new project all users and collections are bundled in a project.",
         "operationId": "ProjectService_CreateProject",
         "responses": {
           "200": {
@@ -2430,7 +2371,7 @@
     "/v1/project/{projectId}": {
       "get": {
         "summary": "GetProject",
-        "description": "Requests a project by id",
+        "description": "Status: STABLE\n\nRequests a project by id",
         "operationId": "ProjectService_GetProject",
         "responses": {
           "200": {
@@ -2461,7 +2402,7 @@
       },
       "delete": {
         "summary": "DestroyProject",
-        "description": "Destroys the project and all its associated data. Must be empty\n(cannot contain any collections).",
+        "description": "Status: STABLE\n\nDestroys the project and all its associated data. Must be empty\n(cannot contain any collections).",
         "operationId": "ProjectService_DestroyProject",
         "responses": {
           "200": {
@@ -2492,7 +2433,7 @@
       },
       "put": {
         "summary": "UpdateProject",
-        "description": "Updates the project. All (meta) data will be overwritten.",
+        "description": "Status: STABLE\n\nUpdates the project. All (meta) data will be overwritten.",
         "operationId": "ProjectService_UpdateProject",
         "responses": {
           "200": {
@@ -2539,7 +2480,7 @@
     "/v1/project/{projectId}/add_user": {
       "post": {
         "summary": "AddUserToProject",
-        "description": "Adds a new user to a given project by its id",
+        "description": "Status: STABLE\n\nAdds a new user to a given project by its id",
         "operationId": "ProjectService_AddUserToProject",
         "responses": {
           "200": {
@@ -2586,7 +2527,7 @@
     "/v1/project/{projectId}/edit_user": {
       "patch": {
         "summary": "EditUserPermissionsForProject",
-        "description": "Modifies the user_permission of a specific user for the project.",
+        "description": "Status: STABLE\n\nModifies the user_permission of a specific user for the project.",
         "operationId": "ProjectService_EditUserPermissionsForProject",
         "responses": {
           "200": {
@@ -2633,7 +2574,7 @@
     "/v1/project/{projectId}/get_user": {
       "get": {
         "summary": "GetUserPermissionsForProject",
-        "description": "Get the user_permission of a specific user for the project.",
+        "description": "Status: STABLE\n\nGet the user_permission of a specific user for the project.",
         "operationId": "ProjectService_GetUserPermissionsForProject",
         "responses": {
           "200": {
@@ -2673,7 +2614,7 @@
     "/v1/project/{projectId}/remove_user": {
       "delete": {
         "summary": "RemoveUserFromProject",
-        "description": "Removes a specified user from the project.",
+        "description": "Status: STABLE\n\nRemoves a specified user from the project.",
         "operationId": "ProjectService_RemoveUserFromProject",
         "responses": {
           "200": {
@@ -2712,8 +2653,8 @@
     },
     "/v1/projects": {
       "get": {
-        "summary": "GetProject",
-        "description": "Admin request to get all projects",
+        "summary": "GetProjects",
+        "description": "Status: STABLE\n\nAdmin request to get all projects",
         "operationId": "ProjectService_GetProjects",
         "responses": {
           "200": {
@@ -2737,7 +2678,7 @@
     "/v1/user": {
       "get": {
         "summary": "GetUserRequest",
-        "description": "This is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user",
+        "description": "Status: STABLE\n\nThis is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user",
         "operationId": "UserService_GetUser",
         "responses": {
           "200": {
@@ -2770,7 +2711,7 @@
     "/v1/user/display_name": {
       "patch": {
         "summary": "UpdateUserDisplayName",
-        "description": "Updates the Displayname for the user (Personal only)",
+        "description": "Status: STABLE\n\nUpdates the Displayname for the user (Personal only)",
         "operationId": "UserService_UpdateUserDisplayName",
         "responses": {
           "200": {
@@ -2804,7 +2745,7 @@
     "/v1/user/not_activated": {
       "get": {
         "summary": "GetNotActivatedUsers",
-        "description": "Get all not activated users (Admin only)",
+        "description": "Status: STABLE\n\nGet all not activated users (Admin only)",
         "operationId": "UserService_GetNotActivatedUsers",
         "responses": {
           "200": {
@@ -2828,7 +2769,7 @@
     "/v1/user/{userId}/activate": {
       "patch": {
         "summary": "ActivateUser",
-        "description": "This activates a specific user (Admin request)",
+        "description": "Status: STABLE\n\nThis activates a specific user (Admin request)",
         "operationId": "UserService_ActivateUser",
         "responses": {
           "200": {
@@ -2869,7 +2810,7 @@
     "/v1/user/{userId}/projects": {
       "get": {
         "summary": "GetUserProjects",
-        "description": "Gets all project_ids a user is member of",
+        "description": "Status: STABLE\n\nGets all project_ids a user is member of",
         "operationId": "UserService_GetUserProjects",
         "responses": {
           "200": {
@@ -3325,6 +3266,27 @@
         }
       }
     },
+    "v1CreateServiceAccountResponse": {
+      "type": "object",
+      "properties": {
+        "serviceAccount": {
+          "$ref": "#/definitions/v1ServiceAccount"
+        }
+      }
+    },
+    "v1CreateServiceAccountTokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/v1Token",
+          "title": "This contains only the token description"
+        },
+        "tokenSecret": {
+          "type": "string",
+          "title": "This is the actual secret token\nAttention, this can not be recreated and needs to be stored securely\nNew tokens will always contain a new secret"
+        }
+      }
+    },
     "v1CreateStreamGroupResponse": {
       "type": "object",
       "properties": {
@@ -3370,11 +3332,28 @@
     "v1DeleteObjectsResponse": {
       "type": "object"
     },
+    "v1DeleteServiceAccountResponse": {
+      "type": "object"
+    },
+    "v1DeleteServiceAccountTokenResponse": {
+      "type": "object"
+    },
+    "v1DeleteServiceAccountTokensResponse": {
+      "type": "object"
+    },
     "v1DeleteStreamGroupResponse": {
       "type": "object"
     },
     "v1DestroyProjectResponse": {
       "type": "object"
+    },
+    "v1EditServiceAccountPermissionResponse": {
+      "type": "object",
+      "properties": {
+        "serviceAccount": {
+          "$ref": "#/definitions/v1ServiceAccount"
+        }
+      }
     },
     "v1EditUserPermissionsForProjectResponse": {
       "type": "object"
@@ -3720,6 +3699,38 @@
             "$ref": "#/definitions/v1Hierarchy"
           },
           "title": "Returns a list of hierarchies\nfor collections n will be 1 \nfor objects this might contain more than one hierarchy\nstarting with the object_id but different collections / objectgroups"
+        }
+      }
+    },
+    "v1GetServiceAccountTokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/v1Token",
+          "title": "This contains only the token description"
+        }
+      }
+    },
+    "v1GetServiceAccountTokensResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Token"
+          },
+          "title": "This contains only the token description"
+        }
+      }
+    },
+    "v1GetServiceAccountsByProjectResponse": {
+      "type": "object",
+      "properties": {
+        "svcAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ServiceAccount"
+          }
         }
       }
     },
@@ -4297,6 +4308,9 @@
         },
         "permission": {
           "$ref": "#/definitions/v1Permission"
+        },
+        "serviceAccount": {
+          "type": "boolean"
         }
       }
     },
@@ -4437,6 +4451,23 @@
         },
         "labels": {
           "type": "string"
+        }
+      }
+    },
+    "v1ServiceAccount": {
+      "type": "object",
+      "properties": {
+        "svcAccountId": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
         }
       }
     },

@@ -24,23 +24,33 @@ const _ = grpc.SupportPackageIsVersion7
 type EndpointServiceClient interface {
 	// AddEndpoint
 	//
+	// Status: BETA
+	//
 	// Registers a new Endpoint (Aruna DataProxy) to the server
 	// Needs admin permissions
 	AddEndpoint(ctx context.Context, in *AddEndpointRequest, opts ...grpc.CallOption) (*AddEndpointResponse, error)
 	// GetEndpoint
 	//
+	// Status: BETA
+	//
 	// Gets an specific endpoint by ID or Name
 	GetEndpoint(ctx context.Context, in *GetEndpointRequest, opts ...grpc.CallOption) (*GetEndpointResponse, error)
 	// GetEndpoints
+	//
+	// Status: BETA
 	//
 	// Gets all available endpoints
 	GetEndpoints(ctx context.Context, in *GetEndpointsRequest, opts ...grpc.CallOption) (*GetEndpointsResponse, error)
 	// DeleteEndpoint
 	//
+	// Status: BETA
+	//
 	// Deletes a specific endpoint by id
 	// This needs admin permissions
 	DeleteEndpoint(ctx context.Context, in *DeleteEndpointRequest, opts ...grpc.CallOption) (*DeleteEndpointResponse, error)
 	// GetDefaultEndpoint
+	//
+	// Status: BETA
 	//
 	// This request returns the default endpoint for the current aruna_server
 	// It may produce different results depending on the used server
@@ -106,23 +116,33 @@ func (c *endpointServiceClient) GetDefaultEndpoint(ctx context.Context, in *GetD
 type EndpointServiceServer interface {
 	// AddEndpoint
 	//
+	// Status: BETA
+	//
 	// Registers a new Endpoint (Aruna DataProxy) to the server
 	// Needs admin permissions
 	AddEndpoint(context.Context, *AddEndpointRequest) (*AddEndpointResponse, error)
 	// GetEndpoint
 	//
+	// Status: BETA
+	//
 	// Gets an specific endpoint by ID or Name
 	GetEndpoint(context.Context, *GetEndpointRequest) (*GetEndpointResponse, error)
 	// GetEndpoints
+	//
+	// Status: BETA
 	//
 	// Gets all available endpoints
 	GetEndpoints(context.Context, *GetEndpointsRequest) (*GetEndpointsResponse, error)
 	// DeleteEndpoint
 	//
+	// Status: BETA
+	//
 	// Deletes a specific endpoint by id
 	// This needs admin permissions
 	DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error)
 	// GetDefaultEndpoint
+	//
+	// Status: BETA
 	//
 	// This request returns the default endpoint for the current aruna_server
 	// It may produce different results depending on the used server

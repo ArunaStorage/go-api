@@ -24,9 +24,13 @@ const _ = grpc.SupportPackageIsVersion7
 type ObjectGroupServiceClient interface {
 	// CreateObjectGroup
 	//
+	// Status: STABLE
+	//
 	// This creates a new ObjectGroup in the collection
 	CreateObjectGroup(ctx context.Context, in *CreateObjectGroupRequest, opts ...grpc.CallOption) (*CreateObjectGroupResponse, error)
 	// UpdateObjectGroup
+	//
+	// Status: STABLE
 	//
 	// This creates an updated ObjectGroup
 	// ObjectGroups are immutable
@@ -34,36 +38,50 @@ type ObjectGroupServiceClient interface {
 	UpdateObjectGroup(ctx context.Context, in *UpdateObjectGroupRequest, opts ...grpc.CallOption) (*UpdateObjectGroupResponse, error)
 	// GetObjectGroupById
 	//
+	// Status: STABLE
+	//
 	// This gets a specific ObjectGroup by ID
 	// By default the latest revision is always returned, older revisions need to
 	// be specified separately
 	GetObjectGroupById(ctx context.Context, in *GetObjectGroupByIdRequest, opts ...grpc.CallOption) (*GetObjectGroupByIdResponse, error)
 	// GetObjectGroupsFromObject
 	//
+	// Status: STABLE
+	//
 	// This gets all ObjectGroups associated to a specific
 	// Object Objects can be part of multiple ObjectGroups at once
 	GetObjectGroupsFromObject(ctx context.Context, in *GetObjectGroupsFromObjectRequest, opts ...grpc.CallOption) (*GetObjectGroupsFromObjectResponse, error)
 	// GetObjectGroups
+	//
+	// Status: STABLE
 	//
 	// This is a request that returns a (paginated) list of
 	// ObjectGroups that contain a specific set of labels.
 	GetObjectGroups(ctx context.Context, in *GetObjectGroupsRequest, opts ...grpc.CallOption) (*GetObjectGroupsResponse, error)
 	// GetObjectGroupHistory
 	//
+	// Status: BETA
+	//
 	// This requests a full history with all objectgroups
 	// that are part of this objectgroups history
 	GetObjectGroupHistory(ctx context.Context, in *GetObjectGroupHistoryRequest, opts ...grpc.CallOption) (*GetObjectGroupHistoryResponse, error)
 	// GetObjectGroupObjects
+	//
+	// Status: STABLE
 	//
 	// Requests a list of paginated objects associated with this
 	// specific objectgroup
 	GetObjectGroupObjects(ctx context.Context, in *GetObjectGroupObjectsRequest, opts ...grpc.CallOption) (*GetObjectGroupObjectsResponse, error)
 	// DeleteObjectGroup
 	//
+	// Status: STABLE
+	//
 	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(ctx context.Context, in *DeleteObjectGroupRequest, opts ...grpc.CallOption) (*DeleteObjectGroupResponse, error)
 	// AddLabelsToObjectGroup
+	//
+	// Status: STABLE
 	//
 	// This is a specific request to add new label(s)
 	// to an existing object_group, in contrast to UpdateObjectGroup
@@ -167,9 +185,13 @@ func (c *objectGroupServiceClient) AddLabelsToObjectGroup(ctx context.Context, i
 type ObjectGroupServiceServer interface {
 	// CreateObjectGroup
 	//
+	// Status: STABLE
+	//
 	// This creates a new ObjectGroup in the collection
 	CreateObjectGroup(context.Context, *CreateObjectGroupRequest) (*CreateObjectGroupResponse, error)
 	// UpdateObjectGroup
+	//
+	// Status: STABLE
 	//
 	// This creates an updated ObjectGroup
 	// ObjectGroups are immutable
@@ -177,36 +199,50 @@ type ObjectGroupServiceServer interface {
 	UpdateObjectGroup(context.Context, *UpdateObjectGroupRequest) (*UpdateObjectGroupResponse, error)
 	// GetObjectGroupById
 	//
+	// Status: STABLE
+	//
 	// This gets a specific ObjectGroup by ID
 	// By default the latest revision is always returned, older revisions need to
 	// be specified separately
 	GetObjectGroupById(context.Context, *GetObjectGroupByIdRequest) (*GetObjectGroupByIdResponse, error)
 	// GetObjectGroupsFromObject
 	//
+	// Status: STABLE
+	//
 	// This gets all ObjectGroups associated to a specific
 	// Object Objects can be part of multiple ObjectGroups at once
 	GetObjectGroupsFromObject(context.Context, *GetObjectGroupsFromObjectRequest) (*GetObjectGroupsFromObjectResponse, error)
 	// GetObjectGroups
+	//
+	// Status: STABLE
 	//
 	// This is a request that returns a (paginated) list of
 	// ObjectGroups that contain a specific set of labels.
 	GetObjectGroups(context.Context, *GetObjectGroupsRequest) (*GetObjectGroupsResponse, error)
 	// GetObjectGroupHistory
 	//
+	// Status: BETA
+	//
 	// This requests a full history with all objectgroups
 	// that are part of this objectgroups history
 	GetObjectGroupHistory(context.Context, *GetObjectGroupHistoryRequest) (*GetObjectGroupHistoryResponse, error)
 	// GetObjectGroupObjects
+	//
+	// Status: STABLE
 	//
 	// Requests a list of paginated objects associated with this
 	// specific objectgroup
 	GetObjectGroupObjects(context.Context, *GetObjectGroupObjectsRequest) (*GetObjectGroupObjectsResponse, error)
 	// DeleteObjectGroup
 	//
+	// Status: STABLE
+	//
 	// This is a request that deletes a specified ObjectGroup
 	// This does not delete the associated Objects
 	DeleteObjectGroup(context.Context, *DeleteObjectGroupRequest) (*DeleteObjectGroupResponse, error)
 	// AddLabelsToObjectGroup
+	//
+	// Status: STABLE
 	//
 	// This is a specific request to add new label(s)
 	// to an existing object_group, in contrast to UpdateObjectGroup

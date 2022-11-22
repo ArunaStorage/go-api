@@ -24,38 +24,56 @@ const _ = grpc.SupportPackageIsVersion7
 type ProjectServiceClient interface {
 	// CreateProject
 	//
+	// Status: STABLE
+	//
 	// Creates a new project all users and collections are bundled in a project.
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
 	// AddUserToProject
+	//
+	// Status: STABLE
 	//
 	// Adds a new user to a given project by its id
 	AddUserToProject(ctx context.Context, in *AddUserToProjectRequest, opts ...grpc.CallOption) (*AddUserToProjectResponse, error)
 	// GetProject
 	//
+	// Status: STABLE
+	//
 	// Requests a project by id
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
-	// GetProject
+	// GetProjects
+	//
+	// Status: STABLE
 	//
 	// Admin request to get all projects
 	GetProjects(ctx context.Context, in *GetProjectsRequest, opts ...grpc.CallOption) (*GetProjectsResponse, error)
 	// DestroyProject
+	//
+	// Status: STABLE
 	//
 	// Destroys the project and all its associated data. Must be empty
 	// (cannot contain any collections).
 	DestroyProject(ctx context.Context, in *DestroyProjectRequest, opts ...grpc.CallOption) (*DestroyProjectResponse, error)
 	// UpdateProject
 	//
+	// Status: STABLE
+	//
 	// Updates the project. All (meta) data will be overwritten.
 	UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...grpc.CallOption) (*UpdateProjectResponse, error)
 	// RemoveUserFromProject
+	//
+	// Status: STABLE
 	//
 	// Removes a specified user from the project.
 	RemoveUserFromProject(ctx context.Context, in *RemoveUserFromProjectRequest, opts ...grpc.CallOption) (*RemoveUserFromProjectResponse, error)
 	// GetUserPermissionsForProject
 	//
+	// Status: STABLE
+	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(ctx context.Context, in *GetUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*GetUserPermissionsForProjectResponse, error)
 	// EditUserPermissionsForProject
+	//
+	// Status: STABLE
 	//
 	// Modifies the user_permission of a specific user for the project.
 	EditUserPermissionsForProject(ctx context.Context, in *EditUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*EditUserPermissionsForProjectResponse, error)
@@ -156,38 +174,56 @@ func (c *projectServiceClient) EditUserPermissionsForProject(ctx context.Context
 type ProjectServiceServer interface {
 	// CreateProject
 	//
+	// Status: STABLE
+	//
 	// Creates a new project all users and collections are bundled in a project.
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
 	// AddUserToProject
+	//
+	// Status: STABLE
 	//
 	// Adds a new user to a given project by its id
 	AddUserToProject(context.Context, *AddUserToProjectRequest) (*AddUserToProjectResponse, error)
 	// GetProject
 	//
+	// Status: STABLE
+	//
 	// Requests a project by id
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
-	// GetProject
+	// GetProjects
+	//
+	// Status: STABLE
 	//
 	// Admin request to get all projects
 	GetProjects(context.Context, *GetProjectsRequest) (*GetProjectsResponse, error)
 	// DestroyProject
+	//
+	// Status: STABLE
 	//
 	// Destroys the project and all its associated data. Must be empty
 	// (cannot contain any collections).
 	DestroyProject(context.Context, *DestroyProjectRequest) (*DestroyProjectResponse, error)
 	// UpdateProject
 	//
+	// Status: STABLE
+	//
 	// Updates the project. All (meta) data will be overwritten.
 	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectResponse, error)
 	// RemoveUserFromProject
+	//
+	// Status: STABLE
 	//
 	// Removes a specified user from the project.
 	RemoveUserFromProject(context.Context, *RemoveUserFromProjectRequest) (*RemoveUserFromProjectResponse, error)
 	// GetUserPermissionsForProject
 	//
+	// Status: STABLE
+	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(context.Context, *GetUserPermissionsForProjectRequest) (*GetUserPermissionsForProjectResponse, error)
 	// EditUserPermissionsForProject
+	//
+	// Status: STABLE
 	//
 	// Modifies the user_permission of a specific user for the project.
 	EditUserPermissionsForProject(context.Context, *EditUserPermissionsForProjectRequest) (*EditUserPermissionsForProjectResponse, error)
