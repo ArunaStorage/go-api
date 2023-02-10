@@ -170,6 +170,41 @@ type ObjectServiceClient interface {
 	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(ctx context.Context, in *GetReferencesRequest, opts ...grpc.CallOption) (*GetReferencesResponse, error)
+	// GetObjectPath
+	//
+	// Status: BETA
+	//
+	// Get all object_paths for this object in a specific collection
+	// !! Paths are collection specific !!
+	GetObjectPath(ctx context.Context, in *GetObjectPathRequest, opts ...grpc.CallOption) (*GetObjectPathResponse, error)
+	// GetObjectPaths
+	//
+	// Status: BETA
+	//
+	// Get all object_paths for a specific collection
+	// !! Paths are collection specific !!
+	GetObjectPaths(ctx context.Context, in *GetObjectPathsRequest, opts ...grpc.CallOption) (*GetObjectPathsResponse, error)
+	// CreateObjectPath
+	//
+	// Status: BETA
+	//
+	// Create collection_specific object_paths for an object
+	// !! Paths are collection specific !!
+	CreateObjectPath(ctx context.Context, in *CreateObjectPathRequest, opts ...grpc.CallOption) (*CreateObjectPathResponse, error)
+	// SetObjectPathVisibility
+	//
+	// Status: BETA
+	//
+	// Updates the visibility setting for an object_path (hide/unhide)
+	// !! Paths are collection specific !!
+	SetObjectPathVisibility(ctx context.Context, in *SetObjectPathVisibilityRequest, opts ...grpc.CallOption) (*SetObjectPathVisibilityResponse, error)
+	// GetObjectsByPath
+	//
+	// Status: BETA
+	//
+	// Gets a specific object by object_path
+	// !! Paths are collection specific !!
+	GetObjectsByPath(ctx context.Context, in *GetObjectsByPathRequest, opts ...grpc.CallOption) (*GetObjectsByPathResponse, error)
 }
 
 type objectServiceClient struct {
@@ -374,6 +409,51 @@ func (c *objectServiceClient) GetReferences(ctx context.Context, in *GetReferenc
 	return out, nil
 }
 
+func (c *objectServiceClient) GetObjectPath(ctx context.Context, in *GetObjectPathRequest, opts ...grpc.CallOption) (*GetObjectPathResponse, error) {
+	out := new(GetObjectPathResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetObjectPath", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) GetObjectPaths(ctx context.Context, in *GetObjectPathsRequest, opts ...grpc.CallOption) (*GetObjectPathsResponse, error) {
+	out := new(GetObjectPathsResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetObjectPaths", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) CreateObjectPath(ctx context.Context, in *CreateObjectPathRequest, opts ...grpc.CallOption) (*CreateObjectPathResponse, error) {
+	out := new(CreateObjectPathResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/CreateObjectPath", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) SetObjectPathVisibility(ctx context.Context, in *SetObjectPathVisibilityRequest, opts ...grpc.CallOption) (*SetObjectPathVisibilityResponse, error) {
+	out := new(SetObjectPathVisibilityResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) GetObjectsByPath(ctx context.Context, in *GetObjectsByPathRequest, opts ...grpc.CallOption) (*GetObjectsByPathResponse, error) {
+	out := new(GetObjectsByPathResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ObjectServiceServer is the server API for ObjectService service.
 // All implementations should embed UnimplementedObjectServiceServer
 // for forward compatibility
@@ -526,6 +606,41 @@ type ObjectServiceServer interface {
 	//
 	// Get a list of references for this object (optional) including all revisions
 	GetReferences(context.Context, *GetReferencesRequest) (*GetReferencesResponse, error)
+	// GetObjectPath
+	//
+	// Status: BETA
+	//
+	// Get all object_paths for this object in a specific collection
+	// !! Paths are collection specific !!
+	GetObjectPath(context.Context, *GetObjectPathRequest) (*GetObjectPathResponse, error)
+	// GetObjectPaths
+	//
+	// Status: BETA
+	//
+	// Get all object_paths for a specific collection
+	// !! Paths are collection specific !!
+	GetObjectPaths(context.Context, *GetObjectPathsRequest) (*GetObjectPathsResponse, error)
+	// CreateObjectPath
+	//
+	// Status: BETA
+	//
+	// Create collection_specific object_paths for an object
+	// !! Paths are collection specific !!
+	CreateObjectPath(context.Context, *CreateObjectPathRequest) (*CreateObjectPathResponse, error)
+	// SetObjectPathVisibility
+	//
+	// Status: BETA
+	//
+	// Updates the visibility setting for an object_path (hide/unhide)
+	// !! Paths are collection specific !!
+	SetObjectPathVisibility(context.Context, *SetObjectPathVisibilityRequest) (*SetObjectPathVisibilityResponse, error)
+	// GetObjectsByPath
+	//
+	// Status: BETA
+	//
+	// Gets a specific object by object_path
+	// !! Paths are collection specific !!
+	GetObjectsByPath(context.Context, *GetObjectsByPathRequest) (*GetObjectsByPathResponse, error)
 }
 
 // UnimplementedObjectServiceServer should be embedded to have forward compatible implementations.
@@ -588,6 +703,21 @@ func (UnimplementedObjectServiceServer) SetHooksOfObject(context.Context, *SetHo
 }
 func (UnimplementedObjectServiceServer) GetReferences(context.Context, *GetReferencesRequest) (*GetReferencesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReferences not implemented")
+}
+func (UnimplementedObjectServiceServer) GetObjectPath(context.Context, *GetObjectPathRequest) (*GetObjectPathResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectPath not implemented")
+}
+func (UnimplementedObjectServiceServer) GetObjectPaths(context.Context, *GetObjectPathsRequest) (*GetObjectPathsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectPaths not implemented")
+}
+func (UnimplementedObjectServiceServer) CreateObjectPath(context.Context, *CreateObjectPathRequest) (*CreateObjectPathResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectPath not implemented")
+}
+func (UnimplementedObjectServiceServer) SetObjectPathVisibility(context.Context, *SetObjectPathVisibilityRequest) (*SetObjectPathVisibilityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetObjectPathVisibility not implemented")
+}
+func (UnimplementedObjectServiceServer) GetObjectsByPath(context.Context, *GetObjectsByPathRequest) (*GetObjectsByPathResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectsByPath not implemented")
 }
 
 // UnsafeObjectServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -946,6 +1076,96 @@ func _ObjectService_GetReferences_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectService_GetObjectPath_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectPathRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).GetObjectPath(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/GetObjectPath",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).GetObjectPath(ctx, req.(*GetObjectPathRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_GetObjectPaths_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectPathsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).GetObjectPaths(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/GetObjectPaths",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).GetObjectPaths(ctx, req.(*GetObjectPathsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_CreateObjectPath_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateObjectPathRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).CreateObjectPath(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/CreateObjectPath",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).CreateObjectPath(ctx, req.(*CreateObjectPathRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_SetObjectPathVisibility_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetObjectPathVisibilityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).SetObjectPathVisibility(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).SetObjectPathVisibility(ctx, req.(*SetObjectPathVisibilityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_GetObjectsByPath_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectsByPathRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).GetObjectsByPath(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).GetObjectsByPath(ctx, req.(*GetObjectsByPathRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ObjectService_ServiceDesc is the grpc.ServiceDesc for ObjectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1024,6 +1244,26 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetReferences",
 			Handler:    _ObjectService_GetReferences_Handler,
+		},
+		{
+			MethodName: "GetObjectPath",
+			Handler:    _ObjectService_GetObjectPath_Handler,
+		},
+		{
+			MethodName: "GetObjectPaths",
+			Handler:    _ObjectService_GetObjectPaths_Handler,
+		},
+		{
+			MethodName: "CreateObjectPath",
+			Handler:    _ObjectService_CreateObjectPath_Handler,
+		},
+		{
+			MethodName: "SetObjectPathVisibility",
+			Handler:    _ObjectService_SetObjectPathVisibility_Handler,
+		},
+		{
+			MethodName: "GetObjectsByPath",
+			Handler:    _ObjectService_GetObjectsByPath_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

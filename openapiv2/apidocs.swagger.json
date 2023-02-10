@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "0.5.0"
+    "version": "1.0.0-rc.1"
   },
   "tags": [
     {
@@ -1332,6 +1332,163 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "withUrl",
+            "description": "Should the response include download urls ?",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/path": {
+      "get": {
+        "summary": "GetObjectPath",
+        "description": "Status: BETA\n\nGet all object_paths for this object in a specific collection\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_GetObjectPath",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectPathResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeInactive",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      },
+      "post": {
+        "summary": "CreateObjectPath",
+        "description": "Status: BETA\n\nCreate collection_specific object_paths for an object\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_CreateObjectPath",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateObjectPathResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subPath": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/object/{objectId}/path/{path}/visibility": {
+      "patch": {
+        "summary": "SetObjectPathVisibility",
+        "description": "Status: BETA\n\nUpdates the visibility setting for an object_path (hide/unhide)\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_SetObjectPathVisibility",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetObjectPathVisibilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visibility": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -1394,6 +1551,10 @@
                 "autoUpdate": {
                   "type": "boolean",
                   "title": "Should the borrowed ressource be automatically updated ?"
+                },
+                "subPath": {
+                  "type": "string",
+                  "title": "(collection specific) sub_path for file\ndoes not include file-, collection- or projectname\nfinal schema: /\u003cprojectname\u003e/\u003ccollectionname\u003e/\u003cpath\u003e/\u003cfilename\u003e"
                 }
               }
             }
@@ -1770,6 +1931,10 @@
                 "force": {
                   "type": "boolean",
                   "title": "When force == false the update will fail if another staging\nobject of the same shared_revision_id already exists\nThis prevents race conditions when two parties update the\nsame object simultaneously\nforce == true enforces will allow multiple concurrent updates\nat once"
+                },
+                "hash": {
+                  "$ref": "#/definitions/v1Hash",
+                  "title": "(optional) Hash"
                 }
               }
             }
@@ -2009,6 +2174,88 @@
                 }
               }
             }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/path/{path}": {
+      "get": {
+        "summary": "GetObjectsByPath",
+        "description": "Status: BETA\n\nGets a specific object by object_path\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_GetObjectsByPath",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectsByPathResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "withRevisions",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/paths": {
+      "get": {
+        "summary": "GetObjectPaths",
+        "description": "Status: BETA\n\nGet all object_paths for a specific collection\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_GetObjectPaths",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectPathsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeInactive",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -3223,6 +3470,14 @@
         }
       }
     },
+    "v1CreateObjectPathResponse": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/v1Path"
+        }
+      }
+    },
     "v1CreateObjectReferenceResponse": {
       "type": "object"
     },
@@ -3548,7 +3803,7 @@
       "type": "object",
       "properties": {
         "object": {
-          "$ref": "#/definitions/v1Object",
+          "$ref": "#/definitions/v1ObjectWithURL",
           "title": "The object with the latest revision"
         }
       }
@@ -3633,6 +3888,28 @@
         }
       }
     },
+    "v1GetObjectPathResponse": {
+      "type": "object",
+      "properties": {
+        "objectPaths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Path"
+          }
+        }
+      }
+    },
+    "v1GetObjectPathsResponse": {
+      "type": "object",
+      "properties": {
+        "objectPaths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Path"
+          }
+        }
+      }
+    },
     "v1GetObjectRevisionsResponse": {
       "type": "object",
       "properties": {
@@ -3642,6 +3919,17 @@
             "$ref": "#/definitions/v1ObjectWithURL"
           },
           "title": "List of objects with (optional) URLs"
+        }
+      }
+    },
+    "v1GetObjectsByPathResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
         }
       }
     },
@@ -3837,13 +4125,10 @@
       "enum": [
         "HASHALGORITHM_UNSPECIFIED",
         "HASHALGORITHM_MD5",
-        "HASHALGORITHM_SHA1",
-        "HASHALGORITHM_SHA256",
-        "HASHALGORITHM_SHA512",
-        "HASHALGORITHM_MURMUR3A32",
-        "HASHALGORITHM_XXHASH32"
+        "HASHALGORITHM_SHA256"
       ],
-      "default": "HASHALGORITHM_UNSPECIFIED"
+      "default": "HASHALGORITHM_UNSPECIFIED",
+      "title": "- HASHALGORITHM_SHA256: HASHALGORITHM_SHA1 = 2;"
     },
     "v1Hierarchy": {
       "type": "object",
@@ -4198,6 +4483,13 @@
         "url": {
           "type": "string",
           "title": "This is a associated download URL\nWill be empty if request does not contain the associated with_url flag"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "collection specific paths of object"
         }
       }
     },
@@ -4248,6 +4540,17 @@
         }
       },
       "description": "Etag / Part combination to finish a presigned multipart upload."
+    },
+    "v1Path": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "boolean"
+        }
+      }
     },
     "v1Permission": {
       "type": "string",
@@ -4480,6 +4783,14 @@
         }
       }
     },
+    "v1SetObjectPathVisibilityResponse": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/v1Path"
+        }
+      }
+    },
     "v1Source": {
       "type": "object",
       "properties": {
@@ -4509,14 +4820,6 @@
           "type": "string",
           "title": "Filename"
         },
-        "description": {
-          "type": "string",
-          "title": "File description"
-        },
-        "collectionId": {
-          "type": "string",
-          "title": "Collection Id"
-        },
         "contentLen": {
           "type": "string",
           "format": "int64",
@@ -4543,6 +4846,10 @@
             "$ref": "#/definitions/v1KeyValue"
           },
           "title": "List of hook key-values"
+        },
+        "subPath": {
+          "type": "string",
+          "title": "(collection specific) sub_path for file\ndoes not include file-, collection- or projectname\nfinal fully-qualified schema: /\u003cprojectname\u003e/\u003ccollectionname\u003e/\u003cpath\u003e/\u003cfilename\u003e"
         }
       }
     },
