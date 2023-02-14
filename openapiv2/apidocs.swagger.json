@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.0.0-rc.1"
+    "version": "1.0.0-rc.2"
   },
   "tags": [
     {
@@ -942,6 +942,10 @@
                 "isSpecification": {
                   "type": "boolean",
                   "title": "Is specification ?\nShould this object contain a specification for the collection ?"
+                },
+                "hash": {
+                  "$ref": "#/definitions/v1Hash",
+                  "title": "(optional) Hash"
                 }
               }
             }
@@ -4496,24 +4500,12 @@
     "v1Origin": {
       "type": "object",
       "properties": {
-        "type": {
-          "$ref": "#/definitions/v1OriginType"
-        },
         "id": {
-          "type": "string"
+          "type": "string",
+          "title": "OriginType type = 1;"
         }
       },
       "title": "Origin of the object -\u003e To be GDPA compliant"
-    },
-    "v1OriginType": {
-      "type": "string",
-      "enum": [
-        "ORIGIN_TYPE_UNSPECIFIED",
-        "ORIGIN_TYPE_USER",
-        "ORIGIN_TYPE_OBJCLONE"
-      ],
-      "default": "ORIGIN_TYPE_UNSPECIFIED",
-      "title": "Specifies the Origin of the object"
     },
     "v1PageRequest": {
       "type": "object",
