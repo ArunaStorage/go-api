@@ -27,6 +27,8 @@ type InternalProxyServiceClient interface {
 	FinishPresignedUpload(ctx context.Context, in *FinishPresignedUploadRequest, opts ...grpc.CallOption) (*FinishPresignedUploadResponse, error)
 	CreatePresignedDownload(ctx context.Context, in *CreatePresignedDownloadRequest, opts ...grpc.CallOption) (*CreatePresignedDownloadResponse, error)
 	CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error)
+	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
+	MoveObject(ctx context.Context, in *MoveObjectRequest, opts ...grpc.CallOption) (*MoveObjectResponse, error)
 }
 
 type internalProxyServiceClient struct {
@@ -82,6 +84,24 @@ func (c *internalProxyServiceClient) CreateBucket(ctx context.Context, in *Creat
 	return out, nil
 }
 
+func (c *internalProxyServiceClient) DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error) {
+	out := new(DeleteObjectResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyService/DeleteObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *internalProxyServiceClient) MoveObject(ctx context.Context, in *MoveObjectRequest, opts ...grpc.CallOption) (*MoveObjectResponse, error) {
+	out := new(MoveObjectResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyService/MoveObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InternalProxyServiceServer is the server API for InternalProxyService service.
 // All implementations should embed UnimplementedInternalProxyServiceServer
 // for forward compatibility
@@ -91,6 +111,8 @@ type InternalProxyServiceServer interface {
 	FinishPresignedUpload(context.Context, *FinishPresignedUploadRequest) (*FinishPresignedUploadResponse, error)
 	CreatePresignedDownload(context.Context, *CreatePresignedDownloadRequest) (*CreatePresignedDownloadResponse, error)
 	CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error)
+	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
+	MoveObject(context.Context, *MoveObjectRequest) (*MoveObjectResponse, error)
 }
 
 // UnimplementedInternalProxyServiceServer should be embedded to have forward compatible implementations.
@@ -111,6 +133,12 @@ func (UnimplementedInternalProxyServiceServer) CreatePresignedDownload(context.C
 }
 func (UnimplementedInternalProxyServiceServer) CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBucket not implemented")
+}
+func (UnimplementedInternalProxyServiceServer) DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
+}
+func (UnimplementedInternalProxyServiceServer) MoveObject(context.Context, *MoveObjectRequest) (*MoveObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MoveObject not implemented")
 }
 
 // UnsafeInternalProxyServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -214,6 +242,42 @@ func _InternalProxyService_CreateBucket_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InternalProxyService_DeleteObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteObjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalProxyServiceServer).DeleteObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalProxyService/DeleteObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalProxyServiceServer).DeleteObject(ctx, req.(*DeleteObjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InternalProxyService_MoveObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MoveObjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalProxyServiceServer).MoveObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalProxyService/MoveObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalProxyServiceServer).MoveObject(ctx, req.(*MoveObjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InternalProxyService_ServiceDesc is the grpc.ServiceDesc for InternalProxyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -240,6 +304,134 @@ var InternalProxyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateBucket",
 			Handler:    _InternalProxyService_CreateBucket_Handler,
+		},
+		{
+			MethodName: "DeleteObject",
+			Handler:    _InternalProxyService_DeleteObject_Handler,
+		},
+		{
+			MethodName: "MoveObject",
+			Handler:    _InternalProxyService_MoveObject_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aruna/api/internal/v1/proxy.proto",
+}
+
+// InternalProxyNotifierServiceClient is the client API for InternalProxyNotifierService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type InternalProxyNotifierServiceClient interface {
+	FinalizeObject(ctx context.Context, in *FinalizeObjectRequest, opts ...grpc.CallOption) (*FinalizeObjectResponse, error)
+	GetEncryptionKey(ctx context.Context, in *GetEncryptionKeyRequest, opts ...grpc.CallOption) (*GetEncryptionKeyResponse, error)
+}
+
+type internalProxyNotifierServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewInternalProxyNotifierServiceClient(cc grpc.ClientConnInterface) InternalProxyNotifierServiceClient {
+	return &internalProxyNotifierServiceClient{cc}
+}
+
+func (c *internalProxyNotifierServiceClient) FinalizeObject(ctx context.Context, in *FinalizeObjectRequest, opts ...grpc.CallOption) (*FinalizeObjectResponse, error) {
+	out := new(FinalizeObjectResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyNotifierService/FinalizeObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *internalProxyNotifierServiceClient) GetEncryptionKey(ctx context.Context, in *GetEncryptionKeyRequest, opts ...grpc.CallOption) (*GetEncryptionKeyResponse, error) {
+	out := new(GetEncryptionKeyResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyNotifierService/GetEncryptionKey", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// InternalProxyNotifierServiceServer is the server API for InternalProxyNotifierService service.
+// All implementations should embed UnimplementedInternalProxyNotifierServiceServer
+// for forward compatibility
+type InternalProxyNotifierServiceServer interface {
+	FinalizeObject(context.Context, *FinalizeObjectRequest) (*FinalizeObjectResponse, error)
+	GetEncryptionKey(context.Context, *GetEncryptionKeyRequest) (*GetEncryptionKeyResponse, error)
+}
+
+// UnimplementedInternalProxyNotifierServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedInternalProxyNotifierServiceServer struct {
+}
+
+func (UnimplementedInternalProxyNotifierServiceServer) FinalizeObject(context.Context, *FinalizeObjectRequest) (*FinalizeObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinalizeObject not implemented")
+}
+func (UnimplementedInternalProxyNotifierServiceServer) GetEncryptionKey(context.Context, *GetEncryptionKeyRequest) (*GetEncryptionKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEncryptionKey not implemented")
+}
+
+// UnsafeInternalProxyNotifierServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InternalProxyNotifierServiceServer will
+// result in compilation errors.
+type UnsafeInternalProxyNotifierServiceServer interface {
+	mustEmbedUnimplementedInternalProxyNotifierServiceServer()
+}
+
+func RegisterInternalProxyNotifierServiceServer(s grpc.ServiceRegistrar, srv InternalProxyNotifierServiceServer) {
+	s.RegisterService(&InternalProxyNotifierService_ServiceDesc, srv)
+}
+
+func _InternalProxyNotifierService_FinalizeObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FinalizeObjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalProxyNotifierServiceServer).FinalizeObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalProxyNotifierService/FinalizeObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalProxyNotifierServiceServer).FinalizeObject(ctx, req.(*FinalizeObjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InternalProxyNotifierService_GetEncryptionKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEncryptionKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalProxyNotifierServiceServer).GetEncryptionKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalProxyNotifierService/GetEncryptionKey",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalProxyNotifierServiceServer).GetEncryptionKey(ctx, req.(*GetEncryptionKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// InternalProxyNotifierService_ServiceDesc is the grpc.ServiceDesc for InternalProxyNotifierService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var InternalProxyNotifierService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "aruna.api.internal.v1.InternalProxyNotifierService",
+	HandlerType: (*InternalProxyNotifierServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "FinalizeObject",
+			Handler:    _InternalProxyNotifierService_FinalizeObject_Handler,
+		},
+		{
+			MethodName: "GetEncryptionKey",
+			Handler:    _InternalProxyNotifierService_GetEncryptionKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

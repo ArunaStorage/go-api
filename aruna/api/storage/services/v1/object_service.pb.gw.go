@@ -1896,16 +1896,6 @@ func request_ObjectService_SetObjectPathVisibility_0(ctx context.Context, marsha
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
 	}
 
-	val, ok = pathParams["object_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_id")
-	}
-
-	protoReq.ObjectId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
-	}
-
 	val, ok = pathParams["path"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
@@ -1948,16 +1938,6 @@ func local_request_ObjectService_SetObjectPathVisibility_0(ctx context.Context, 
 	protoReq.CollectionId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
-	}
-
-	val, ok = pathParams["object_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_id")
-	}
-
-	protoReq.ObjectId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
 	}
 
 	val, ok = pathParams["path"]
@@ -2611,7 +2591,7 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/path/{path}/visibility"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}/visibility"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -3184,7 +3164,7 @@ func RegisterObjectServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/object/{object_id}/path/{path}/visibility"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}/visibility"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -3270,7 +3250,7 @@ var (
 
 	pattern_ObjectService_CreateObjectPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "path"}, ""))
 
-	pattern_ObjectService_SetObjectPathVisibility_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"v1", "collection", "collection_id", "object", "object_id", "path", "visibility"}, ""))
+	pattern_ObjectService_SetObjectPathVisibility_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "collection", "collection_id", "path", "visibility"}, ""))
 
 	pattern_ObjectService_GetObjectsByPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"v1", "collection", "collection_id", "path"}, ""))
 )
