@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InternalAuthorizeServiceClient interface {
 	Authorize(ctx context.Context, in *AuthorizeRequest, opts ...grpc.CallOption) (*AuthorizeResponse, error)
+	GetSecret(ctx context.Context, in *GetSecretRequest, opts ...grpc.CallOption) (*GetSecretResponse, error)
 }
 
 type internalAuthorizeServiceClient struct {
@@ -42,11 +43,21 @@ func (c *internalAuthorizeServiceClient) Authorize(ctx context.Context, in *Auth
 	return out, nil
 }
 
+func (c *internalAuthorizeServiceClient) GetSecret(ctx context.Context, in *GetSecretRequest, opts ...grpc.CallOption) (*GetSecretResponse, error) {
+	out := new(GetSecretResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalAuthorizeService/GetSecret", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InternalAuthorizeServiceServer is the server API for InternalAuthorizeService service.
 // All implementations should embed UnimplementedInternalAuthorizeServiceServer
 // for forward compatibility
 type InternalAuthorizeServiceServer interface {
 	Authorize(context.Context, *AuthorizeRequest) (*AuthorizeResponse, error)
+	GetSecret(context.Context, *GetSecretRequest) (*GetSecretResponse, error)
 }
 
 // UnimplementedInternalAuthorizeServiceServer should be embedded to have forward compatible implementations.
@@ -55,6 +66,9 @@ type UnimplementedInternalAuthorizeServiceServer struct {
 
 func (UnimplementedInternalAuthorizeServiceServer) Authorize(context.Context, *AuthorizeRequest) (*AuthorizeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Authorize not implemented")
+}
+func (UnimplementedInternalAuthorizeServiceServer) GetSecret(context.Context, *GetSecretRequest) (*GetSecretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSecret not implemented")
 }
 
 // UnsafeInternalAuthorizeServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -86,6 +100,24 @@ func _InternalAuthorizeService_Authorize_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InternalAuthorizeService_GetSecret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSecretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InternalAuthorizeServiceServer).GetSecret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.internal.v1.InternalAuthorizeService/GetSecret",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InternalAuthorizeServiceServer).GetSecret(ctx, req.(*GetSecretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InternalAuthorizeService_ServiceDesc is the grpc.ServiceDesc for InternalAuthorizeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +128,10 @@ var InternalAuthorizeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Authorize",
 			Handler:    _InternalAuthorizeService_Authorize_Handler,
+		},
+		{
+			MethodName: "GetSecret",
+			Handler:    _InternalAuthorizeService_GetSecret_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

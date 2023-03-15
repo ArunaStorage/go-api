@@ -1956,7 +1956,7 @@ func local_request_ObjectService_SetObjectPathVisibility_0(ctx context.Context, 
 }
 
 var (
-	filter_ObjectService_GetObjectsByPath_0 = &utilities.DoubleArray{Encoding: map[string]int{"collection_id": 0, "path": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_ObjectService_GetObjectsByPath_0 = &utilities.DoubleArray{Encoding: map[string]int{"path": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
 func request_ObjectService_GetObjectsByPath_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -1969,16 +1969,6 @@ func request_ObjectService_GetObjectsByPath_0(ctx context.Context, marshaler run
 		err error
 		_   = err
 	)
-
-	val, ok = pathParams["collection_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "collection_id")
-	}
-
-	protoReq.CollectionId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
-	}
 
 	val, ok = pathParams["path"]
 	if !ok {
@@ -2013,16 +2003,6 @@ func local_request_ObjectService_GetObjectsByPath_0(ctx context.Context, marshal
 		_   = err
 	)
 
-	val, ok = pathParams["collection_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "collection_id")
-	}
-
-	protoReq.CollectionId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "collection_id", err)
-	}
-
 	val, ok = pathParams["path"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
@@ -2041,6 +2021,58 @@ func local_request_ObjectService_GetObjectsByPath_0(ctx context.Context, marshal
 	}
 
 	msg, err := server.GetObjectsByPath(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ObjectService_GetProjectCollectionIdsByPath_0(ctx context.Context, marshaler runtime.Marshaler, client ObjectServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProjectCollectionIdsByPathRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["path"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
+	}
+
+	protoReq.Path, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "path", err)
+	}
+
+	msg, err := client.GetProjectCollectionIdsByPath(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ObjectService_GetProjectCollectionIdsByPath_0(ctx context.Context, marshaler runtime.Marshaler, server ObjectServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProjectCollectionIdsByPathRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["path"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
+	}
+
+	protoReq.Path, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "path", err)
+	}
+
+	msg, err := server.GetProjectCollectionIdsByPath(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -2591,7 +2623,7 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}/visibility"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path=**}/visibility"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2616,7 +2648,7 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath", runtime.WithHTTPPathPattern("/v1/path/object/{path=**}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2630,6 +2662,31 @@ func RegisterObjectServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		}
 
 		forward_ObjectService_GetObjectsByPath_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ObjectService_GetProjectCollectionIdsByPath_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetProjectCollectionIdsByPath", runtime.WithHTTPPathPattern("/v1/path/collection/{path=**}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ObjectService_GetProjectCollectionIdsByPath_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectService_GetProjectCollectionIdsByPath_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3164,7 +3221,7 @@ func RegisterObjectServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}/visibility"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/SetObjectPathVisibility", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path=**}/visibility"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -3186,7 +3243,7 @@ func RegisterObjectServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath", runtime.WithHTTPPathPattern("/v1/collection/{collection_id}/path/{path}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetObjectsByPath", runtime.WithHTTPPathPattern("/v1/path/object/{path=**}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -3199,6 +3256,28 @@ func RegisterObjectServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		}
 
 		forward_ObjectService_GetObjectsByPath_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_ObjectService_GetProjectCollectionIdsByPath_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ObjectService/GetProjectCollectionIdsByPath", runtime.WithHTTPPathPattern("/v1/path/collection/{path=**}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ObjectService_GetProjectCollectionIdsByPath_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ObjectService_GetProjectCollectionIdsByPath_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3250,9 +3329,11 @@ var (
 
 	pattern_ObjectService_CreateObjectPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "collection", "collection_id", "object", "object_id", "path"}, ""))
 
-	pattern_ObjectService_SetObjectPathVisibility_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "collection", "collection_id", "path", "visibility"}, ""))
+	pattern_ObjectService_SetObjectPathVisibility_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 3, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "collection", "collection_id", "path", "visibility"}, ""))
 
-	pattern_ObjectService_GetObjectsByPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"v1", "collection", "collection_id", "path"}, ""))
+	pattern_ObjectService_GetObjectsByPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 3, 0, 4, 1, 5, 1}, []string{"v1", "path", "object"}, ""))
+
+	pattern_ObjectService_GetProjectCollectionIdsByPath_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 3, 0, 4, 1, 5, 1}, []string{"v1", "path", "collection"}, ""))
 )
 
 var (
@@ -3303,4 +3384,6 @@ var (
 	forward_ObjectService_SetObjectPathVisibility_0 = runtime.ForwardResponseMessage
 
 	forward_ObjectService_GetObjectsByPath_0 = runtime.ForwardResponseMessage
+
+	forward_ObjectService_GetProjectCollectionIdsByPath_0 = runtime.ForwardResponseMessage
 )

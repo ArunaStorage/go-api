@@ -205,6 +205,13 @@ type ObjectServiceClient interface {
 	// Gets a specific object by object_path
 	// !! Paths are collection specific !!
 	GetObjectsByPath(ctx context.Context, in *GetObjectsByPathRequest, opts ...grpc.CallOption) (*GetObjectsByPathResponse, error)
+	// GetObjectsByPath
+	//
+	// Status: BETA
+	//
+	// Gets a specific object by object_path
+	// !! Paths are collection specific !!
+	GetProjectCollectionIdsByPath(ctx context.Context, in *GetProjectCollectionIdsByPathRequest, opts ...grpc.CallOption) (*GetProjectCollectionIdsByPathResponse, error)
 }
 
 type objectServiceClient struct {
@@ -454,6 +461,15 @@ func (c *objectServiceClient) GetObjectsByPath(ctx context.Context, in *GetObjec
 	return out, nil
 }
 
+func (c *objectServiceClient) GetProjectCollectionIdsByPath(ctx context.Context, in *GetProjectCollectionIdsByPathRequest, opts ...grpc.CallOption) (*GetProjectCollectionIdsByPathResponse, error) {
+	out := new(GetProjectCollectionIdsByPathResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetProjectCollectionIdsByPath", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ObjectServiceServer is the server API for ObjectService service.
 // All implementations should embed UnimplementedObjectServiceServer
 // for forward compatibility
@@ -641,6 +657,13 @@ type ObjectServiceServer interface {
 	// Gets a specific object by object_path
 	// !! Paths are collection specific !!
 	GetObjectsByPath(context.Context, *GetObjectsByPathRequest) (*GetObjectsByPathResponse, error)
+	// GetObjectsByPath
+	//
+	// Status: BETA
+	//
+	// Gets a specific object by object_path
+	// !! Paths are collection specific !!
+	GetProjectCollectionIdsByPath(context.Context, *GetProjectCollectionIdsByPathRequest) (*GetProjectCollectionIdsByPathResponse, error)
 }
 
 // UnimplementedObjectServiceServer should be embedded to have forward compatible implementations.
@@ -718,6 +741,9 @@ func (UnimplementedObjectServiceServer) SetObjectPathVisibility(context.Context,
 }
 func (UnimplementedObjectServiceServer) GetObjectsByPath(context.Context, *GetObjectsByPathRequest) (*GetObjectsByPathResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectsByPath not implemented")
+}
+func (UnimplementedObjectServiceServer) GetProjectCollectionIdsByPath(context.Context, *GetProjectCollectionIdsByPathRequest) (*GetProjectCollectionIdsByPathResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjectCollectionIdsByPath not implemented")
 }
 
 // UnsafeObjectServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1166,6 +1192,24 @@ func _ObjectService_GetObjectsByPath_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectService_GetProjectCollectionIdsByPath_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProjectCollectionIdsByPathRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).GetProjectCollectionIdsByPath(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/GetProjectCollectionIdsByPath",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).GetProjectCollectionIdsByPath(ctx, req.(*GetProjectCollectionIdsByPathRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ObjectService_ServiceDesc is the grpc.ServiceDesc for ObjectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1264,6 +1308,10 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetObjectsByPath",
 			Handler:    _ObjectService_GetObjectsByPath_Handler,
+		},
+		{
+			MethodName: "GetProjectCollectionIdsByPath",
+			Handler:    _ObjectService_GetProjectCollectionIdsByPath_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
