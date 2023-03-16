@@ -180,7 +180,7 @@ var InternalProxyService_ServiceDesc = grpc.ServiceDesc{
 type InternalProxyNotifierServiceClient interface {
 	GetOrCreateObjectByPath(ctx context.Context, in *GetOrCreateObjectByPathRequest, opts ...grpc.CallOption) (*GetOrCreateObjectByPathResponse, error)
 	FinalizeObject(ctx context.Context, in *FinalizeObjectRequest, opts ...grpc.CallOption) (*FinalizeObjectResponse, error)
-	GetEncryptionKey(ctx context.Context, in *GetEncryptionKeyRequest, opts ...grpc.CallOption) (*GetEncryptionKeyResponse, error)
+	GetOrCreateEncryptionKey(ctx context.Context, in *GetOrCreateEncryptionKeyRequest, opts ...grpc.CallOption) (*GetOrCreateEncryptionKeyResponse, error)
 	GetObjectLocation(ctx context.Context, in *GetObjectLocationRequest, opts ...grpc.CallOption) (*GetObjectLocationResponse, error)
 	GetCollectionByBucket(ctx context.Context, in *GetCollectionByBucketRequest, opts ...grpc.CallOption) (*GetCollectionByBucketResponse, error)
 }
@@ -211,9 +211,9 @@ func (c *internalProxyNotifierServiceClient) FinalizeObject(ctx context.Context,
 	return out, nil
 }
 
-func (c *internalProxyNotifierServiceClient) GetEncryptionKey(ctx context.Context, in *GetEncryptionKeyRequest, opts ...grpc.CallOption) (*GetEncryptionKeyResponse, error) {
-	out := new(GetEncryptionKeyResponse)
-	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyNotifierService/GetEncryptionKey", in, out, opts...)
+func (c *internalProxyNotifierServiceClient) GetOrCreateEncryptionKey(ctx context.Context, in *GetOrCreateEncryptionKeyRequest, opts ...grpc.CallOption) (*GetOrCreateEncryptionKeyResponse, error) {
+	out := new(GetOrCreateEncryptionKeyResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.internal.v1.InternalProxyNotifierService/GetOrCreateEncryptionKey", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func (c *internalProxyNotifierServiceClient) GetCollectionByBucket(ctx context.C
 type InternalProxyNotifierServiceServer interface {
 	GetOrCreateObjectByPath(context.Context, *GetOrCreateObjectByPathRequest) (*GetOrCreateObjectByPathResponse, error)
 	FinalizeObject(context.Context, *FinalizeObjectRequest) (*FinalizeObjectResponse, error)
-	GetEncryptionKey(context.Context, *GetEncryptionKeyRequest) (*GetEncryptionKeyResponse, error)
+	GetOrCreateEncryptionKey(context.Context, *GetOrCreateEncryptionKeyRequest) (*GetOrCreateEncryptionKeyResponse, error)
 	GetObjectLocation(context.Context, *GetObjectLocationRequest) (*GetObjectLocationResponse, error)
 	GetCollectionByBucket(context.Context, *GetCollectionByBucketRequest) (*GetCollectionByBucketResponse, error)
 }
@@ -259,8 +259,8 @@ func (UnimplementedInternalProxyNotifierServiceServer) GetOrCreateObjectByPath(c
 func (UnimplementedInternalProxyNotifierServiceServer) FinalizeObject(context.Context, *FinalizeObjectRequest) (*FinalizeObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinalizeObject not implemented")
 }
-func (UnimplementedInternalProxyNotifierServiceServer) GetEncryptionKey(context.Context, *GetEncryptionKeyRequest) (*GetEncryptionKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetEncryptionKey not implemented")
+func (UnimplementedInternalProxyNotifierServiceServer) GetOrCreateEncryptionKey(context.Context, *GetOrCreateEncryptionKeyRequest) (*GetOrCreateEncryptionKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrCreateEncryptionKey not implemented")
 }
 func (UnimplementedInternalProxyNotifierServiceServer) GetObjectLocation(context.Context, *GetObjectLocationRequest) (*GetObjectLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjectLocation not implemented")
@@ -316,20 +316,20 @@ func _InternalProxyNotifierService_FinalizeObject_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
-func _InternalProxyNotifierService_GetEncryptionKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetEncryptionKeyRequest)
+func _InternalProxyNotifierService_GetOrCreateEncryptionKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrCreateEncryptionKeyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InternalProxyNotifierServiceServer).GetEncryptionKey(ctx, in)
+		return srv.(InternalProxyNotifierServiceServer).GetOrCreateEncryptionKey(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/aruna.api.internal.v1.InternalProxyNotifierService/GetEncryptionKey",
+		FullMethod: "/aruna.api.internal.v1.InternalProxyNotifierService/GetOrCreateEncryptionKey",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InternalProxyNotifierServiceServer).GetEncryptionKey(ctx, req.(*GetEncryptionKeyRequest))
+		return srv.(InternalProxyNotifierServiceServer).GetOrCreateEncryptionKey(ctx, req.(*GetOrCreateEncryptionKeyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -386,8 +386,8 @@ var InternalProxyNotifierService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _InternalProxyNotifierService_FinalizeObject_Handler,
 		},
 		{
-			MethodName: "GetEncryptionKey",
-			Handler:    _InternalProxyNotifierService_GetEncryptionKey_Handler,
+			MethodName: "GetOrCreateEncryptionKey",
+			Handler:    _InternalProxyNotifierService_GetOrCreateEncryptionKey_Handler,
 		},
 		{
 			MethodName: "GetObjectLocation",
