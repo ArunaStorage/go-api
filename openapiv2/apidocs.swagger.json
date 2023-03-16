@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.0.0-rc.8"
+    "version": "1.0.0-rc.9"
   },
   "tags": [
     {
@@ -4122,6 +4122,13 @@
           "items": {
             "$ref": "#/definitions/v1Hash"
           }
+        },
+        "revisionNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "created": {
+          "type": "boolean"
         }
       }
     },
