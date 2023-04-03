@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.0.0-rc.11"
+    "version": "1.0.0-rc.12"
   },
   "tags": [
     {
@@ -1882,10 +1882,6 @@
                   "type": "boolean",
                   "title": "Is specification ?\nShould this object contain a specification for the collection ?"
                 },
-                "force": {
-                  "type": "boolean",
-                  "title": "When force == false the update will fail if another staging\nobject of the same shared_revision_id already exists\nThis prevents race conditions when two parties update the\nsame object simultaneously\nforce == true enforces will allow multiple concurrent updates\nat once"
-                },
                 "hash": {
                   "$ref": "#/definitions/v1Hash",
                   "title": "(optional) Hash"
@@ -3189,7 +3185,8 @@
         "STATUS_AVAILABLE",
         "STATUS_UNAVAILABLE",
         "STATUS_ERROR",
-        "STATUS_TRASH"
+        "STATUS_TRASH",
+        "STATUS_FINALIZING"
       ],
       "default": "STATUS_UNSPECIFIED",
       "title": "An arbitrary status for Objects"
@@ -3730,8 +3727,23 @@
         },
         "isDefault": {
           "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/v1EndpointStatus"
         }
       }
+    },
+    "v1EndpointStatus": {
+      "type": "string",
+      "enum": [
+        "ENDPOINT_STATUS_UNSPECIFIED",
+        "ENDPOINT_STATUS_INITIALIZING",
+        "ENDPOINT_STATUS_AVAILABLE",
+        "ENDPOINT_STATUS_DEGRADED",
+        "ENDPOINT_STATUS_UNAVAILABLE",
+        "ENDPOINT_STATUS_MAINTENANCE"
+      ],
+      "default": "ENDPOINT_STATUS_UNSPECIFIED"
     },
     "v1EndpointType": {
       "type": "string",
@@ -5114,6 +5126,13 @@
         },
         "permission": {
           "$ref": "#/definitions/v1Permission"
+        },
+        "isSession": {
+          "type": "boolean"
+        },
+        "usedAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -5219,6 +5238,10 @@
         "isAdmin": {
           "type": "boolean",
           "title": "Is the user admin ?"
+        },
+        "isServiceAccount": {
+          "type": "boolean",
+          "title": "Is service account"
         }
       }
     },
