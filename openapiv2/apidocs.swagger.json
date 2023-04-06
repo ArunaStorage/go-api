@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.0.0-rc.14"
+    "version": "1.0.0-rc.15"
   },
   "tags": [
     {
@@ -2888,6 +2888,39 @@
         ]
       }
     },
+    "/v1/project/{projectId}/get_users": {
+      "get": {
+        "summary": "GetAllUserPermissionsForProject",
+        "description": "Status: ALPHA\n\nGet the user_permission of a specific user for the project.",
+        "operationId": "ProjectService_GetAllUserPermissionsForProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllUserPermissionsForProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "description": "Project id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
     "/v1/project/{projectId}/remove_user": {
       "delete": {
         "summary": "RemoveUserFromProject",
@@ -3043,6 +3076,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1UpdateUserDisplayNameRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/email": {
+      "patch": {
+        "summary": "UpdateUserDisplayName",
+        "description": "Status: ALPHA\n\nUpdates the email for the user (Personal only)",
+        "operationId": "UserService_UpdateUserEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserEmailRequest"
             }
           }
         ],
@@ -3930,6 +3997,17 @@
             "$ref": "#/definitions/v1Token"
           },
           "title": "List of API tokens with redacted actual token"
+        }
+      }
+    },
+    "v1GetAllUserPermissionsForProjectResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UserWithProjectPermissions"
+          }
         }
       }
     },
@@ -5321,6 +5399,26 @@
         }
       }
     },
+    "v1UpdateUserEmailRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "newEmail": {
+          "type": "string",
+          "title": "If new email is empty == unsubscribe"
+        }
+      }
+    },
+    "v1UpdateUserEmailResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        }
+      }
+    },
     "v1User": {
       "type": "object",
       "properties": {
@@ -5347,6 +5445,10 @@
         "isServiceAccount": {
           "type": "boolean",
           "title": "Is service account"
+        },
+        "email": {
+          "type": "string",
+          "title": "User email (empty if service account)"
         }
       }
     },
@@ -5378,6 +5480,17 @@
           "items": {
             "$ref": "#/definitions/v1ProjectPermission"
           }
+        }
+      }
+    },
+    "v1UserWithProjectPermissions": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        },
+        "userPermissions": {
+          "$ref": "#/definitions/v1ProjectPermission"
         }
       }
     },

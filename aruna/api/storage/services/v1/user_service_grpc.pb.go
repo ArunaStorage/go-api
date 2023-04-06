@@ -83,6 +83,12 @@ type UserServiceClient interface {
 	//
 	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(ctx context.Context, in *UpdateUserDisplayNameRequest, opts ...grpc.CallOption) (*UpdateUserDisplayNameResponse, error)
+	// UpdateUserDisplayName
+	//
+	// Status: ALPHA
+	//
+	// Updates the email for the user (Personal only)
+	UpdateUserEmail(ctx context.Context, in *UpdateUserEmailRequest, opts ...grpc.CallOption) (*UpdateUserEmailResponse, error)
 	// GetUserProjects
 	//
 	// Status: STABLE
@@ -201,6 +207,15 @@ func (c *userServiceClient) UpdateUserDisplayName(ctx context.Context, in *Updat
 	return out, nil
 }
 
+func (c *userServiceClient) UpdateUserEmail(ctx context.Context, in *UpdateUserEmailRequest, opts ...grpc.CallOption) (*UpdateUserEmailResponse, error) {
+	out := new(UpdateUserEmailResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/UpdateUserEmail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) GetUserProjects(ctx context.Context, in *GetUserProjectsRequest, opts ...grpc.CallOption) (*GetUserProjectsResponse, error) {
 	out := new(GetUserProjectsResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/GetUserProjects", in, out, opts...)
@@ -293,6 +308,12 @@ type UserServiceServer interface {
 	//
 	// Updates the Displayname for the user (Personal only)
 	UpdateUserDisplayName(context.Context, *UpdateUserDisplayNameRequest) (*UpdateUserDisplayNameResponse, error)
+	// UpdateUserDisplayName
+	//
+	// Status: ALPHA
+	//
+	// Updates the email for the user (Personal only)
+	UpdateUserEmail(context.Context, *UpdateUserEmailRequest) (*UpdateUserEmailResponse, error)
 	// GetUserProjects
 	//
 	// Status: STABLE
@@ -346,6 +367,9 @@ func (UnimplementedUserServiceServer) GetUser(context.Context, *GetUserRequest) 
 }
 func (UnimplementedUserServiceServer) UpdateUserDisplayName(context.Context, *UpdateUserDisplayNameRequest) (*UpdateUserDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserDisplayName not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateUserEmail(context.Context, *UpdateUserEmailRequest) (*UpdateUserEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserEmail not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserProjects(context.Context, *GetUserProjectsRequest) (*GetUserProjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserProjects not implemented")
@@ -548,6 +572,24 @@ func _UserService_UpdateUserDisplayName_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_UpdateUserEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdateUserEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.UserService/UpdateUserEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdateUserEmail(ctx, req.(*UpdateUserEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_GetUserProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetUserProjectsRequest)
 	if err := dec(in); err != nil {
@@ -648,6 +690,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUserDisplayName",
 			Handler:    _UserService_UpdateUserDisplayName_Handler,
+		},
+		{
+			MethodName: "UpdateUserEmail",
+			Handler:    _UserService_UpdateUserEmail_Handler,
 		},
 		{
 			MethodName: "GetUserProjects",

@@ -71,6 +71,12 @@ type ProjectServiceClient interface {
 	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(ctx context.Context, in *GetUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*GetUserPermissionsForProjectResponse, error)
+	// GetAllUserPermissionsForProject
+	//
+	// Status: ALPHA
+	//
+	// Get the user_permission of a specific user for the project.
+	GetAllUserPermissionsForProject(ctx context.Context, in *GetAllUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*GetAllUserPermissionsForProjectResponse, error)
 	// EditUserPermissionsForProject
 	//
 	// Status: STABLE
@@ -159,6 +165,15 @@ func (c *projectServiceClient) GetUserPermissionsForProject(ctx context.Context,
 	return out, nil
 }
 
+func (c *projectServiceClient) GetAllUserPermissionsForProject(ctx context.Context, in *GetAllUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*GetAllUserPermissionsForProjectResponse, error) {
+	out := new(GetAllUserPermissionsForProjectResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/GetAllUserPermissionsForProject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *projectServiceClient) EditUserPermissionsForProject(ctx context.Context, in *EditUserPermissionsForProjectRequest, opts ...grpc.CallOption) (*EditUserPermissionsForProjectResponse, error) {
 	out := new(EditUserPermissionsForProjectResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ProjectService/EditUserPermissionsForProject", in, out, opts...)
@@ -221,6 +236,12 @@ type ProjectServiceServer interface {
 	//
 	// Get the user_permission of a specific user for the project.
 	GetUserPermissionsForProject(context.Context, *GetUserPermissionsForProjectRequest) (*GetUserPermissionsForProjectResponse, error)
+	// GetAllUserPermissionsForProject
+	//
+	// Status: ALPHA
+	//
+	// Get the user_permission of a specific user for the project.
+	GetAllUserPermissionsForProject(context.Context, *GetAllUserPermissionsForProjectRequest) (*GetAllUserPermissionsForProjectResponse, error)
 	// EditUserPermissionsForProject
 	//
 	// Status: STABLE
@@ -256,6 +277,9 @@ func (UnimplementedProjectServiceServer) RemoveUserFromProject(context.Context, 
 }
 func (UnimplementedProjectServiceServer) GetUserPermissionsForProject(context.Context, *GetUserPermissionsForProjectRequest) (*GetUserPermissionsForProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserPermissionsForProject not implemented")
+}
+func (UnimplementedProjectServiceServer) GetAllUserPermissionsForProject(context.Context, *GetAllUserPermissionsForProjectRequest) (*GetAllUserPermissionsForProjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllUserPermissionsForProject not implemented")
 }
 func (UnimplementedProjectServiceServer) EditUserPermissionsForProject(context.Context, *EditUserPermissionsForProjectRequest) (*EditUserPermissionsForProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EditUserPermissionsForProject not implemented")
@@ -416,6 +440,24 @@ func _ProjectService_GetUserPermissionsForProject_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectService_GetAllUserPermissionsForProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllUserPermissionsForProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).GetAllUserPermissionsForProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ProjectService/GetAllUserPermissionsForProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).GetAllUserPermissionsForProject(ctx, req.(*GetAllUserPermissionsForProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProjectService_EditUserPermissionsForProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EditUserPermissionsForProjectRequest)
 	if err := dec(in); err != nil {
@@ -472,6 +514,10 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserPermissionsForProject",
 			Handler:    _ProjectService_GetUserPermissionsForProject_Handler,
+		},
+		{
+			MethodName: "GetAllUserPermissionsForProject",
+			Handler:    _ProjectService_GetAllUserPermissionsForProject_Handler,
 		},
 		{
 			MethodName: "EditUserPermissionsForProject",
