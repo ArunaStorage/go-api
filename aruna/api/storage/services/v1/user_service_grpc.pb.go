@@ -28,6 +28,12 @@ type UserServiceClient interface {
 	//
 	// This request should be called when a new user logs in for the first time
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
+	// DeActivateUser
+	//
+	// Status: ALPHA
+	//
+	// This deactivates a specific user (Admin request)
+	DeactivateUser(ctx context.Context, in *DeactivateUserRequest, opts ...grpc.CallOption) (*DeactivateUserResponse, error)
 	// ActivateUser
 	//
 	// Status: STABLE
@@ -89,6 +95,12 @@ type UserServiceClient interface {
 	//
 	// Get all not activated users (Admin only)
 	GetNotActivatedUsers(ctx context.Context, in *GetNotActivatedUsersRequest, opts ...grpc.CallOption) (*GetNotActivatedUsersResponse, error)
+	// GetAllUsers
+	//
+	// Status: ALPHA
+	//
+	// Get all users inkluding permissions (Admin only)
+	GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GetAllUsersResponse, error)
 }
 
 type userServiceClient struct {
@@ -102,6 +114,15 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 func (c *userServiceClient) RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error) {
 	out := new(RegisterUserResponse)
 	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/RegisterUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeactivateUser(ctx context.Context, in *DeactivateUserRequest, opts ...grpc.CallOption) (*DeactivateUserResponse, error) {
+	out := new(DeactivateUserResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/DeactivateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -198,6 +219,15 @@ func (c *userServiceClient) GetNotActivatedUsers(ctx context.Context, in *GetNot
 	return out, nil
 }
 
+func (c *userServiceClient) GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GetAllUsersResponse, error) {
+	out := new(GetAllUsersResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.UserService/GetAllUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -208,6 +238,12 @@ type UserServiceServer interface {
 	//
 	// This request should be called when a new user logs in for the first time
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
+	// DeActivateUser
+	//
+	// Status: ALPHA
+	//
+	// This deactivates a specific user (Admin request)
+	DeactivateUser(context.Context, *DeactivateUserRequest) (*DeactivateUserResponse, error)
 	// ActivateUser
 	//
 	// Status: STABLE
@@ -269,6 +305,12 @@ type UserServiceServer interface {
 	//
 	// Get all not activated users (Admin only)
 	GetNotActivatedUsers(context.Context, *GetNotActivatedUsersRequest) (*GetNotActivatedUsersResponse, error)
+	// GetAllUsers
+	//
+	// Status: ALPHA
+	//
+	// Get all users inkluding permissions (Admin only)
+	GetAllUsers(context.Context, *GetAllUsersRequest) (*GetAllUsersResponse, error)
 }
 
 // UnimplementedUserServiceServer should be embedded to have forward compatible implementations.
@@ -277,6 +319,9 @@ type UnimplementedUserServiceServer struct {
 
 func (UnimplementedUserServiceServer) RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+}
+func (UnimplementedUserServiceServer) DeactivateUser(context.Context, *DeactivateUserRequest) (*DeactivateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeactivateUser not implemented")
 }
 func (UnimplementedUserServiceServer) ActivateUser(context.Context, *ActivateUserRequest) (*ActivateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ActivateUser not implemented")
@@ -308,6 +353,9 @@ func (UnimplementedUserServiceServer) GetUserProjects(context.Context, *GetUserP
 func (UnimplementedUserServiceServer) GetNotActivatedUsers(context.Context, *GetNotActivatedUsersRequest) (*GetNotActivatedUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNotActivatedUsers not implemented")
 }
+func (UnimplementedUserServiceServer) GetAllUsers(context.Context, *GetAllUsersRequest) (*GetAllUsersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllUsers not implemented")
+}
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to UserServiceServer will
@@ -334,6 +382,24 @@ func _UserService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).RegisterUser(ctx, req.(*RegisterUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeactivateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeactivateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeactivateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.UserService/DeactivateUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeactivateUser(ctx, req.(*DeactivateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -518,6 +584,24 @@ func _UserService_GetNotActivatedUsers_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetAllUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetAllUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.UserService/GetAllUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetAllUsers(ctx, req.(*GetAllUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -528,6 +612,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterUser",
 			Handler:    _UserService_RegisterUser_Handler,
+		},
+		{
+			MethodName: "DeactivateUser",
+			Handler:    _UserService_DeactivateUser_Handler,
 		},
 		{
 			MethodName: "ActivateUser",
@@ -568,6 +656,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNotActivatedUsers",
 			Handler:    _UserService_GetNotActivatedUsers_Handler,
+		},
+		{
+			MethodName: "GetAllUsers",
+			Handler:    _UserService_GetAllUsers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

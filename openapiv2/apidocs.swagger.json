@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.0.0-rc.13"
+    "version": "1.0.0-rc.14"
   },
   "tags": [
     {
@@ -2985,6 +2985,38 @@
         ]
       }
     },
+    "/v1/user/all": {
+      "get": {
+        "summary": "GetAllUsers",
+        "description": "Status: ALPHA\n\nGet all users inkluding permissions (Admin only)",
+        "operationId": "UserService_GetAllUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "includePermissions",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v1/user/display_name": {
       "patch": {
         "summary": "UpdateUserDisplayName",
@@ -3053,6 +3085,53 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1ActivateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "User to activate",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectPerms": {
+                  "$ref": "#/definitions/v1ProjectPermission",
+                  "title": "(optional) add user to project"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/{userId}/deactivate": {
+      "patch": {
+        "summary": "DeActivateUser",
+        "description": "Status: ALPHA\n\nThis deactivates a specific user (Admin request)",
+        "operationId": "UserService_DeactivateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeactivateUserResponse"
             }
           },
           "default": {
@@ -3462,6 +3541,10 @@
         "permission": {
           "$ref": "#/definitions/v1Permission",
           "title": "Token permissions"
+        },
+        "isSession": {
+          "type": "boolean",
+          "title": "Session token"
         }
       }
     },
@@ -3633,6 +3716,9 @@
       ],
       "default": "DATA_CLASS_UNSPECIFIED",
       "title": "Dataclass defines the confidentiality of the object"
+    },
+    "v1DeactivateUserResponse": {
+      "type": "object"
     },
     "v1DeleteAPITokenResponse": {
       "type": "object"
@@ -3844,6 +3930,17 @@
             "$ref": "#/definitions/v1Token"
           },
           "title": "List of API tokens with redacted actual token"
+        }
+      }
+    },
+    "v1GetAllUsersResponse": {
+      "type": "object",
+      "properties": {
+        "userWithPerms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UserWithPerms"
+          }
         }
       }
     },
@@ -4861,7 +4958,15 @@
       "properties": {
         "displayName": {
           "type": "string",
-          "title": "Optional user_displayname"
+          "title": "user_displayname"
+        },
+        "email": {
+          "type": "string",
+          "title": "Mail address"
+        },
+        "project": {
+          "type": "string",
+          "title": "Project description string (optional)"
         }
       }
     },
@@ -5259,6 +5364,20 @@
         "description": {
           "type": "string",
           "title": "Project description"
+        }
+      }
+    },
+    "v1UserWithPerms": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v1User"
+        },
+        "projectPerms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ProjectPermission"
+          }
         }
       }
     },
