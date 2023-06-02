@@ -2,11 +2,14 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.1"
+    "version": "1.1.0-rc.2"
   },
   "tags": [
     {
       "name": "ProjectService"
+    },
+    {
+      "name": "BundlerService"
     },
     {
       "name": "ObjectService"
@@ -3425,6 +3428,17 @@
     "v1AddUserToProjectResponse": {
       "type": "object"
     },
+    "v1ArchiveType": {
+      "type": "string",
+      "enum": [
+        "ARCHIVE_TYPE_UNSPECIFIED",
+        "ARCHIVE_TYPE_TAR_GZ",
+        "ARCHIVE_TYPE_ZIP",
+        "ARCHIVE_TYPE_TAR_ZST"
+      ],
+      "default": "ARCHIVE_TYPE_UNSPECIFIED",
+      "title": "An resourcetype used to identify generic authorizations"
+    },
     "v1Authorization": {
       "type": "object",
       "properties": {
@@ -3444,6 +3458,47 @@
         "ok": {
           "type": "boolean",
           "title": "Ok -\u003e Authorization granted, empty or not ok -\u003e dismiss"
+        }
+      }
+    },
+    "v1Bundle": {
+      "type": "object",
+      "properties": {
+        "bundleId": {
+          "type": "string"
+        },
+        "objectRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ObjectRef"
+          }
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1CORSConfig": {
+      "type": "object",
+      "properties": {
+        "allowedMethods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedOrigins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedHeaders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -3636,6 +3691,14 @@
         }
       }
     },
+    "v1CreateBundleResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
     "v1CreateDownloadLinksStreamResponse": {
       "type": "object",
       "properties": {
@@ -3793,6 +3856,9 @@
     "v1DeleteAPITokensResponse": {
       "type": "object"
     },
+    "v1DeleteBundleResponse": {
+      "type": "object"
+    },
     "v1DeleteCollectionResponse": {
       "type": "object"
     },
@@ -3853,6 +3919,9 @@
           "$ref": "#/definitions/v1ObjectGroupResource"
         }
       }
+    },
+    "v1EnableBundleResponse": {
+      "type": "object"
     },
     "v1Endpoint": {
       "type": "object",
@@ -4018,6 +4087,17 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1UserWithPerms"
+          }
+        }
+      }
+    },
+    "v1GetBundlesResponse": {
+      "type": "object",
+      "properties": {
+        "bundles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Bundle"
           }
         }
       }
@@ -4221,6 +4301,12 @@
         },
         "location": {
           "$ref": "#/definitions/internalv1Location"
+        },
+        "corsConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CORSConfig"
+          }
         }
       }
     },
@@ -4456,6 +4542,14 @@
         }
       }
     },
+    "v1GetTokenFromSecretResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
     "v1GetUploadURLResponse": {
       "type": "object",
       "properties": {
@@ -4591,6 +4685,9 @@
           "title": "CollectionID"
         }
       }
+    },
+    "v1InvalidateBundleResponse": {
+      "type": "object"
     },
     "v1KeyValue": {
       "type": "object",
@@ -4835,6 +4932,20 @@
       },
       "title": "Stats for an object group"
     },
+    "v1ObjectRef": {
+      "type": "object",
+      "properties": {
+        "objectLocation": {
+          "type": "string"
+        },
+        "encryptionKey": {
+          "type": "string"
+        },
+        "objectPath": {
+          "type": "string"
+        }
+      }
+    },
     "v1ObjectReference": {
       "type": "object",
       "properties": {
@@ -4962,6 +5073,9 @@
           "title": "New collection overview"
         }
       }
+    },
+    "v1PrepareBundleResponse": {
+      "type": "object"
     },
     "v1ProjectOverview": {
       "type": "object",
