@@ -375,3 +375,235 @@ var CollectionService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "aruna/api/storage/services/v1/collection_service.proto",
 }
+
+// WorkspaceServiceClient is the client API for WorkspaceService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type WorkspaceServiceClient interface {
+	// CreateWorkspace
+	//
+	// Status: ALPHA
+	//
+	// A new request to create a personal anonymous workspace
+	CreateWorkspace(ctx context.Context, in *CreateWorkspaceRequest, opts ...grpc.CallOption) (*CreateWorkspaceResponse, error)
+	// DeleteWorkspace
+	//
+	// Status: ALPHA
+	//
+	// Delete a workspace
+	DeleteWorkspace(ctx context.Context, in *DeleteWorkspaceRequest, opts ...grpc.CallOption) (*DeleteWorkspaceResponse, error)
+	// DeleteWorkspace
+	//
+	// Status: ALPHA
+	//
+	// Claims an anonymous workspace, and transfers the owner to a regular user account.
+	ClaimWorkspace(ctx context.Context, in *ClaimWorkspaceRequest, opts ...grpc.CallOption) (*ClaimWorkspaceResponse, error)
+	// MoveWorkspaceData
+	//
+	// Status: ALPHA
+	//
+	// Claims an anonymous workspace
+	MoveWorkspaceData(ctx context.Context, in *MoveWorkspaceDataRequest, opts ...grpc.CallOption) (*MoveWorkspaceDataResponse, error)
+}
+
+type workspaceServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewWorkspaceServiceClient(cc grpc.ClientConnInterface) WorkspaceServiceClient {
+	return &workspaceServiceClient{cc}
+}
+
+func (c *workspaceServiceClient) CreateWorkspace(ctx context.Context, in *CreateWorkspaceRequest, opts ...grpc.CallOption) (*CreateWorkspaceResponse, error) {
+	out := new(CreateWorkspaceResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.WorkspaceService/CreateWorkspace", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workspaceServiceClient) DeleteWorkspace(ctx context.Context, in *DeleteWorkspaceRequest, opts ...grpc.CallOption) (*DeleteWorkspaceResponse, error) {
+	out := new(DeleteWorkspaceResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.WorkspaceService/DeleteWorkspace", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workspaceServiceClient) ClaimWorkspace(ctx context.Context, in *ClaimWorkspaceRequest, opts ...grpc.CallOption) (*ClaimWorkspaceResponse, error) {
+	out := new(ClaimWorkspaceResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.WorkspaceService/ClaimWorkspace", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workspaceServiceClient) MoveWorkspaceData(ctx context.Context, in *MoveWorkspaceDataRequest, opts ...grpc.CallOption) (*MoveWorkspaceDataResponse, error) {
+	out := new(MoveWorkspaceDataResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.WorkspaceService/MoveWorkspaceData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// WorkspaceServiceServer is the server API for WorkspaceService service.
+// All implementations should embed UnimplementedWorkspaceServiceServer
+// for forward compatibility
+type WorkspaceServiceServer interface {
+	// CreateWorkspace
+	//
+	// Status: ALPHA
+	//
+	// A new request to create a personal anonymous workspace
+	CreateWorkspace(context.Context, *CreateWorkspaceRequest) (*CreateWorkspaceResponse, error)
+	// DeleteWorkspace
+	//
+	// Status: ALPHA
+	//
+	// Delete a workspace
+	DeleteWorkspace(context.Context, *DeleteWorkspaceRequest) (*DeleteWorkspaceResponse, error)
+	// DeleteWorkspace
+	//
+	// Status: ALPHA
+	//
+	// Claims an anonymous workspace, and transfers the owner to a regular user account.
+	ClaimWorkspace(context.Context, *ClaimWorkspaceRequest) (*ClaimWorkspaceResponse, error)
+	// MoveWorkspaceData
+	//
+	// Status: ALPHA
+	//
+	// Claims an anonymous workspace
+	MoveWorkspaceData(context.Context, *MoveWorkspaceDataRequest) (*MoveWorkspaceDataResponse, error)
+}
+
+// UnimplementedWorkspaceServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedWorkspaceServiceServer struct {
+}
+
+func (UnimplementedWorkspaceServiceServer) CreateWorkspace(context.Context, *CreateWorkspaceRequest) (*CreateWorkspaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateWorkspace not implemented")
+}
+func (UnimplementedWorkspaceServiceServer) DeleteWorkspace(context.Context, *DeleteWorkspaceRequest) (*DeleteWorkspaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkspace not implemented")
+}
+func (UnimplementedWorkspaceServiceServer) ClaimWorkspace(context.Context, *ClaimWorkspaceRequest) (*ClaimWorkspaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClaimWorkspace not implemented")
+}
+func (UnimplementedWorkspaceServiceServer) MoveWorkspaceData(context.Context, *MoveWorkspaceDataRequest) (*MoveWorkspaceDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MoveWorkspaceData not implemented")
+}
+
+// UnsafeWorkspaceServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WorkspaceServiceServer will
+// result in compilation errors.
+type UnsafeWorkspaceServiceServer interface {
+	mustEmbedUnimplementedWorkspaceServiceServer()
+}
+
+func RegisterWorkspaceServiceServer(s grpc.ServiceRegistrar, srv WorkspaceServiceServer) {
+	s.RegisterService(&WorkspaceService_ServiceDesc, srv)
+}
+
+func _WorkspaceService_CreateWorkspace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWorkspaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).CreateWorkspace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.WorkspaceService/CreateWorkspace",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).CreateWorkspace(ctx, req.(*CreateWorkspaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkspaceService_DeleteWorkspace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteWorkspaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).DeleteWorkspace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.WorkspaceService/DeleteWorkspace",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).DeleteWorkspace(ctx, req.(*DeleteWorkspaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkspaceService_ClaimWorkspace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClaimWorkspaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).ClaimWorkspace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.WorkspaceService/ClaimWorkspace",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).ClaimWorkspace(ctx, req.(*ClaimWorkspaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkspaceService_MoveWorkspaceData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MoveWorkspaceDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkspaceServiceServer).MoveWorkspaceData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.WorkspaceService/MoveWorkspaceData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkspaceServiceServer).MoveWorkspaceData(ctx, req.(*MoveWorkspaceDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// WorkspaceService_ServiceDesc is the grpc.ServiceDesc for WorkspaceService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var WorkspaceService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "aruna.api.storage.services.v1.WorkspaceService",
+	HandlerType: (*WorkspaceServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateWorkspace",
+			Handler:    _WorkspaceService_CreateWorkspace_Handler,
+		},
+		{
+			MethodName: "DeleteWorkspace",
+			Handler:    _WorkspaceService_DeleteWorkspace_Handler,
+		},
+		{
+			MethodName: "ClaimWorkspace",
+			Handler:    _WorkspaceService_ClaimWorkspace_Handler,
+		},
+		{
+			MethodName: "MoveWorkspaceData",
+			Handler:    _WorkspaceService_MoveWorkspaceData_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aruna/api/storage/services/v1/collection_service.proto",
+}

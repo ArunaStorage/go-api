@@ -205,13 +205,20 @@ type ObjectServiceClient interface {
 	// Gets a specific object by object_path
 	// !! Paths are collection specific !!
 	GetObjectsByPath(ctx context.Context, in *GetObjectsByPathRequest, opts ...grpc.CallOption) (*GetObjectsByPathResponse, error)
-	// GetObjectsByPath
+	// GetProjectCollectionIdsByPath
 	//
 	// Status: BETA
 	//
-	// Gets a specific object by object_path
+	// Gets a specific project and collection_id by object_path
 	// !! Paths are collection specific !!
 	GetProjectCollectionIdsByPath(ctx context.Context, in *GetProjectCollectionIdsByPathRequest, opts ...grpc.CallOption) (*GetProjectCollectionIdsByPathResponse, error)
+	// GetObjectsAsListV2
+	//
+	// Status: ALPHA
+	//
+	// Gets a list of objects represented similar to a S3 ListObjectsV2 request
+	// !! Paths are collection specific !!
+	GetObjectsAsListV2(ctx context.Context, in *GetObjectsAsListV2Request, opts ...grpc.CallOption) (*GetObjectsAsListV2Response, error)
 }
 
 type objectServiceClient struct {
@@ -470,6 +477,15 @@ func (c *objectServiceClient) GetProjectCollectionIdsByPath(ctx context.Context,
 	return out, nil
 }
 
+func (c *objectServiceClient) GetObjectsAsListV2(ctx context.Context, in *GetObjectsAsListV2Request, opts ...grpc.CallOption) (*GetObjectsAsListV2Response, error) {
+	out := new(GetObjectsAsListV2Response)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ObjectService/GetObjectsAsListV2", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ObjectServiceServer is the server API for ObjectService service.
 // All implementations should embed UnimplementedObjectServiceServer
 // for forward compatibility
@@ -657,13 +673,20 @@ type ObjectServiceServer interface {
 	// Gets a specific object by object_path
 	// !! Paths are collection specific !!
 	GetObjectsByPath(context.Context, *GetObjectsByPathRequest) (*GetObjectsByPathResponse, error)
-	// GetObjectsByPath
+	// GetProjectCollectionIdsByPath
 	//
 	// Status: BETA
 	//
-	// Gets a specific object by object_path
+	// Gets a specific project and collection_id by object_path
 	// !! Paths are collection specific !!
 	GetProjectCollectionIdsByPath(context.Context, *GetProjectCollectionIdsByPathRequest) (*GetProjectCollectionIdsByPathResponse, error)
+	// GetObjectsAsListV2
+	//
+	// Status: ALPHA
+	//
+	// Gets a list of objects represented similar to a S3 ListObjectsV2 request
+	// !! Paths are collection specific !!
+	GetObjectsAsListV2(context.Context, *GetObjectsAsListV2Request) (*GetObjectsAsListV2Response, error)
 }
 
 // UnimplementedObjectServiceServer should be embedded to have forward compatible implementations.
@@ -744,6 +767,9 @@ func (UnimplementedObjectServiceServer) GetObjectsByPath(context.Context, *GetOb
 }
 func (UnimplementedObjectServiceServer) GetProjectCollectionIdsByPath(context.Context, *GetProjectCollectionIdsByPathRequest) (*GetProjectCollectionIdsByPathResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProjectCollectionIdsByPath not implemented")
+}
+func (UnimplementedObjectServiceServer) GetObjectsAsListV2(context.Context, *GetObjectsAsListV2Request) (*GetObjectsAsListV2Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectsAsListV2 not implemented")
 }
 
 // UnsafeObjectServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1210,6 +1236,24 @@ func _ObjectService_GetProjectCollectionIdsByPath_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectService_GetObjectsAsListV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectsAsListV2Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).GetObjectsAsListV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.ObjectService/GetObjectsAsListV2",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).GetObjectsAsListV2(ctx, req.(*GetObjectsAsListV2Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ObjectService_ServiceDesc is the grpc.ServiceDesc for ObjectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1312,6 +1356,10 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProjectCollectionIdsByPath",
 			Handler:    _ObjectService_GetProjectCollectionIdsByPath_Handler,
+		},
+		{
+			MethodName: "GetObjectsAsListV2",
+			Handler:    _ObjectService_GetObjectsAsListV2_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

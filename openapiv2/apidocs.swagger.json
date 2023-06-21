@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.2"
+    "version": "1.1.0-rc.3"
   },
   "tags": [
     {
@@ -12,10 +12,16 @@
       "name": "BundlerService"
     },
     {
+      "name": "HooksService"
+    },
+    {
       "name": "ObjectService"
     },
     {
       "name": "CollectionService"
+    },
+    {
+      "name": "WorkspaceService"
     },
     {
       "name": "EndpointService"
@@ -2544,8 +2550,8 @@
     },
     "/v1/path/collection/{path}": {
       "get": {
-        "summary": "GetObjectsByPath",
-        "description": "Status: BETA\n\nGets a specific object by object_path\n!! Paths are collection specific !!",
+        "summary": "GetProjectCollectionIdsByPath",
+        "description": "Status: BETA\n\nGets a specific project and collection_id by object_path\n!! Paths are collection specific !!",
         "operationId": "ObjectService_GetProjectCollectionIdsByPath",
         "responses": {
           "200": {
@@ -2607,6 +2613,70 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v1/path/objects/listv2": {
+      "get": {
+        "summary": "GetObjectsAsListV2",
+        "description": "Status: ALPHA\n\nGets a list of objects represented similar to a S3 ListObjectsV2 request\n!! Paths are collection specific !!",
+        "operationId": "ObjectService_GetObjectsAsListV2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetObjectsAsListV2Response"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "bucket",
+            "description": "Required",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "continuationToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delimiter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "maxKeys",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "prefix",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startAfter",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -3265,6 +3335,172 @@
           "UserService"
         ]
       }
+    },
+    "/v1/workspace": {
+      "post": {
+        "summary": "CreateWorkspace",
+        "description": "Status: ALPHA\n\nA new request to create a personal anonymous workspace",
+        "operationId": "WorkspaceService_CreateWorkspace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateWorkspaceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateWorkspaceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "WorkspaceService"
+        ]
+      }
+    },
+    "/v1/workspace/{workspaceId}": {
+      "delete": {
+        "summary": "DeleteWorkspace",
+        "description": "Status: ALPHA\n\nDelete a workspace",
+        "operationId": "WorkspaceService_DeleteWorkspace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteWorkspaceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "WorkspaceService"
+        ]
+      }
+    },
+    "/v1/workspace/{workspaceId}/claim": {
+      "post": {
+        "summary": "DeleteWorkspace",
+        "description": "Status: ALPHA\n\nClaims an anonymous workspace, and transfers the owner to a regular user account.",
+        "operationId": "WorkspaceService_ClaimWorkspace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ClaimWorkspaceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "description": "This can only be called by an registered user,\nthat is in possesion of the workspace_id and workspace token\nIt will remove the service account and claim all references \"as\" the user.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "WorkspaceService"
+        ]
+      }
+    },
+    "/v1/workspace/{workspaceId}/move/{collectionId}": {
+      "post": {
+        "summary": "MoveWorkspaceData",
+        "description": "Status: ALPHA\n\nClaims an anonymous workspace",
+        "operationId": "WorkspaceService_MoveWorkspaceData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1MoveWorkspaceDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "WorkspaceService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -3502,6 +3738,9 @@
         }
       }
     },
+    "v1ClaimWorkspaceResponse": {
+      "type": "object"
+    },
     "v1CloneObjectResponse": {
       "type": "object",
       "properties": {
@@ -3596,6 +3835,14 @@
         }
       },
       "title": "Stats for a collection"
+    },
+    "v1CommonPrefix": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string"
+        }
+      }
     },
     "v1CompletedParts": {
       "type": "object",
@@ -3711,6 +3958,14 @@
       "type": "object",
       "properties": {
         "streamGroupId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateHookResponse": {
+      "type": "object",
+      "properties": {
+        "hookId": {
           "type": "string"
         }
       }
@@ -3835,6 +4090,40 @@
         }
       }
     },
+    "v1CreateWorkspaceRequest": {
+      "type": "object",
+      "properties": {
+        "projectName": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateWorkspaceResponse": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "accessKey": {
+          "type": "string"
+        },
+        "secretKey": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Credentials": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "Will be updated with additional credential types"
+    },
     "v1DataClass": {
       "type": "string",
       "enum": [
@@ -3868,6 +4157,9 @@
     "v1DeleteEventStreamingGroupResponse": {
       "type": "object"
     },
+    "v1DeleteHookResponse": {
+      "type": "object"
+    },
     "v1DeleteObjectGroupResponse": {
       "type": "object"
     },
@@ -3884,6 +4176,9 @@
       "type": "object"
     },
     "v1DeleteStreamGroupResponse": {
+      "type": "object"
+    },
+    "v1DeleteWorkspaceResponse": {
       "type": "object"
     },
     "v1DestroyProjectResponse": {
@@ -4030,6 +4325,20 @@
           "type": "string",
           "format": "date-time",
           "title": "Expiry time"
+        }
+      }
+    },
+    "v1ExternalHook": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "credentials": {
+          "$ref": "#/definitions/v1Credentials"
+        },
+        "jsonTemplate": {
+          "type": "string"
         }
       }
     },
@@ -4344,6 +4653,40 @@
         }
       }
     },
+    "v1GetObjectsAsListV2Response": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "isTruncated": {
+          "type": "boolean"
+        },
+        "maxKeys": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "keyCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Object"
+          }
+        },
+        "prefixes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CommonPrefix"
+          }
+        },
+        "nextContinuationToken": {
+          "type": "string"
+        }
+      }
+    },
     "v1GetObjectsByPathResponse": {
       "type": "object",
       "properties": {
@@ -4641,6 +4984,38 @@
         }
       }
     },
+    "v1Hook": {
+      "type": "object",
+      "properties": {
+        "externalHook": {
+          "$ref": "#/definitions/v1ExternalHook"
+        },
+        "internalHook": {
+          "$ref": "#/definitions/v1InternalHook"
+        }
+      }
+    },
+    "v1HookCallbackResponse": {
+      "type": "object"
+    },
+    "v1HookInfo": {
+      "type": "object",
+      "properties": {
+        "hookId": {
+          "type": "string"
+        },
+        "hook": {
+          "$ref": "#/definitions/v1Hook"
+        },
+        "trigger": {
+          "$ref": "#/definitions/v1Trigger"
+        },
+        "timeout": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "v1IdType": {
       "type": "string",
       "enum": [
@@ -4683,6 +5058,33 @@
         "collectionId": {
           "type": "string",
           "title": "CollectionID"
+        }
+      }
+    },
+    "v1InternalAction": {
+      "type": "string",
+      "enum": [
+        "INTERNAL_ACTION_UNSPECIFIED",
+        "INTERNAL_ACTION_ADD_LABEL",
+        "INTERNAL_ACTION_ADD_HOOK",
+        "INTERNAL_ACTION_CREATE_READ_REFERENCE",
+        "INTERNAL_ACTION_CREATE_WRITE_REFERENCE"
+      ],
+      "default": "INTERNAL_ACTION_UNSPECIFIED"
+    },
+    "v1InternalHook": {
+      "type": "object",
+      "properties": {
+        "internalAction": {
+          "$ref": "#/definitions/v1InternalAction"
+        },
+        "targetId": {
+          "type": "string",
+          "title": "Either key or target ID"
+        },
+        "value": {
+          "type": "string",
+          "title": "Optional value"
         }
       }
     },
@@ -4748,6 +5150,17 @@
       },
       "title": "This is a combined query for either a list of resource IDs or filtered by\nLabel Can be expanded in the future to allow for more complex queries"
     },
+    "v1ListHooksResponse": {
+      "type": "object",
+      "properties": {
+        "infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1HookInfo"
+          }
+        }
+      }
+    },
     "v1LocationStatus": {
       "type": "object",
       "properties": {
@@ -4781,6 +5194,9 @@
           "$ref": "#/definitions/v1SemanticVersion"
         }
       }
+    },
+    "v1MoveWorkspaceDataResponse": {
+      "type": "object"
     },
     "v1Object": {
       "type": "object",
@@ -5441,6 +5857,28 @@
         "TOKEN_TYPE_SCOPED"
       ],
       "default": "TOKEN_TYPE_UNSPECIFIED"
+    },
+    "v1Trigger": {
+      "type": "object",
+      "properties": {
+        "triggerType": {
+          "$ref": "#/definitions/v1TriggerType"
+        },
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "v1TriggerType": {
+      "type": "string",
+      "enum": [
+        "TRIGGER_TYPE_UNSPECIFIED",
+        "TRIGGER_TYPE_HOOK_ADDED"
+      ],
+      "default": "TRIGGER_TYPE_UNSPECIFIED"
     },
     "v1URL": {
       "type": "object",
