@@ -75,6 +75,12 @@ type CollectionServiceClient interface {
 	// If cascade is true, all objects that are owned by the collection will also
 	// deleted. This should be avoided
 	DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*DeleteCollectionResponse, error)
+	// AddKeyValueToCollection
+	//
+	// Status: BETA
+	//
+	// Adds key values (labels / hooks) to a collection
+	AddKeyValuesToCollection(ctx context.Context, in *AddKeyValuesToCollectionRequest, opts ...grpc.CallOption) (*AddKeyValuesToCollectionResponse, error)
 }
 
 type collectionServiceClient struct {
@@ -139,6 +145,15 @@ func (c *collectionServiceClient) DeleteCollection(ctx context.Context, in *Dele
 	return out, nil
 }
 
+func (c *collectionServiceClient) AddKeyValuesToCollection(ctx context.Context, in *AddKeyValuesToCollectionRequest, opts ...grpc.CallOption) (*AddKeyValuesToCollectionResponse, error) {
+	out := new(AddKeyValuesToCollectionResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.CollectionService/AddKeyValuesToCollection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CollectionServiceServer is the server API for CollectionService service.
 // All implementations should embed UnimplementedCollectionServiceServer
 // for forward compatibility
@@ -196,6 +211,12 @@ type CollectionServiceServer interface {
 	// If cascade is true, all objects that are owned by the collection will also
 	// deleted. This should be avoided
 	DeleteCollection(context.Context, *DeleteCollectionRequest) (*DeleteCollectionResponse, error)
+	// AddKeyValueToCollection
+	//
+	// Status: BETA
+	//
+	// Adds key values (labels / hooks) to a collection
+	AddKeyValuesToCollection(context.Context, *AddKeyValuesToCollectionRequest) (*AddKeyValuesToCollectionResponse, error)
 }
 
 // UnimplementedCollectionServiceServer should be embedded to have forward compatible implementations.
@@ -219,6 +240,9 @@ func (UnimplementedCollectionServiceServer) PinCollectionVersion(context.Context
 }
 func (UnimplementedCollectionServiceServer) DeleteCollection(context.Context, *DeleteCollectionRequest) (*DeleteCollectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCollection not implemented")
+}
+func (UnimplementedCollectionServiceServer) AddKeyValuesToCollection(context.Context, *AddKeyValuesToCollectionRequest) (*AddKeyValuesToCollectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddKeyValuesToCollection not implemented")
 }
 
 // UnsafeCollectionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -340,6 +364,24 @@ func _CollectionService_DeleteCollection_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CollectionService_AddKeyValuesToCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddKeyValuesToCollectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CollectionServiceServer).AddKeyValuesToCollection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/aruna.api.storage.services.v1.CollectionService/AddKeyValuesToCollection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CollectionServiceServer).AddKeyValuesToCollection(ctx, req.(*AddKeyValuesToCollectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CollectionService_ServiceDesc is the grpc.ServiceDesc for CollectionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -370,6 +412,10 @@ var CollectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCollection",
 			Handler:    _CollectionService_DeleteCollection_Handler,
+		},
+		{
+			MethodName: "AddKeyValuesToCollection",
+			Handler:    _CollectionService_AddKeyValuesToCollection_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

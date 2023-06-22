@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.3"
+    "version": "1.1.0-rc.5"
   },
   "tags": [
     {
@@ -418,6 +418,164 @@
         ],
         "tags": [
           "CollectionService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/add_key_value": {
+      "patch": {
+        "summary": "AddKeyValueToCollection",
+        "description": "Status: BETA\n\nAdds key values (labels / hooks) to a collection",
+        "operationId": "CollectionService_AddKeyValuesToCollection",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddKeyValuesToCollectionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                },
+                "hooks": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1KeyValue"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/bundle": {
+      "post": {
+        "operationId": "BundlerService_CreateBundle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateBundleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "objectIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "archiveType": {
+                  "$ref": "#/definitions/v1ArchiveType"
+                },
+                "expiresAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endpointId": {
+                  "type": "string",
+                  "title": "Optional endpoint_id"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "BundlerService"
+        ]
+      }
+    },
+    "/v1/collection/{collectionId}/bundle/{bundleId}": {
+      "delete": {
+        "operationId": "BundlerService_DeleteBundle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteBundleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bundleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "BundlerService"
         ]
       }
     },
@@ -3608,14 +3766,6 @@
           "$ref": "#/definitions/v1EndpointType",
           "title": "Endpoint type"
         },
-        "proxyHostname": {
-          "type": "string",
-          "title": "Public hostname of the proxy"
-        },
-        "internalHostname": {
-          "type": "string",
-          "title": "Internal hostname for the proxy"
-        },
         "documentationPath": {
           "type": "string",
           "title": "(optional) URL to a offsite documentation"
@@ -3627,6 +3777,17 @@
         "pubkey": {
           "type": "string",
           "title": "(optional) ED25519 Pubkey -\u003e Pubkey to validate endpoint authenticated tokens"
+        },
+        "isBundler": {
+          "type": "boolean",
+          "title": "Added option to make a Dataproxy a bundler"
+        },
+        "hostConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1EndpointHostConfig"
+          },
+          "title": "List of EndpointHostConfigs"
         }
       }
     },
@@ -3640,6 +3801,15 @@
         "pubkeySerial": {
           "type": "string",
           "format": "int64"
+        }
+      }
+    },
+    "v1AddKeyValuesToCollectionResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v1CollectionOverview",
+          "title": "New collection overview"
         }
       }
     },
@@ -3941,6 +4111,9 @@
     "v1CreateBundleResponse": {
       "type": "object",
       "properties": {
+        "bundleId": {
+          "type": "string"
+        },
         "url": {
           "type": "string"
         }
@@ -4230,12 +4403,6 @@
         "name": {
           "type": "string"
         },
-        "proxyHostname": {
-          "type": "string"
-        },
-        "internalHostname": {
-          "type": "string"
-        },
         "documentationPath": {
           "type": "string"
         },
@@ -4247,8 +4414,47 @@
         },
         "status": {
           "$ref": "#/definitions/v1EndpointStatus"
+        },
+        "isBundler": {
+          "type": "boolean"
+        },
+        "hostConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1EndpointHostConfig"
+          }
         }
       }
+    },
+    "v1EndpointHostConfig": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "isPrimary": {
+          "type": "boolean"
+        },
+        "ssl": {
+          "type": "boolean"
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "hostType": {
+          "$ref": "#/definitions/v1EndpointHostType"
+        }
+      }
+    },
+    "v1EndpointHostType": {
+      "type": "string",
+      "enum": [
+        "ENDPOINT_HOST_TYPE_UNSPECIFIED",
+        "ENDPOINT_HOST_TYPE_PROXY",
+        "ENDPOINT_HOST_TYPE_INTERNAL",
+        "ENDPOINT_HOST_TYPE_BUNDLER"
+      ],
+      "default": "ENDPOINT_HOST_TYPE_UNSPECIFIED"
     },
     "v1EndpointStatus": {
       "type": "string",
@@ -5352,12 +5558,12 @@
       "type": "object",
       "properties": {
         "objectLocation": {
-          "type": "string"
+          "$ref": "#/definitions/internalv1Location"
         },
-        "encryptionKey": {
-          "type": "string"
+        "objectInfo": {
+          "$ref": "#/definitions/v1Object"
         },
-        "objectPath": {
+        "subPath": {
           "type": "string"
         }
       }
