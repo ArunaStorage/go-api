@@ -216,7 +216,7 @@ type ObjectServiceClient interface {
 	//
 	// Status: ALPHA
 	//
-	// Gets a list of objects represented similar to a S3 ListObjectsV2 request
+	// Gets a list of ObjectWithURLs represented similar to a S3 ListObjectsV2 request
 	// !! Paths are collection specific !!
 	GetObjectsAsListV2(ctx context.Context, in *GetObjectsAsListV2Request, opts ...grpc.CallOption) (*GetObjectsAsListV2Response, error)
 }
@@ -684,7 +684,7 @@ type ObjectServiceServer interface {
 	//
 	// Status: ALPHA
 	//
-	// Gets a list of objects represented similar to a S3 ListObjectsV2 request
+	// Gets a list of ObjectWithURLs represented similar to a S3 ListObjectsV2 request
 	// !! Paths are collection specific !!
 	GetObjectsAsListV2(context.Context, *GetObjectsAsListV2Request) (*GetObjectsAsListV2Response, error)
 }

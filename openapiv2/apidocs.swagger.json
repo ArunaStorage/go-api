@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.5"
+    "version": "1.1.0-rc.6"
   },
   "tags": [
     {
@@ -2781,7 +2781,7 @@
     "/v1/path/objects/listv2": {
       "get": {
         "summary": "GetObjectsAsListV2",
-        "description": "Status: ALPHA\n\nGets a list of objects represented similar to a S3 ListObjectsV2 request\n!! Paths are collection specific !!",
+        "description": "Status: ALPHA\n\nGets a list of ObjectWithURLs represented similar to a S3 ListObjectsV2 request\n!! Paths are collection specific !!",
         "operationId": "ObjectService_GetObjectsAsListV2",
         "responses": {
           "200": {
@@ -4879,8 +4879,9 @@
         "contents": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Object"
-          }
+            "$ref": "#/definitions/v1ObjectWithURL"
+          },
+          "title": "Does not contain URLs, only paths"
         },
         "prefixes": {
           "type": "array",
