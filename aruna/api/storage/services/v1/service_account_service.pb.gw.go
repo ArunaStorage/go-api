@@ -133,8 +133,8 @@ func local_request_ServiceAccountService_CreateServiceAccountToken_0(ctx context
 
 }
 
-func request_ServiceAccountService_EditServiceAccountPermission_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceAccountServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EditServiceAccountPermissionRequest
+func request_ServiceAccountService_SetServiceAccountPermission_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceAccountServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq SetServiceAccountPermissionRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -162,13 +162,13 @@ func request_ServiceAccountService_EditServiceAccountPermission_0(ctx context.Co
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "svc_account_id", err)
 	}
 
-	msg, err := client.EditServiceAccountPermission(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.SetServiceAccountPermission(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceAccountService_EditServiceAccountPermission_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceAccountServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EditServiceAccountPermissionRequest
+func local_request_ServiceAccountService_SetServiceAccountPermission_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceAccountServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq SetServiceAccountPermissionRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -196,7 +196,7 @@ func local_request_ServiceAccountService_EditServiceAccountPermission_0(ctx cont
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "svc_account_id", err)
 	}
 
-	msg, err := server.EditServiceAccountPermission(ctx, &protoReq)
+	msg, err := server.SetServiceAccountPermission(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -609,7 +609,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("PUT", pattern_ServiceAccountService_EditServiceAccountPermission_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_ServiceAccountService_SetServiceAccountPermission_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -617,12 +617,12 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ServiceAccountService/EditServiceAccountPermission", runtime.WithHTTPPathPattern("/v1/service_account/{svc_account_id}/permissions"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v1.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v1/service_account/{svc_account_id}/permissions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceAccountService_EditServiceAccountPermission_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceAccountService_SetServiceAccountPermission_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -630,7 +630,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 			return
 		}
 
-		forward_ServiceAccountService_EditServiceAccountPermission_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceAccountService_SetServiceAccountPermission_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -869,25 +869,25 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("PUT", pattern_ServiceAccountService_EditServiceAccountPermission_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_ServiceAccountService_SetServiceAccountPermission_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ServiceAccountService/EditServiceAccountPermission", runtime.WithHTTPPathPattern("/v1/service_account/{svc_account_id}/permissions"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v1.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v1/service_account/{svc_account_id}/permissions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceAccountService_EditServiceAccountPermission_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceAccountService_SetServiceAccountPermission_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceAccountService_EditServiceAccountPermission_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceAccountService_SetServiceAccountPermission_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1031,7 +1031,7 @@ var (
 
 	pattern_ServiceAccountService_CreateServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "service_account", "svc_account_id", "token"}, ""))
 
-	pattern_ServiceAccountService_EditServiceAccountPermission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "service_account", "svc_account_id", "permissions"}, ""))
+	pattern_ServiceAccountService_SetServiceAccountPermission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "service_account", "svc_account_id", "permissions"}, ""))
 
 	pattern_ServiceAccountService_GetServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "service_account", "svc_account_id", "token", "token_id"}, ""))
 
@@ -1051,7 +1051,7 @@ var (
 
 	forward_ServiceAccountService_CreateServiceAccountToken_0 = runtime.ForwardResponseMessage
 
-	forward_ServiceAccountService_EditServiceAccountPermission_0 = runtime.ForwardResponseMessage
+	forward_ServiceAccountService_SetServiceAccountPermission_0 = runtime.ForwardResponseMessage
 
 	forward_ServiceAccountService_GetServiceAccountToken_0 = runtime.ForwardResponseMessage
 

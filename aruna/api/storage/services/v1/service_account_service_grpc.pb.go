@@ -34,10 +34,10 @@ type ServiceAccountServiceClient interface {
 	// Each service account can only have one permission -> The token will have the same permission as the
 	// service account
 	CreateServiceAccountToken(ctx context.Context, in *CreateServiceAccountTokenRequest, opts ...grpc.CallOption) (*CreateServiceAccountTokenResponse, error)
-	// EditServiceAccountPermission
+	// SetServiceAccountPermission
 	//
 	// Overwrites the project specific permissions for a service account
-	EditServiceAccountPermission(ctx context.Context, in *EditServiceAccountPermissionRequest, opts ...grpc.CallOption) (*EditServiceAccountPermissionResponse, error)
+	SetServiceAccountPermission(ctx context.Context, in *SetServiceAccountPermissionRequest, opts ...grpc.CallOption) (*SetServiceAccountPermissionResponse, error)
 	// GetServiceAccountToken
 	//
 	// This requests the overall information about a specifc service account token (by id)
@@ -93,9 +93,9 @@ func (c *serviceAccountServiceClient) CreateServiceAccountToken(ctx context.Cont
 	return out, nil
 }
 
-func (c *serviceAccountServiceClient) EditServiceAccountPermission(ctx context.Context, in *EditServiceAccountPermissionRequest, opts ...grpc.CallOption) (*EditServiceAccountPermissionResponse, error) {
-	out := new(EditServiceAccountPermissionResponse)
-	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ServiceAccountService/EditServiceAccountPermission", in, out, opts...)
+func (c *serviceAccountServiceClient) SetServiceAccountPermission(ctx context.Context, in *SetServiceAccountPermissionRequest, opts ...grpc.CallOption) (*SetServiceAccountPermissionResponse, error) {
+	out := new(SetServiceAccountPermissionResponse)
+	err := c.cc.Invoke(ctx, "/aruna.api.storage.services.v1.ServiceAccountService/SetServiceAccountPermission", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -172,10 +172,10 @@ type ServiceAccountServiceServer interface {
 	// Each service account can only have one permission -> The token will have the same permission as the
 	// service account
 	CreateServiceAccountToken(context.Context, *CreateServiceAccountTokenRequest) (*CreateServiceAccountTokenResponse, error)
-	// EditServiceAccountPermission
+	// SetServiceAccountPermission
 	//
 	// Overwrites the project specific permissions for a service account
-	EditServiceAccountPermission(context.Context, *EditServiceAccountPermissionRequest) (*EditServiceAccountPermissionResponse, error)
+	SetServiceAccountPermission(context.Context, *SetServiceAccountPermissionRequest) (*SetServiceAccountPermissionResponse, error)
 	// GetServiceAccountToken
 	//
 	// This requests the overall information about a specifc service account token (by id)
@@ -215,8 +215,8 @@ func (UnimplementedServiceAccountServiceServer) CreateServiceAccount(context.Con
 func (UnimplementedServiceAccountServiceServer) CreateServiceAccountToken(context.Context, *CreateServiceAccountTokenRequest) (*CreateServiceAccountTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateServiceAccountToken not implemented")
 }
-func (UnimplementedServiceAccountServiceServer) EditServiceAccountPermission(context.Context, *EditServiceAccountPermissionRequest) (*EditServiceAccountPermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditServiceAccountPermission not implemented")
+func (UnimplementedServiceAccountServiceServer) SetServiceAccountPermission(context.Context, *SetServiceAccountPermissionRequest) (*SetServiceAccountPermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetServiceAccountPermission not implemented")
 }
 func (UnimplementedServiceAccountServiceServer) GetServiceAccountToken(context.Context, *GetServiceAccountTokenRequest) (*GetServiceAccountTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceAccountToken not implemented")
@@ -284,20 +284,20 @@ func _ServiceAccountService_CreateServiceAccountToken_Handler(srv interface{}, c
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceAccountService_EditServiceAccountPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditServiceAccountPermissionRequest)
+func _ServiceAccountService_SetServiceAccountPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetServiceAccountPermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceAccountServiceServer).EditServiceAccountPermission(ctx, in)
+		return srv.(ServiceAccountServiceServer).SetServiceAccountPermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/aruna.api.storage.services.v1.ServiceAccountService/EditServiceAccountPermission",
+		FullMethod: "/aruna.api.storage.services.v1.ServiceAccountService/SetServiceAccountPermission",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceAccountServiceServer).EditServiceAccountPermission(ctx, req.(*EditServiceAccountPermissionRequest))
+		return srv.(ServiceAccountServiceServer).SetServiceAccountPermission(ctx, req.(*SetServiceAccountPermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -426,8 +426,8 @@ var ServiceAccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceAccountService_CreateServiceAccountToken_Handler,
 		},
 		{
-			MethodName: "EditServiceAccountPermission",
-			Handler:    _ServiceAccountService_EditServiceAccountPermission_Handler,
+			MethodName: "SetServiceAccountPermission",
+			Handler:    _ServiceAccountService_SetServiceAccountPermission_Handler,
 		},
 		{
 			MethodName: "GetServiceAccountToken",

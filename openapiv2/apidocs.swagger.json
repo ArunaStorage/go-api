@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.6"
+    "version": "1.1.0-rc.7"
   },
   "tags": [
     {
@@ -31,6 +31,9 @@
     },
     {
       "name": "ObjectGroupService"
+    },
+    {
+      "name": "ServiceAccountService"
     },
     {
       "name": "UserService"
@@ -3216,6 +3219,348 @@
         ]
       }
     },
+    "/v1/service_account": {
+      "post": {
+        "summary": "CreateServiceAccount",
+        "description": "Creates a service account for a given project\nIf the service account has permissions for the global Admin project\nit will be a global service account that can interact with any resource",
+        "operationId": "ServiceAccountService_CreateServiceAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateServiceAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateServiceAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/project/{projectId}": {
+      "get": {
+        "summary": "GetServiceAccountsByProject",
+        "description": "Will request all service_accounts for a given project\neach service account is bound to a specific project",
+        "operationId": "ServiceAccountService_GetServiceAccountsByProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServiceAccountsByProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/{svcAccountId}": {
+      "delete": {
+        "summary": "DeleteServiceAccount",
+        "description": "Deletes a service account (by id)",
+        "operationId": "ServiceAccountService_DeleteServiceAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteServiceAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/{svcAccountId}/permissions": {
+      "put": {
+        "summary": "SetServiceAccountPermission",
+        "description": "Overwrites the project specific permissions for a service account",
+        "operationId": "ServiceAccountService_SetServiceAccountPermission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetServiceAccountPermissionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newPermission": {
+                  "$ref": "#/definitions/v1Permission"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/{svcAccountId}/token": {
+      "post": {
+        "summary": "CreateServiceAccountToken",
+        "description": "Creates a token for a service account\nEach service account can only have one permission -\u003e The token will have the same permission as the\nservice account",
+        "operationId": "ServiceAccountService_CreateServiceAccountToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateServiceAccountTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectId": {
+                  "type": "string",
+                  "title": "Identify the associated project (should always be provided)"
+                },
+                "collectionId": {
+                  "type": "string",
+                  "title": "Collection id, will be empty if permission should be on project level"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "(optional) Token name"
+                },
+                "expiresAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "(optional) Token expiry"
+                },
+                "permission": {
+                  "$ref": "#/definitions/v1Permission",
+                  "title": "Token permissions, must be less than or equal user permissions"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/{svcAccountId}/token/{tokenId}": {
+      "get": {
+        "summary": "GetServiceAccountToken",
+        "description": "This requests the overall information about a specifc service account token (by id)\nit will not contain the token itself.",
+        "operationId": "ServiceAccountService_GetServiceAccountToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServiceAccountTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteServiceAccountToken",
+        "description": "Deletes one service account token by ID",
+        "operationId": "ServiceAccountService_DeleteServiceAccountToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteServiceAccountTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v1/service_account/{svcAccountId}/tokens": {
+      "get": {
+        "summary": "GetServiceAccountTokens",
+        "description": "This requests the overall information about all service account tokens\nit will not contain the token itself.",
+        "operationId": "ServiceAccountService_GetServiceAccountTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetServiceAccountTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteServiceAccountTokens",
+        "description": "Deletes all service account tokens",
+        "operationId": "ServiceAccountService_DeleteServiceAccountTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteServiceAccountTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
     "/v1/user": {
       "get": {
         "summary": "GetUserRequest",
@@ -4233,6 +4578,20 @@
         }
       }
     },
+    "v1CreateServiceAccountRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "permission": {
+          "$ref": "#/definitions/v1Permission"
+        }
+      }
+    },
     "v1CreateServiceAccountResponse": {
       "type": "object",
       "properties": {
@@ -4250,7 +4609,15 @@
         },
         "tokenSecret": {
           "type": "string",
-          "title": "This is the actual secret token\nAttention, this can not be recreated and needs to be stored securely\nNew tokens will always contain a new secret"
+          "title": "This is the actual secret API token"
+        },
+        "s3AccessKey": {
+          "type": "string",
+          "title": "S3 Access Key"
+        },
+        "s3SecretKey": {
+          "type": "string",
+          "title": "S3 Secret Key"
         }
       }
     },
@@ -4356,14 +4723,6 @@
     },
     "v1DestroyProjectResponse": {
       "type": "object"
-    },
-    "v1EditServiceAccountPermissionResponse": {
-      "type": "object",
-      "properties": {
-        "serviceAccount": {
-          "$ref": "#/definitions/v1ServiceAccount"
-        }
-      }
     },
     "v1EditUserPermissionsForProjectResponse": {
       "type": "object"
@@ -5893,6 +6252,14 @@
       "properties": {
         "path": {
           "$ref": "#/definitions/v1Path"
+        }
+      }
+    },
+    "v1SetServiceAccountPermissionResponse": {
+      "type": "object",
+      "properties": {
+        "serviceAccount": {
+          "$ref": "#/definitions/v1ServiceAccount"
         }
       }
     },
