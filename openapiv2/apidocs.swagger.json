@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "1.1.0-rc.7"
+    "version": "1.1.0-rc.8"
   },
   "tags": [
     {
@@ -2981,6 +2981,14 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "flag",
+            "description": "Project binary flag(s)",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -4566,6 +4574,11 @@
         "description": {
           "type": "string",
           "title": "Description for the project"
+        },
+        "flag": {
+          "type": "string",
+          "format": "int64",
+          "title": "Project binary flag(s)"
         }
       }
     },
@@ -6082,6 +6095,11 @@
           "items": {
             "type": "string"
           }
+        },
+        "flags": {
+          "type": "string",
+          "format": "int64",
+          "title": "Project binary flag(s)"
         }
       }
     },
