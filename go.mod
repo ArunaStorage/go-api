@@ -3,7 +3,6 @@ module github.com/ArunaStorage/go-api/v2
 go 1.21
 
 require (
-	github.com/ArunaStorage/go-api/v2 v2.0.0-beta.5
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	google.golang.org/api v0.147.0
 	google.golang.org/genproto v0.0.0-20231016165738-49dd2c1f3d0b
