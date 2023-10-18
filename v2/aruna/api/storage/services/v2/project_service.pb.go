@@ -7,7 +7,7 @@
 package v2
 
 import (
-	v2 "github.com/ArunaStorage/go-api/aruna/api/storage/models/v2"
+	v2 "github.com/ArunaStorage/go-api/v2/aruna/api/storage/models/v2"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
