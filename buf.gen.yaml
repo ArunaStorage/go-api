@@ -15,7 +15,7 @@ plugins:
       - allow_repeated_fields_in_body=true
       - allow_delete_body=true
   - plugin: buf.build/grpc-ecosystem/openapiv2:v2.18.0
-    out: openapiv2
+    out: v2/openapiv2
     opt:
       - allow_merge=true
       - allow_delete_body=true
