@@ -1,11 +1,4 @@
 version: v1
-managed:
-  enabled: true
-  go_package_prefix:
-    default: github.com/ArunaStorage/go-api/v2
-    except:
-      - buf.build/googleapis/googleapis
-      - buf.build/grpc-ecosystem/gateway
 plugins:
   - plugin: buf.build/protocolbuffers/go:v1.31.0
     out: .

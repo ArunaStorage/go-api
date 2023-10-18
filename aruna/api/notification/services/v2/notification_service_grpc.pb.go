@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: aruna/api/notification/services/v2/notification_service.proto
 
-package servicesv2
+package v2
 
 import (
 	context "context"

@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: aruna/api/storage/services/v2/endpoint_service.proto
 
-package servicesv2
+package v2
 
 import (
 	context "context"
