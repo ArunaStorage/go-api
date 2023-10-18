@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: aruna/api/dataproxy/services/v2/bundler_service.proto
 
-package v2
+package servicesv2
 
 import (
 	context "context"

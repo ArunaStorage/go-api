@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: aruna/api/hooks/services/v2/hooks_service.proto
 
-package v2
+package servicesv2
 
 import (
 	context "context"

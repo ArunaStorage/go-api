@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: aruna/api/storage/services/v2/workspace_service.proto
 
-package v2
+package servicesv2
 
 import (
 	context "context"

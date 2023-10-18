@@ -2,11 +2,11 @@
 // source: aruna/api/hooks/services/v2/hooks_service.proto
 
 /*
-Package v2 is a reverse proxy.
+Package servicesv2 is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package v2
+package servicesv2
 
 import (
 	"context"
