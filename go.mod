@@ -1,4 +1,4 @@
-module github.com/ArunaStorage/go-api
+module github.com/ArunaStorage/go-api/v2
 
 go 1.21
 
