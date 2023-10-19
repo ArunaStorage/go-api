@@ -19,3 +19,4 @@ plugins:
     opt:
       - allow_merge=true
       - allow_delete_body=true
+      - visibility_restriction_selectors=SERVER
