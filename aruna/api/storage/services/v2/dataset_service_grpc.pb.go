@@ -28,6 +28,7 @@ const (
 	DatasetService_UpdateDatasetKeyValues_FullMethodName   = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetKeyValues"
 	DatasetService_UpdateDatasetDataClass_FullMethodName   = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass"
 	DatasetService_SnapshotDataset_FullMethodName          = "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset"
+	DatasetService_UpdateDatasetLicenses_FullMethodName    = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses"
 )
 
 // DatasetServiceClient is the client API for DatasetService service.
@@ -88,6 +89,12 @@ type DatasetServiceClient interface {
 	//
 	// Archives the full dataset, rendering all downstream relations immutable
 	SnapshotDataset(ctx context.Context, in *SnapshotDatasetRequest, opts ...grpc.CallOption) (*SnapshotDatasetResponse, error)
+	// UpdateLicenses
+	//
+	// Status: BETA
+	//
+	// Updates the dataset metadata license and/or default data license.
+	UpdateDatasetLicenses(ctx context.Context, in *UpdateDatasetLicensesRequest, opts ...grpc.CallOption) (*UpdateDatasetLicensesResponse, error)
 }
 
 type datasetServiceClient struct {
@@ -179,6 +186,15 @@ func (c *datasetServiceClient) SnapshotDataset(ctx context.Context, in *Snapshot
 	return out, nil
 }
 
+func (c *datasetServiceClient) UpdateDatasetLicenses(ctx context.Context, in *UpdateDatasetLicensesRequest, opts ...grpc.CallOption) (*UpdateDatasetLicensesResponse, error) {
+	out := new(UpdateDatasetLicensesResponse)
+	err := c.cc.Invoke(ctx, DatasetService_UpdateDatasetLicenses_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetServiceServer is the server API for DatasetService service.
 // All implementations should embed UnimplementedDatasetServiceServer
 // for forward compatibility
@@ -237,6 +253,12 @@ type DatasetServiceServer interface {
 	//
 	// Archives the full dataset, rendering all downstream relations immutable
 	SnapshotDataset(context.Context, *SnapshotDatasetRequest) (*SnapshotDatasetResponse, error)
+	// UpdateLicenses
+	//
+	// Status: BETA
+	//
+	// Updates the dataset metadata license and/or default data license.
+	UpdateDatasetLicenses(context.Context, *UpdateDatasetLicensesRequest) (*UpdateDatasetLicensesResponse, error)
 }
 
 // UnimplementedDatasetServiceServer should be embedded to have forward compatible implementations.
@@ -269,6 +291,9 @@ func (UnimplementedDatasetServiceServer) UpdateDatasetDataClass(context.Context,
 }
 func (UnimplementedDatasetServiceServer) SnapshotDataset(context.Context, *SnapshotDatasetRequest) (*SnapshotDatasetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SnapshotDataset not implemented")
+}
+func (UnimplementedDatasetServiceServer) UpdateDatasetLicenses(context.Context, *UpdateDatasetLicensesRequest) (*UpdateDatasetLicensesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetLicenses not implemented")
 }
 
 // UnsafeDatasetServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -444,6 +469,24 @@ func _DatasetService_SnapshotDataset_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_UpdateDatasetLicenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDatasetLicensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).UpdateDatasetLicenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatasetService_UpdateDatasetLicenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).UpdateDatasetLicenses(ctx, req.(*UpdateDatasetLicensesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatasetService_ServiceDesc is the grpc.ServiceDesc for DatasetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -486,6 +529,10 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SnapshotDataset",
 			Handler:    _DatasetService_SnapshotDataset_Handler,
+		},
+		{
+			MethodName: "UpdateDatasetLicenses",
+			Handler:    _DatasetService_UpdateDatasetLicenses_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

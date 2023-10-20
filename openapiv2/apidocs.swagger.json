@@ -2,23 +2,11 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.5"
+    "version": "2.0.0-beta.6"
   },
   "tags": [
     {
       "name": "ProjectService"
-    },
-    {
-      "name": "BundlerService"
-    },
-    {
-      "name": "DataproxyService"
-    },
-    {
-      "name": "DataproxyBackendService"
-    },
-    {
-      "name": "DataproxyUserService"
     },
     {
       "name": "HooksService"
@@ -40,6 +28,9 @@
     },
     {
       "name": "StorageStatusService"
+    },
+    {
+      "name": "LicenseService"
     },
     {
       "name": "ObjectService"
@@ -393,68 +384,6 @@
         ]
       }
     },
-    "/v2/bundle": {
-      "delete": {
-        "operationId": "BundlerService_DeleteBundle",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2DeleteBundleResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2DeleteBundleRequest"
-            }
-          }
-        ],
-        "tags": [
-          "BundlerService"
-        ]
-      },
-      "post": {
-        "operationId": "BundlerService_CreateBundle",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2CreateBundleResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2CreateBundleRequest"
-            }
-          }
-        ],
-        "tags": [
-          "BundlerService"
-        ]
-      }
-    },
     "/v2/collection": {
       "post": {
         "summary": "CreateNewCollection",
@@ -698,6 +627,54 @@
         ]
       }
     },
+    "/v2/collection/{collectionId}/licenses": {
+      "patch": {
+        "summary": "UpdateLicenses",
+        "description": "Status: BETA\n\nUpdates the collections metadata license and/or default data license.",
+        "operationId": "CollectionService_UpdateCollectionLicenses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateCollectionLicensesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "metadataLicenseTag": {
+                  "type": "string"
+                },
+                "defaultDataLicenseTag": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
     "/v2/collection/{collectionId}/name": {
       "patch": {
         "summary": "UpdateCollectionName",
@@ -816,40 +793,6 @@
         ],
         "tags": [
           "CollectionService"
-        ]
-      }
-    },
-    "/v2/credentials": {
-      "post": {
-        "summary": "GetCredentials",
-        "description": "Status: BETA\n\nAuthorized method that needs a aruna-token to exchange for dataproxy\nspecific S3AccessKey and S3SecretKey",
-        "operationId": "DataproxyUserService_GetCredentials",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetCredentialsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2GetCredentialsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DataproxyUserService"
         ]
       }
     },
@@ -1086,6 +1029,54 @@
                     "type": "object",
                     "$ref": "#/definitions/v2KeyValue"
                   }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/v2/dataset/{datasetId}/licenses": {
+      "patch": {
+        "summary": "UpdateLicenses",
+        "description": "Status: BETA\n\nUpdates the dataset metadata license and/or default data license.",
+        "operationId": "DatasetService_UpdateDatasetLicenses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateDatasetLicensesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "metadataLicenseTag": {
+                  "type": "string"
+                },
+                "defaultDataLicenseTag": {
+                  "type": "string"
                 }
               }
             }
@@ -1750,6 +1741,278 @@
         ]
       }
     },
+    "/v2/license": {
+      "post": {
+        "summary": "CreateLicense",
+        "description": "Status: BETA\n\nThis creates a new license",
+        "operationId": "LicenseService_CreateLicense",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateLicenseResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Request object for CreateLicense",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2CreateLicenseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LicenseService"
+        ]
+      }
+    },
+    "/v2/license/{tag}": {
+      "get": {
+        "summary": "GetLicense",
+        "description": "Status: BETA\n\nThis returns the license for a given tag",
+        "operationId": "LicenseService_GetLicense",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetLicenseResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tag",
+            "description": "1234567890abcdef",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LicenseService"
+        ]
+      }
+    },
+    "/v2/licenses": {
+      "get": {
+        "summary": "ListLicenses",
+        "description": "Status: BETA\n\nThis returns a list of all licenses",
+        "operationId": "LicenseService_ListLicenses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2ListLicensesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "LicenseService"
+        ]
+      }
+    },
+    "/v2/notifications/ack": {
+      "patch": {
+        "summary": "AcknowledgeMessageBatch",
+        "description": "List of messages to acknowledge\nEach reply is protected by a salt and and hmac that verifies the message",
+        "operationId": "EventNotificationService_AcknowledgeMessageBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AcknowledgeMessageBatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2AcknowledgeMessageBatchRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventNotificationService"
+        ]
+      }
+    },
+    "/v2/notifications/consumer": {
+      "post": {
+        "summary": "CreateStreamConsumer",
+        "description": "Creates a new event stream consumer.",
+        "operationId": "EventNotificationService_CreateStreamConsumer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateStreamConsumerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2CreateStreamConsumerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventNotificationService"
+        ]
+      }
+    },
+    "/v2/notifications/{streamConsumer}": {
+      "delete": {
+        "summary": "DeleteEventStreamingGroup",
+        "description": "Deletes an existing event stream consumer by ID.",
+        "operationId": "EventNotificationService_DeleteStreamConsumer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteStreamConsumerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamConsumer",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EventNotificationService"
+        ]
+      }
+    },
+    "/v2/notifications/{streamConsumer}/batch": {
+      "get": {
+        "summary": "GetEventMessageBatch",
+        "description": "Reads a set of messages from a given stream group \nEach message contains a separate acknowledgement message thatis protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
+        "operationId": "EventNotificationService_GetEventMessageBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetEventMessageBatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamConsumer",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "batchSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "EventNotificationService"
+        ]
+      }
+    },
+    "/v2/notifications/{streamConsumer}/stream": {
+      "get": {
+        "summary": "GetEventMessageBatch",
+        "description": "Opens a stream which pushes each received notification individual and just-in-time.\nEach message contains a separate acknowledgement message that is protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
+        "operationId": "EventNotificationService_GetEventMessageStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v2GetEventMessageStreamResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of v2GetEventMessageStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamConsumer",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EventNotificationService"
+        ]
+      }
+    },
     "/v2/object": {
       "post": {
         "summary": "CreateObject",
@@ -1941,6 +2204,12 @@
                 "forceRevision": {
                   "type": "boolean",
                   "title": "Force new object revision"
+                },
+                "metadataLicenseTag": {
+                  "type": "string"
+                },
+                "dataLicenseTag": {
+                  "type": "string"
                 }
               }
             }
@@ -2416,6 +2685,54 @@
         ]
       }
     },
+    "/v2/project/{projectId}/licenses": {
+      "patch": {
+        "summary": "UpdateLicense",
+        "description": "Status: BETA\n\nUpdates the project license. All (meta) data will be overwritten.",
+        "operationId": "ProjectService_UpdateProjectLicenses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateProjectLicensesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "metadataLicenseTag": {
+                  "type": "string"
+                },
+                "defaultDataLicenseTag": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
     "/v2/project/{projectId}/name": {
       "patch": {
         "summary": "UpdateProjectName",
@@ -2561,106 +2878,6 @@
         ],
         "tags": [
           "RelationsService"
-        ]
-      }
-    },
-    "/v2/replica/pull": {
-      "post": {
-        "summary": "PullReplica",
-        "description": "Status: BETA\n\nManually request data to be transferred to this data-proxy",
-        "operationId": "DataproxyUserService_PullReplica",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2PullReplicaResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2PullReplicaRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DataproxyUserService"
-        ]
-      }
-    },
-    "/v2/replica/push": {
-      "post": {
-        "summary": "PushReplica",
-        "description": "Status: BETA\n\nManually transfers a replica to another data-proxy",
-        "operationId": "DataproxyUserService_PushReplica",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2PushReplicaResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2PushReplicaRequest"
-            }
-          }
-        ],
-        "tags": [
-          "DataproxyUserService"
-        ]
-      }
-    },
-    "/v2/replica/status": {
-      "get": {
-        "summary": "PullReplica",
-        "description": "Status: BETA\n\nStatus of the previous replication request",
-        "operationId": "DataproxyUserService_ReplicationStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2ReplicationStatusResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "replicationId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DataproxyUserService"
         ]
       }
     },
@@ -3984,6 +4201,27 @@
         }
       }
     },
+    "modelsv2License": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "title": "CC-BY-SA-4.0"
+        },
+        "name": {
+          "type": "string",
+          "title": "Creative Commons Attribution-ShareAlike 4.0 International"
+        },
+        "text": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "title": "url is optional"
+        }
+      }
+    },
     "modelsv2Status": {
       "type": "string",
       "enum": [
@@ -4030,6 +4268,18 @@
         },
         "status": {
           "$ref": "#/definitions/storagemodelsv2ComponentStatus"
+        }
+      }
+    },
+    "v2AcknowledgeMessageBatchRequest": {
+      "type": "object",
+      "properties": {
+        "replies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Reply"
+          }
         }
       }
     },
@@ -4190,6 +4440,12 @@
             "type": "object",
             "$ref": "#/definitions/v2DataEndpoint"
           }
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -4346,26 +4602,6 @@
     "v2CreateBucketResponse": {
       "type": "object"
     },
-    "v2CreateBundleRequest": {
-      "type": "object",
-      "properties": {
-        "resourceId": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "filename": {
-          "type": "string",
-          "title": ".tar.gz / .zip"
-        },
-        "expiresAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "Default 1 Month"
-        }
-      }
-    },
     "v2CreateBundleResponse": {
       "type": "object",
       "properties": {
@@ -4396,19 +4632,25 @@
           },
           "title": "collection specific labels / hooks"
         },
-        "externalRelations": {
+        "relations": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2ExternalRelation"
+            "$ref": "#/definitions/v2Relation"
           },
-          "title": "External relations (URLs / IDs from external sources)"
+          "title": "Internal /External relations (URLs / IDs from external sources)"
         },
         "dataClass": {
           "$ref": "#/definitions/v2DataClass",
           "title": "DataClass"
         },
         "projectId": {
+          "type": "string"
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
           "type": "string"
         }
       }
@@ -4441,13 +4683,13 @@
           },
           "title": "dataset specific labels / hooks"
         },
-        "externalRelations": {
+        "relations": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2ExternalRelation"
+            "$ref": "#/definitions/v2Relation"
           },
-          "title": "External relations (URLs / IDs from external sources)"
+          "title": "Internal / External relations (URLs / IDs from external sources)"
         },
         "dataClass": {
           "$ref": "#/definitions/v2DataClass",
@@ -4457,6 +4699,12 @@
           "type": "string"
         },
         "collectionId": {
+          "type": "string"
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
           "type": "string"
         }
       }
@@ -4543,6 +4791,40 @@
         }
       }
     },
+    "v2CreateLicenseRequest": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "title": "CC-BY-SA-4.0"
+        },
+        "name": {
+          "type": "string",
+          "title": "Creative Commons Attribution-ShareAlike 4.0 International"
+        },
+        "text": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "title": "url is optional"
+        }
+      },
+      "description": "Request object for CreateLicense",
+      "title": "CreateLicenseRequest"
+    },
+    "v2CreateLicenseResponse": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "title": "CC-BY-SA-4.0"
+        }
+      },
+      "description": "Response object for CreateLicense",
+      "title": "CreateLicenseResponse"
+    },
     "v2CreateObjectRequest": {
       "type": "object",
       "properties": {
@@ -4562,13 +4844,13 @@
           },
           "title": "collection specific labels / hooks"
         },
-        "externalRelations": {
+        "relations": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2ExternalRelation"
+            "$ref": "#/definitions/v2Relation"
           },
-          "title": "External relations (URLs / IDs from external sources)"
+          "title": "Internal / External relations (URLs / IDs from external sources)"
         },
         "dataClass": {
           "$ref": "#/definitions/v2DataClass",
@@ -4589,6 +4871,12 @@
             "type": "object",
             "$ref": "#/definitions/v2Hash"
           }
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "dataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -4619,13 +4907,13 @@
           },
           "title": "Project specific labels / hooks"
         },
-        "externalRelations": {
+        "relations": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2ExternalRelation"
+            "$ref": "#/definitions/v2Relation"
           },
-          "title": "External relations (URLs / IDs from external sources)"
+          "title": "Internal / External relations (URLs / IDs from external sources)"
         },
         "dataClass": {
           "$ref": "#/definitions/v2DataClass",
@@ -4634,6 +4922,12 @@
         "preferredEndpoint": {
           "type": "string",
           "title": "Preferred endpoint"
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -4675,6 +4969,35 @@
         "tokenSecret": {
           "type": "string",
           "title": "This is the actual secret API token"
+        }
+      }
+    },
+    "v2CreateStreamConsumerRequest": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "$ref": "#/definitions/v2ResourceTarget"
+        },
+        "user": {
+          "type": "string"
+        },
+        "anouncements": {
+          "type": "boolean"
+        },
+        "all": {
+          "type": "boolean"
+        },
+        "includeSubresources": {
+          "type": "boolean"
+        },
+        "streamAll": {
+          "$ref": "#/definitions/v2StreamAll"
+        },
+        "streamFromDate": {
+          "$ref": "#/definitions/v2StreamFromDate"
+        },
+        "streamFromSequence": {
+          "$ref": "#/definitions/v2StreamFromSequence"
         }
       }
     },
@@ -4897,6 +5220,12 @@
             "type": "object",
             "$ref": "#/definitions/v2DataEndpoint"
           }
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -4939,14 +5268,6 @@
     },
     "v2DeleteBucketResponse": {
       "type": "object"
-    },
-    "v2DeleteBundleRequest": {
-      "type": "object",
-      "properties": {
-        "bundleId": {
-          "type": "string"
-        }
-      }
     },
     "v2DeleteBundleResponse": {
       "type": "object"
@@ -5201,7 +5522,7 @@
     "v2GetAPITokensResponse": {
       "type": "object",
       "properties": {
-        "token": {
+        "tokens": {
           "type": "array",
           "items": {
             "type": "object",
@@ -5268,9 +5589,6 @@
           "title": "List of collection overviews"
         }
       }
-    },
-    "v2GetCredentialsRequest": {
-      "type": "object"
     },
     "v2GetCredentialsResponse": {
       "type": "object",
@@ -5394,6 +5712,16 @@
           "$ref": "#/definitions/v2DatasetRelations"
         }
       }
+    },
+    "v2GetLicenseResponse": {
+      "type": "object",
+      "properties": {
+        "license": {
+          "$ref": "#/definitions/modelsv2License"
+        }
+      },
+      "description": "Response object for GetLicense",
+      "title": "GetLicenseResponse"
     },
     "v2GetNotActivatedUsersResponse": {
       "type": "object",
@@ -5527,7 +5855,7 @@
     "v2GetServiceAccountTokensResponse": {
       "type": "object",
       "properties": {
-        "token": {
+        "tokens": {
           "type": "array",
           "items": {
             "type": "object",
@@ -5774,6 +6102,20 @@
       "description": "- KEY_VALUE_VARIANT_STATIC_LABEL: A Label that only admins can remove",
       "title": "KeyValueVariants"
     },
+    "v2ListLicensesResponse": {
+      "type": "object",
+      "properties": {
+        "licenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/modelsv2License"
+          }
+        }
+      },
+      "description": "Response object for ListLicense",
+      "title": "ListLicenseResponse"
+    },
     "v2ListOwnedHooksResponse": {
       "type": "object",
       "properties": {
@@ -5953,6 +6295,12 @@
             "$ref": "#/definitions/v2Hash"
           },
           "title": "Object specific attributes"
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "dataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -6096,6 +6444,12 @@
             "type": "object",
             "$ref": "#/definitions/v2DataEndpoint"
           }
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "defaultDataLicenseTag": {
+          "type": "string"
         }
       }
     },
@@ -6142,35 +6496,10 @@
         }
       }
     },
-    "v2PullReplicaRequest": {
-      "type": "object",
-      "properties": {
-        "resourceId": {
-          "type": "string"
-        },
-        "s3Path": {
-          "$ref": "#/definitions/v2S3Path"
-        }
-      }
-    },
     "v2PullReplicaResponse": {
       "type": "object",
       "properties": {
         "replicationId": {
-          "type": "string"
-        }
-      }
-    },
-    "v2PushReplicaRequest": {
-      "type": "object",
-      "properties": {
-        "resourceId": {
-          "type": "string"
-        },
-        "s3Path": {
-          "$ref": "#/definitions/v2S3Path"
-        },
-        "targetLocation": {
           "type": "string"
         }
       }
@@ -6688,6 +7017,14 @@
         }
       }
     },
+    "v2UpdateCollectionLicensesResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v2Collection"
+        }
+      }
+    },
     "v2UpdateCollectionNameResponse": {
       "type": "object",
       "properties": {
@@ -6713,6 +7050,14 @@
       }
     },
     "v2UpdateDatasetKeyValuesResponse": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/definitions/v2Dataset"
+        }
+      }
+    },
+    "v2UpdateDatasetLicensesResponse": {
       "type": "object",
       "properties": {
         "dataset": {
@@ -6756,6 +7101,14 @@
       }
     },
     "v2UpdateProjectKeyValuesResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/v2Project"
+        }
+      }
+    },
+    "v2UpdateProjectLicensesResponse": {
       "type": "object",
       "properties": {
         "project": {

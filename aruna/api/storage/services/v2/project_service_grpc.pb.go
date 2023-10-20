@@ -27,6 +27,7 @@ const (
 	ProjectService_UpdateProjectDescription_FullMethodName = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectDescription"
 	ProjectService_UpdateProjectKeyValues_FullMethodName   = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectKeyValues"
 	ProjectService_UpdateProjectDataClass_FullMethodName   = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectDataClass"
+	ProjectService_UpdateProjectLicenses_FullMethodName    = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectLicenses"
 	ProjectService_ArchiveProject_FullMethodName           = "/aruna.api.storage.services.v2.ProjectService/ArchiveProject"
 )
 
@@ -82,6 +83,12 @@ type ProjectServiceClient interface {
 	//
 	// Updates the project name. All (meta) data will be overwritten.
 	UpdateProjectDataClass(ctx context.Context, in *UpdateProjectDataClassRequest, opts ...grpc.CallOption) (*UpdateProjectDataClassResponse, error)
+	// UpdateLicense
+	//
+	// Status: BETA
+	//
+	// Updates the project license. All (meta) data will be overwritten.
+	UpdateProjectLicenses(ctx context.Context, in *UpdateProjectLicensesRequest, opts ...grpc.CallOption) (*UpdateProjectLicensesResponse, error)
 	// ArchiveProjectRequest
 	//
 	// Status: BETA
@@ -170,6 +177,15 @@ func (c *projectServiceClient) UpdateProjectDataClass(ctx context.Context, in *U
 	return out, nil
 }
 
+func (c *projectServiceClient) UpdateProjectLicenses(ctx context.Context, in *UpdateProjectLicensesRequest, opts ...grpc.CallOption) (*UpdateProjectLicensesResponse, error) {
+	out := new(UpdateProjectLicensesResponse)
+	err := c.cc.Invoke(ctx, ProjectService_UpdateProjectLicenses_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *projectServiceClient) ArchiveProject(ctx context.Context, in *ArchiveProjectRequest, opts ...grpc.CallOption) (*ArchiveProjectResponse, error) {
 	out := new(ArchiveProjectResponse)
 	err := c.cc.Invoke(ctx, ProjectService_ArchiveProject_FullMethodName, in, out, opts...)
@@ -231,6 +247,12 @@ type ProjectServiceServer interface {
 	//
 	// Updates the project name. All (meta) data will be overwritten.
 	UpdateProjectDataClass(context.Context, *UpdateProjectDataClassRequest) (*UpdateProjectDataClassResponse, error)
+	// UpdateLicense
+	//
+	// Status: BETA
+	//
+	// Updates the project license. All (meta) data will be overwritten.
+	UpdateProjectLicenses(context.Context, *UpdateProjectLicensesRequest) (*UpdateProjectLicensesResponse, error)
 	// ArchiveProjectRequest
 	//
 	// Status: BETA
@@ -266,6 +288,9 @@ func (UnimplementedProjectServiceServer) UpdateProjectKeyValues(context.Context,
 }
 func (UnimplementedProjectServiceServer) UpdateProjectDataClass(context.Context, *UpdateProjectDataClassRequest) (*UpdateProjectDataClassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProjectDataClass not implemented")
+}
+func (UnimplementedProjectServiceServer) UpdateProjectLicenses(context.Context, *UpdateProjectLicensesRequest) (*UpdateProjectLicensesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProjectLicenses not implemented")
 }
 func (UnimplementedProjectServiceServer) ArchiveProject(context.Context, *ArchiveProjectRequest) (*ArchiveProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ArchiveProject not implemented")
@@ -426,6 +451,24 @@ func _ProjectService_UpdateProjectDataClass_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectService_UpdateProjectLicenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProjectLicensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).UpdateProjectLicenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProjectService_UpdateProjectLicenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).UpdateProjectLicenses(ctx, req.(*UpdateProjectLicensesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProjectService_ArchiveProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ArchiveProjectRequest)
 	if err := dec(in); err != nil {
@@ -482,6 +525,10 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateProjectDataClass",
 			Handler:    _ProjectService_UpdateProjectDataClass_Handler,
+		},
+		{
+			MethodName: "UpdateProjectLicenses",
+			Handler:    _ProjectService_UpdateProjectLicenses_Handler,
 		},
 		{
 			MethodName: "ArchiveProject",
