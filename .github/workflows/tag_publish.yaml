@@ -1,5 +1,7 @@
 name: automatic_test_build_publish
-on: repository_dispatch
+on: 
+  - repository_dispatch
+  - workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
