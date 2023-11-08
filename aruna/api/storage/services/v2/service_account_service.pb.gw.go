@@ -571,13 +571,17 @@ func local_request_ServiceAccountService_GetS3CredentialsSvcAccount_0(ctx contex
 
 }
 
-var (
-	filter_ServiceAccountService_GetDataproxyTokenSvcAccount_0 = &utilities.DoubleArray{Encoding: map[string]int{"user_id": 0, "userId": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
-
-func request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceAccountServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDataproxyTokenSvcAccountRequest
+func request_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceAccountServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDataproxyTokenSvcAccountRequest
 	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
 	var (
 		val string
@@ -586,31 +590,42 @@ func request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(ctx context.Con
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["svc_account_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "svc_account_id")
 	}
 
-	protoReq.UserId, err = runtime.String(val)
+	protoReq.SvcAccountId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "svc_account_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceAccountService_GetDataproxyTokenSvcAccount_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	val, ok = pathParams["endpoint_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "endpoint_id")
 	}
 
-	msg, err := client.GetDataproxyTokenSvcAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	protoReq.EndpointId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
+	}
+
+	msg, err := client.CreateDataproxyTokenSvcAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceAccountServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDataproxyTokenSvcAccountRequest
+func local_request_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceAccountServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDataproxyTokenSvcAccountRequest
 	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
 	var (
 		val string
@@ -619,24 +634,27 @@ func local_request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(ctx conte
 		_   = err
 	)
 
-	val, ok = pathParams["user_id"]
+	val, ok = pathParams["svc_account_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "svc_account_id")
 	}
 
-	protoReq.UserId, err = runtime.String(val)
+	protoReq.SvcAccountId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "svc_account_id", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ServiceAccountService_GetDataproxyTokenSvcAccount_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	val, ok = pathParams["endpoint_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "endpoint_id")
 	}
 
-	msg, err := server.GetDataproxyTokenSvcAccount(ctx, &protoReq)
+	protoReq.EndpointId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
+	}
+
+	msg, err := server.CreateDataproxyTokenSvcAccount(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -655,7 +673,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount", runtime.WithHTTPPathPattern("/v2/service_account"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount", runtime.WithHTTPPathPattern("/v2/service_accounts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -680,7 +698,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -705,7 +723,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/permissions"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/permissions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -730,7 +748,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token/{token_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens/{token_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -755,7 +773,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/tokens"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -780,7 +798,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token/{token_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens/{token_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -805,7 +823,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/tokens"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -830,7 +848,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -855,7 +873,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/s3_credentials"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/s3_credentials"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -872,7 +890,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("GET", pattern_ServiceAccountService_GetDataproxyTokenSvcAccount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceAccountService_CreateDataproxyTokenSvcAccount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -880,12 +898,12 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetDataproxyTokenSvcAccount", runtime.WithHTTPPathPattern("/v2/user/{user_id}/svc_proxy_token"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateDataproxyTokenSvcAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/proxy_tokens/{endpoint_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -893,7 +911,7 @@ func RegisterServiceAccountServiceHandlerServer(ctx context.Context, mux *runtim
 			return
 		}
 
-		forward_ServiceAccountService_GetDataproxyTokenSvcAccount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -944,7 +962,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount", runtime.WithHTTPPathPattern("/v2/service_account"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount", runtime.WithHTTPPathPattern("/v2/service_accounts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -966,7 +984,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -988,7 +1006,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/permissions"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/permissions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1010,7 +1028,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token/{token_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens/{token_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1032,7 +1050,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/tokens"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1054,7 +1072,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/token/{token_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens/{token_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1076,7 +1094,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/tokens"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1098,7 +1116,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1120,7 +1138,7 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount", runtime.WithHTTPPathPattern("/v2/service_account/{svc_account_id}/s3_credentials"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/s3_credentials"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1136,25 +1154,25 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 
 	})
 
-	mux.Handle("GET", pattern_ServiceAccountService_GetDataproxyTokenSvcAccount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ServiceAccountService_CreateDataproxyTokenSvcAccount_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/GetDataproxyTokenSvcAccount", runtime.WithHTTPPathPattern("/v2/user/{user_id}/svc_proxy_token"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.ServiceAccountService/CreateDataproxyTokenSvcAccount", runtime.WithHTTPPathPattern("/v2/service_accounts/{svc_account_id}/proxy_tokens/{endpoint_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ServiceAccountService_GetDataproxyTokenSvcAccount_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ServiceAccountService_GetDataproxyTokenSvcAccount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_ServiceAccountService_CreateDataproxyTokenSvcAccount_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1162,25 +1180,25 @@ func RegisterServiceAccountServiceHandlerClient(ctx context.Context, mux *runtim
 }
 
 var (
-	pattern_ServiceAccountService_CreateServiceAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "service_account"}, ""))
+	pattern_ServiceAccountService_CreateServiceAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "service_accounts"}, ""))
 
-	pattern_ServiceAccountService_CreateServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_account", "svc_account_id", "token"}, ""))
+	pattern_ServiceAccountService_CreateServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_accounts", "svc_account_id", "tokens"}, ""))
 
-	pattern_ServiceAccountService_SetServiceAccountPermission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_account", "svc_account_id", "permissions"}, ""))
+	pattern_ServiceAccountService_SetServiceAccountPermission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_accounts", "svc_account_id", "permissions"}, ""))
 
-	pattern_ServiceAccountService_GetServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "service_account", "svc_account_id", "token", "token_id"}, ""))
+	pattern_ServiceAccountService_GetServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "service_accounts", "svc_account_id", "tokens", "token_id"}, ""))
 
-	pattern_ServiceAccountService_GetServiceAccountTokens_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_account", "svc_account_id", "tokens"}, ""))
+	pattern_ServiceAccountService_GetServiceAccountTokens_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_accounts", "svc_account_id", "tokens"}, ""))
 
-	pattern_ServiceAccountService_DeleteServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "service_account", "svc_account_id", "token", "token_id"}, ""))
+	pattern_ServiceAccountService_DeleteServiceAccountToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "service_accounts", "svc_account_id", "tokens", "token_id"}, ""))
 
-	pattern_ServiceAccountService_DeleteServiceAccountTokens_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_account", "svc_account_id", "tokens"}, ""))
+	pattern_ServiceAccountService_DeleteServiceAccountTokens_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_accounts", "svc_account_id", "tokens"}, ""))
 
-	pattern_ServiceAccountService_DeleteServiceAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "service_account", "svc_account_id"}, ""))
+	pattern_ServiceAccountService_DeleteServiceAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "service_accounts", "svc_account_id"}, ""))
 
-	pattern_ServiceAccountService_GetS3CredentialsSvcAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_account", "svc_account_id", "s3_credentials"}, ""))
+	pattern_ServiceAccountService_GetS3CredentialsSvcAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "service_accounts", "svc_account_id", "s3_credentials"}, ""))
 
-	pattern_ServiceAccountService_GetDataproxyTokenSvcAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "user", "user_id", "svc_proxy_token"}, ""))
+	pattern_ServiceAccountService_CreateDataproxyTokenSvcAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "service_accounts", "svc_account_id", "proxy_tokens", "endpoint_id"}, ""))
 )
 
 var (
@@ -1202,5 +1220,5 @@ var (
 
 	forward_ServiceAccountService_GetS3CredentialsSvcAccount_0 = runtime.ForwardResponseMessage
 
-	forward_ServiceAccountService_GetDataproxyTokenSvcAccount_0 = runtime.ForwardResponseMessage
+	forward_ServiceAccountService_CreateDataproxyTokenSvcAccount_0 = runtime.ForwardResponseMessage
 )

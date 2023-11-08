@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.6"
+    "version": "2.0.0-beta.7"
   },
   "tags": [
     {
@@ -19,6 +19,9 @@
     },
     {
       "name": "CollectionService"
+    },
+    {
+      "name": "DataReplicationService"
     },
     {
       "name": "DatasetService"
@@ -61,39 +64,7 @@
     "application/json"
   ],
   "paths": {
-    "/v2/auth": {
-      "delete": {
-        "summary": "DeleteAuthorization",
-        "description": "Status: BETA\n\nThis creates a user-specific attribute that handles permission for a\nspecific resource",
-        "operationId": "AuthorizationService_DeleteAuthorization",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2DeleteAuthorizationResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2DeleteAuthorizationRequest"
-            }
-          }
-        ],
-        "tags": [
-          "AuthorizationService"
-        ]
-      },
+    "/v2/authorizations": {
       "post": {
         "summary": "CreateAuthorization",
         "description": "Status: BETA\n\nThis creates a user-specific attribute that handles permission for a\nspecific resource",
@@ -125,228 +96,9 @@
         "tags": [
           "AuthorizationService"
         ]
-      },
-      "patch": {
-        "summary": "UpdateAuthorization",
-        "description": "Status: BETA\n\nThis creates a user-specific attribute that handles permission for a\nspecific resource",
-        "operationId": "AuthorizationService_UpdateAuthorization",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2UpdateAuthorizationResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2UpdateAuthorizationRequest"
-            }
-          }
-        ],
-        "tags": [
-          "AuthorizationService"
-        ]
       }
     },
-    "/v2/auth/register": {
-      "post": {
-        "summary": "RegisterUser",
-        "description": "Status: BETA\n\nThis request should be called when a new user logs in for the first time",
-        "operationId": "UserService_RegisterUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2RegisterUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2RegisterUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/auth/token": {
-      "post": {
-        "summary": "CreateAPIToken",
-        "description": "Status: BETA\n\nCreates an API token to authenticate",
-        "operationId": "UserService_CreateAPIToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2CreateAPITokenResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v2CreateAPITokenRequest"
-            }
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/auth/token/{tokenId}": {
-      "get": {
-        "summary": "GetAPIToken",
-        "description": "Status: BETA\n\nReturns one API token by id",
-        "operationId": "UserService_GetAPIToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetAPITokenResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "tokenId",
-            "description": "The token id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      },
-      "delete": {
-        "summary": "DeleteAPIToken",
-        "description": "Status: STABLE\n\nDeletes the specified API Token",
-        "operationId": "UserService_DeleteAPIToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2DeleteAPITokenResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "tokenId",
-            "description": "The token_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/auth/tokens": {
-      "get": {
-        "summary": "GetAPITokens",
-        "description": "Status: STABLE\n\nReturns a list of API tokens for a specific user",
-        "operationId": "UserService_GetAPITokens",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetAPITokensResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "UserService"
-        ]
-      },
-      "delete": {
-        "summary": "DeleteAPITokens",
-        "description": "Status: BETA\n\nDeletes the specified API Token",
-        "operationId": "UserService_DeleteAPITokens",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2DeleteAPITokensResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "This request invalidates all tokens of a specific user\nusually the user_id is specified via the provided oidc or aruna token\nThis user_id can be used by admins to invalidate all tokens of a specific\nuser",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/auths": {
+    "/v2/authorizations/{resourceId}": {
       "get": {
         "summary": "GetAuthorization",
         "description": "Status: BETA\n\nThis gets resource specific user authorizations",
@@ -368,8 +120,8 @@
         "parameters": [
           {
             "name": "resourceId",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -382,9 +134,132 @@
         "tags": [
           "AuthorizationService"
         ]
+      },
+      "delete": {
+        "summary": "DeleteAuthorization",
+        "description": "Status: BETA\n\nThis deletes a user-specific attribute that handles permission for a\nspecific resource",
+        "operationId": "AuthorizationService_DeleteAuthorization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteAuthorizationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AuthorizationService"
+        ]
+      },
+      "patch": {
+        "summary": "UpdateAuthorization",
+        "description": "Status: BETA\n\nThis creates a user-specific attribute that handles permission for a\nspecific resource",
+        "operationId": "AuthorizationService_UpdateAuthorization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateAuthorizationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "permissionLevel": {
+                  "$ref": "#/definitions/v2PermissionLevel"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AuthorizationService"
+        ]
       }
     },
-    "/v2/collection": {
+    "/v2/collections": {
+      "get": {
+        "summary": "GetCollections",
+        "description": "Status: BETA\n\nQueries multiple collections by ID",
+        "operationId": "CollectionService_GetCollections",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetCollectionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      },
       "post": {
         "summary": "CreateNewCollection",
         "description": "Status: BETA\n\ncreates a new Collection",
@@ -418,7 +293,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}": {
+    "/v2/collections/{collectionId}": {
       "get": {
         "summary": "GetCollection",
         "description": "Status: BETA\n\nRequest a specific collection by ID",
@@ -481,7 +356,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/data_class": {
+    "/v2/collections/{collectionId}/data_class": {
       "patch": {
         "summary": "UpdateCollectionDataClass",
         "description": "Status: BETA\n\nUpdates the collection name. All (meta) data will be overwritten.",
@@ -526,7 +401,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/description": {
+    "/v2/collections/{collectionId}/description": {
       "patch": {
         "summary": "UpdateCollectionDescription",
         "description": "Status: BETA\n\nUpdates the collection description.",
@@ -571,7 +446,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/key_values": {
+    "/v2/collections/{collectionId}/key_values": {
       "patch": {
         "summary": "UpdateCollectionKeyValues",
         "description": "Status: BETA\n\nUpdates the collection key values.",
@@ -627,7 +502,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/licenses": {
+    "/v2/collections/{collectionId}/licenses": {
       "patch": {
         "summary": "UpdateLicenses",
         "description": "Status: BETA\n\nUpdates the collections metadata license and/or default data license.",
@@ -675,7 +550,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/name": {
+    "/v2/collections/{collectionId}/name": {
       "patch": {
         "summary": "UpdateCollectionName",
         "description": "Status: BETA\n\nUpdates the collection name. Caveat! Will rename the \"s3 bucket\" for data proxies!",
@@ -720,7 +595,7 @@
         ]
       }
     },
-    "/v2/collection/{collectionId}/snapshot": {
+    "/v2/collections/{collectionId}/snapshot": {
       "post": {
         "summary": "SnapshotCollectionRequest",
         "description": "Status: BETA\n\nArchives the full collection, rendering all downstream relations immutable",
@@ -760,16 +635,16 @@
         ]
       }
     },
-    "/v2/collections": {
+    "/v2/datasets": {
       "get": {
-        "summary": "GetCollections",
-        "description": "Status: BETA\n\nQueries multiple collections by ID",
-        "operationId": "CollectionService_GetCollections",
+        "summary": "GetDatasets",
+        "description": "Status: BETA\n\nQueries multiple datasets by ID",
+        "operationId": "DatasetService_GetDatasets",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetCollectionsResponse"
+              "$ref": "#/definitions/v2GetDatasetsResponse"
             }
           },
           "default": {
@@ -781,7 +656,7 @@
         },
         "parameters": [
           {
-            "name": "collectionIds",
+            "name": "datasetIds",
             "in": "query",
             "required": false,
             "type": "array",
@@ -792,11 +667,9 @@
           }
         ],
         "tags": [
-          "CollectionService"
+          "DatasetService"
         ]
-      }
-    },
-    "/v2/dataset": {
+      },
       "post": {
         "summary": "CreateNewDataset",
         "description": "Status: BETA\n\ncreates a new Dataset",
@@ -830,7 +703,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}": {
+    "/v2/datasets/{datasetId}": {
       "get": {
         "summary": "GetDataset",
         "description": "Status: BETA\n\nRequest a specific dataset by ID",
@@ -893,7 +766,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/data_class": {
+    "/v2/datasets/{datasetId}/data_class": {
       "patch": {
         "summary": "UpdateDatasetDataClass",
         "description": "Status: BETA\n\nUpdates the dataset name. All (meta) data will be overwritten.",
@@ -938,7 +811,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/description": {
+    "/v2/datasets/{datasetId}/description": {
       "patch": {
         "summary": "UpdateDatasetDescription",
         "description": "Status: BETA\n\nUpdates the dataset description.",
@@ -983,7 +856,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/key_values": {
+    "/v2/datasets/{datasetId}/key_values": {
       "patch": {
         "summary": "UpdateDatasetKeyValues",
         "description": "Status: BETA\n\nUpdates the dataset key values.",
@@ -1039,7 +912,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/licenses": {
+    "/v2/datasets/{datasetId}/licenses": {
       "patch": {
         "summary": "UpdateLicenses",
         "description": "Status: BETA\n\nUpdates the dataset metadata license and/or default data license.",
@@ -1087,7 +960,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/name": {
+    "/v2/datasets/{datasetId}/name": {
       "patch": {
         "summary": "UpdateDatasetName",
         "description": "Status: BETA\n\nUpdates the dataset name. Caveat! Will rename the \"s3 bucket\" for data proxies!",
@@ -1132,7 +1005,7 @@
         ]
       }
     },
-    "/v2/dataset/{datasetId}/snapshot": {
+    "/v2/datasets/{datasetId}/snapshot": {
       "post": {
         "summary": "SnapshotDatasetRequest",
         "description": "Status: BETA\n\nArchives the full dataset, rendering all downstream relations immutable",
@@ -1172,16 +1045,16 @@
         ]
       }
     },
-    "/v2/datasets": {
+    "/v2/endpoints": {
       "get": {
-        "summary": "GetDatasets",
-        "description": "Status: BETA\n\nQueries multiple datasets by ID",
-        "operationId": "DatasetService_GetDatasets",
+        "summary": "GetEndpoints",
+        "description": "Status: BETA\n\nGets all available endpoints",
+        "operationId": "EndpointService_GetEndpoints",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetDatasetsResponse"
+              "$ref": "#/definitions/v2GetEndpointsResponse"
             }
           },
           "default": {
@@ -1191,58 +1064,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "datasetIds",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "tags": [
-          "DatasetService"
-        ]
-      }
-    },
-    "/v2/endpoint": {
-      "get": {
-        "summary": "GetEndpoint",
-        "description": "Status: BETA\n\nGets an specific endpoint by ID or Name",
-        "operationId": "EndpointService_GetEndpoint",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetEndpointResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "endpointName",
-            "description": "The name of the endpoint",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "endpointId",
-            "description": "Id of the endpoint",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "EndpointService"
         ]
@@ -1280,7 +1101,7 @@
         ]
       }
     },
-    "/v2/endpoint/default": {
+    "/v2/endpoints/default": {
       "get": {
         "summary": "GetDefaultEndpoint",
         "description": "Status: BETA\n\nThis request returns the default endpoint for the current aruna_server\nIt may produce different results depending on the used server",
@@ -1304,7 +1125,7 @@
         ]
       }
     },
-    "/v2/endpoint/sync": {
+    "/v2/endpoints/sync": {
       "get": {
         "summary": "FullSyncEndpoint",
         "description": "Status: BETA\n\nRequests a full sync of all endpoint related data",
@@ -1337,7 +1158,45 @@
         ]
       }
     },
-    "/v2/endpoint/{endpointId}": {
+    "/v2/endpoints/{endpointId}": {
+      "get": {
+        "summary": "GetEndpoint",
+        "description": "Status: BETA\n\nGets an specific endpoint by ID or Name",
+        "operationId": "EndpointService_GetEndpoint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetEndpointResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "description": "Id of the endpoint",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endpointName",
+            "description": "The name of the endpoint",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      },
       "delete": {
         "summary": "DeleteEndpoint",
         "description": "Status: BETA\n\nDeletes a specific endpoint by id\nThis needs admin permissions",
@@ -1370,16 +1229,16 @@
         ]
       }
     },
-    "/v2/endpoints": {
-      "get": {
-        "summary": "GetEndpoints",
-        "description": "Status: BETA\n\nGets all available endpoints",
-        "operationId": "EndpointService_GetEndpoints",
+    "/v2/endpoints/{endpointId}/replication/{projectId}": {
+      "post": {
+        "summary": "ReplicateProjectData",
+        "description": "Status: ALPHA\n\nReplicates the (full) project data from one endpoint to another",
+        "operationId": "DataReplicationService_ReplicateProjectData",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetEndpointsResponse"
+              "$ref": "#/definitions/v2ReplicateProjectDataResponse"
             }
           },
           "default": {
@@ -1389,12 +1248,205 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
         "tags": [
-          "EndpointService"
+          "DataReplicationService"
         ]
       }
     },
-    "/v2/hook": {
+    "/v2/endpoints/{endpointId}/replication/{resourceId}": {
+      "delete": {
+        "summary": "DeleteReplication",
+        "description": "Status: ALPHA\n\nDelete the replication status of a project",
+        "operationId": "DataReplicationService_DeleteReplication",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteReplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      }
+    },
+    "/v2/endpoints/{endpointId}/replication/{resourceId}/partial": {
+      "post": {
+        "summary": "PartialReplicateData",
+        "description": "Status: ALPHA\n\nPartial replicate data between endpoints",
+        "operationId": "DataReplicationService_PartialReplicateData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2PartialReplicateDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      }
+    },
+    "/v2/endpoints/{endpointId}/replication/{resourceId}/status": {
+      "get": {
+        "summary": "GetReplicationStatus",
+        "description": "Status: ALPHA\n\nGet the replication status of a project",
+        "operationId": "DataReplicationService_GetReplicationStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetReplicationStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      },
+      "patch": {
+        "summary": "UpdateReplicationStatus",
+        "description": "Status: ALPHA\n\nUpdate the replication status of a project",
+        "operationId": "DataReplicationService_UpdateReplicationStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateReplicationStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      }
+    },
+    "/v2/hooks": {
       "post": {
         "summary": "Created Hooks are always associated with the owner that creates the hook",
         "operationId": "HooksService_CreateHook",
@@ -1427,8 +1479,8 @@
         ]
       }
     },
-    "/v2/hook/callback": {
-      "delete": {
+    "/v2/hooks/callback": {
+      "patch": {
         "operationId": "HooksService_HookCallback",
         "responses": {
           "200": {
@@ -1482,7 +1534,68 @@
         ]
       }
     },
-    "/v2/hook/{hookId}": {
+    "/v2/hooks/owner/{userId}": {
+      "get": {
+        "operationId": "HooksService_ListOwnedHooks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2ListOwnedHooksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "ADMIN only",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HooksService"
+        ]
+      }
+    },
+    "/v2/hooks/projects/{projectId}": {
+      "get": {
+        "operationId": "HooksService_ListProjectHooks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2ListProjectHooksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HooksService"
+        ]
+      }
+    },
+    "/v2/hooks/{hookId}": {
       "delete": {
         "operationId": "HooksService_DeleteHook",
         "responses": {
@@ -1556,75 +1669,14 @@
         ]
       }
     },
-    "/v2/hooks/owner/{userId}": {
+    "/v2/info/announcements": {
       "get": {
-        "operationId": "HooksService_ListOwnedHooks",
+        "operationId": "StorageStatusService_GetAnnouncements",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2ListOwnedHooksResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "description": "ADMIN only",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "HooksService"
-        ]
-      }
-    },
-    "/v2/hooks/project/{projectId}": {
-      "get": {
-        "operationId": "HooksService_ListProjectHooks",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2ListProjectHooksResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "HooksService"
-        ]
-      }
-    },
-    "/v2/info/anouncements": {
-      "get": {
-        "operationId": "StorageStatusService_GetAnouncements",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetAnouncementsResponse"
+              "$ref": "#/definitions/v2GetAnnouncementsResponse"
             }
           },
           "default": {
@@ -1639,14 +1691,14 @@
         ]
       }
     },
-    "/v2/info/anouncements/set": {
+    "/v2/info/announcements/set": {
       "post": {
-        "operationId": "StorageStatusService_SetAnouncements",
+        "operationId": "StorageStatusService_SetAnnouncements",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2SetAnouncementsResponse"
+              "$ref": "#/definitions/v2SetAnnouncementsResponse"
             }
           },
           "default": {
@@ -1662,7 +1714,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v2SetAnouncementsRequest"
+              "$ref": "#/definitions/v2SetAnnouncementsRequest"
             }
           }
         ],
@@ -1741,7 +1793,29 @@
         ]
       }
     },
-    "/v2/license": {
+    "/v2/licenses": {
+      "get": {
+        "summary": "ListLicenses",
+        "description": "Status: BETA\n\nThis returns a list of all licenses",
+        "operationId": "LicenseService_ListLicenses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2ListLicensesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "LicenseService"
+        ]
+      },
       "post": {
         "summary": "CreateLicense",
         "description": "Status: BETA\n\nThis creates a new license",
@@ -1776,7 +1850,7 @@
         ]
       }
     },
-    "/v2/license/{tag}": {
+    "/v2/licenses/{tag}": {
       "get": {
         "summary": "GetLicense",
         "description": "Status: BETA\n\nThis returns the license for a given tag",
@@ -1809,31 +1883,7 @@
         ]
       }
     },
-    "/v2/licenses": {
-      "get": {
-        "summary": "ListLicenses",
-        "description": "Status: BETA\n\nThis returns a list of all licenses",
-        "operationId": "LicenseService_ListLicenses",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2ListLicensesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "LicenseService"
-        ]
-      }
-    },
-    "/v2/notifications/ack": {
+    "/v2/notifications/acknowledge": {
       "patch": {
         "summary": "AcknowledgeMessageBatch",
         "description": "List of messages to acknowledge\nEach reply is protected by a salt and and hmac that verifies the message",
@@ -1867,7 +1917,7 @@
         ]
       }
     },
-    "/v2/notifications/consumer": {
+    "/v2/notifications/consumers": {
       "post": {
         "summary": "CreateStreamConsumer",
         "description": "Creates a new event stream consumer.",
@@ -2013,7 +2063,42 @@
         ]
       }
     },
-    "/v2/object": {
+    "/v2/objects": {
+      "get": {
+        "summary": "GetObjects",
+        "description": "Status: BETA\n\nGet multiple objects by ID at once",
+        "operationId": "ObjectService_GetObjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetObjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "objectIds",
+            "description": "Object ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      },
       "post": {
         "summary": "CreateObject",
         "description": "Status: BETA\n\nThis creates a new object\nInitializing an object will put it in a staging area.",
@@ -2047,7 +2132,7 @@
         ]
       }
     },
-    "/v2/object/{objectId}": {
+    "/v2/objects/{objectId}": {
       "get": {
         "summary": "GetObject",
         "description": "Status: BETA\n\ngets a specific Object by ID that is associated to the\ncurrent collection By default only the latest revision of an object will be\nreturned Specify a revision_number to select an older revision With the\noptional with_url boolean a download link can automatically be requested",
@@ -2220,7 +2305,7 @@
         ]
       }
     },
-    "/v2/object/{objectId}/download": {
+    "/v2/objects/{objectId}/download": {
       "get": {
         "summary": "GetDownloadUrl",
         "description": "Status: BETA\n\nThis is a proxy method that will call the apropriate method at dataproxy level\nwill return a url that can be used to download a file from S3.",
@@ -2252,7 +2337,7 @@
         ]
       }
     },
-    "/v2/object/{objectId}/finish": {
+    "/v2/objects/{objectId}/finish": {
       "patch": {
         "summary": "FinishObjectStaging",
         "description": "Status: BETA\n\nThis method completes the staging of an object.",
@@ -2303,7 +2388,7 @@
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "$ref": "#/definitions/v2CompletedParts"
+                    "$ref": "#/definitions/apistorageservicesv2CompletedPart"
                   },
                   "title": "If the upload was multipart, this is the list of parts that were uploaded.\nShould be empty if the upload was not multipart.\n(optional)"
                 }
@@ -2316,7 +2401,7 @@
         ]
       }
     },
-    "/v2/object/{objectId}/upload": {
+    "/v2/objects/{objectId}/upload": {
       "get": {
         "summary": "GetUploadURL",
         "description": "Status: BETA\n\nThis is a proxy method that will call the apropriate method at dataproxy level\nThis method will return a (multi-part) url that can be used to upload a\nfile to S3. Part is a optional query parameter that can be used to upload a\npart of the file / multipart upload.",
@@ -2364,16 +2449,16 @@
         ]
       }
     },
-    "/v2/objects": {
+    "/v2/projects": {
       "get": {
-        "summary": "GetObjects",
-        "description": "Status: BETA\n\nGet multiple objects by ID at once",
-        "operationId": "ObjectService_GetObjects",
+        "summary": "GetProjects",
+        "description": "Status: BETA\n\nAdmin request to get all projects",
+        "operationId": "ProjectService_GetProjects",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetObjectsResponse"
+              "$ref": "#/definitions/v2GetProjectsResponse"
             }
           },
           "default": {
@@ -2385,8 +2470,8 @@
         },
         "parameters": [
           {
-            "name": "objectIds",
-            "description": "Object ids",
+            "name": "projectIds",
+            "description": "optional filter for specific ids",
             "in": "query",
             "required": false,
             "type": "array",
@@ -2397,11 +2482,9 @@
           }
         ],
         "tags": [
-          "ObjectService"
+          "ProjectService"
         ]
-      }
-    },
-    "/v2/project": {
+      },
       "post": {
         "summary": "CreateProject",
         "description": "Status: BETA\n\nCreates a new project. All subsequent resources are part of a project.",
@@ -2435,7 +2518,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}": {
+    "/v2/projects/{projectId}": {
       "get": {
         "summary": "GetProject",
         "description": "Status: BETA\n\nRequests a project (by id)",
@@ -2499,7 +2582,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/archive": {
+    "/v2/projects/{projectId}/archive": {
       "post": {
         "summary": "ArchiveProjectRequest",
         "description": "Status: BETA\n\nArchives the full project, rendering all downstream relations immutable",
@@ -2539,7 +2622,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/data_class": {
+    "/v2/projects/{projectId}/data_class": {
       "patch": {
         "summary": "UpdateProjectDataClass",
         "description": "Status: BETA\n\nUpdates the project name. All (meta) data will be overwritten.",
@@ -2584,7 +2667,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/description": {
+    "/v2/projects/{projectId}/description": {
       "patch": {
         "summary": "UpdateProjectDescription",
         "description": "Status: BETA\n\nUpdates the project name.",
@@ -2629,7 +2712,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/key_values": {
+    "/v2/projects/{projectId}/key_values": {
       "patch": {
         "summary": "UpdateProjectKeyValues",
         "description": "Status: BETA\n\nUpdates the project key values.",
@@ -2685,7 +2768,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/licenses": {
+    "/v2/projects/{projectId}/licenses": {
       "patch": {
         "summary": "UpdateLicense",
         "description": "Status: BETA\n\nUpdates the project license. All (meta) data will be overwritten.",
@@ -2733,7 +2816,7 @@
         ]
       }
     },
-    "/v2/project/{projectId}/name": {
+    "/v2/projects/{projectId}/name": {
       "patch": {
         "summary": "UpdateProjectName",
         "description": "Status: BETA\n\nUpdates the project name. Caveat! Will rename the \"s3 bucket\" for data proxies!",
@@ -2778,44 +2861,7 @@
         ]
       }
     },
-    "/v2/projects": {
-      "get": {
-        "summary": "GetProjects",
-        "description": "Status: BETA\n\nAdmin request to get all projects",
-        "operationId": "ProjectService_GetProjects",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetProjectsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectIds",
-            "description": "optional filter for specific ids",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "tags": [
-          "ProjectService"
-        ]
-      }
-    },
-    "/v2/relation": {
+    "/v2/relations": {
       "post": {
         "summary": "ModifyRelation",
         "description": "Status: BETA\n\nModifys all relations to / from a resource",
@@ -2849,7 +2895,7 @@
         ]
       }
     },
-    "/v2/relation/hierarchy": {
+    "/v2/relations/{resourceId}/hierarchy": {
       "get": {
         "summary": "GetHierachy",
         "description": "Status: BETA\n\nGets all downstream hierarchy relations from a resource",
@@ -2871,83 +2917,13 @@
         "parameters": [
           {
             "name": "resourceId",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
         "tags": [
           "RelationsService"
-        ]
-      }
-    },
-    "/v2/resource/{resourceId}": {
-      "get": {
-        "summary": "GetResource",
-        "description": "Status: BETA\n\nRetrieves resource by its ID.",
-        "operationId": "SearchService_GetResource",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetResourceResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "SearchService"
-        ]
-      }
-    },
-    "/v2/resource/{resourceId}/access": {
-      "get": {
-        "summary": "RequestResourceAccess",
-        "description": "Status: ALPHA\n\nRequests access to resources",
-        "operationId": "SearchService_RequestResourceAccess",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2RequestResourceAccessResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "message",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "SearchService"
         ]
       }
     },
@@ -2980,6 +2956,76 @@
               "type": "string"
             },
             "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "SearchService"
+        ]
+      }
+    },
+    "/v2/resources/{resourceId}": {
+      "get": {
+        "summary": "GetResource",
+        "description": "Status: BETA\n\nRetrieves resource by its ID.",
+        "operationId": "SearchService_GetResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SearchService"
+        ]
+      }
+    },
+    "/v2/resources/{resourceId}/access": {
+      "get": {
+        "summary": "RequestResourceAccess",
+        "description": "Status: ALPHA\n\nRequests access to resources",
+        "operationId": "SearchService_RequestResourceAccess",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RequestResourceAccessResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -3021,7 +3067,7 @@
         ]
       }
     },
-    "/v2/service_account": {
+    "/v2/service_accounts": {
       "post": {
         "summary": "CreateServiceAccount",
         "description": "Status: BETA\n\nCreates a service account for a given project\nIf the service account has permissions for the global Admin project\nit will be a global service account that can interact with any resource",
@@ -3055,7 +3101,7 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}": {
+    "/v2/service_accounts/{svcAccountId}": {
       "delete": {
         "summary": "DeleteServiceAccount",
         "description": "Status: BETA\n\nDeletes a service account (by id)",
@@ -3087,7 +3133,7 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}/permissions": {
+    "/v2/service_accounts/{svcAccountId}/permissions": {
       "put": {
         "summary": "SetServiceAccountPermission",
         "description": "Status: BETA\n\nOverwrites the project specific permissions for a service account",
@@ -3132,7 +3178,58 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}/s3_credentials": {
+    "/v2/service_accounts/{svcAccountId}/proxy_tokens/{endpointId}": {
+      "post": {
+        "summary": "GetDataproxyToken",
+        "description": "Status: ALPHA\n\nGets token for a specific user and data_proxy",
+        "operationId": "ServiceAccountService_CreateDataproxyTokenSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateDataproxyTokenSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "context": {
+                  "$ref": "#/definitions/v2Context"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v2/service_accounts/{svcAccountId}/s3_credentials": {
       "get": {
         "summary": "GetS3Credentials",
         "description": "Status: ALPHA\n\nGets s3 credentials for a specific user and data_proxy",
@@ -3170,7 +3267,67 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}/token": {
+    "/v2/service_accounts/{svcAccountId}/tokens": {
+      "get": {
+        "summary": "GetServiceAccountTokens",
+        "description": "Status: BETA\n\nThis requests the overall information about all service account tokens\nit will not contain the token itself.",
+        "operationId": "ServiceAccountService_GetServiceAccountTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetServiceAccountTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteServiceAccountTokens",
+        "description": "Status: BETA\n\nDeletes all service account tokens",
+        "operationId": "ServiceAccountService_DeleteServiceAccountTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteServiceAccountTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
       "post": {
         "summary": "CreateServiceAccountToken",
         "description": "Status: BETA\n\nCreates a token for a service account\nEach service account can only have one permission -\u003e The token will have the same permission as the\nservice account",
@@ -3225,7 +3382,7 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}/token/{tokenId}": {
+    "/v2/service_accounts/{svcAccountId}/tokens/{tokenId}": {
       "get": {
         "summary": "GetServiceAccountToken",
         "description": "Status: BETA\n\nThis requests the overall information about a specifc service account token (by id)\nit will not contain the token itself.",
@@ -3299,68 +3456,6 @@
         ]
       }
     },
-    "/v2/service_account/{svcAccountId}/tokens": {
-      "get": {
-        "summary": "GetServiceAccountTokens",
-        "description": "Status: BETA\n\nThis requests the overall information about all service account tokens\nit will not contain the token itself.",
-        "operationId": "ServiceAccountService_GetServiceAccountTokens",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetServiceAccountTokensResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "svcAccountId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServiceAccountService"
-        ]
-      },
-      "delete": {
-        "summary": "DeleteServiceAccountTokens",
-        "description": "Status: BETA\n\nDeletes all service account tokens",
-        "operationId": "ServiceAccountService_DeleteServiceAccountTokens",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2DeleteServiceAccountTokensResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "svcAccountId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "ServiceAccountService"
-        ]
-      }
-    },
     "/v2/user": {
       "get": {
         "summary": "GetUserRequest",
@@ -3389,66 +3484,6 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/user/acknowledge": {
-      "get": {
-        "summary": "AcknowledgePersonalNotifications",
-        "description": "Status: ALPHA\n\nAcknowledges personal notifications",
-        "operationId": "UserService_AcknowledgePersonalNotifications",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2AcknowledgePersonalNotificationsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "notificationIds",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/user/all": {
-      "get": {
-        "summary": "GetAllUsers",
-        "description": "Status: ALPHA\n\nGet all users including permissions (Admin only)",
-        "operationId": "UserService_GetAllUsers",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetAllUsersResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
         "tags": [
           "UserService"
         ]
@@ -3488,7 +3523,65 @@
         ]
       }
     },
-    "/v2/user/not_activated": {
+    "/v2/user/email": {
+      "patch": {
+        "summary": "UpdateUserDisplayName",
+        "description": "Status: ALPHA\n\nUpdates the email for the user (Personal only)",
+        "operationId": "UserService_UpdateUserEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateUserEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2UpdateUserEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/list": {
+      "get": {
+        "summary": "GetAllUsers",
+        "description": "Status: ALPHA\n\nGet all users including permissions (Admin only)",
+        "operationId": "UserService_GetAllUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetAllUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/list/not_activated": {
       "get": {
         "summary": "GetNotActivatedUsers",
         "description": "Status: STABLE\n\nGet all not activated users (Admin only)",
@@ -3536,16 +3629,108 @@
         ]
       }
     },
-    "/v2/user/redacted": {
+    "/v2/user/notifications/acknowledge": {
       "get": {
-        "summary": "GetUserRequestRedacted",
-        "description": "Status: STABLE\n\nThis is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user\nRedacts personal information like name or email",
-        "operationId": "UserService_GetUserRedacted",
+        "summary": "AcknowledgePersonalNotifications",
+        "description": "Status: ALPHA\n\nAcknowledges personal notifications",
+        "operationId": "UserService_AcknowledgePersonalNotifications",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetUserRedactedResponse"
+              "$ref": "#/definitions/v2AcknowledgePersonalNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "notificationIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/register": {
+      "post": {
+        "summary": "RegisterUser",
+        "description": "Status: BETA\n\nThis request should be called when a new user logs in for the first time",
+        "operationId": "UserService_RegisterUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RegisterUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2RegisterUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/tokens": {
+      "get": {
+        "summary": "GetAPITokens",
+        "description": "Status: STABLE\n\nReturns a list of API tokens for a specific user",
+        "operationId": "UserService_GetAPITokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetAPITokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteAPITokens",
+        "description": "Status: BETA\n\nDeletes the specified API Token",
+        "operationId": "UserService_DeleteAPITokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteAPITokensResponse"
             }
           },
           "default": {
@@ -3558,9 +3743,105 @@
         "parameters": [
           {
             "name": "userId",
-            "description": "Optional user_id",
+            "description": "This request invalidates all tokens of a specific user\nusually the user_id is specified via the provided oidc or aruna token\nThis user_id can be used by admins to invalidate all tokens of a specific\nuser",
             "in": "query",
             "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "post": {
+        "summary": "CreateAPIToken",
+        "description": "Status: BETA\n\nCreates an API token to authenticate",
+        "operationId": "UserService_CreateAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateAPITokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2CreateAPITokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/tokens/{tokenId}": {
+      "get": {
+        "summary": "GetAPIToken",
+        "description": "Status: BETA\n\nReturns one API token by id",
+        "operationId": "UserService_GetAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetAPITokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tokenId",
+            "description": "The token id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteAPIToken",
+        "description": "Status: STABLE\n\nDeletes the specified API Token",
+        "operationId": "UserService_DeleteAPIToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteAPITokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tokenId",
+            "description": "The token_id",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -3651,52 +3932,6 @@
         ]
       }
     },
-    "/v2/user/{userId}/email": {
-      "patch": {
-        "summary": "UpdateUserDisplayName",
-        "description": "Status: ALPHA\n\nUpdates the email for the user (Personal only)",
-        "operationId": "UserService_UpdateUserEmail",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2UpdateUserEmailResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "newEmail": {
-                  "type": "string",
-                  "title": "If new email is empty == unsubscribe"
-                }
-              }
-            }
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
     "/v2/user/{userId}/proxy_token": {
       "get": {
         "summary": "GetDataproxyToken",
@@ -3759,6 +3994,39 @@
         ]
       }
     },
+    "/v2/user/{userId}/redacted": {
+      "get": {
+        "summary": "GetUserRequestRedacted",
+        "description": "Status: STABLE\n\nThis is a request that returns the user information of the\ncurrent user or if invoked by an admin from another user\nRedacts personal information like name or email",
+        "operationId": "UserService_GetUserRedacted",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetUserRedactedResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "Optional user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v2/user/{userId}/s3_credentials": {
       "get": {
         "summary": "GetS3Credentials",
@@ -3797,69 +4065,7 @@
         ]
       }
     },
-    "/v2/user/{userId}/svc_proxy_token": {
-      "get": {
-        "summary": "GetDataproxyToken",
-        "description": "Status: ALPHA\n\nGets token for a specific user and data_proxy",
-        "operationId": "ServiceAccountService_GetDataproxyTokenSvcAccount",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetDataproxyTokenSvcAccountResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "endpointId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.s3Credentials",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "context.copy.resource",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.copy.targetEndpoint",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.copy.push",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "tags": [
-          "ServiceAccountService"
-        ]
-      }
-    },
-    "/v2/workspace": {
+    "/v2/workspaces": {
       "post": {
         "summary": "CreateWorkspace",
         "description": "Status: ALPHA\n\nA new request to create a personal anonymous workspace",
@@ -3893,7 +4099,7 @@
         ]
       }
     },
-    "/v2/workspace/template": {
+    "/v2/workspaces/templates": {
       "get": {
         "summary": "ListOwnedWorkspaceTemplates",
         "description": "Status: ALPHA\n\nLists owned workspace templates",
@@ -3949,7 +4155,7 @@
         ]
       }
     },
-    "/v2/workspace/template/{templateId}": {
+    "/v2/workspaces/templates/{templateId}": {
       "get": {
         "summary": "GetWorkspaceTemplatesById",
         "description": "Status: ALPHA\n\nGets workspace template by id",
@@ -4019,7 +4225,7 @@
         ]
       }
     },
-    "/v2/workspace/{workspaceId}": {
+    "/v2/workspaces/{workspaceId}": {
       "delete": {
         "summary": "DeleteWorkspace",
         "description": "Status: ALPHA\n\nDelete a workspace",
@@ -4059,7 +4265,7 @@
         ]
       }
     },
-    "/v2/workspace/{workspaceId}/claim": {
+    "/v2/workspaces/{workspaceId}/claim": {
       "post": {
         "summary": "DeleteWorkspace",
         "description": "Status: ALPHA\n\nClaims an anonymous workspace, and transfers the owner to a regular user account.",
@@ -4159,6 +4365,29 @@
     }
   },
   "definitions": {
+    "HealthCheckResponseServingStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SERVING",
+        "NOT_SERVING",
+        "SERVICE_UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "description": " - SERVICE_UNKNOWN: Used only by the Watch method."
+    },
+    "apidataproxyservicesv2CompletedPart": {
+      "type": "object",
+      "properties": {
+        "partNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "etag": {
+          "type": "string"
+        }
+      }
+    },
     "apidataproxyservicesv2DeleteObjectResponse": {
       "type": "object"
     },
@@ -4168,6 +4397,31 @@
         "data": {
           "type": "string",
           "format": "byte"
+        }
+      }
+    },
+    "apidataproxyservicesv2ReplicationStatus": {
+      "type": "string",
+      "enum": [
+        "REPLICATION_STATUS_UNSPECIFIED",
+        "REPLICATION_STATUS_PENDING",
+        "REPLICATION_STATUS_RUNNING",
+        "REPLICATION_STATUS_FINISHED",
+        "REPLICATION_STATUS_ERROR"
+      ],
+      "default": "REPLICATION_STATUS_UNSPECIFIED"
+    },
+    "apistorageservicesv2CompletedPart": {
+      "type": "object",
+      "properties": {
+        "etag": {
+          "type": "string",
+          "title": "Multipart identifier"
+        },
+        "part": {
+          "type": "string",
+          "format": "int64",
+          "title": "Part number"
         }
       }
     },
@@ -4181,6 +4435,17 @@
           "$ref": "#/definitions/v2Object"
         }
       }
+    },
+    "apistorageservicesv2ReplicationStatus": {
+      "type": "string",
+      "enum": [
+        "REPLICATION_STATUS_UNSPECIFIED",
+        "REPLICATION_STATUS_WAITING",
+        "REPLICATION_STATUS_RUNNING",
+        "REPLICATION_STATUS_FINISHED",
+        "REPLICATION_STATUS_ERROR"
+      ],
+      "default": "REPLICATION_STATUS_UNSPECIFIED"
     },
     "googlerpcStatus": {
       "type": "object",
@@ -4317,7 +4582,7 @@
     "v2AddProjectsToHookResponse": {
       "type": "object"
     },
-    "v2Anouncement": {
+    "v2Announcement": {
       "type": "object",
       "properties": {
         "id": {
@@ -4332,7 +4597,7 @@
         }
       }
     },
-    "v2AnouncementEvent": {
+    "v2AnnouncementEvent": {
       "type": "object",
       "properties": {
         "newDataProxyId": {
@@ -4472,32 +4737,6 @@
     },
     "v2CompleteMultiPartUploadResponse": {
       "type": "object"
-    },
-    "v2CompletedPart": {
-      "type": "object",
-      "properties": {
-        "partNumber": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "etag": {
-          "type": "string"
-        }
-      }
-    },
-    "v2CompletedParts": {
-      "type": "object",
-      "properties": {
-        "etag": {
-          "type": "string",
-          "title": "Multipart identifier"
-        },
-        "part": {
-          "type": "string",
-          "format": "int64",
-          "title": "Part number"
-        }
-      }
     },
     "v2ComponentVersion": {
       "type": "object",
@@ -4661,6 +4900,14 @@
         "collection": {
           "$ref": "#/definitions/v2Collection",
           "title": "The new collection_id"
+        }
+      }
+    },
+    "v2CreateDataproxyTokenSvcAccountResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
         }
       }
     },
@@ -4981,7 +5228,7 @@
         "user": {
           "type": "string"
         },
-        "anouncements": {
+        "announcements": {
           "type": "boolean"
         },
         "all": {
@@ -5065,7 +5312,7 @@
           "type": "string",
           "title": "Description of the workspace"
         },
-        "endpointId": {
+        "endpointIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -5252,17 +5499,6 @@
     "v2DeleteAPITokensResponse": {
       "type": "object"
     },
-    "v2DeleteAuthorizationRequest": {
-      "type": "object",
-      "properties": {
-        "resourceId": {
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        }
-      }
-    },
     "v2DeleteAuthorizationResponse": {
       "type": "object"
     },
@@ -5285,6 +5521,9 @@
       "type": "object"
     },
     "v2DeleteProjectResponse": {
+      "type": "object"
+    },
+    "v2DeleteReplicationResponse": {
       "type": "object"
     },
     "v2DeleteServiceAccountResponse": {
@@ -5390,7 +5629,7 @@
           "$ref": "#/definitions/v2UserEvent"
         },
         "announcementEvent": {
-          "$ref": "#/definitions/v2AnouncementEvent"
+          "$ref": "#/definitions/v2AnnouncementEvent"
         }
       }
     },
@@ -5420,8 +5659,7 @@
           "title": "If empty a basic JSON template will be used"
         },
         "method": {
-          "$ref": "#/definitions/v2Method",
-          "title": "TODO: Optional request headers"
+          "$ref": "#/definitions/v2Method"
         }
       }
     },
@@ -5450,6 +5688,20 @@
       ],
       "default": "EXTERNAL_RELATION_VARIANT_UNSPECIFIED",
       "title": "External Relations"
+    },
+    "v2Filter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Regex that matches name field"
+        },
+        "keyValue": {
+          "$ref": "#/definitions/v2KeyValue",
+          "description": "TODO: ObjectType \u0026 ObjectStatus",
+          "title": "Regex that matches key AND value"
+        }
+      }
     },
     "v2FinishObjectStagingResponse": {
       "type": "object",
@@ -5544,14 +5796,14 @@
         }
       }
     },
-    "v2GetAnouncementsResponse": {
+    "v2GetAnnouncementsResponse": {
       "type": "object",
       "properties": {
-        "anouncements": {
+        "announcements": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2Anouncement"
+            "$ref": "#/definitions/v2Announcement"
           }
         }
       }
@@ -5597,14 +5849,6 @@
           "type": "string"
         },
         "secretKey": {
-          "type": "string"
-        }
-      }
-    },
-    "v2GetDataproxyTokenSvcAccountResponse": {
-      "type": "object",
-      "properties": {
-        "token": {
           "type": "string"
         }
       }
@@ -5795,6 +6039,14 @@
         }
       }
     },
+    "v2GetReplicationStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+        }
+      }
+    },
     "v2GetResourceResponse": {
       "type": "object",
       "properties": {
@@ -5954,6 +6206,14 @@
         },
         "exists": {
           "type": "boolean"
+        }
+      }
+    },
+    "v2HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus"
         }
       }
     },
@@ -6321,6 +6581,14 @@
         }
       }
     },
+    "v2PartialReplicateDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+        }
+      }
+    },
     "v2Permission": {
       "type": "object",
       "properties": {
@@ -6587,22 +6855,19 @@
       "default": "RELATION_DIRECTION_UNSPECIFIED",
       "title": "internal object relation type (direction)"
     },
-    "v2ReplicationStatus": {
-      "type": "string",
-      "enum": [
-        "REPLICATION_STATUS_UNSPECIFIED",
-        "REPLICATION_STATUS_PENDING",
-        "REPLICATION_STATUS_RUNNING",
-        "REPLICATION_STATUS_FINISHED",
-        "REPLICATION_STATUS_ERROR"
-      ],
-      "default": "REPLICATION_STATUS_UNSPECIFIED"
+    "v2ReplicateProjectDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+        }
+      }
     },
     "v2ReplicationStatusResponse": {
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/v2ReplicationStatus"
+          "$ref": "#/definitions/apidataproxyservicesv2ReplicationStatus"
         },
         "message": {
           "type": "string"
@@ -6827,17 +7092,17 @@
         }
       }
     },
-    "v2SetAnouncementsRequest": {
+    "v2SetAnnouncementsRequest": {
       "type": "object",
       "properties": {
-        "anouncementsUpsert": {
+        "announcementsUpsert": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2Anouncement"
+            "$ref": "#/definitions/v2Announcement"
           }
         },
-        "anouncementsDelete": {
+        "announcementsDelete": {
           "type": "array",
           "items": {
             "type": "string"
@@ -6845,14 +7110,14 @@
         }
       }
     },
-    "v2SetAnouncementsResponse": {
+    "v2SetAnnouncementsResponse": {
       "type": "object",
       "properties": {
-        "anouncements": {
+        "announcements": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2Anouncement"
+            "$ref": "#/definitions/v2Announcement"
           }
         }
       }
@@ -6951,11 +7216,12 @@
         "triggerType": {
           "$ref": "#/definitions/v2TriggerType"
         },
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Filter"
+          }
         }
       }
     },
@@ -6964,26 +7230,13 @@
       "enum": [
         "TRIGGER_TYPE_UNSPECIFIED",
         "TRIGGER_TYPE_HOOK_ADDED",
-        "TRIGGER_TYPE_OBJECT_CREATED",
+        "TRIGGER_TYPE_RESOURCE_CREATED",
         "TRIGGER_TYPE_LABEL_ADDED",
         "TRIGGER_TYPE_STATIC_LABEL_ADDED",
-        "TRIGGER_TYPE_HOOK_STATUS_CHANGED"
+        "TRIGGER_TYPE_HOOK_STATUS_CHANGED",
+        "TRIGGER_TYPE_OBJECT_FINISHED"
       ],
       "default": "TRIGGER_TYPE_UNSPECIFIED"
-    },
-    "v2UpdateAuthorizationRequest": {
-      "type": "object",
-      "properties": {
-        "resourceId": {
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        },
-        "permissionLevel": {
-          "$ref": "#/definitions/v2PermissionLevel"
-        }
-      }
     },
     "v2UpdateAuthorizationResponse": {
       "type": "object",
@@ -7124,6 +7377,9 @@
         }
       }
     },
+    "v2UpdateReplicationStatusResponse": {
+      "type": "object"
+    },
     "v2UpdateUserDisplayNameRequest": {
       "type": "object",
       "properties": {
@@ -7139,6 +7395,18 @@
         "user": {
           "$ref": "#/definitions/v2User",
           "title": "Updated user info"
+        }
+      }
+    },
+    "v2UpdateUserEmailRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "newEmail": {
+          "type": "string",
+          "title": "If new email is empty == unsubscribe"
         }
       }
     },

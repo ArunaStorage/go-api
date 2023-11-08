@@ -133,19 +133,25 @@ func local_request_DataproxyUserService_PullReplica_0(ctx context.Context, marsh
 
 }
 
-var (
-	filter_DataproxyUserService_ReplicationStatus_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_DataproxyUserService_ReplicationStatus_0(ctx context.Context, marshaler runtime.Marshaler, client DataproxyUserServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ReplicationStatusRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["replication_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "replication_id")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DataproxyUserService_ReplicationStatus_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ReplicationId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "replication_id", err)
 	}
 
 	msg, err := client.ReplicationStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -157,11 +163,21 @@ func local_request_DataproxyUserService_ReplicationStatus_0(ctx context.Context,
 	var protoReq ReplicationStatusRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["replication_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "replication_id")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DataproxyUserService_ReplicationStatus_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ReplicationId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "replication_id", err)
 	}
 
 	msg, err := server.ReplicationStatus(ctx, &protoReq)
@@ -258,7 +274,7 @@ func RegisterDataproxyUserServiceHandlerServer(ctx context.Context, mux *runtime
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus", runtime.WithHTTPPathPattern("/v2/replica/status"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus", runtime.WithHTTPPathPattern("/v2/replica/{replication_id}/status"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -388,7 +404,7 @@ func RegisterDataproxyUserServiceHandlerClient(ctx context.Context, mux *runtime
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus", runtime.WithHTTPPathPattern("/v2/replica/status"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus", runtime.WithHTTPPathPattern("/v2/replica/{replication_id}/status"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -414,7 +430,7 @@ var (
 
 	pattern_DataproxyUserService_PullReplica_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "replica", "pull"}, ""))
 
-	pattern_DataproxyUserService_ReplicationStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "replica", "status"}, ""))
+	pattern_DataproxyUserService_ReplicationStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "replica", "replication_id", "status"}, ""))
 )
 
 var (

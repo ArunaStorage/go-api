@@ -627,7 +627,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/CreateDataset", runtime.WithHTTPPathPattern("/v2/dataset"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/CreateDataset", runtime.WithHTTPPathPattern("/v2/datasets"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -652,7 +652,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/GetDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/GetDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -702,7 +702,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/DeleteDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/DeleteDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -727,7 +727,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetName", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/name"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetName", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/name"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -752,7 +752,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDescription", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/description"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDescription", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/description"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -777,7 +777,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetKeyValues", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/key_values"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetKeyValues", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/key_values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -802,7 +802,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/data_class"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/data_class"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -827,7 +827,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/snapshot"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/snapshot"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -852,7 +852,7 @@ func RegisterDatasetServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/licenses"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/licenses"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -916,7 +916,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/CreateDataset", runtime.WithHTTPPathPattern("/v2/dataset"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/CreateDataset", runtime.WithHTTPPathPattern("/v2/datasets"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -938,7 +938,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/GetDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/GetDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -982,7 +982,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/DeleteDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/DeleteDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1004,7 +1004,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetName", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/name"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetName", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/name"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1026,7 +1026,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDescription", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/description"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDescription", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/description"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1048,7 +1048,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetKeyValues", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/key_values"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetKeyValues", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/key_values"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1070,7 +1070,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/data_class"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/data_class"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1092,7 +1092,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/snapshot"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/snapshot"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1114,7 +1114,7 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses", runtime.WithHTTPPathPattern("/v2/dataset/{dataset_id}/licenses"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses", runtime.WithHTTPPathPattern("/v2/datasets/{dataset_id}/licenses"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1134,25 +1134,25 @@ func RegisterDatasetServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_DatasetService_CreateDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "dataset"}, ""))
+	pattern_DatasetService_CreateDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "datasets"}, ""))
 
-	pattern_DatasetService_GetDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "dataset", "dataset_id"}, ""))
+	pattern_DatasetService_GetDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "datasets", "dataset_id"}, ""))
 
 	pattern_DatasetService_GetDatasets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "datasets"}, ""))
 
-	pattern_DatasetService_DeleteDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "dataset", "dataset_id"}, ""))
+	pattern_DatasetService_DeleteDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "datasets", "dataset_id"}, ""))
 
-	pattern_DatasetService_UpdateDatasetName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "name"}, ""))
+	pattern_DatasetService_UpdateDatasetName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "name"}, ""))
 
-	pattern_DatasetService_UpdateDatasetDescription_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "description"}, ""))
+	pattern_DatasetService_UpdateDatasetDescription_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "description"}, ""))
 
-	pattern_DatasetService_UpdateDatasetKeyValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "key_values"}, ""))
+	pattern_DatasetService_UpdateDatasetKeyValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "key_values"}, ""))
 
-	pattern_DatasetService_UpdateDatasetDataClass_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "data_class"}, ""))
+	pattern_DatasetService_UpdateDatasetDataClass_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "data_class"}, ""))
 
-	pattern_DatasetService_SnapshotDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "snapshot"}, ""))
+	pattern_DatasetService_SnapshotDataset_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "snapshot"}, ""))
 
-	pattern_DatasetService_UpdateDatasetLicenses_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "dataset", "dataset_id", "licenses"}, ""))
+	pattern_DatasetService_UpdateDatasetLicenses_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "datasets", "dataset_id", "licenses"}, ""))
 )
 
 var (

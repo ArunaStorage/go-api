@@ -46,7 +46,7 @@ type AuthorizationServiceClient interface {
 	//
 	// Status: BETA
 	//
-	// This creates a user-specific attribute that handles permission for a
+	// This deletes a user-specific attribute that handles permission for a
 	// specific resource
 	DeleteAuthorization(ctx context.Context, in *DeleteAuthorizationRequest, opts ...grpc.CallOption) (*DeleteAuthorizationResponse, error)
 	// UpdateAuthorization
@@ -123,7 +123,7 @@ type AuthorizationServiceServer interface {
 	//
 	// Status: BETA
 	//
-	// This creates a user-specific attribute that handles permission for a
+	// This deletes a user-specific attribute that handles permission for a
 	// specific resource
 	DeleteAuthorization(context.Context, *DeleteAuthorizationRequest) (*DeleteAuthorizationResponse, error)
 	// UpdateAuthorization

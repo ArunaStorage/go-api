@@ -269,7 +269,7 @@ func RegisterEventNotificationServiceHandlerServer(ctx context.Context, mux *run
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/CreateStreamConsumer", runtime.WithHTTPPathPattern("/v2/notifications/consumer"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/CreateStreamConsumer", runtime.WithHTTPPathPattern("/v2/notifications/consumers"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -326,7 +326,7 @@ func RegisterEventNotificationServiceHandlerServer(ctx context.Context, mux *run
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/AcknowledgeMessageBatch", runtime.WithHTTPPathPattern("/v2/notifications/ack"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/AcknowledgeMessageBatch", runtime.WithHTTPPathPattern("/v2/notifications/acknowledge"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -415,7 +415,7 @@ func RegisterEventNotificationServiceHandlerClient(ctx context.Context, mux *run
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/CreateStreamConsumer", runtime.WithHTTPPathPattern("/v2/notifications/consumer"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/CreateStreamConsumer", runtime.WithHTTPPathPattern("/v2/notifications/consumers"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -481,7 +481,7 @@ func RegisterEventNotificationServiceHandlerClient(ctx context.Context, mux *run
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/AcknowledgeMessageBatch", runtime.WithHTTPPathPattern("/v2/notifications/ack"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.notification.services.v2.EventNotificationService/AcknowledgeMessageBatch", runtime.WithHTTPPathPattern("/v2/notifications/acknowledge"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -523,13 +523,13 @@ func RegisterEventNotificationServiceHandlerClient(ctx context.Context, mux *run
 }
 
 var (
-	pattern_EventNotificationService_CreateStreamConsumer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "notifications", "consumer"}, ""))
+	pattern_EventNotificationService_CreateStreamConsumer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "notifications", "consumers"}, ""))
 
 	pattern_EventNotificationService_GetEventMessageBatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "notifications", "stream_consumer", "batch"}, ""))
 
 	pattern_EventNotificationService_GetEventMessageStream_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "notifications", "stream_consumer", "stream"}, ""))
 
-	pattern_EventNotificationService_AcknowledgeMessageBatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "notifications", "ack"}, ""))
+	pattern_EventNotificationService_AcknowledgeMessageBatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "notifications", "acknowledge"}, ""))
 
 	pattern_EventNotificationService_DeleteStreamConsumer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "notifications", "stream_consumer"}, ""))
 )

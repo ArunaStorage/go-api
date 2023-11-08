@@ -22,8 +22,8 @@ const (
 	StorageStatusService_GetStorageVersion_FullMethodName = "/aruna.api.storage.services.v2.StorageStatusService/GetStorageVersion"
 	StorageStatusService_GetStorageStatus_FullMethodName  = "/aruna.api.storage.services.v2.StorageStatusService/GetStorageStatus"
 	StorageStatusService_GetPubkeys_FullMethodName        = "/aruna.api.storage.services.v2.StorageStatusService/GetPubkeys"
-	StorageStatusService_GetAnouncements_FullMethodName   = "/aruna.api.storage.services.v2.StorageStatusService/GetAnouncements"
-	StorageStatusService_SetAnouncements_FullMethodName   = "/aruna.api.storage.services.v2.StorageStatusService/SetAnouncements"
+	StorageStatusService_GetAnnouncements_FullMethodName  = "/aruna.api.storage.services.v2.StorageStatusService/GetAnnouncements"
+	StorageStatusService_SetAnnouncements_FullMethodName  = "/aruna.api.storage.services.v2.StorageStatusService/SetAnnouncements"
 )
 
 // StorageStatusServiceClient is the client API for StorageStatusService service.
@@ -44,8 +44,8 @@ type StorageStatusServiceClient interface {
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(ctx context.Context, in *GetStorageStatusRequest, opts ...grpc.CallOption) (*GetStorageStatusResponse, error)
 	GetPubkeys(ctx context.Context, in *GetPubkeysRequest, opts ...grpc.CallOption) (*GetPubkeysResponse, error)
-	GetAnouncements(ctx context.Context, in *GetAnouncementsRequest, opts ...grpc.CallOption) (*GetAnouncementsResponse, error)
-	SetAnouncements(ctx context.Context, in *SetAnouncementsRequest, opts ...grpc.CallOption) (*SetAnouncementsResponse, error)
+	GetAnnouncements(ctx context.Context, in *GetAnnouncementsRequest, opts ...grpc.CallOption) (*GetAnnouncementsResponse, error)
+	SetAnnouncements(ctx context.Context, in *SetAnnouncementsRequest, opts ...grpc.CallOption) (*SetAnnouncementsResponse, error)
 }
 
 type storageStatusServiceClient struct {
@@ -83,18 +83,18 @@ func (c *storageStatusServiceClient) GetPubkeys(ctx context.Context, in *GetPubk
 	return out, nil
 }
 
-func (c *storageStatusServiceClient) GetAnouncements(ctx context.Context, in *GetAnouncementsRequest, opts ...grpc.CallOption) (*GetAnouncementsResponse, error) {
-	out := new(GetAnouncementsResponse)
-	err := c.cc.Invoke(ctx, StorageStatusService_GetAnouncements_FullMethodName, in, out, opts...)
+func (c *storageStatusServiceClient) GetAnnouncements(ctx context.Context, in *GetAnnouncementsRequest, opts ...grpc.CallOption) (*GetAnnouncementsResponse, error) {
+	out := new(GetAnnouncementsResponse)
+	err := c.cc.Invoke(ctx, StorageStatusService_GetAnnouncements_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageStatusServiceClient) SetAnouncements(ctx context.Context, in *SetAnouncementsRequest, opts ...grpc.CallOption) (*SetAnouncementsResponse, error) {
-	out := new(SetAnouncementsResponse)
-	err := c.cc.Invoke(ctx, StorageStatusService_SetAnouncements_FullMethodName, in, out, opts...)
+func (c *storageStatusServiceClient) SetAnnouncements(ctx context.Context, in *SetAnnouncementsRequest, opts ...grpc.CallOption) (*SetAnnouncementsResponse, error) {
+	out := new(SetAnnouncementsResponse)
+	err := c.cc.Invoke(ctx, StorageStatusService_SetAnnouncements_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,8 +119,8 @@ type StorageStatusServiceServer interface {
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(context.Context, *GetStorageStatusRequest) (*GetStorageStatusResponse, error)
 	GetPubkeys(context.Context, *GetPubkeysRequest) (*GetPubkeysResponse, error)
-	GetAnouncements(context.Context, *GetAnouncementsRequest) (*GetAnouncementsResponse, error)
-	SetAnouncements(context.Context, *SetAnouncementsRequest) (*SetAnouncementsResponse, error)
+	GetAnnouncements(context.Context, *GetAnnouncementsRequest) (*GetAnnouncementsResponse, error)
+	SetAnnouncements(context.Context, *SetAnnouncementsRequest) (*SetAnnouncementsResponse, error)
 }
 
 // UnimplementedStorageStatusServiceServer should be embedded to have forward compatible implementations.
@@ -136,11 +136,11 @@ func (UnimplementedStorageStatusServiceServer) GetStorageStatus(context.Context,
 func (UnimplementedStorageStatusServiceServer) GetPubkeys(context.Context, *GetPubkeysRequest) (*GetPubkeysResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPubkeys not implemented")
 }
-func (UnimplementedStorageStatusServiceServer) GetAnouncements(context.Context, *GetAnouncementsRequest) (*GetAnouncementsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAnouncements not implemented")
+func (UnimplementedStorageStatusServiceServer) GetAnnouncements(context.Context, *GetAnnouncementsRequest) (*GetAnnouncementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnnouncements not implemented")
 }
-func (UnimplementedStorageStatusServiceServer) SetAnouncements(context.Context, *SetAnouncementsRequest) (*SetAnouncementsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetAnouncements not implemented")
+func (UnimplementedStorageStatusServiceServer) SetAnnouncements(context.Context, *SetAnnouncementsRequest) (*SetAnnouncementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetAnnouncements not implemented")
 }
 
 // UnsafeStorageStatusServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -208,38 +208,38 @@ func _StorageStatusService_GetPubkeys_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _StorageStatusService_GetAnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAnouncementsRequest)
+func _StorageStatusService_GetAnnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAnnouncementsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageStatusServiceServer).GetAnouncements(ctx, in)
+		return srv.(StorageStatusServiceServer).GetAnnouncements(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StorageStatusService_GetAnouncements_FullMethodName,
+		FullMethod: StorageStatusService_GetAnnouncements_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageStatusServiceServer).GetAnouncements(ctx, req.(*GetAnouncementsRequest))
+		return srv.(StorageStatusServiceServer).GetAnnouncements(ctx, req.(*GetAnnouncementsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _StorageStatusService_SetAnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetAnouncementsRequest)
+func _StorageStatusService_SetAnnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAnnouncementsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageStatusServiceServer).SetAnouncements(ctx, in)
+		return srv.(StorageStatusServiceServer).SetAnnouncements(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StorageStatusService_SetAnouncements_FullMethodName,
+		FullMethod: StorageStatusService_SetAnnouncements_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageStatusServiceServer).SetAnouncements(ctx, req.(*SetAnouncementsRequest))
+		return srv.(StorageStatusServiceServer).SetAnnouncements(ctx, req.(*SetAnnouncementsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -264,12 +264,12 @@ var StorageStatusService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _StorageStatusService_GetPubkeys_Handler,
 		},
 		{
-			MethodName: "GetAnouncements",
-			Handler:    _StorageStatusService_GetAnouncements_Handler,
+			MethodName: "GetAnnouncements",
+			Handler:    _StorageStatusService_GetAnnouncements_Handler,
 		},
 		{
-			MethodName: "SetAnouncements",
-			Handler:    _StorageStatusService_SetAnouncements_Handler,
+			MethodName: "SetAnnouncements",
+			Handler:    _StorageStatusService_SetAnnouncements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -339,7 +339,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/CreateHook", runtime.WithHTTPPathPattern("/v2/hook"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/CreateHook", runtime.WithHTTPPathPattern("/v2/hooks"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -364,7 +364,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/AddProjectsToHook", runtime.WithHTTPPathPattern("/v2/hook/{hook_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/AddProjectsToHook", runtime.WithHTTPPathPattern("/v2/hooks/{hook_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -389,7 +389,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/ListProjectHooks", runtime.WithHTTPPathPattern("/v2/hooks/project/{project_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/ListProjectHooks", runtime.WithHTTPPathPattern("/v2/hooks/projects/{project_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -439,7 +439,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/DeleteHook", runtime.WithHTTPPathPattern("/v2/hook/{hook_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/DeleteHook", runtime.WithHTTPPathPattern("/v2/hooks/{hook_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -456,7 +456,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("DELETE", pattern_HooksService_HookCallback_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_HooksService_HookCallback_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -464,7 +464,7 @@ func RegisterHooksServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/HookCallback", runtime.WithHTTPPathPattern("/v2/hook/callback"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/HookCallback", runtime.WithHTTPPathPattern("/v2/hooks/callback"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -528,7 +528,7 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/CreateHook", runtime.WithHTTPPathPattern("/v2/hook"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/CreateHook", runtime.WithHTTPPathPattern("/v2/hooks"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -550,7 +550,7 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/AddProjectsToHook", runtime.WithHTTPPathPattern("/v2/hook/{hook_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/AddProjectsToHook", runtime.WithHTTPPathPattern("/v2/hooks/{hook_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -572,7 +572,7 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/ListProjectHooks", runtime.WithHTTPPathPattern("/v2/hooks/project/{project_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/ListProjectHooks", runtime.WithHTTPPathPattern("/v2/hooks/projects/{project_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -616,7 +616,7 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/DeleteHook", runtime.WithHTTPPathPattern("/v2/hook/{hook_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/DeleteHook", runtime.WithHTTPPathPattern("/v2/hooks/{hook_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -632,13 +632,13 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("DELETE", pattern_HooksService_HookCallback_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_HooksService_HookCallback_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/HookCallback", runtime.WithHTTPPathPattern("/v2/hook/callback"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.hooks.services.v2.HooksService/HookCallback", runtime.WithHTTPPathPattern("/v2/hooks/callback"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -658,17 +658,17 @@ func RegisterHooksServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_HooksService_CreateHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "hook"}, ""))
+	pattern_HooksService_CreateHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "hooks"}, ""))
 
-	pattern_HooksService_AddProjectsToHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "hook", "hook_id"}, ""))
+	pattern_HooksService_AddProjectsToHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "hooks", "hook_id"}, ""))
 
-	pattern_HooksService_ListProjectHooks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v2", "hooks", "project", "project_id"}, ""))
+	pattern_HooksService_ListProjectHooks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v2", "hooks", "projects", "project_id"}, ""))
 
 	pattern_HooksService_ListOwnedHooks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v2", "hooks", "owner", "user_id"}, ""))
 
-	pattern_HooksService_DeleteHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "hook", "hook_id"}, ""))
+	pattern_HooksService_DeleteHook_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "hooks", "hook_id"}, ""))
 
-	pattern_HooksService_HookCallback_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "hook", "callback"}, ""))
+	pattern_HooksService_HookCallback_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "hooks", "callback"}, ""))
 )
 
 var (

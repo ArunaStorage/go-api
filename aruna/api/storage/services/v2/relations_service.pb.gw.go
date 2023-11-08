@@ -65,19 +65,25 @@ func local_request_RelationsService_ModifyRelations_0(ctx context.Context, marsh
 
 }
 
-var (
-	filter_RelationsService_GetHierarchy_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_RelationsService_GetHierarchy_0(ctx context.Context, marshaler runtime.Marshaler, client RelationsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetHierarchyRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resource_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RelationsService_GetHierarchy_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
 	}
 
 	msg, err := client.GetHierarchy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -89,11 +95,21 @@ func local_request_RelationsService_GetHierarchy_0(ctx context.Context, marshale
 	var protoReq GetHierarchyRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["resource_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RelationsService_GetHierarchy_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.ResourceId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
 	}
 
 	msg, err := server.GetHierarchy(ctx, &protoReq)
@@ -115,7 +131,7 @@ func RegisterRelationsServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/ModifyRelations", runtime.WithHTTPPathPattern("/v2/relation"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/ModifyRelations", runtime.WithHTTPPathPattern("/v2/relations"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -140,7 +156,7 @@ func RegisterRelationsServiceHandlerServer(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/GetHierarchy", runtime.WithHTTPPathPattern("/v2/relation/hierarchy"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/GetHierarchy", runtime.WithHTTPPathPattern("/v2/relations/{resource_id}/hierarchy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -204,7 +220,7 @@ func RegisterRelationsServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/ModifyRelations", runtime.WithHTTPPathPattern("/v2/relation"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/ModifyRelations", runtime.WithHTTPPathPattern("/v2/relations"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -226,7 +242,7 @@ func RegisterRelationsServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/GetHierarchy", runtime.WithHTTPPathPattern("/v2/relation/hierarchy"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.RelationsService/GetHierarchy", runtime.WithHTTPPathPattern("/v2/relations/{resource_id}/hierarchy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -246,9 +262,9 @@ func RegisterRelationsServiceHandlerClient(ctx context.Context, mux *runtime.Ser
 }
 
 var (
-	pattern_RelationsService_ModifyRelations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "relation"}, ""))
+	pattern_RelationsService_ModifyRelations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "relations"}, ""))
 
-	pattern_RelationsService_GetHierarchy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v2", "relation", "hierarchy"}, ""))
+	pattern_RelationsService_GetHierarchy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v2", "relations", "resource_id", "hierarchy"}, ""))
 )
 
 var (

@@ -77,6 +77,23 @@ func request_BundlerService_DeleteBundle_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["bundle_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "bundle_id")
+	}
+
+	protoReq.BundleId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "bundle_id", err)
+	}
+
 	msg, err := client.DeleteBundle(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -92,6 +109,23 @@ func local_request_BundlerService_DeleteBundle_0(ctx context.Context, marshaler 
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["bundle_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "bundle_id")
+	}
+
+	protoReq.BundleId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "bundle_id", err)
 	}
 
 	msg, err := server.DeleteBundle(ctx, &protoReq)
@@ -113,7 +147,7 @@ func RegisterBundlerServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/CreateBundle", runtime.WithHTTPPathPattern("/v2/bundle"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/CreateBundle", runtime.WithHTTPPathPattern("/v2/bundles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -138,7 +172,7 @@ func RegisterBundlerServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/DeleteBundle", runtime.WithHTTPPathPattern("/v2/bundle"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/DeleteBundle", runtime.WithHTTPPathPattern("/v2/bundles/{bundle_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -202,7 +236,7 @@ func RegisterBundlerServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/CreateBundle", runtime.WithHTTPPathPattern("/v2/bundle"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/CreateBundle", runtime.WithHTTPPathPattern("/v2/bundles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -224,7 +258,7 @@ func RegisterBundlerServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/DeleteBundle", runtime.WithHTTPPathPattern("/v2/bundle"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.dataproxy.services.v2.BundlerService/DeleteBundle", runtime.WithHTTPPathPattern("/v2/bundles/{bundle_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -244,9 +278,9 @@ func RegisterBundlerServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_BundlerService_CreateBundle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "bundle"}, ""))
+	pattern_BundlerService_CreateBundle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "bundles"}, ""))
 
-	pattern_BundlerService_DeleteBundle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v2", "bundle"}, ""))
+	pattern_BundlerService_DeleteBundle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v2", "bundles", "bundle_id"}, ""))
 )
 
 var (

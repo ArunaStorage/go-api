@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceAccountService_CreateServiceAccount_FullMethodName        = "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount"
-	ServiceAccountService_CreateServiceAccountToken_FullMethodName   = "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken"
-	ServiceAccountService_SetServiceAccountPermission_FullMethodName = "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission"
-	ServiceAccountService_GetServiceAccountToken_FullMethodName      = "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken"
-	ServiceAccountService_GetServiceAccountTokens_FullMethodName     = "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens"
-	ServiceAccountService_DeleteServiceAccountToken_FullMethodName   = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken"
-	ServiceAccountService_DeleteServiceAccountTokens_FullMethodName  = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens"
-	ServiceAccountService_DeleteServiceAccount_FullMethodName        = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount"
-	ServiceAccountService_GetS3CredentialsSvcAccount_FullMethodName  = "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount"
-	ServiceAccountService_GetDataproxyTokenSvcAccount_FullMethodName = "/aruna.api.storage.services.v2.ServiceAccountService/GetDataproxyTokenSvcAccount"
+	ServiceAccountService_CreateServiceAccount_FullMethodName           = "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccount"
+	ServiceAccountService_CreateServiceAccountToken_FullMethodName      = "/aruna.api.storage.services.v2.ServiceAccountService/CreateServiceAccountToken"
+	ServiceAccountService_SetServiceAccountPermission_FullMethodName    = "/aruna.api.storage.services.v2.ServiceAccountService/SetServiceAccountPermission"
+	ServiceAccountService_GetServiceAccountToken_FullMethodName         = "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountToken"
+	ServiceAccountService_GetServiceAccountTokens_FullMethodName        = "/aruna.api.storage.services.v2.ServiceAccountService/GetServiceAccountTokens"
+	ServiceAccountService_DeleteServiceAccountToken_FullMethodName      = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountToken"
+	ServiceAccountService_DeleteServiceAccountTokens_FullMethodName     = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccountTokens"
+	ServiceAccountService_DeleteServiceAccount_FullMethodName           = "/aruna.api.storage.services.v2.ServiceAccountService/DeleteServiceAccount"
+	ServiceAccountService_GetS3CredentialsSvcAccount_FullMethodName     = "/aruna.api.storage.services.v2.ServiceAccountService/GetS3CredentialsSvcAccount"
+	ServiceAccountService_CreateDataproxyTokenSvcAccount_FullMethodName = "/aruna.api.storage.services.v2.ServiceAccountService/CreateDataproxyTokenSvcAccount"
 )
 
 // ServiceAccountServiceClient is the client API for ServiceAccountService service.
@@ -100,7 +100,7 @@ type ServiceAccountServiceClient interface {
 	// Status: ALPHA
 	//
 	// Gets token for a specific user and data_proxy
-	GetDataproxyTokenSvcAccount(ctx context.Context, in *GetDataproxyTokenSvcAccountRequest, opts ...grpc.CallOption) (*GetDataproxyTokenSvcAccountResponse, error)
+	CreateDataproxyTokenSvcAccount(ctx context.Context, in *CreateDataproxyTokenSvcAccountRequest, opts ...grpc.CallOption) (*CreateDataproxyTokenSvcAccountResponse, error)
 }
 
 type serviceAccountServiceClient struct {
@@ -192,9 +192,9 @@ func (c *serviceAccountServiceClient) GetS3CredentialsSvcAccount(ctx context.Con
 	return out, nil
 }
 
-func (c *serviceAccountServiceClient) GetDataproxyTokenSvcAccount(ctx context.Context, in *GetDataproxyTokenSvcAccountRequest, opts ...grpc.CallOption) (*GetDataproxyTokenSvcAccountResponse, error) {
-	out := new(GetDataproxyTokenSvcAccountResponse)
-	err := c.cc.Invoke(ctx, ServiceAccountService_GetDataproxyTokenSvcAccount_FullMethodName, in, out, opts...)
+func (c *serviceAccountServiceClient) CreateDataproxyTokenSvcAccount(ctx context.Context, in *CreateDataproxyTokenSvcAccountRequest, opts ...grpc.CallOption) (*CreateDataproxyTokenSvcAccountResponse, error) {
+	out := new(CreateDataproxyTokenSvcAccountResponse)
+	err := c.cc.Invoke(ctx, ServiceAccountService_CreateDataproxyTokenSvcAccount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ type ServiceAccountServiceServer interface {
 	// Status: ALPHA
 	//
 	// Gets token for a specific user and data_proxy
-	GetDataproxyTokenSvcAccount(context.Context, *GetDataproxyTokenSvcAccountRequest) (*GetDataproxyTokenSvcAccountResponse, error)
+	CreateDataproxyTokenSvcAccount(context.Context, *CreateDataproxyTokenSvcAccountRequest) (*CreateDataproxyTokenSvcAccountResponse, error)
 }
 
 // UnimplementedServiceAccountServiceServer should be embedded to have forward compatible implementations.
@@ -304,8 +304,8 @@ func (UnimplementedServiceAccountServiceServer) DeleteServiceAccount(context.Con
 func (UnimplementedServiceAccountServiceServer) GetS3CredentialsSvcAccount(context.Context, *GetS3CredentialsSvcAccountRequest) (*GetS3CredentialsSvcAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetS3CredentialsSvcAccount not implemented")
 }
-func (UnimplementedServiceAccountServiceServer) GetDataproxyTokenSvcAccount(context.Context, *GetDataproxyTokenSvcAccountRequest) (*GetDataproxyTokenSvcAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDataproxyTokenSvcAccount not implemented")
+func (UnimplementedServiceAccountServiceServer) CreateDataproxyTokenSvcAccount(context.Context, *CreateDataproxyTokenSvcAccountRequest) (*CreateDataproxyTokenSvcAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDataproxyTokenSvcAccount not implemented")
 }
 
 // UnsafeServiceAccountServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -481,20 +481,20 @@ func _ServiceAccountService_GetS3CredentialsSvcAccount_Handler(srv interface{}, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceAccountService_GetDataproxyTokenSvcAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDataproxyTokenSvcAccountRequest)
+func _ServiceAccountService_CreateDataproxyTokenSvcAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDataproxyTokenSvcAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceAccountServiceServer).GetDataproxyTokenSvcAccount(ctx, in)
+		return srv.(ServiceAccountServiceServer).CreateDataproxyTokenSvcAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceAccountService_GetDataproxyTokenSvcAccount_FullMethodName,
+		FullMethod: ServiceAccountService_CreateDataproxyTokenSvcAccount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceAccountServiceServer).GetDataproxyTokenSvcAccount(ctx, req.(*GetDataproxyTokenSvcAccountRequest))
+		return srv.(ServiceAccountServiceServer).CreateDataproxyTokenSvcAccount(ctx, req.(*CreateDataproxyTokenSvcAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -543,8 +543,8 @@ var ServiceAccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceAccountService_GetS3CredentialsSvcAccount_Handler,
 		},
 		{
-			MethodName: "GetDataproxyTokenSvcAccount",
-			Handler:    _ServiceAccountService_GetDataproxyTokenSvcAccount_Handler,
+			MethodName: "CreateDataproxyTokenSvcAccount",
+			Handler:    _ServiceAccountService_CreateDataproxyTokenSvcAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
