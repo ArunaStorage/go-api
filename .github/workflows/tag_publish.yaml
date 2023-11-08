@@ -22,6 +22,8 @@ jobs:
       - name: Generate buf files
         run: buf generate
       - name: Fetch release version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           echo TAG_NAME=$(gh release view --repo https://github.com/ArunaStorage/ArunaAPI --json tagName | jq .tagName -r) >> $GITHUB_ENV
           echo RELEASE_NAME=$(gh release view --repo https://github.com/ArunaStorage/ArunaAPI --json name | jq .name -r) >> $GITHUB_ENV
