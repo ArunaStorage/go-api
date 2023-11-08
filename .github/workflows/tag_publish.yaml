@@ -47,6 +47,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release
-        run: gh release create $TAG_NAME --title $RELEASE_NAME --notes $RELEASE_BODY
+        run: gh release create $TAG_NAME --title "$RELEASE_NAME" --notes "$RELEASE_BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
