@@ -37,6 +37,8 @@ const (
 	UserService_GetDataproxyTokenUser_FullMethodName            = "/aruna.api.storage.services.v2.UserService/GetDataproxyTokenUser"
 	UserService_GetPersonalNotifications_FullMethodName         = "/aruna.api.storage.services.v2.UserService/GetPersonalNotifications"
 	UserService_AcknowledgePersonalNotifications_FullMethodName = "/aruna.api.storage.services.v2.UserService/AcknowledgePersonalNotifications"
+	UserService_AddOidcProvier_FullMethodName                   = "/aruna.api.storage.services.v2.UserService/AddOidcProvier"
+	UserService_RemoveOidcProvider_FullMethodName               = "/aruna.api.storage.services.v2.UserService/RemoveOidcProvider"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -154,6 +156,8 @@ type UserServiceClient interface {
 	//
 	// Acknowledges personal notifications
 	AcknowledgePersonalNotifications(ctx context.Context, in *AcknowledgePersonalNotificationsRequest, opts ...grpc.CallOption) (*AcknowledgePersonalNotificationsResponse, error)
+	AddOidcProvier(ctx context.Context, in *AddOidcProviderRequest, opts ...grpc.CallOption) (*AddOidcProviderResponse, error)
+	RemoveOidcProvider(ctx context.Context, in *RemoveOidcProviderRequest, opts ...grpc.CallOption) (*RemoveOidcProviderResponse, error)
 }
 
 type userServiceClient struct {
@@ -326,6 +330,24 @@ func (c *userServiceClient) AcknowledgePersonalNotifications(ctx context.Context
 	return out, nil
 }
 
+func (c *userServiceClient) AddOidcProvier(ctx context.Context, in *AddOidcProviderRequest, opts ...grpc.CallOption) (*AddOidcProviderResponse, error) {
+	out := new(AddOidcProviderResponse)
+	err := c.cc.Invoke(ctx, UserService_AddOidcProvier_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RemoveOidcProvider(ctx context.Context, in *RemoveOidcProviderRequest, opts ...grpc.CallOption) (*RemoveOidcProviderResponse, error) {
+	out := new(RemoveOidcProviderResponse)
+	err := c.cc.Invoke(ctx, UserService_RemoveOidcProvider_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -441,6 +463,8 @@ type UserServiceServer interface {
 	//
 	// Acknowledges personal notifications
 	AcknowledgePersonalNotifications(context.Context, *AcknowledgePersonalNotificationsRequest) (*AcknowledgePersonalNotificationsResponse, error)
+	AddOidcProvier(context.Context, *AddOidcProviderRequest) (*AddOidcProviderResponse, error)
+	RemoveOidcProvider(context.Context, *RemoveOidcProviderRequest) (*RemoveOidcProviderResponse, error)
 }
 
 // UnimplementedUserServiceServer should be embedded to have forward compatible implementations.
@@ -500,6 +524,12 @@ func (UnimplementedUserServiceServer) GetPersonalNotifications(context.Context, 
 }
 func (UnimplementedUserServiceServer) AcknowledgePersonalNotifications(context.Context, *AcknowledgePersonalNotificationsRequest) (*AcknowledgePersonalNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AcknowledgePersonalNotifications not implemented")
+}
+func (UnimplementedUserServiceServer) AddOidcProvier(context.Context, *AddOidcProviderRequest) (*AddOidcProviderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddOidcProvier not implemented")
+}
+func (UnimplementedUserServiceServer) RemoveOidcProvider(context.Context, *RemoveOidcProviderRequest) (*RemoveOidcProviderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveOidcProvider not implemented")
 }
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -837,6 +867,42 @@ func _UserService_AcknowledgePersonalNotifications_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AddOidcProvier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddOidcProviderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddOidcProvier(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddOidcProvier_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddOidcProvier(ctx, req.(*AddOidcProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RemoveOidcProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveOidcProviderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RemoveOidcProvider(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RemoveOidcProvider_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RemoveOidcProvider(ctx, req.(*RemoveOidcProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -915,6 +981,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AcknowledgePersonalNotifications",
 			Handler:    _UserService_AcknowledgePersonalNotifications_Handler,
+		},
+		{
+			MethodName: "AddOidcProvier",
+			Handler:    _UserService_AddOidcProvier_Handler,
+		},
+		{
+			MethodName: "RemoveOidcProvider",
+			Handler:    _UserService_RemoveOidcProvider_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

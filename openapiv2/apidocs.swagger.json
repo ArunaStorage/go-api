@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.7"
+    "version": "2.0.0-beta.8"
   },
   "tags": [
     {
@@ -3489,6 +3489,38 @@
         ]
       }
     },
+    "/v2/user/add_oidc": {
+      "patch": {
+        "operationId": "UserService_AddOidcProvier",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddOidcProviderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2AddOidcProviderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v2/user/display_name": {
       "patch": {
         "summary": "UpdateUserDisplayName",
@@ -3691,6 +3723,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v2RegisterUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/remove_oidc": {
+      "patch": {
+        "operationId": "UserService_RemoveOidcProvider",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RemoveOidcProviderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2RemoveOidcProviderRequest"
             }
           }
         ],
@@ -4576,6 +4640,22 @@
         },
         "value": {
           "type": "string"
+        }
+      }
+    },
+    "v2AddOidcProviderRequest": {
+      "type": "object",
+      "properties": {
+        "newAccessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "v2AddOidcProviderResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v2User"
         }
       }
     },
@@ -6581,6 +6661,17 @@
         }
       }
     },
+    "v2OidcMapping": {
+      "type": "object",
+      "properties": {
+        "externalId": {
+          "type": "string"
+        },
+        "oidcUrl": {
+          "type": "string"
+        }
+      }
+    },
     "v2PartialReplicateDataResponse": {
       "type": "object",
       "properties": {
@@ -6854,6 +6945,22 @@
       ],
       "default": "RELATION_DIRECTION_UNSPECIFIED",
       "title": "internal object relation type (direction)"
+    },
+    "v2RemoveOidcProviderRequest": {
+      "type": "object",
+      "properties": {
+        "providerUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "v2RemoveOidcProviderResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v2User"
+        }
+      }
     },
     "v2ReplicateProjectDataResponse": {
       "type": "object",
@@ -7433,10 +7540,6 @@
           "type": "string",
           "title": "Internal Aruna UserID"
         },
-        "externalId": {
-          "type": "string",
-          "title": "Oidc subject ID"
-        },
         "displayName": {
           "type": "string",
           "title": "(optional) User display_name"
@@ -7490,6 +7593,13 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/v2Permission"
+          }
+        },
+        "externalIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2OidcMapping"
           }
         }
       }
