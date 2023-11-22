@@ -38,8 +38,9 @@ type ObjectServiceClient interface {
 	//
 	// Status: BETA
 	//
-	// This creates a new object
-	// Initializing an object will put it in a staging area.
+	// This creates a new object and puts it in a staging area.
+	// Staging objects have an "INITIALIZING" status
+	// and need to be finished either manually or by uploading data.
 	CreateObject(ctx context.Context, in *CreateObjectRequest, opts ...grpc.CallOption) (*CreateObjectResponse, error)
 	// GetUploadURL
 	//
@@ -201,8 +202,9 @@ type ObjectServiceServer interface {
 	//
 	// Status: BETA
 	//
-	// This creates a new object
-	// Initializing an object will put it in a staging area.
+	// This creates a new object and puts it in a staging area.
+	// Staging objects have an "INITIALIZING" status
+	// and need to be finished either manually or by uploading data.
 	CreateObject(context.Context, *CreateObjectRequest) (*CreateObjectResponse, error)
 	// GetUploadURL
 	//

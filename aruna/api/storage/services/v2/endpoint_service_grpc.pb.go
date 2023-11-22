@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	EndpointService_CreateEndpoint_FullMethodName     = "/aruna.api.storage.services.v2.EndpointService/CreateEndpoint"
 	EndpointService_FullSyncEndpoint_FullMethodName   = "/aruna.api.storage.services.v2.EndpointService/FullSyncEndpoint"
+	EndpointService_SetEndpointStatus_FullMethodName  = "/aruna.api.storage.services.v2.EndpointService/SetEndpointStatus"
 	EndpointService_GetEndpoint_FullMethodName        = "/aruna.api.storage.services.v2.EndpointService/GetEndpoint"
 	EndpointService_GetEndpoints_FullMethodName       = "/aruna.api.storage.services.v2.EndpointService/GetEndpoints"
 	EndpointService_DeleteEndpoint_FullMethodName     = "/aruna.api.storage.services.v2.EndpointService/DeleteEndpoint"
@@ -36,7 +37,7 @@ type EndpointServiceClient interface {
 	// Status: BETA
 	//
 	// Registers a new Endpoint (Aruna DataProxy) to the server
-	// Needs admin permissions
+	// requires admin permissions
 	CreateEndpoint(ctx context.Context, in *CreateEndpointRequest, opts ...grpc.CallOption) (*CreateEndpointResponse, error)
 	// FullSyncEndpoint
 	//
@@ -44,6 +45,12 @@ type EndpointServiceClient interface {
 	//
 	// Requests a full sync of all endpoint related data
 	FullSyncEndpoint(ctx context.Context, in *FullSyncEndpointRequest, opts ...grpc.CallOption) (EndpointService_FullSyncEndpointClient, error)
+	// SetEndpointStatus
+	//
+	// Status: BETA
+	//
+	// This request sets the status of a specific Endpoint
+	SetEndpointStatus(ctx context.Context, in *SetEndpointStatusRequest, opts ...grpc.CallOption) (*SetEndpointStatusResponse, error)
 	// GetEndpoint
 	//
 	// Status: BETA
@@ -121,6 +128,15 @@ func (x *endpointServiceFullSyncEndpointClient) Recv() (*FullSyncEndpointRespons
 	return m, nil
 }
 
+func (c *endpointServiceClient) SetEndpointStatus(ctx context.Context, in *SetEndpointStatusRequest, opts ...grpc.CallOption) (*SetEndpointStatusResponse, error) {
+	out := new(SetEndpointStatusResponse)
+	err := c.cc.Invoke(ctx, EndpointService_SetEndpointStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *endpointServiceClient) GetEndpoint(ctx context.Context, in *GetEndpointRequest, opts ...grpc.CallOption) (*GetEndpointResponse, error) {
 	out := new(GetEndpointResponse)
 	err := c.cc.Invoke(ctx, EndpointService_GetEndpoint_FullMethodName, in, out, opts...)
@@ -166,7 +182,7 @@ type EndpointServiceServer interface {
 	// Status: BETA
 	//
 	// Registers a new Endpoint (Aruna DataProxy) to the server
-	// Needs admin permissions
+	// requires admin permissions
 	CreateEndpoint(context.Context, *CreateEndpointRequest) (*CreateEndpointResponse, error)
 	// FullSyncEndpoint
 	//
@@ -174,6 +190,12 @@ type EndpointServiceServer interface {
 	//
 	// Requests a full sync of all endpoint related data
 	FullSyncEndpoint(*FullSyncEndpointRequest, EndpointService_FullSyncEndpointServer) error
+	// SetEndpointStatus
+	//
+	// Status: BETA
+	//
+	// This request sets the status of a specific Endpoint
+	SetEndpointStatus(context.Context, *SetEndpointStatusRequest) (*SetEndpointStatusResponse, error)
 	// GetEndpoint
 	//
 	// Status: BETA
@@ -211,6 +233,9 @@ func (UnimplementedEndpointServiceServer) CreateEndpoint(context.Context, *Creat
 }
 func (UnimplementedEndpointServiceServer) FullSyncEndpoint(*FullSyncEndpointRequest, EndpointService_FullSyncEndpointServer) error {
 	return status.Errorf(codes.Unimplemented, "method FullSyncEndpoint not implemented")
+}
+func (UnimplementedEndpointServiceServer) SetEndpointStatus(context.Context, *SetEndpointStatusRequest) (*SetEndpointStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetEndpointStatus not implemented")
 }
 func (UnimplementedEndpointServiceServer) GetEndpoint(context.Context, *GetEndpointRequest) (*GetEndpointResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEndpoint not implemented")
@@ -273,6 +298,24 @@ type endpointServiceFullSyncEndpointServer struct {
 
 func (x *endpointServiceFullSyncEndpointServer) Send(m *FullSyncEndpointResponse) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _EndpointService_SetEndpointStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetEndpointStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EndpointServiceServer).SetEndpointStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EndpointService_SetEndpointStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EndpointServiceServer).SetEndpointStatus(ctx, req.(*SetEndpointStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _EndpointService_GetEndpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -357,6 +400,10 @@ var EndpointService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateEndpoint",
 			Handler:    _EndpointService_CreateEndpoint_Handler,
+		},
+		{
+			MethodName: "SetEndpointStatus",
+			Handler:    _EndpointService_SetEndpointStatus_Handler,
 		},
 		{
 			MethodName: "GetEndpoint",

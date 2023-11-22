@@ -29,13 +29,13 @@ const (
 type DataproxyServiceClient interface {
 	// RequestReplication
 	//
-	// Status: BETA
+	// Status: ALPHA
 	//
 	// Creates a replication request
 	RequestReplication(ctx context.Context, in *RequestReplicationRequest, opts ...grpc.CallOption) (*RequestReplicationResponse, error)
 	// InitReplication
 	//
-	// Status: BETA
+	// Status: ALPHA
 	//
 	// Provides the necessary url to init replication
 	InitReplication(ctx context.Context, in *InitReplicationRequest, opts ...grpc.CallOption) (*InitReplicationResponse, error)
@@ -73,13 +73,13 @@ func (c *dataproxyServiceClient) InitReplication(ctx context.Context, in *InitRe
 type DataproxyServiceServer interface {
 	// RequestReplication
 	//
-	// Status: BETA
+	// Status: ALPHA
 	//
 	// Creates a replication request
 	RequestReplication(context.Context, *RequestReplicationRequest) (*RequestReplicationResponse, error)
 	// InitReplication
 	//
-	// Status: BETA
+	// Status: ALPHA
 	//
 	// Provides the necessary url to init replication
 	InitReplication(context.Context, *InitReplicationRequest) (*InitReplicationResponse, error)

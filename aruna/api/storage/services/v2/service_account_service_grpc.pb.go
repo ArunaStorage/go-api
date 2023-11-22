@@ -49,7 +49,7 @@ type ServiceAccountServiceClient interface {
 	//
 	// Creates a token for a service account
 	// Each service account can only have one permission -> The token will have the same permission as the
-	// service account
+	// service account or a subset of it.
 	CreateServiceAccountToken(ctx context.Context, in *CreateServiceAccountTokenRequest, opts ...grpc.CallOption) (*CreateServiceAccountTokenResponse, error)
 	// SetServiceAccountPermission
 	//
@@ -219,7 +219,7 @@ type ServiceAccountServiceServer interface {
 	//
 	// Creates a token for a service account
 	// Each service account can only have one permission -> The token will have the same permission as the
-	// service account
+	// service account or a subset of it.
 	CreateServiceAccountToken(context.Context, *CreateServiceAccountTokenRequest) (*CreateServiceAccountTokenResponse, error)
 	// SetServiceAccountPermission
 	//

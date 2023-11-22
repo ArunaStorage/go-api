@@ -32,9 +32,13 @@ const (
 type EventNotificationServiceClient interface {
 	// CreateStreamConsumer
 	//
+	// Status: BETA
+	//
 	// Creates a new event stream consumer.
 	CreateStreamConsumer(ctx context.Context, in *CreateStreamConsumerRequest, opts ...grpc.CallOption) (*CreateStreamConsumerResponse, error)
 	// GetEventMessageBatch
+	//
+	// Status: BETA
 	//
 	// Reads a set of messages from a given stream group
 	// Each message contains a separate acknowledgement message thatis protected by a salt and an hmac for verification.
@@ -42,16 +46,22 @@ type EventNotificationServiceClient interface {
 	GetEventMessageBatch(ctx context.Context, in *GetEventMessageBatchRequest, opts ...grpc.CallOption) (*GetEventMessageBatchResponse, error)
 	// GetEventMessageBatch
 	//
+	// Status: BETA
+	//
 	// Opens a stream which pushes each received notification individual and just-in-time.
 	// Each message contains a separate acknowledgement message that is protected by a salt and an hmac for verification.
 	// The message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.
 	GetEventMessageStream(ctx context.Context, in *GetEventMessageStreamRequest, opts ...grpc.CallOption) (EventNotificationService_GetEventMessageStreamClient, error)
 	// AcknowledgeMessageBatch
 	//
+	// Status: BETA
+	//
 	// List of messages to acknowledge
 	// Each reply is protected by a salt and and hmac that verifies the message
 	AcknowledgeMessageBatch(ctx context.Context, in *AcknowledgeMessageBatchRequest, opts ...grpc.CallOption) (*AcknowledgeMessageBatchResponse, error)
 	// DeleteEventStreamingGroup
+	//
+	// Status: BETA
 	//
 	// Deletes an existing event stream consumer by ID.
 	DeleteStreamConsumer(ctx context.Context, in *DeleteStreamConsumerRequest, opts ...grpc.CallOption) (*DeleteStreamConsumerResponse, error)
@@ -139,9 +149,13 @@ func (c *eventNotificationServiceClient) DeleteStreamConsumer(ctx context.Contex
 type EventNotificationServiceServer interface {
 	// CreateStreamConsumer
 	//
+	// Status: BETA
+	//
 	// Creates a new event stream consumer.
 	CreateStreamConsumer(context.Context, *CreateStreamConsumerRequest) (*CreateStreamConsumerResponse, error)
 	// GetEventMessageBatch
+	//
+	// Status: BETA
 	//
 	// Reads a set of messages from a given stream group
 	// Each message contains a separate acknowledgement message thatis protected by a salt and an hmac for verification.
@@ -149,16 +163,22 @@ type EventNotificationServiceServer interface {
 	GetEventMessageBatch(context.Context, *GetEventMessageBatchRequest) (*GetEventMessageBatchResponse, error)
 	// GetEventMessageBatch
 	//
+	// Status: BETA
+	//
 	// Opens a stream which pushes each received notification individual and just-in-time.
 	// Each message contains a separate acknowledgement message that is protected by a salt and an hmac for verification.
 	// The message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.
 	GetEventMessageStream(*GetEventMessageStreamRequest, EventNotificationService_GetEventMessageStreamServer) error
 	// AcknowledgeMessageBatch
 	//
+	// Status: BETA
+	//
 	// List of messages to acknowledge
 	// Each reply is protected by a salt and and hmac that verifies the message
 	AcknowledgeMessageBatch(context.Context, *AcknowledgeMessageBatchRequest) (*AcknowledgeMessageBatchResponse, error)
 	// DeleteEventStreamingGroup
+	//
+	// Status: BETA
 	//
 	// Deletes an existing event stream consumer by ID.
 	DeleteStreamConsumer(context.Context, *DeleteStreamConsumerRequest) (*DeleteStreamConsumerResponse, error)

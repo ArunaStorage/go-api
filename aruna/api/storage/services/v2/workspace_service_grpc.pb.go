@@ -60,7 +60,7 @@ type WorkspaceServiceClient interface {
 	//
 	// Status: ALPHA
 	//
-	// A new request to create a personal anonymous workspace
+	// Create a personal anonymous workspace
 	CreateWorkspace(ctx context.Context, in *CreateWorkspaceRequest, opts ...grpc.CallOption) (*CreateWorkspaceResponse, error)
 	// DeleteWorkspace
 	//
@@ -179,7 +179,7 @@ type WorkspaceServiceServer interface {
 	//
 	// Status: ALPHA
 	//
-	// A new request to create a personal anonymous workspace
+	// Create a personal anonymous workspace
 	CreateWorkspace(context.Context, *CreateWorkspaceRequest) (*CreateWorkspaceResponse, error)
 	// DeleteWorkspace
 	//

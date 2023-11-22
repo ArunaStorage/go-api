@@ -31,13 +31,15 @@ type RelationsServiceClient interface {
 	//
 	// Status: BETA
 	//
-	// Modifys all relations to / from a resource
+	// Add/Remove/Modifies all relation types to / from a resource
+	// Works for internal and external relations
 	ModifyRelations(ctx context.Context, in *ModifyRelationsRequest, opts ...grpc.CallOption) (*ModifyRelationsResponse, error)
 	// GetHierachy
 	//
 	// Status: BETA
 	//
 	// Gets all downstream hierarchy relations from a resource
+	// results in a tree structure
 	GetHierarchy(ctx context.Context, in *GetHierarchyRequest, opts ...grpc.CallOption) (*GetHierarchyResponse, error)
 }
 
@@ -75,13 +77,15 @@ type RelationsServiceServer interface {
 	//
 	// Status: BETA
 	//
-	// Modifys all relations to / from a resource
+	// Add/Remove/Modifies all relation types to / from a resource
+	// Works for internal and external relations
 	ModifyRelations(context.Context, *ModifyRelationsRequest) (*ModifyRelationsResponse, error)
 	// GetHierachy
 	//
 	// Status: BETA
 	//
 	// Gets all downstream hierarchy relations from a resource
+	// results in a tree structure
 	GetHierarchy(context.Context, *GetHierarchyRequest) (*GetHierarchyResponse, error)
 }
 

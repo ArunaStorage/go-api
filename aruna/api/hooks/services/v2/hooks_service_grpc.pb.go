@@ -31,12 +31,43 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HooksServiceClient interface {
-	// Created Hooks are always associated with the owner that creates the hook
+	// CreateHook
+	//
+	// Status: ALPHA
+	//
+	// Creates a replication request
+	// Hooks are always associated with the owner that created the hook
 	CreateHook(ctx context.Context, in *CreateHookRequest, opts ...grpc.CallOption) (*CreateHookResponse, error)
+	// AddProjectsToHook
+	//
+	// Status: ALPHA
+	//
+	// Assigns a hook to a project
 	AddProjectsToHook(ctx context.Context, in *AddProjectsToHookRequest, opts ...grpc.CallOption) (*AddProjectsToHookResponse, error)
+	// ListProjectHooks
+	//
+	// Status: ALPHA
+	//
+	// List all hooks assigned to a project
 	ListProjectHooks(ctx context.Context, in *ListProjectHooksRequest, opts ...grpc.CallOption) (*ListProjectHooksResponse, error)
+	// ListOwnedHooks
+	//
+	// Status: ALPHA
+	//
+	// List all hooks created by a user
 	ListOwnedHooks(ctx context.Context, in *ListOwnedHooksRequest, opts ...grpc.CallOption) (*ListOwnedHooksResponse, error)
+	// DeleteHook
+	//
+	// Status: ALPHA
+	//
+	// Delete a hook by id
 	DeleteHook(ctx context.Context, in *DeleteHookRequest, opts ...grpc.CallOption) (*DeleteHookResponse, error)
+	// Callback API
+	//
+	// Status: ALPHA
+	//
+	// Externally triggered hooks should respond to this endpoint to
+	// signal completion or failure and to provide additional flags for the object
 	HookCallback(ctx context.Context, in *HookCallbackRequest, opts ...grpc.CallOption) (*HookCallbackResponse, error)
 }
 
@@ -106,12 +137,43 @@ func (c *hooksServiceClient) HookCallback(ctx context.Context, in *HookCallbackR
 // All implementations should embed UnimplementedHooksServiceServer
 // for forward compatibility
 type HooksServiceServer interface {
-	// Created Hooks are always associated with the owner that creates the hook
+	// CreateHook
+	//
+	// Status: ALPHA
+	//
+	// Creates a replication request
+	// Hooks are always associated with the owner that created the hook
 	CreateHook(context.Context, *CreateHookRequest) (*CreateHookResponse, error)
+	// AddProjectsToHook
+	//
+	// Status: ALPHA
+	//
+	// Assigns a hook to a project
 	AddProjectsToHook(context.Context, *AddProjectsToHookRequest) (*AddProjectsToHookResponse, error)
+	// ListProjectHooks
+	//
+	// Status: ALPHA
+	//
+	// List all hooks assigned to a project
 	ListProjectHooks(context.Context, *ListProjectHooksRequest) (*ListProjectHooksResponse, error)
+	// ListOwnedHooks
+	//
+	// Status: ALPHA
+	//
+	// List all hooks created by a user
 	ListOwnedHooks(context.Context, *ListOwnedHooksRequest) (*ListOwnedHooksResponse, error)
+	// DeleteHook
+	//
+	// Status: ALPHA
+	//
+	// Delete a hook by id
 	DeleteHook(context.Context, *DeleteHookRequest) (*DeleteHookResponse, error)
+	// Callback API
+	//
+	// Status: ALPHA
+	//
+	// Externally triggered hooks should respond to this endpoint to
+	// signal completion or failure and to provide additional flags for the object
 	HookCallback(context.Context, *HookCallbackRequest) (*HookCallbackResponse, error)
 }
 

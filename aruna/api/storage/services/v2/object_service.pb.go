@@ -23,6 +23,10 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Models
+// These are the models for the above described requests and responses.
+// gRPC best practises advice each Request and Response message in a RPC to be
+// called {rpc_name}Request and {rpc_name}Response.
 type CreateObjectRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

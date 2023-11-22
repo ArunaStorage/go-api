@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.8"
+    "version": "2.0.0-beta.9"
   },
   "tags": [
     {
@@ -1070,7 +1070,7 @@
       },
       "post": {
         "summary": "CreateEndpoint",
-        "description": "Status: BETA\n\nRegisters a new Endpoint (Aruna DataProxy) to the server\nNeeds admin permissions",
+        "description": "Status: BETA\n\nRegisters a new Endpoint (Aruna DataProxy) to the server\nrequires admin permissions",
         "operationId": "EndpointService_CreateEndpoint",
         "responses": {
           "200": {
@@ -1446,9 +1446,57 @@
         ]
       }
     },
+    "/v2/endpoints/{endpointId}/status": {
+      "patch": {
+        "summary": "SetEndpointStatus",
+        "description": "Status: BETA\n\nThis request sets the status of a specific Endpoint",
+        "operationId": "EndpointService_SetEndpointStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2SetEndpointStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "COMPONENT_STATUS_UNSPECIFIED",
+              "COMPONENT_STATUS_INITIALIZING",
+              "COMPONENT_STATUS_AVAILABLE",
+              "COMPONENT_STATUS_DEGRADED",
+              "COMPONENT_STATUS_UNAVAILABLE",
+              "COMPONENT_STATUS_MAINTENANCE"
+            ],
+            "default": "COMPONENT_STATUS_UNSPECIFIED"
+          }
+        ],
+        "tags": [
+          "EndpointService"
+        ]
+      }
+    },
     "/v2/hooks": {
       "post": {
-        "summary": "Created Hooks are always associated with the owner that creates the hook",
+        "summary": "CreateHook",
+        "description": "Status: ALPHA\n\nCreates a replication request\nHooks are always associated with the owner that created the hook",
         "operationId": "HooksService_CreateHook",
         "responses": {
           "200": {
@@ -1481,6 +1529,8 @@
     },
     "/v2/hooks/callback": {
       "patch": {
+        "summary": "Callback API",
+        "description": "Status: ALPHA\n\nExternally triggered hooks should respond to this endpoint to\nsignal completion or failure and to provide additional flags for the object",
         "operationId": "HooksService_HookCallback",
         "responses": {
           "200": {
@@ -1536,6 +1586,8 @@
     },
     "/v2/hooks/owner/{userId}": {
       "get": {
+        "summary": "ListOwnedHooks",
+        "description": "Status: ALPHA\n\nList all hooks created by a user",
         "operationId": "HooksService_ListOwnedHooks",
         "responses": {
           "200": {
@@ -1567,6 +1619,8 @@
     },
     "/v2/hooks/projects/{projectId}": {
       "get": {
+        "summary": "ListProjectHooks",
+        "description": "Status: ALPHA\n\nList all hooks assigned to a project",
         "operationId": "HooksService_ListProjectHooks",
         "responses": {
           "200": {
@@ -1597,6 +1651,8 @@
     },
     "/v2/hooks/{hookId}": {
       "delete": {
+        "summary": "DeleteHook",
+        "description": "Status: ALPHA\n\nDelete a hook by id",
         "operationId": "HooksService_DeleteHook",
         "responses": {
           "200": {
@@ -1625,6 +1681,8 @@
         ]
       },
       "post": {
+        "summary": "AddProjectsToHook",
+        "description": "Status: ALPHA\n\nAssigns a hook to a project",
         "operationId": "HooksService_AddProjectsToHook",
         "responses": {
           "200": {
@@ -1671,6 +1729,8 @@
     },
     "/v2/info/announcements": {
       "get": {
+        "summary": "GetAnnouncements",
+        "description": "Status: BETA\n\nQuery global announcements",
         "operationId": "StorageStatusService_GetAnnouncements",
         "responses": {
           "200": {
@@ -1693,6 +1753,8 @@
     },
     "/v2/info/announcements/set": {
       "post": {
+        "summary": "SetAnnouncements",
+        "description": "Status: BETA\n\nUpdate / add global announcements",
         "operationId": "StorageStatusService_SetAnnouncements",
         "responses": {
           "200": {
@@ -1725,6 +1787,8 @@
     },
     "/v2/info/pubkeys": {
       "get": {
+        "summary": "GetPubkeys",
+        "description": "Status: BETA\n\nGet all public keys of all storage components",
         "operationId": "StorageStatusService_GetPubkeys",
         "responses": {
           "200": {
@@ -1886,7 +1950,7 @@
     "/v2/notifications/acknowledge": {
       "patch": {
         "summary": "AcknowledgeMessageBatch",
-        "description": "List of messages to acknowledge\nEach reply is protected by a salt and and hmac that verifies the message",
+        "description": "Status: BETA\n\nList of messages to acknowledge\nEach reply is protected by a salt and and hmac that verifies the message",
         "operationId": "EventNotificationService_AcknowledgeMessageBatch",
         "responses": {
           "200": {
@@ -1920,7 +1984,7 @@
     "/v2/notifications/consumers": {
       "post": {
         "summary": "CreateStreamConsumer",
-        "description": "Creates a new event stream consumer.",
+        "description": "Status: BETA\n\nCreates a new event stream consumer.",
         "operationId": "EventNotificationService_CreateStreamConsumer",
         "responses": {
           "200": {
@@ -1954,7 +2018,7 @@
     "/v2/notifications/{streamConsumer}": {
       "delete": {
         "summary": "DeleteEventStreamingGroup",
-        "description": "Deletes an existing event stream consumer by ID.",
+        "description": "Status: BETA\n\nDeletes an existing event stream consumer by ID.",
         "operationId": "EventNotificationService_DeleteStreamConsumer",
         "responses": {
           "200": {
@@ -1986,7 +2050,7 @@
     "/v2/notifications/{streamConsumer}/batch": {
       "get": {
         "summary": "GetEventMessageBatch",
-        "description": "Reads a set of messages from a given stream group \nEach message contains a separate acknowledgement message thatis protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
+        "description": "Status: BETA\n\nReads a set of messages from a given stream group \nEach message contains a separate acknowledgement message thatis protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
         "operationId": "EventNotificationService_GetEventMessageBatch",
         "responses": {
           "200": {
@@ -2025,7 +2089,7 @@
     "/v2/notifications/{streamConsumer}/stream": {
       "get": {
         "summary": "GetEventMessageBatch",
-        "description": "Opens a stream which pushes each received notification individual and just-in-time.\nEach message contains a separate acknowledgement message that is protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
+        "description": "Status: BETA\n\nOpens a stream which pushes each received notification individual and just-in-time.\nEach message contains a separate acknowledgement message that is protected by a salt and an hmac for verification.\nThe message can be send directly through the AcknowledgeMessageBatch call to acknowledge the message.",
         "operationId": "EventNotificationService_GetEventMessageStream",
         "responses": {
           "200": {
@@ -2101,7 +2165,7 @@
       },
       "post": {
         "summary": "CreateObject",
-        "description": "Status: BETA\n\nThis creates a new object\nInitializing an object will put it in a staging area.",
+        "description": "Status: BETA\n\nThis creates a new object and puts it in a staging area.\nStaging objects have an \"INITIALIZING\" status\nand need to be finished either manually or by uploading data.",
         "operationId": "ObjectService_CreateObject",
         "responses": {
           "200": {
@@ -2120,6 +2184,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "Models\nThese are the models for the above described requests and responses.\ngRPC best practises advice each Request and Response message in a RPC to be\ncalled {rpc_name}Request and {rpc_name}Response.",
             "in": "body",
             "required": true,
             "schema": {
@@ -2864,7 +2929,7 @@
     "/v2/relations": {
       "post": {
         "summary": "ModifyRelation",
-        "description": "Status: BETA\n\nModifys all relations to / from a resource",
+        "description": "Status: BETA\n\nAdd/Remove/Modifies all relation types to / from a resource\nWorks for internal and external relations",
         "operationId": "RelationsService_ModifyRelations",
         "responses": {
           "200": {
@@ -2898,7 +2963,7 @@
     "/v2/relations/{resourceId}/hierarchy": {
       "get": {
         "summary": "GetHierachy",
-        "description": "Status: BETA\n\nGets all downstream hierarchy relations from a resource",
+        "description": "Status: BETA\n\nGets all downstream hierarchy relations from a resource\nresults in a tree structure",
         "operationId": "RelationsService_GetHierarchy",
         "responses": {
           "200": {
@@ -3330,7 +3395,7 @@
       },
       "post": {
         "summary": "CreateServiceAccountToken",
-        "description": "Status: BETA\n\nCreates a token for a service account\nEach service account can only have one permission -\u003e The token will have the same permission as the\nservice account",
+        "description": "Status: BETA\n\nCreates a token for a service account\nEach service account can only have one permission -\u003e The token will have the same permission as the\nservice account or a subset of it.",
         "operationId": "ServiceAccountService_CreateServiceAccountToken",
         "responses": {
           "200": {
@@ -3491,7 +3556,9 @@
     },
     "/v2/user/add_oidc": {
       "patch": {
-        "operationId": "UserService_AddOidcProvier",
+        "summary": "AddOidcProvider",
+        "description": "Status: BETA\n\nAdd alternative oidc login method for user",
+        "operationId": "UserService_AddOidcProvider",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -3733,6 +3800,8 @@
     },
     "/v2/user/remove_oidc": {
       "patch": {
+        "summary": "RemoveOidcProvider",
+        "description": "Status: BETA\n\nRemove alternative oidc login method from user\n(Only works if user has more than one oidc provider)",
         "operationId": "UserService_RemoveOidcProvider",
         "responses": {
           "200": {
@@ -4132,7 +4201,7 @@
     "/v2/workspaces": {
       "post": {
         "summary": "CreateWorkspace",
-        "description": "Status: ALPHA\n\nA new request to create a personal anonymous workspace",
+        "description": "Status: ALPHA\n\nCreate a personal anonymous workspace",
         "operationId": "WorkspaceService_CreateWorkspace",
         "responses": {
           "200": {
@@ -5205,7 +5274,8 @@
         "dataLicenseTag": {
           "type": "string"
         }
-      }
+      },
+      "description": "Models\nThese are the models for the above described requests and responses.\ngRPC best practises advice each Request and Response message in a RPC to be\ncalled {rpc_name}Request and {rpc_name}Response."
     },
     "v2CreateObjectResponse": {
       "type": "object",
@@ -6409,6 +6479,7 @@
         "INTERNAL_RELATION_VARIANT_VERSION",
         "INTERNAL_RELATION_VARIANT_METADATA",
         "INTERNAL_RELATION_VARIANT_POLICY",
+        "INTERNAL_RELATION_VARIANT_DELETED",
         "INTERNAL_RELATION_VARIANT_CUSTOM"
       ],
       "default": "INTERNAL_RELATION_VARIANT_UNSPECIFIED",
@@ -7226,6 +7297,14 @@
             "type": "object",
             "$ref": "#/definitions/v2Announcement"
           }
+        }
+      }
+    },
+    "v2SetEndpointStatusResponse": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/v2Endpoint"
         }
       }
     },

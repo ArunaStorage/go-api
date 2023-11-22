@@ -43,8 +43,23 @@ type StorageStatusServiceClient interface {
 	//
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(ctx context.Context, in *GetStorageStatusRequest, opts ...grpc.CallOption) (*GetStorageStatusResponse, error)
+	// GetPubkeys
+	//
+	// Status: BETA
+	//
+	// Get all public keys of all storage components
 	GetPubkeys(ctx context.Context, in *GetPubkeysRequest, opts ...grpc.CallOption) (*GetPubkeysResponse, error)
+	// GetAnnouncements
+	//
+	// Status: BETA
+	//
+	// Query global announcements
 	GetAnnouncements(ctx context.Context, in *GetAnnouncementsRequest, opts ...grpc.CallOption) (*GetAnnouncementsResponse, error)
+	// SetAnnouncements
+	//
+	// Status: BETA
+	//
+	// Update / add global announcements
 	SetAnnouncements(ctx context.Context, in *SetAnnouncementsRequest, opts ...grpc.CallOption) (*SetAnnouncementsResponse, error)
 }
 
@@ -118,8 +133,23 @@ type StorageStatusServiceServer interface {
 	//
 	// A request to get the current status of the storage components by location(s)
 	GetStorageStatus(context.Context, *GetStorageStatusRequest) (*GetStorageStatusResponse, error)
+	// GetPubkeys
+	//
+	// Status: BETA
+	//
+	// Get all public keys of all storage components
 	GetPubkeys(context.Context, *GetPubkeysRequest) (*GetPubkeysResponse, error)
+	// GetAnnouncements
+	//
+	// Status: BETA
+	//
+	// Query global announcements
 	GetAnnouncements(context.Context, *GetAnnouncementsRequest) (*GetAnnouncementsResponse, error)
+	// SetAnnouncements
+	//
+	// Status: BETA
+	//
+	// Update / add global announcements
 	SetAnnouncements(context.Context, *SetAnnouncementsRequest) (*SetAnnouncementsResponse, error)
 }
 

@@ -27,7 +27,17 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BundlerServiceClient interface {
+	// CreateBundle
+	//
+	// Status: ALPHA
+	//
+	// Creates a bundle with multiple resources, dataproxy only.
 	CreateBundle(ctx context.Context, in *CreateBundleRequest, opts ...grpc.CallOption) (*CreateBundleResponse, error)
+	// DeleteBundle
+	//
+	// Status: ALPHA
+	//
+	// Delete an existing bundle, dataproxy only.
 	DeleteBundle(ctx context.Context, in *DeleteBundleRequest, opts ...grpc.CallOption) (*DeleteBundleResponse, error)
 }
 
@@ -61,7 +71,17 @@ func (c *bundlerServiceClient) DeleteBundle(ctx context.Context, in *DeleteBundl
 // All implementations should embed UnimplementedBundlerServiceServer
 // for forward compatibility
 type BundlerServiceServer interface {
+	// CreateBundle
+	//
+	// Status: ALPHA
+	//
+	// Creates a bundle with multiple resources, dataproxy only.
 	CreateBundle(context.Context, *CreateBundleRequest) (*CreateBundleResponse, error)
+	// DeleteBundle
+	//
+	// Status: ALPHA
+	//
+	// Delete an existing bundle, dataproxy only.
 	DeleteBundle(context.Context, *DeleteBundleRequest) (*DeleteBundleResponse, error)
 }
 
