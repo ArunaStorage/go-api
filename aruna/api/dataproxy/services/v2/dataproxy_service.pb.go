@@ -77,17 +77,18 @@ func (ReplicationStatus) EnumDescriptor() ([]byte, []int) {
 	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{0}
 }
 
-type DataProxyInfo struct {
+// Messages (requests) from PROXY B
+type InitMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DataproxyId    string `protobuf:"bytes,1,opt,name=dataproxy_id,json=dataproxyId,proto3" json:"dataproxy_id,omitempty"`
-	AvailableSpace int64  `protobuf:"varint,2,opt,name=available_space,json=availableSpace,proto3" json:"available_space,omitempty"`
+	DataproxyId string   `protobuf:"bytes,1,opt,name=dataproxy_id,json=dataproxyId,proto3" json:"dataproxy_id,omitempty"`
+	ObjectIds   []string `protobuf:"bytes,2,rep,name=object_ids,json=objectIds,proto3" json:"object_ids,omitempty"`
 }
 
-func (x *DataProxyInfo) Reset() {
-	*x = DataProxyInfo{}
+func (x *InitMessage) Reset() {
+	*x = InitMessage{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -95,13 +96,13 @@ func (x *DataProxyInfo) Reset() {
 	}
 }
 
-func (x *DataProxyInfo) String() string {
+func (x *InitMessage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DataProxyInfo) ProtoMessage() {}
+func (*InitMessage) ProtoMessage() {}
 
-func (x *DataProxyInfo) ProtoReflect() protoreflect.Message {
+func (x *InitMessage) ProtoReflect() protoreflect.Message {
 	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -113,36 +114,35 @@ func (x *DataProxyInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DataProxyInfo.ProtoReflect.Descriptor instead.
-func (*DataProxyInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use InitMessage.ProtoReflect.Descriptor instead.
+func (*InitMessage) Descriptor() ([]byte, []int) {
 	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *DataProxyInfo) GetDataproxyId() string {
+func (x *InitMessage) GetDataproxyId() string {
 	if x != nil {
 		return x.DataproxyId
 	}
 	return ""
 }
 
-func (x *DataProxyInfo) GetAvailableSpace() int64 {
+func (x *InitMessage) GetObjectIds() []string {
 	if x != nil {
-		return x.AvailableSpace
+		return x.ObjectIds
 	}
-	return 0
+	return nil
 }
 
-type RequestReplicationRequest struct {
+type InfoAckMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info            *DataProxyInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
-	UserInitialized bool           `protobuf:"varint,2,opt,name=user_initialized,json=userInitialized,proto3" json:"user_initialized,omitempty"`
+	ObjectId string `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
 }
 
-func (x *RequestReplicationRequest) Reset() {
-	*x = RequestReplicationRequest{}
+func (x *InfoAckMessage) Reset() {
+	*x = InfoAckMessage{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -150,13 +150,13 @@ func (x *RequestReplicationRequest) Reset() {
 	}
 }
 
-func (x *RequestReplicationRequest) String() string {
+func (x *InfoAckMessage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RequestReplicationRequest) ProtoMessage() {}
+func (*InfoAckMessage) ProtoMessage() {}
 
-func (x *RequestReplicationRequest) ProtoReflect() protoreflect.Message {
+func (x *InfoAckMessage) ProtoReflect() protoreflect.Message {
 	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -168,24 +168,629 @@ func (x *RequestReplicationRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RequestReplicationRequest.ProtoReflect.Descriptor instead.
-func (*RequestReplicationRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use InfoAckMessage.ProtoReflect.Descriptor instead.
+func (*InfoAckMessage) Descriptor() ([]byte, []int) {
 	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RequestReplicationRequest) GetInfo() *DataProxyInfo {
+func (x *InfoAckMessage) GetObjectId() string {
 	if x != nil {
-		return x.Info
+		return x.ObjectId
+	}
+	return ""
+}
+
+type ChunkAckMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ObjectId string `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	ChunkIdx int64  `protobuf:"varint,2,opt,name=chunk_idx,json=chunkIdx,proto3" json:"chunk_idx,omitempty"`
+}
+
+func (x *ChunkAckMessage) Reset() {
+	*x = ChunkAckMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ChunkAckMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChunkAckMessage) ProtoMessage() {}
+
+func (x *ChunkAckMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChunkAckMessage.ProtoReflect.Descriptor instead.
+func (*ChunkAckMessage) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ChunkAckMessage) GetObjectId() string {
+	if x != nil {
+		return x.ObjectId
+	}
+	return ""
+}
+
+func (x *ChunkAckMessage) GetChunkIdx() int64 {
+	if x != nil {
+		return x.ChunkIdx
+	}
+	return 0
+}
+
+type RetryChunkMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ObjectId string `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	ChunkIdx int64  `protobuf:"varint,2,opt,name=chunk_idx,json=chunkIdx,proto3" json:"chunk_idx,omitempty"`
+}
+
+func (x *RetryChunkMessage) Reset() {
+	*x = RetryChunkMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RetryChunkMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RetryChunkMessage) ProtoMessage() {}
+
+func (x *RetryChunkMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RetryChunkMessage.ProtoReflect.Descriptor instead.
+func (*RetryChunkMessage) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RetryChunkMessage) GetObjectId() string {
+	if x != nil {
+		return x.ObjectId
+	}
+	return ""
+}
+
+func (x *RetryChunkMessage) GetChunkIdx() int64 {
+	if x != nil {
+		return x.ChunkIdx
+	}
+	return 0
+}
+
+type Empty struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Empty) Reset() {
+	*x = Empty{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Empty) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Empty) ProtoMessage() {}
+
+func (x *Empty) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
+func (*Empty) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{4}
+}
+
+type ErrorMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Error:
+	//
+	//	*ErrorMessage_RetryChunk
+	//	*ErrorMessage_Abort
+	//	*ErrorMessage_RetryObjectId
+	Error isErrorMessage_Error `protobuf_oneof:"error"`
+}
+
+func (x *ErrorMessage) Reset() {
+	*x = ErrorMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ErrorMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ErrorMessage) ProtoMessage() {}
+
+func (x *ErrorMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ErrorMessage.ProtoReflect.Descriptor instead.
+func (*ErrorMessage) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (m *ErrorMessage) GetError() isErrorMessage_Error {
+	if m != nil {
+		return m.Error
 	}
 	return nil
 }
 
-func (x *RequestReplicationRequest) GetUserInitialized() bool {
-	if x != nil {
-		return x.UserInitialized
+func (x *ErrorMessage) GetRetryChunk() *RetryChunkMessage {
+	if x, ok := x.GetError().(*ErrorMessage_RetryChunk); ok {
+		return x.RetryChunk
 	}
-	return false
+	return nil
 }
+
+func (x *ErrorMessage) GetAbort() *Empty {
+	if x, ok := x.GetError().(*ErrorMessage_Abort); ok {
+		return x.Abort
+	}
+	return nil
+}
+
+func (x *ErrorMessage) GetRetryObjectId() string {
+	if x, ok := x.GetError().(*ErrorMessage_RetryObjectId); ok {
+		return x.RetryObjectId
+	}
+	return ""
+}
+
+type isErrorMessage_Error interface {
+	isErrorMessage_Error()
+}
+
+type ErrorMessage_RetryChunk struct {
+	RetryChunk *RetryChunkMessage `protobuf:"bytes,1,opt,name=retry_chunk,json=retryChunk,proto3,oneof"`
+}
+
+type ErrorMessage_Abort struct {
+	Abort *Empty `protobuf:"bytes,2,opt,name=abort,proto3,oneof"`
+}
+
+type ErrorMessage_RetryObjectId struct {
+	RetryObjectId string `protobuf:"bytes,3,opt,name=retry_object_id,json=retryObjectId,proto3,oneof"`
+}
+
+func (*ErrorMessage_RetryChunk) isErrorMessage_Error() {}
+
+func (*ErrorMessage_Abort) isErrorMessage_Error() {}
+
+func (*ErrorMessage_RetryObjectId) isErrorMessage_Error() {}
+
+type PullReplicationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Message:
+	//
+	//	*PullReplicationRequest_InitMessage
+	//	*PullReplicationRequest_InfoAckMessage
+	//	*PullReplicationRequest_ChunkAckMessage
+	//	*PullReplicationRequest_ErrorMessage
+	//	*PullReplicationRequest_FinishMessage
+	Message isPullReplicationRequest_Message `protobuf_oneof:"message"`
+}
+
+func (x *PullReplicationRequest) Reset() {
+	*x = PullReplicationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PullReplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PullReplicationRequest) ProtoMessage() {}
+
+func (x *PullReplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PullReplicationRequest.ProtoReflect.Descriptor instead.
+func (*PullReplicationRequest) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (m *PullReplicationRequest) GetMessage() isPullReplicationRequest_Message {
+	if m != nil {
+		return m.Message
+	}
+	return nil
+}
+
+func (x *PullReplicationRequest) GetInitMessage() *InitMessage {
+	if x, ok := x.GetMessage().(*PullReplicationRequest_InitMessage); ok {
+		return x.InitMessage
+	}
+	return nil
+}
+
+func (x *PullReplicationRequest) GetInfoAckMessage() *InfoAckMessage {
+	if x, ok := x.GetMessage().(*PullReplicationRequest_InfoAckMessage); ok {
+		return x.InfoAckMessage
+	}
+	return nil
+}
+
+func (x *PullReplicationRequest) GetChunkAckMessage() *ChunkAckMessage {
+	if x, ok := x.GetMessage().(*PullReplicationRequest_ChunkAckMessage); ok {
+		return x.ChunkAckMessage
+	}
+	return nil
+}
+
+func (x *PullReplicationRequest) GetErrorMessage() *ErrorMessage {
+	if x, ok := x.GetMessage().(*PullReplicationRequest_ErrorMessage); ok {
+		return x.ErrorMessage
+	}
+	return nil
+}
+
+func (x *PullReplicationRequest) GetFinishMessage() *Empty {
+	if x, ok := x.GetMessage().(*PullReplicationRequest_FinishMessage); ok {
+		return x.FinishMessage
+	}
+	return nil
+}
+
+type isPullReplicationRequest_Message interface {
+	isPullReplicationRequest_Message()
+}
+
+type PullReplicationRequest_InitMessage struct {
+	InitMessage *InitMessage `protobuf:"bytes,1,opt,name=init_message,json=initMessage,proto3,oneof"`
+}
+
+type PullReplicationRequest_InfoAckMessage struct {
+	InfoAckMessage *InfoAckMessage `protobuf:"bytes,2,opt,name=info_ack_message,json=infoAckMessage,proto3,oneof"`
+}
+
+type PullReplicationRequest_ChunkAckMessage struct {
+	ChunkAckMessage *ChunkAckMessage `protobuf:"bytes,3,opt,name=chunk_ack_message,json=chunkAckMessage,proto3,oneof"`
+}
+
+type PullReplicationRequest_ErrorMessage struct {
+	ErrorMessage *ErrorMessage `protobuf:"bytes,4,opt,name=error_message,json=errorMessage,proto3,oneof"`
+}
+
+type PullReplicationRequest_FinishMessage struct {
+	FinishMessage *Empty `protobuf:"bytes,5,opt,name=finish_message,json=finishMessage,proto3,oneof"`
+}
+
+func (*PullReplicationRequest_InitMessage) isPullReplicationRequest_Message() {}
+
+func (*PullReplicationRequest_InfoAckMessage) isPullReplicationRequest_Message() {}
+
+func (*PullReplicationRequest_ChunkAckMessage) isPullReplicationRequest_Message() {}
+
+func (*PullReplicationRequest_ErrorMessage) isPullReplicationRequest_Message() {}
+
+func (*PullReplicationRequest_FinishMessage) isPullReplicationRequest_Message() {}
+
+// Messages (responses) from PROXY A
+type ObjectInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ObjectId  string   `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	Chunks    int64    `protobuf:"varint,2,opt,name=chunks,proto3" json:"chunks,omitempty"`
+	RawSize   int64    `protobuf:"varint,3,opt,name=raw_size,json=rawSize,proto3" json:"raw_size,omitempty"`
+	BlockList []uint32 `protobuf:"varint,4,rep,packed,name=block_list,json=blockList,proto3" json:"block_list,omitempty"`
+	Extra     *string  `protobuf:"bytes,5,opt,name=extra,proto3,oneof" json:"extra,omitempty"` // JSON encoded proxy specific extra fields
+}
+
+func (x *ObjectInfo) Reset() {
+	*x = ObjectInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ObjectInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObjectInfo) ProtoMessage() {}
+
+func (x *ObjectInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObjectInfo.ProtoReflect.Descriptor instead.
+func (*ObjectInfo) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ObjectInfo) GetObjectId() string {
+	if x != nil {
+		return x.ObjectId
+	}
+	return ""
+}
+
+func (x *ObjectInfo) GetChunks() int64 {
+	if x != nil {
+		return x.Chunks
+	}
+	return 0
+}
+
+func (x *ObjectInfo) GetRawSize() int64 {
+	if x != nil {
+		return x.RawSize
+	}
+	return 0
+}
+
+func (x *ObjectInfo) GetBlockList() []uint32 {
+	if x != nil {
+		return x.BlockList
+	}
+	return nil
+}
+
+func (x *ObjectInfo) GetExtra() string {
+	if x != nil && x.Extra != nil {
+		return *x.Extra
+	}
+	return ""
+}
+
+type Chunk struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ObjectId string `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	ChunkIdx int64  `protobuf:"varint,2,opt,name=chunk_idx,json=chunkIdx,proto3" json:"chunk_idx,omitempty"`
+	Data     []byte `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+	Checksum string `protobuf:"bytes,4,opt,name=checksum,proto3" json:"checksum,omitempty"`
+}
+
+func (x *Chunk) Reset() {
+	*x = Chunk{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Chunk) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Chunk) ProtoMessage() {}
+
+func (x *Chunk) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Chunk.ProtoReflect.Descriptor instead.
+func (*Chunk) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *Chunk) GetObjectId() string {
+	if x != nil {
+		return x.ObjectId
+	}
+	return ""
+}
+
+func (x *Chunk) GetChunkIdx() int64 {
+	if x != nil {
+		return x.ChunkIdx
+	}
+	return 0
+}
+
+func (x *Chunk) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *Chunk) GetChecksum() string {
+	if x != nil {
+		return x.Checksum
+	}
+	return ""
+}
+
+type PullReplicationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to Message:
+	//
+	//	*PullReplicationResponse_ObjectInfo
+	//	*PullReplicationResponse_Chunk
+	//	*PullReplicationResponse_FinishMessage
+	Message isPullReplicationResponse_Message `protobuf_oneof:"message"`
+}
+
+func (x *PullReplicationResponse) Reset() {
+	*x = PullReplicationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PullReplicationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PullReplicationResponse) ProtoMessage() {}
+
+func (x *PullReplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PullReplicationResponse.ProtoReflect.Descriptor instead.
+func (*PullReplicationResponse) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (m *PullReplicationResponse) GetMessage() isPullReplicationResponse_Message {
+	if m != nil {
+		return m.Message
+	}
+	return nil
+}
+
+func (x *PullReplicationResponse) GetObjectInfo() *ObjectInfo {
+	if x, ok := x.GetMessage().(*PullReplicationResponse_ObjectInfo); ok {
+		return x.ObjectInfo
+	}
+	return nil
+}
+
+func (x *PullReplicationResponse) GetChunk() *Chunk {
+	if x, ok := x.GetMessage().(*PullReplicationResponse_Chunk); ok {
+		return x.Chunk
+	}
+	return nil
+}
+
+func (x *PullReplicationResponse) GetFinishMessage() *Empty {
+	if x, ok := x.GetMessage().(*PullReplicationResponse_FinishMessage); ok {
+		return x.FinishMessage
+	}
+	return nil
+}
+
+type isPullReplicationResponse_Message interface {
+	isPullReplicationResponse_Message()
+}
+
+type PullReplicationResponse_ObjectInfo struct {
+	ObjectInfo *ObjectInfo `protobuf:"bytes,1,opt,name=object_info,json=objectInfo,proto3,oneof"`
+}
+
+type PullReplicationResponse_Chunk struct {
+	Chunk *Chunk `protobuf:"bytes,2,opt,name=chunk,proto3,oneof"` // If no ack is received, the chunk will be resent
+}
+
+type PullReplicationResponse_FinishMessage struct {
+	FinishMessage *Empty `protobuf:"bytes,3,opt,name=finish_message,json=finishMessage,proto3,oneof"`
+}
+
+func (*PullReplicationResponse_ObjectInfo) isPullReplicationResponse_Message() {}
+
+func (*PullReplicationResponse_Chunk) isPullReplicationResponse_Message() {}
+
+func (*PullReplicationResponse_FinishMessage) isPullReplicationResponse_Message() {}
 
 type DataInfo struct {
 	state         protoimpl.MessageState
@@ -201,7 +806,7 @@ type DataInfo struct {
 func (x *DataInfo) Reset() {
 	*x = DataInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[2]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -214,7 +819,7 @@ func (x *DataInfo) String() string {
 func (*DataInfo) ProtoMessage() {}
 
 func (x *DataInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[2]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -227,7 +832,7 @@ func (x *DataInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataInfo.ProtoReflect.Descriptor instead.
 func (*DataInfo) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{2}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DataInfo) GetObjectId() string {
@@ -269,7 +874,7 @@ type DataInfos struct {
 func (x *DataInfos) Reset() {
 	*x = DataInfos{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[3]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -282,7 +887,7 @@ func (x *DataInfos) String() string {
 func (*DataInfos) ProtoMessage() {}
 
 func (x *DataInfos) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[3]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -295,7 +900,7 @@ func (x *DataInfos) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataInfos.ProtoReflect.Descriptor instead.
 func (*DataInfos) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{3}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DataInfos) GetDataInfo() []*DataInfo {
@@ -305,88 +910,7 @@ func (x *DataInfos) GetDataInfo() []*DataInfo {
 	return nil
 }
 
-type RequestReplicationResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Types that are assignable to Response:
-	//
-	//	*RequestReplicationResponse_DataInfos
-	//	*RequestReplicationResponse_Ack
-	Response isRequestReplicationResponse_Response `protobuf_oneof:"response"`
-}
-
-func (x *RequestReplicationResponse) Reset() {
-	*x = RequestReplicationResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RequestReplicationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RequestReplicationResponse) ProtoMessage() {}
-
-func (x *RequestReplicationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RequestReplicationResponse.ProtoReflect.Descriptor instead.
-func (*RequestReplicationResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{4}
-}
-
-func (m *RequestReplicationResponse) GetResponse() isRequestReplicationResponse_Response {
-	if m != nil {
-		return m.Response
-	}
-	return nil
-}
-
-func (x *RequestReplicationResponse) GetDataInfos() *DataInfos {
-	if x, ok := x.GetResponse().(*RequestReplicationResponse_DataInfos); ok {
-		return x.DataInfos
-	}
-	return nil
-}
-
-func (x *RequestReplicationResponse) GetAck() bool {
-	if x, ok := x.GetResponse().(*RequestReplicationResponse_Ack); ok {
-		return x.Ack
-	}
-	return false
-}
-
-type isRequestReplicationResponse_Response interface {
-	isRequestReplicationResponse_Response()
-}
-
-type RequestReplicationResponse_DataInfos struct {
-	DataInfos *DataInfos `protobuf:"bytes,1,opt,name=data_infos,json=dataInfos,proto3,oneof"`
-}
-
-type RequestReplicationResponse_Ack struct {
-	Ack bool `protobuf:"varint,2,opt,name=ack,proto3,oneof"`
-}
-
-func (*RequestReplicationResponse_DataInfos) isRequestReplicationResponse_Response() {}
-
-func (*RequestReplicationResponse_Ack) isRequestReplicationResponse_Response() {}
-
-type InitReplicationRequest struct {
+type PushReplicationRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -394,23 +918,23 @@ type InitReplicationRequest struct {
 	DataInfos *DataInfos `protobuf:"bytes,1,opt,name=data_infos,json=dataInfos,proto3" json:"data_infos,omitempty"`
 }
 
-func (x *InitReplicationRequest) Reset() {
-	*x = InitReplicationRequest{}
+func (x *PushReplicationRequest) Reset() {
+	*x = PushReplicationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *InitReplicationRequest) String() string {
+func (x *PushReplicationRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InitReplicationRequest) ProtoMessage() {}
+func (*PushReplicationRequest) ProtoMessage() {}
 
-func (x *InitReplicationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5]
+func (x *PushReplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -421,19 +945,19 @@ func (x *InitReplicationRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InitReplicationRequest.ProtoReflect.Descriptor instead.
-func (*InitReplicationRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{5}
+// Deprecated: Use PushReplicationRequest.ProtoReflect.Descriptor instead.
+func (*PushReplicationRequest) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *InitReplicationRequest) GetDataInfos() *DataInfos {
+func (x *PushReplicationRequest) GetDataInfos() *DataInfos {
 	if x != nil {
 		return x.DataInfos
 	}
 	return nil
 }
 
-type InitReplicationResponse struct {
+type PushReplicationResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -441,23 +965,23 @@ type InitReplicationResponse struct {
 	Ack bool `protobuf:"varint,1,opt,name=ack,proto3" json:"ack,omitempty"`
 }
 
-func (x *InitReplicationResponse) Reset() {
-	*x = InitReplicationResponse{}
+func (x *PushReplicationResponse) Reset() {
+	*x = PushReplicationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *InitReplicationResponse) String() string {
+func (x *PushReplicationResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InitReplicationResponse) ProtoMessage() {}
+func (*PushReplicationResponse) ProtoMessage() {}
 
-func (x *InitReplicationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6]
+func (x *PushReplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -468,12 +992,12 @@ func (x *InitReplicationResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InitReplicationResponse.ProtoReflect.Descriptor instead.
-func (*InitReplicationResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{6}
+// Deprecated: Use PushReplicationResponse.ProtoReflect.Descriptor instead.
+func (*PushReplicationResponse) Descriptor() ([]byte, []int) {
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *InitReplicationResponse) GetAck() bool {
+func (x *PushReplicationResponse) GetAck() bool {
 	if x != nil {
 		return x.Ack
 	}
@@ -489,7 +1013,7 @@ type GetCredentialsRequest struct {
 func (x *GetCredentialsRequest) Reset() {
 	*x = GetCredentialsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -502,7 +1026,7 @@ func (x *GetCredentialsRequest) String() string {
 func (*GetCredentialsRequest) ProtoMessage() {}
 
 func (x *GetCredentialsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -515,7 +1039,7 @@ func (x *GetCredentialsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCredentialsRequest.ProtoReflect.Descriptor instead.
 func (*GetCredentialsRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{7}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{14}
 }
 
 type GetCredentialsResponse struct {
@@ -530,7 +1054,7 @@ type GetCredentialsResponse struct {
 func (x *GetCredentialsResponse) Reset() {
 	*x = GetCredentialsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[8]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -543,7 +1067,7 @@ func (x *GetCredentialsResponse) String() string {
 func (*GetCredentialsResponse) ProtoMessage() {}
 
 func (x *GetCredentialsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[8]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -556,7 +1080,7 @@ func (x *GetCredentialsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCredentialsResponse.ProtoReflect.Descriptor instead.
 func (*GetCredentialsResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{8}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetCredentialsResponse) GetAccessKey() string {
@@ -585,7 +1109,7 @@ type S3Path struct {
 func (x *S3Path) Reset() {
 	*x = S3Path{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -598,7 +1122,7 @@ func (x *S3Path) String() string {
 func (*S3Path) ProtoMessage() {}
 
 func (x *S3Path) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -611,7 +1135,7 @@ func (x *S3Path) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use S3Path.ProtoReflect.Descriptor instead.
 func (*S3Path) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{9}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *S3Path) GetBucket() string {
@@ -637,14 +1161,14 @@ type PushReplicaRequest struct {
 	//
 	//	*PushReplicaRequest_ResourceId
 	//	*PushReplicaRequest_S3Path
-	Resource       isPushReplicaRequest_Resource `protobuf_oneof:"resource"`
-	TargetLocation string                        `protobuf:"bytes,3,opt,name=target_location,json=targetLocation,proto3" json:"target_location,omitempty"`
+	Resource         isPushReplicaRequest_Resource `protobuf_oneof:"resource"`
+	TargetEndpointId string                        `protobuf:"bytes,3,opt,name=target_endpoint_id,json=targetEndpointId,proto3" json:"target_endpoint_id,omitempty"`
 }
 
 func (x *PushReplicaRequest) Reset() {
 	*x = PushReplicaRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -657,7 +1181,7 @@ func (x *PushReplicaRequest) String() string {
 func (*PushReplicaRequest) ProtoMessage() {}
 
 func (x *PushReplicaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -670,7 +1194,7 @@ func (x *PushReplicaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PushReplicaRequest.ProtoReflect.Descriptor instead.
 func (*PushReplicaRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{10}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (m *PushReplicaRequest) GetResource() isPushReplicaRequest_Resource {
@@ -694,9 +1218,9 @@ func (x *PushReplicaRequest) GetS3Path() *S3Path {
 	return nil
 }
 
-func (x *PushReplicaRequest) GetTargetLocation() string {
+func (x *PushReplicaRequest) GetTargetEndpointId() string {
 	if x != nil {
-		return x.TargetLocation
+		return x.TargetEndpointId
 	}
 	return ""
 }
@@ -728,7 +1252,7 @@ type PushReplicaResponse struct {
 func (x *PushReplicaResponse) Reset() {
 	*x = PushReplicaResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[11]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -741,7 +1265,7 @@ func (x *PushReplicaResponse) String() string {
 func (*PushReplicaResponse) ProtoMessage() {}
 
 func (x *PushReplicaResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[11]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -754,7 +1278,7 @@ func (x *PushReplicaResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PushReplicaResponse.ProtoReflect.Descriptor instead.
 func (*PushReplicaResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{11}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *PushReplicaResponse) GetReplicationId() string {
@@ -779,7 +1303,7 @@ type PullReplicaRequest struct {
 func (x *PullReplicaRequest) Reset() {
 	*x = PullReplicaRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -792,7 +1316,7 @@ func (x *PullReplicaRequest) String() string {
 func (*PullReplicaRequest) ProtoMessage() {}
 
 func (x *PullReplicaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -805,7 +1329,7 @@ func (x *PullReplicaRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PullReplicaRequest.ProtoReflect.Descriptor instead.
 func (*PullReplicaRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{12}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (m *PullReplicaRequest) GetResource() isPullReplicaRequest_Resource {
@@ -850,13 +1374,13 @@ type PullReplicaResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ReplicationId string `protobuf:"bytes,1,opt,name=replication_id,json=replicationId,proto3" json:"replication_id,omitempty"`
+	ReplicationId string `protobuf:"bytes,1,opt,name=replication_id,json=replicationId,proto3" json:"replication_id,omitempty"` // why ?
 }
 
 func (x *PullReplicaResponse) Reset() {
 	*x = PullReplicaResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[13]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -869,7 +1393,7 @@ func (x *PullReplicaResponse) String() string {
 func (*PullReplicaResponse) ProtoMessage() {}
 
 func (x *PullReplicaResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[13]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -882,7 +1406,7 @@ func (x *PullReplicaResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PullReplicaResponse.ProtoReflect.Descriptor instead.
 func (*PullReplicaResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{13}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *PullReplicaResponse) GetReplicationId() string {
@@ -897,13 +1421,13 @@ type ReplicationStatusRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ReplicationId string `protobuf:"bytes,1,opt,name=replication_id,json=replicationId,proto3" json:"replication_id,omitempty"`
+	ReplicationId string `protobuf:"bytes,1,opt,name=replication_id,json=replicationId,proto3" json:"replication_id,omitempty"` // why ?
 }
 
 func (x *ReplicationStatusRequest) Reset() {
 	*x = ReplicationStatusRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[14]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -916,7 +1440,7 @@ func (x *ReplicationStatusRequest) String() string {
 func (*ReplicationStatusRequest) ProtoMessage() {}
 
 func (x *ReplicationStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[14]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -929,7 +1453,7 @@ func (x *ReplicationStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplicationStatusRequest.ProtoReflect.Descriptor instead.
 func (*ReplicationStatusRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{14}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ReplicationStatusRequest) GetReplicationId() string {
@@ -951,7 +1475,7 @@ type ReplicationStatusResponse struct {
 func (x *ReplicationStatusResponse) Reset() {
 	*x = ReplicationStatusResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[15]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -964,7 +1488,7 @@ func (x *ReplicationStatusResponse) String() string {
 func (*ReplicationStatusResponse) ProtoMessage() {}
 
 func (x *ReplicationStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[15]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -977,7 +1501,7 @@ func (x *ReplicationStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplicationStatusResponse.ProtoReflect.Descriptor instead.
 func (*ReplicationStatusResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{15}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *ReplicationStatusResponse) GetStatus() ReplicationStatus {
@@ -1008,7 +1532,7 @@ type ObjectLocation struct {
 func (x *ObjectLocation) Reset() {
 	*x = ObjectLocation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[16]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1021,7 +1545,7 @@ func (x *ObjectLocation) String() string {
 func (*ObjectLocation) ProtoMessage() {}
 
 func (x *ObjectLocation) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[16]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1034,7 +1558,7 @@ func (x *ObjectLocation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectLocation.ProtoReflect.Descriptor instead.
 func (*ObjectLocation) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{16}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ObjectLocation) GetBucket() string {
@@ -1077,7 +1601,7 @@ type PutObjectRequest struct {
 func (x *PutObjectRequest) Reset() {
 	*x = PutObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1090,7 +1614,7 @@ func (x *PutObjectRequest) String() string {
 func (*PutObjectRequest) ProtoMessage() {}
 
 func (x *PutObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1103,7 +1627,7 @@ func (x *PutObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PutObjectRequest.ProtoReflect.Descriptor instead.
 func (*PutObjectRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{17}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *PutObjectRequest) GetLocation() *ObjectLocation {
@@ -1129,7 +1653,7 @@ type PutObjectResponse struct {
 func (x *PutObjectResponse) Reset() {
 	*x = PutObjectResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[18]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1142,7 +1666,7 @@ func (x *PutObjectResponse) String() string {
 func (*PutObjectResponse) ProtoMessage() {}
 
 func (x *PutObjectResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[18]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1155,7 +1679,7 @@ func (x *PutObjectResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PutObjectResponse.ProtoReflect.Descriptor instead.
 func (*PutObjectResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{18}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{25}
 }
 
 type GetObjectRequest struct {
@@ -1169,7 +1693,7 @@ type GetObjectRequest struct {
 func (x *GetObjectRequest) Reset() {
 	*x = GetObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1182,7 +1706,7 @@ func (x *GetObjectRequest) String() string {
 func (*GetObjectRequest) ProtoMessage() {}
 
 func (x *GetObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1195,7 +1719,7 @@ func (x *GetObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectRequest.ProtoReflect.Descriptor instead.
 func (*GetObjectRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{19}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetObjectRequest) GetLocation() *ObjectLocation {
@@ -1216,7 +1740,7 @@ type GetObjectResponse struct {
 func (x *GetObjectResponse) Reset() {
 	*x = GetObjectResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[20]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1229,7 +1753,7 @@ func (x *GetObjectResponse) String() string {
 func (*GetObjectResponse) ProtoMessage() {}
 
 func (x *GetObjectResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[20]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1242,7 +1766,7 @@ func (x *GetObjectResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetObjectResponse.ProtoReflect.Descriptor instead.
 func (*GetObjectResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{20}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetObjectResponse) GetData() []byte {
@@ -1263,7 +1787,7 @@ type HeadObjectRequest struct {
 func (x *HeadObjectRequest) Reset() {
 	*x = HeadObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[21]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1276,7 +1800,7 @@ func (x *HeadObjectRequest) String() string {
 func (*HeadObjectRequest) ProtoMessage() {}
 
 func (x *HeadObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[21]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1289,7 +1813,7 @@ func (x *HeadObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeadObjectRequest.ProtoReflect.Descriptor instead.
 func (*HeadObjectRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{21}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *HeadObjectRequest) GetLocation() *ObjectLocation {
@@ -1311,7 +1835,7 @@ type HeadObjectResponse struct {
 func (x *HeadObjectResponse) Reset() {
 	*x = HeadObjectResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[22]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1324,7 +1848,7 @@ func (x *HeadObjectResponse) String() string {
 func (*HeadObjectResponse) ProtoMessage() {}
 
 func (x *HeadObjectResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[22]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1337,7 +1861,7 @@ func (x *HeadObjectResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeadObjectResponse.ProtoReflect.Descriptor instead.
 func (*HeadObjectResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{22}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *HeadObjectResponse) GetContentLength() string {
@@ -1365,7 +1889,7 @@ type InitMultiPartUploadRequest struct {
 func (x *InitMultiPartUploadRequest) Reset() {
 	*x = InitMultiPartUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[23]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1378,7 +1902,7 @@ func (x *InitMultiPartUploadRequest) String() string {
 func (*InitMultiPartUploadRequest) ProtoMessage() {}
 
 func (x *InitMultiPartUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[23]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1391,7 +1915,7 @@ func (x *InitMultiPartUploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InitMultiPartUploadRequest.ProtoReflect.Descriptor instead.
 func (*InitMultiPartUploadRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{23}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *InitMultiPartUploadRequest) GetLocation() *ObjectLocation {
@@ -1412,7 +1936,7 @@ type InitMultiPartUploadResponse struct {
 func (x *InitMultiPartUploadResponse) Reset() {
 	*x = InitMultiPartUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[24]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1425,7 +1949,7 @@ func (x *InitMultiPartUploadResponse) String() string {
 func (*InitMultiPartUploadResponse) ProtoMessage() {}
 
 func (x *InitMultiPartUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[24]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1438,7 +1962,7 @@ func (x *InitMultiPartUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InitMultiPartUploadResponse.ProtoReflect.Descriptor instead.
 func (*InitMultiPartUploadResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{24}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *InitMultiPartUploadResponse) GetUploadId() string {
@@ -1461,7 +1985,7 @@ type UploadPartRequest struct {
 func (x *UploadPartRequest) Reset() {
 	*x = UploadPartRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[25]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1474,7 +1998,7 @@ func (x *UploadPartRequest) String() string {
 func (*UploadPartRequest) ProtoMessage() {}
 
 func (x *UploadPartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[25]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1487,7 +2011,7 @@ func (x *UploadPartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadPartRequest.ProtoReflect.Descriptor instead.
 func (*UploadPartRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{25}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *UploadPartRequest) GetLocation() *ObjectLocation {
@@ -1522,7 +2046,7 @@ type UploadPartResponse struct {
 func (x *UploadPartResponse) Reset() {
 	*x = UploadPartResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[26]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1535,7 +2059,7 @@ func (x *UploadPartResponse) String() string {
 func (*UploadPartResponse) ProtoMessage() {}
 
 func (x *UploadPartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[26]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1548,7 +2072,7 @@ func (x *UploadPartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadPartResponse.ProtoReflect.Descriptor instead.
 func (*UploadPartResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{26}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *UploadPartResponse) GetEtag() string {
@@ -1570,7 +2094,7 @@ type CompletedPart struct {
 func (x *CompletedPart) Reset() {
 	*x = CompletedPart{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[27]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1583,7 +2107,7 @@ func (x *CompletedPart) String() string {
 func (*CompletedPart) ProtoMessage() {}
 
 func (x *CompletedPart) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[27]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1596,7 +2120,7 @@ func (x *CompletedPart) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CompletedPart.ProtoReflect.Descriptor instead.
 func (*CompletedPart) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{27}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *CompletedPart) GetPartNumber() int32 {
@@ -1625,7 +2149,7 @@ type CompleteMultiPartUploadRequest struct {
 func (x *CompleteMultiPartUploadRequest) Reset() {
 	*x = CompleteMultiPartUploadRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[28]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1638,7 +2162,7 @@ func (x *CompleteMultiPartUploadRequest) String() string {
 func (*CompleteMultiPartUploadRequest) ProtoMessage() {}
 
 func (x *CompleteMultiPartUploadRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[28]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1651,7 +2175,7 @@ func (x *CompleteMultiPartUploadRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CompleteMultiPartUploadRequest.ProtoReflect.Descriptor instead.
 func (*CompleteMultiPartUploadRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{28}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *CompleteMultiPartUploadRequest) GetLocation() *ObjectLocation {
@@ -1677,7 +2201,7 @@ type CompleteMultiPartUploadResponse struct {
 func (x *CompleteMultiPartUploadResponse) Reset() {
 	*x = CompleteMultiPartUploadResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[29]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1690,7 +2214,7 @@ func (x *CompleteMultiPartUploadResponse) String() string {
 func (*CompleteMultiPartUploadResponse) ProtoMessage() {}
 
 func (x *CompleteMultiPartUploadResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[29]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1703,7 +2227,7 @@ func (x *CompleteMultiPartUploadResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CompleteMultiPartUploadResponse.ProtoReflect.Descriptor instead.
 func (*CompleteMultiPartUploadResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{29}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{36}
 }
 
 type CreateBucketRequest struct {
@@ -1717,7 +2241,7 @@ type CreateBucketRequest struct {
 func (x *CreateBucketRequest) Reset() {
 	*x = CreateBucketRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[30]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1730,7 +2254,7 @@ func (x *CreateBucketRequest) String() string {
 func (*CreateBucketRequest) ProtoMessage() {}
 
 func (x *CreateBucketRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[30]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1743,7 +2267,7 @@ func (x *CreateBucketRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBucketRequest.ProtoReflect.Descriptor instead.
 func (*CreateBucketRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{30}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *CreateBucketRequest) GetBucket() string {
@@ -1762,7 +2286,7 @@ type CreateBucketResponse struct {
 func (x *CreateBucketResponse) Reset() {
 	*x = CreateBucketResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[31]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1775,7 +2299,7 @@ func (x *CreateBucketResponse) String() string {
 func (*CreateBucketResponse) ProtoMessage() {}
 
 func (x *CreateBucketResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[31]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1788,7 +2312,7 @@ func (x *CreateBucketResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBucketResponse.ProtoReflect.Descriptor instead.
 func (*CreateBucketResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{31}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{38}
 }
 
 type DeleteBucketRequest struct {
@@ -1802,7 +2326,7 @@ type DeleteBucketRequest struct {
 func (x *DeleteBucketRequest) Reset() {
 	*x = DeleteBucketRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[32]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1815,7 +2339,7 @@ func (x *DeleteBucketRequest) String() string {
 func (*DeleteBucketRequest) ProtoMessage() {}
 
 func (x *DeleteBucketRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[32]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1828,7 +2352,7 @@ func (x *DeleteBucketRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteBucketRequest.ProtoReflect.Descriptor instead.
 func (*DeleteBucketRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{32}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *DeleteBucketRequest) GetBucket() string {
@@ -1847,7 +2371,7 @@ type DeleteBucketResponse struct {
 func (x *DeleteBucketResponse) Reset() {
 	*x = DeleteBucketResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[33]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1860,7 +2384,7 @@ func (x *DeleteBucketResponse) String() string {
 func (*DeleteBucketResponse) ProtoMessage() {}
 
 func (x *DeleteBucketResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[33]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1873,7 +2397,7 @@ func (x *DeleteBucketResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteBucketResponse.ProtoReflect.Descriptor instead.
 func (*DeleteBucketResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{33}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{40}
 }
 
 type DeleteObjectRequest struct {
@@ -1887,7 +2411,7 @@ type DeleteObjectRequest struct {
 func (x *DeleteObjectRequest) Reset() {
 	*x = DeleteObjectRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[34]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1900,7 +2424,7 @@ func (x *DeleteObjectRequest) String() string {
 func (*DeleteObjectRequest) ProtoMessage() {}
 
 func (x *DeleteObjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[34]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1913,7 +2437,7 @@ func (x *DeleteObjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectRequest.ProtoReflect.Descriptor instead.
 func (*DeleteObjectRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{34}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *DeleteObjectRequest) GetLocation() *ObjectLocation {
@@ -1932,7 +2456,7 @@ type DeleteObjectResponse struct {
 func (x *DeleteObjectResponse) Reset() {
 	*x = DeleteObjectResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[35]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1945,7 +2469,7 @@ func (x *DeleteObjectResponse) String() string {
 func (*DeleteObjectResponse) ProtoMessage() {}
 
 func (x *DeleteObjectResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[35]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1958,7 +2482,7 @@ func (x *DeleteObjectResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteObjectResponse.ProtoReflect.Descriptor instead.
 func (*DeleteObjectResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{35}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{42}
 }
 
 type InitLocationRequest struct {
@@ -1974,7 +2498,7 @@ type InitLocationRequest struct {
 func (x *InitLocationRequest) Reset() {
 	*x = InitLocationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[36]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1987,7 +2511,7 @@ func (x *InitLocationRequest) String() string {
 func (*InitLocationRequest) ProtoMessage() {}
 
 func (x *InitLocationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[36]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2000,7 +2524,7 @@ func (x *InitLocationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InitLocationRequest.ProtoReflect.Descriptor instead.
 func (*InitLocationRequest) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{36}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *InitLocationRequest) GetObjectName() string {
@@ -2035,7 +2559,7 @@ type InitLocationResponse struct {
 func (x *InitLocationResponse) Reset() {
 	*x = InitLocationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[37]
+		mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2048,7 +2572,7 @@ func (x *InitLocationResponse) String() string {
 func (*InitLocationResponse) ProtoMessage() {}
 
 func (x *InitLocationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[37]
+	mi := &file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2061,7 +2585,7 @@ func (x *InitLocationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InitLocationResponse.ProtoReflect.Descriptor instead.
 func (*InitLocationResponse) Descriptor() ([]byte, []int) {
-	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{37}
+	return file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *InitLocationResponse) GetLocation() *ObjectLocation {
@@ -2083,242 +2607,315 @@ var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDesc = []byt
 	0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
 	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x69, 0x73, 0x69, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x5b, 0x0a, 0x0d, 0x44, 0x61, 0x74, 0x61, 0x50, 0x72, 0x6f,
-	0x78, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x21, 0x0a, 0x0c, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72,
-	0x6f, 0x78, 0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x61,
-	0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x49, 0x64, 0x12, 0x27, 0x0a, 0x0f, 0x61, 0x76, 0x61,
-	0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x5f, 0x73, 0x70, 0x61, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x0e, 0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x53, 0x70, 0x61,
-	0x63, 0x65, 0x22, 0x8a, 0x01, 0x0a, 0x19, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x4f, 0x0a, 0x0b, 0x49, 0x6e, 0x69, 0x74, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
+	0x79, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x61, 0x74, 0x61,
+	0x70, 0x72, 0x6f, 0x78, 0x79, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x6f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x09, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x49, 0x64, 0x73, 0x22, 0x2d, 0x0a, 0x0e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x63,
+	0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x49, 0x64, 0x22, 0x4b, 0x0a, 0x0f, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x41, 0x63,
+	0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x5f, 0x69,
+	0x64, 0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x49,
+	0x64, 0x78, 0x22, 0x4d, 0x0a, 0x11, 0x52, 0x65, 0x74, 0x72, 0x79, 0x43, 0x68, 0x75, 0x6e, 0x6b,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x5f, 0x69, 0x64,
+	0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x49, 0x64,
+	0x78, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0xd8, 0x01, 0x0a, 0x0c, 0x45,
+	0x72, 0x72, 0x6f, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x55, 0x0a, 0x0b, 0x72,
+	0x65, 0x74, 0x72, 0x79, 0x5f, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x32, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
+	0x76, 0x32, 0x2e, 0x52, 0x65, 0x74, 0x72, 0x79, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x48, 0x00, 0x52, 0x0a, 0x72, 0x65, 0x74, 0x72, 0x79, 0x43, 0x68, 0x75,
+	0x6e, 0x6b, 0x12, 0x3e, 0x0a, 0x05, 0x61, 0x62, 0x6f, 0x72, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x26, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61,
+	0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73,
+	0x2e, 0x76, 0x32, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x48, 0x00, 0x52, 0x05, 0x61, 0x62, 0x6f,
+	0x72, 0x74, 0x12, 0x28, 0x0a, 0x0f, 0x72, 0x65, 0x74, 0x72, 0x79, 0x5f, 0x6f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0d, 0x72,
+	0x65, 0x74, 0x72, 0x79, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x42, 0x07, 0x0a, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0xda, 0x03, 0x0a, 0x16, 0x50, 0x75, 0x6c, 0x6c, 0x52, 0x65,
 	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x42, 0x0a, 0x04, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2e,
+	0x12, 0x51, 0x0a, 0x0c, 0x69, 0x6e, 0x69, 0x74, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x49, 0x6e, 0x69, 0x74, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x48, 0x00, 0x52, 0x0b, 0x69, 0x6e, 0x69, 0x74, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x12, 0x5b, 0x0a, 0x10, 0x69, 0x6e, 0x66, 0x6f, 0x5f, 0x61, 0x63, 0x6b, 0x5f,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e,
+	0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72,
+	0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e,
+	0x49, 0x6e, 0x66, 0x6f, 0x41, 0x63, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x48, 0x00,
+	0x52, 0x0e, 0x69, 0x6e, 0x66, 0x6f, 0x41, 0x63, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x12, 0x5e, 0x0a, 0x11, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x5f, 0x61, 0x63, 0x6b, 0x5f, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x30, 0x2e, 0x61, 0x72,
+	0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
+	0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x68,
+	0x75, 0x6e, 0x6b, 0x41, 0x63, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x48, 0x00, 0x52,
+	0x0f, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x41, 0x63, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x12, 0x54, 0x0a, 0x0d, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2d, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x4d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x48, 0x00, 0x52, 0x0c, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x4f, 0x0a, 0x0e, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68,
+	0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26,
 	0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70,
 	0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32,
-	0x2e, 0x44, 0x61, 0x74, 0x61, 0x50, 0x72, 0x6f, 0x78, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
-	0x69, 0x6e, 0x66, 0x6f, 0x12, 0x29, 0x0a, 0x10, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x6e, 0x69,
-	0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0f,
-	0x75, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x22,
-	0x96, 0x01, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1b, 0x0a, 0x09,
-	0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x08, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x21, 0x0a, 0x0c, 0x64, 0x6f, 0x77,
-	0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x0b, 0x64, 0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x55, 0x72, 0x6c, 0x12, 0x25, 0x0a, 0x0e,
-	0x65, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x4b, 0x65, 0x79, 0x12, 0x23, 0x0a, 0x0d, 0x69, 0x73, 0x5f, 0x63, 0x6f, 0x6d, 0x70, 0x72, 0x65,
-	0x73, 0x73, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0c, 0x69, 0x73, 0x43, 0x6f,
-	0x6d, 0x70, 0x72, 0x65, 0x73, 0x73, 0x65, 0x64, 0x22, 0x53, 0x0a, 0x09, 0x44, 0x61, 0x74, 0x61,
-	0x49, 0x6e, 0x66, 0x6f, 0x73, 0x12, 0x46, 0x0a, 0x09, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x69, 0x6e,
-	0x66, 0x6f, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x49,
-	0x6e, 0x66, 0x6f, 0x52, 0x08, 0x64, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x89, 0x01,
-	0x0a, 0x1a, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4b, 0x0a, 0x0a,
-	0x64, 0x61, 0x74, 0x61, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x2a, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74,
-	0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
-	0x76, 0x32, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x73, 0x48, 0x00, 0x52, 0x09,
-	0x64, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x73, 0x12, 0x12, 0x0a, 0x03, 0x61, 0x63, 0x6b,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x48, 0x00, 0x52, 0x03, 0x61, 0x63, 0x6b, 0x42, 0x0a, 0x0a,
-	0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x63, 0x0a, 0x16, 0x49, 0x6e, 0x69,
-	0x74, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x49, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x69, 0x6e, 0x66, 0x6f,
-	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x49, 0x6e,
-	0x66, 0x6f, 0x73, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x73, 0x22, 0x2b,
-	0x0a, 0x17, 0x49, 0x6e, 0x69, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x61, 0x63, 0x6b,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x03, 0x61, 0x63, 0x6b, 0x22, 0x17, 0x0a, 0x15, 0x47,
-	0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x22, 0x56, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65,
-	0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1d,
-	0x0a, 0x0a, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x09, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x4b, 0x65, 0x79, 0x12, 0x1d, 0x0a,
-	0x0a, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x09, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x4b, 0x65, 0x79, 0x22, 0x32, 0x0a, 0x06,
-	0x53, 0x33, 0x50, 0x61, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x10,
-	0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79,
-	0x22, 0xb0, 0x01, 0x0a, 0x12, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x21, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x6f, 0x75,
-	0x72, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0a,
-	0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x64, 0x12, 0x42, 0x0a, 0x07, 0x73, 0x33,
-	0x5f, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x61, 0x72,
-	0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
-	0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x53, 0x33,
-	0x50, 0x61, 0x74, 0x68, 0x48, 0x00, 0x52, 0x06, 0x73, 0x33, 0x50, 0x61, 0x74, 0x68, 0x12, 0x27,
-	0x0a, 0x0f, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x5f, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x4c,
-	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x6f, 0x75,
-	0x72, 0x63, 0x65, 0x22, 0x3c, 0x0a, 0x13, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69,
-	0x63, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x72, 0x65,
-	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x0d, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49,
-	0x64, 0x22, 0x87, 0x01, 0x0a, 0x12, 0x50, 0x75, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63,
-	0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x21, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x6f,
-	0x75, 0x72, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52,
-	0x0a, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x64, 0x12, 0x42, 0x0a, 0x07, 0x73,
-	0x33, 0x5f, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x61,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x48, 0x00, 0x52, 0x0d, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x09, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x22, 0xa0, 0x01, 0x0a, 0x0a, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x6e, 0x66,
+	0x6f, 0x12, 0x1b, 0x0a, 0x09, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x16,
+	0x0a, 0x06, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06,
+	0x63, 0x68, 0x75, 0x6e, 0x6b, 0x73, 0x12, 0x19, 0x0a, 0x08, 0x72, 0x61, 0x77, 0x5f, 0x73, 0x69,
+	0x7a, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x72, 0x61, 0x77, 0x53, 0x69, 0x7a,
+	0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x18,
+	0x04, 0x20, 0x03, 0x28, 0x0d, 0x52, 0x09, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x19, 0x0a, 0x05, 0x65, 0x78, 0x74, 0x72, 0x61, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x48,
+	0x00, 0x52, 0x05, 0x65, 0x78, 0x74, 0x72, 0x61, 0x88, 0x01, 0x01, 0x42, 0x08, 0x0a, 0x06, 0x5f,
+	0x65, 0x78, 0x74, 0x72, 0x61, 0x22, 0x71, 0x0a, 0x05, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x12, 0x1b,
+	0x0a, 0x09, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x63,
+	0x68, 0x75, 0x6e, 0x6b, 0x5f, 0x69, 0x64, 0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08,
+	0x63, 0x68, 0x75, 0x6e, 0x6b, 0x49, 0x64, 0x78, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x1a, 0x0a, 0x08,
+	0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x75, 0x6d, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x75, 0x6d, 0x22, 0x85, 0x02, 0x0a, 0x17, 0x50, 0x75, 0x6c,
+	0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4e, 0x0a, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69,
+	0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x61, 0x72, 0x75, 0x6e,
+	0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x48, 0x00, 0x52, 0x0a, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x3e, 0x0a, 0x05, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x48, 0x00, 0x52, 0x05, 0x63,
+	0x68, 0x75, 0x6e, 0x6b, 0x12, 0x4f, 0x0a, 0x0e, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x5f, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x61,
 	0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f,
-	0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x53,
-	0x33, 0x50, 0x61, 0x74, 0x68, 0x48, 0x00, 0x52, 0x06, 0x73, 0x33, 0x50, 0x61, 0x74, 0x68, 0x42,
-	0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x22, 0x3c, 0x0a, 0x13, 0x50,
-	0x75, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x72, 0x65, 0x70, 0x6c,
-	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x41, 0x0a, 0x18, 0x52, 0x65, 0x70,
-	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x72,
-	0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x81, 0x01, 0x0a,
-	0x19, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x06, 0x73, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x32, 0x2e, 0x61, 0x72, 0x75,
-	0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79,
-	0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x65, 0x70,
-	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06,
-	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
-	0x22, 0x7e, 0x0a, 0x0e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65,
-	0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x1b, 0x0a, 0x09,
-	0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x08, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x64, 0x12, 0x25, 0x0a, 0x0e, 0x63, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x5f, 0x6c, 0x65, 0x6e, 0x67, 0x74, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x0d, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x6e, 0x67, 0x74, 0x68,
-	0x22, 0x73, 0x0a, 0x10, 0x50, 0x75, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61,
+	0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x45,
+	0x6d, 0x70, 0x74, 0x79, 0x48, 0x00, 0x52, 0x0d, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x09, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x22, 0x96, 0x01, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1b, 0x0a,
+	0x09, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x21, 0x0a, 0x0c, 0x64, 0x6f,
+	0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0b, 0x64, 0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x55, 0x72, 0x6c, 0x12, 0x25, 0x0a,
+	0x0e, 0x65, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65, 0x79, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x4b, 0x65, 0x79, 0x12, 0x23, 0x0a, 0x0d, 0x69, 0x73, 0x5f, 0x63, 0x6f, 0x6d, 0x70, 0x72,
+	0x65, 0x73, 0x73, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0c, 0x69, 0x73, 0x43,
+	0x6f, 0x6d, 0x70, 0x72, 0x65, 0x73, 0x73, 0x65, 0x64, 0x22, 0x53, 0x0a, 0x09, 0x44, 0x61, 0x74,
+	0x61, 0x49, 0x6e, 0x66, 0x6f, 0x73, 0x12, 0x46, 0x0a, 0x09, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x69,
+	0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x61, 0x72, 0x75, 0x6e,
+	0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x44, 0x61, 0x74, 0x61,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x08, 0x64, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x63,
+	0x0a, 0x16, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x49, 0x0a, 0x0a, 0x64, 0x61, 0x74, 0x61,
+	0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x61,
+	0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f,
+	0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x44,
+	0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x73, 0x52, 0x09, 0x64, 0x61, 0x74, 0x61, 0x49, 0x6e,
+	0x66, 0x6f, 0x73, 0x22, 0x2b, 0x0a, 0x17, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10,
+	0x0a, 0x03, 0x61, 0x63, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x03, 0x61, 0x63, 0x6b,
+	0x22, 0x17, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
+	0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x56, 0x0a, 0x16, 0x47, 0x65, 0x74,
+	0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x5f, 0x6b, 0x65,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x4b,
+	0x65, 0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x5f, 0x6b, 0x65, 0x79,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x4b, 0x65,
+	0x79, 0x22, 0x32, 0x0a, 0x06, 0x53, 0x33, 0x50, 0x61, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x62,
+	0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x75, 0x63,
+	0x6b, 0x65, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6b, 0x65, 0x79, 0x22, 0xb5, 0x01, 0x0a, 0x12, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65,
+	0x70, 0x6c, 0x69, 0x63, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x21, 0x0a, 0x0b,
+	0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x48, 0x00, 0x52, 0x0a, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x64, 0x12,
+	0x42, 0x0a, 0x07, 0x73, 0x33, 0x5f, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x27, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
+	0x76, 0x32, 0x2e, 0x53, 0x33, 0x50, 0x61, 0x74, 0x68, 0x48, 0x00, 0x52, 0x06, 0x73, 0x33, 0x50,
+	0x61, 0x74, 0x68, 0x12, 0x2c, 0x0a, 0x12, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x5f, 0x65, 0x6e,
+	0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x10, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x49,
+	0x64, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x22, 0x3c, 0x0a,
+	0x13, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x72, 0x65,
+	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x87, 0x01, 0x0a, 0x12,
+	0x50, 0x75, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x21, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0a, 0x72, 0x65, 0x73, 0x6f, 0x75,
+	0x72, 0x63, 0x65, 0x49, 0x64, 0x12, 0x42, 0x0a, 0x07, 0x73, 0x33, 0x5f, 0x70, 0x61, 0x74, 0x68,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c,
-	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52,
-	0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x13, 0x0a, 0x11, 0x50, 0x75, 0x74, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x5f, 0x0a, 0x10, 0x47, 0x65,
+	0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x53, 0x33, 0x50, 0x61, 0x74, 0x68, 0x48,
+	0x00, 0x52, 0x06, 0x73, 0x33, 0x50, 0x61, 0x74, 0x68, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73,
+	0x6f, 0x75, 0x72, 0x63, 0x65, 0x22, 0x3c, 0x0a, 0x13, 0x50, 0x75, 0x6c, 0x6c, 0x52, 0x65, 0x70,
+	0x6c, 0x69, 0x63, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e,
+	0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x64, 0x22, 0x41, 0x0a, 0x18, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x25, 0x0a, 0x0e, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x72, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x81, 0x01, 0x0a, 0x19, 0x52, 0x65, 0x70, 0x6c, 0x69,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x32, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x7e, 0x0a, 0x0e, 0x4f, 0x62,
+	0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06,
+	0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x75,
+	0x63, 0x6b, 0x65, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x1b, 0x0a, 0x09, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64,
+	0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x70, 0x6c, 0x6f, 0x61,
+	0x64, 0x49, 0x64, 0x12, 0x25, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x5f, 0x6c,
+	0x65, 0x6e, 0x67, 0x74, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x6e, 0x67, 0x74, 0x68, 0x22, 0x73, 0x0a, 0x10, 0x50, 0x75,
 	0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b,
 	0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74,
 	0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e,
 	0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x27, 0x0a, 0x11, 0x47,
-	0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04,
-	0x64, 0x61, 0x74, 0x61, 0x22, 0x60, 0x0a, 0x11, 0x48, 0x65, 0x61, 0x64, 0x4f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72,
-	0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
-	0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x53, 0x0a, 0x12, 0x48, 0x65, 0x61, 0x64, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e,
-	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x5f, 0x6c, 0x65, 0x6e, 0x67, 0x74, 0x68, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x6e,
-	0x67, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x22, 0x69, 0x0a, 0x1a, 0x49,
-	0x6e, 0x69, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x50, 0x61, 0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f,
-	0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72,
-	0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
-	0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x3a, 0x0a, 0x1b, 0x49, 0x6e, 0x69, 0x74, 0x4d, 0x75,
-	0x6c, 0x74, 0x69, 0x50, 0x61, 0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x5f,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64,
-	0x49, 0x64, 0x22, 0x95, 0x01, 0x0a, 0x11, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x50, 0x61, 0x72,
+	0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22,
+	0x13, 0x0a, 0x11, 0x50, 0x75, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x5f, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65, 0x63,
 	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61,
 	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75,
 	0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79,
 	0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a,
 	0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x70, 0x61, 0x72, 0x74, 0x5f, 0x6e, 0x75,
-	0x6d, 0x62, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x70, 0x61, 0x72, 0x74,
-	0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x28, 0x0a, 0x12, 0x55, 0x70,
-	0x6c, 0x6f, 0x61, 0x64, 0x50, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x12, 0x0a, 0x04, 0x65, 0x74, 0x61, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
-	0x65, 0x74, 0x61, 0x67, 0x22, 0x44, 0x0a, 0x0d, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65,
-	0x64, 0x50, 0x61, 0x72, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x70, 0x61, 0x72, 0x74, 0x5f, 0x6e, 0x75,
-	0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x70, 0x61, 0x72, 0x74,
-	0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x65, 0x74, 0x61, 0x67, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x65, 0x74, 0x61, 0x67, 0x22, 0xc6, 0x01, 0x0a, 0x1e, 0x43,
-	0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x50, 0x61, 0x72, 0x74,
-	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a,
-	0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61,
-	0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76,
-	0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x57, 0x0a, 0x0f, 0x63, 0x6f,
-	0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x5f, 0x70, 0x61, 0x72, 0x74, 0x73, 0x18, 0x02, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x50,
-	0x61, 0x72, 0x74, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x50, 0x61,
-	0x72, 0x74, 0x73, 0x22, 0x21, 0x0a, 0x1f, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x4d,
-	0x75, 0x6c, 0x74, 0x69, 0x50, 0x61, 0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2d, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a,
-	0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62,
-	0x75, 0x63, 0x6b, 0x65, 0x74, 0x22, 0x16, 0x0a, 0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42,
-	0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2d, 0x0a,
-	0x13, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x22, 0x16, 0x0a, 0x14,
-	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x62, 0x0a, 0x13, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c,
-	0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e,
-	0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72,
-	0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e,
-	0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08,
-	0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x16, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x22, 0x6d, 0x0a, 0x13, 0x49, 0x6e, 0x69, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63,
-	0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x6f, 0x62,
-	0x6a, 0x65, 0x63, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x12, 0x21, 0x0a, 0x0c,
-	0x69, 0x73, 0x5f, 0x74, 0x65, 0x6d, 0x70, 0x6f, 0x72, 0x61, 0x72, 0x79, 0x18, 0x03, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x0b, 0x69, 0x73, 0x54, 0x65, 0x6d, 0x70, 0x6f, 0x72, 0x61, 0x72, 0x79, 0x22,
-	0x63, 0x0a, 0x14, 0x49, 0x6e, 0x69, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x27, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x60,
+	0x0a, 0x11, 0x48, 0x65, 0x61, 0x64, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x53, 0x0a, 0x12, 0x48, 0x65, 0x61, 0x64, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x5f, 0x6c, 0x65, 0x6e, 0x67, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d,
+	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x6e, 0x67, 0x74, 0x68, 0x12, 0x16, 0x0a,
+	0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x65,
+	0x78, 0x69, 0x73, 0x74, 0x73, 0x22, 0x69, 0x0a, 0x1a, 0x49, 0x6e, 0x69, 0x74, 0x4d, 0x75, 0x6c,
+	0x74, 0x69, 0x50, 0x61, 0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x3a, 0x0a, 0x1b, 0x49, 0x6e, 0x69, 0x74, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x50, 0x61, 0x72,
+	0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x1b, 0x0a, 0x09, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x75, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x64, 0x22, 0x95, 0x01, 0x0a,
+	0x11, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x50, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x1f, 0x0a, 0x0b, 0x70, 0x61, 0x72, 0x74, 0x5f, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x70, 0x61, 0x72, 0x74, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72,
+	0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04,
+	0x64, 0x61, 0x74, 0x61, 0x22, 0x28, 0x0a, 0x12, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x50, 0x61,
+	0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x65, 0x74,
+	0x61, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x65, 0x74, 0x61, 0x67, 0x22, 0x44,
+	0x0a, 0x0d, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x50, 0x61, 0x72, 0x74, 0x12,
+	0x1f, 0x0a, 0x0b, 0x70, 0x61, 0x72, 0x74, 0x5f, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x70, 0x61, 0x72, 0x74, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72,
+	0x12, 0x12, 0x0a, 0x04, 0x65, 0x74, 0x61, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x65, 0x74, 0x61, 0x67, 0x22, 0xc6, 0x01, 0x0a, 0x1e, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74,
+	0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x50, 0x61, 0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e,
 	0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65,
 	0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x2a, 0xb6, 0x01, 0x0a, 0x11, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x22, 0x0a, 0x1e, 0x52, 0x45,
-	0x50, 0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53,
-	0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x1e,
-	0x0a, 0x1a, 0x52, 0x45, 0x50, 0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x50, 0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x1e,
-	0x0a, 0x1a, 0x52, 0x45, 0x50, 0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x52, 0x55, 0x4e, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x02, 0x12, 0x1f,
-	0x0a, 0x1b, 0x52, 0x45, 0x50, 0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x46, 0x49, 0x4e, 0x49, 0x53, 0x48, 0x45, 0x44, 0x10, 0x03, 0x12,
-	0x1c, 0x0a, 0x18, 0x52, 0x45, 0x50, 0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53,
-	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x04, 0x32, 0xbc, 0x02,
-	0x0a, 0x10, 0x44, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x12, 0x8f, 0x01, 0x0a, 0x12, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65,
-	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3a, 0x2e, 0x61, 0x72, 0x75, 0x6e,
-	0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x3b, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52,
-	0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x86, 0x01, 0x0a, 0x0f, 0x49, 0x6e, 0x69, 0x74, 0x52, 0x65, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x57, 0x0a, 0x0f, 0x63, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65,
+	0x64, 0x5f, 0x70, 0x61, 0x72, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2e, 0x2e,
+	0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72,
+	0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e,
+	0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x50, 0x61, 0x72, 0x74, 0x52, 0x0e, 0x63,
+	0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x50, 0x61, 0x72, 0x74, 0x73, 0x22, 0x21, 0x0a,
+	0x1f, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x50, 0x61,
+	0x72, 0x74, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x2d, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x22,
+	0x16, 0x0a, 0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2d, 0x0a, 0x13, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16,
+	0x0a, 0x06, 0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x62, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x22, 0x16, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x62,
+	0x0a, 0x13, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x22, 0x16, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x6d, 0x0a, 0x13, 0x49, 0x6e,
+	0x69, 0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4e, 0x61,
+	0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x69, 0x73, 0x5f, 0x74, 0x65, 0x6d,
+	0x70, 0x6f, 0x72, 0x61, 0x72, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0b, 0x69, 0x73,
+	0x54, 0x65, 0x6d, 0x70, 0x6f, 0x72, 0x61, 0x72, 0x79, 0x22, 0x63, 0x0a, 0x14, 0x49, 0x6e, 0x69,
+	0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x4b, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x2f, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4c, 0x6f, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2a, 0xb6,
+	0x01, 0x0a, 0x11, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x12, 0x22, 0x0a, 0x1e, 0x52, 0x45, 0x50, 0x4c, 0x49, 0x43, 0x41, 0x54,
+	0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45,
+	0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x1e, 0x0a, 0x1a, 0x52, 0x45, 0x50, 0x4c,
+	0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x50,
+	0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x1e, 0x0a, 0x1a, 0x52, 0x45, 0x50, 0x4c,
+	0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x52,
+	0x55, 0x4e, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x02, 0x12, 0x1f, 0x0a, 0x1b, 0x52, 0x45, 0x50, 0x4c,
+	0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x46,
+	0x49, 0x4e, 0x49, 0x53, 0x48, 0x45, 0x44, 0x10, 0x03, 0x12, 0x1c, 0x0a, 0x18, 0x52, 0x45, 0x50,
+	0x4c, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f,
+	0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x04, 0x32, 0xc2, 0x02, 0x0a, 0x1b, 0x44, 0x61, 0x74, 0x61,
+	0x70, 0x72, 0x6f, 0x78, 0x79, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x8a, 0x01, 0x0a, 0x0f, 0x50, 0x75, 0x6c, 0x6c,
+	0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x37, 0x2e, 0x61, 0x72,
+	0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78,
+	0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x75,
+	0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x38, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x75, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x69,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
+	0x28, 0x01, 0x30, 0x01, 0x12, 0x86, 0x01, 0x0a, 0x0f, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70,
 	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x37, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61,
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x49, 0x6e, 0x69, 0x74, 0x52,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x50, 0x75, 0x73, 0x68, 0x52,
 	0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
 	0x74, 0x1a, 0x38, 0x2e, 0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61,
 	0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73,
-	0x2e, 0x76, 0x32, 0x2e, 0x49, 0x6e, 0x69, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
+	0x2e, 0x76, 0x32, 0x2e, 0x50, 0x75, 0x73, 0x68, 0x52, 0x65, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x1a, 0x0d, 0xfa,
 	0xd2, 0xe4, 0x93, 0x02, 0x07, 0x12, 0x05, 0x50, 0x52, 0x4f, 0x58, 0x59, 0x32, 0xbe, 0x0a, 0x0a,
 	0x17, 0x44, 0x61, 0x74, 0x61, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e,
@@ -2482,102 +3079,117 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDescGZIP() 
 }
 
 var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
+var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_goTypes = []interface{}{
 	(ReplicationStatus)(0),                  // 0: aruna.api.dataproxy.services.v2.ReplicationStatus
-	(*DataProxyInfo)(nil),                   // 1: aruna.api.dataproxy.services.v2.DataProxyInfo
-	(*RequestReplicationRequest)(nil),       // 2: aruna.api.dataproxy.services.v2.RequestReplicationRequest
-	(*DataInfo)(nil),                        // 3: aruna.api.dataproxy.services.v2.DataInfo
-	(*DataInfos)(nil),                       // 4: aruna.api.dataproxy.services.v2.DataInfos
-	(*RequestReplicationResponse)(nil),      // 5: aruna.api.dataproxy.services.v2.RequestReplicationResponse
-	(*InitReplicationRequest)(nil),          // 6: aruna.api.dataproxy.services.v2.InitReplicationRequest
-	(*InitReplicationResponse)(nil),         // 7: aruna.api.dataproxy.services.v2.InitReplicationResponse
-	(*GetCredentialsRequest)(nil),           // 8: aruna.api.dataproxy.services.v2.GetCredentialsRequest
-	(*GetCredentialsResponse)(nil),          // 9: aruna.api.dataproxy.services.v2.GetCredentialsResponse
-	(*S3Path)(nil),                          // 10: aruna.api.dataproxy.services.v2.S3Path
-	(*PushReplicaRequest)(nil),              // 11: aruna.api.dataproxy.services.v2.PushReplicaRequest
-	(*PushReplicaResponse)(nil),             // 12: aruna.api.dataproxy.services.v2.PushReplicaResponse
-	(*PullReplicaRequest)(nil),              // 13: aruna.api.dataproxy.services.v2.PullReplicaRequest
-	(*PullReplicaResponse)(nil),             // 14: aruna.api.dataproxy.services.v2.PullReplicaResponse
-	(*ReplicationStatusRequest)(nil),        // 15: aruna.api.dataproxy.services.v2.ReplicationStatusRequest
-	(*ReplicationStatusResponse)(nil),       // 16: aruna.api.dataproxy.services.v2.ReplicationStatusResponse
-	(*ObjectLocation)(nil),                  // 17: aruna.api.dataproxy.services.v2.ObjectLocation
-	(*PutObjectRequest)(nil),                // 18: aruna.api.dataproxy.services.v2.PutObjectRequest
-	(*PutObjectResponse)(nil),               // 19: aruna.api.dataproxy.services.v2.PutObjectResponse
-	(*GetObjectRequest)(nil),                // 20: aruna.api.dataproxy.services.v2.GetObjectRequest
-	(*GetObjectResponse)(nil),               // 21: aruna.api.dataproxy.services.v2.GetObjectResponse
-	(*HeadObjectRequest)(nil),               // 22: aruna.api.dataproxy.services.v2.HeadObjectRequest
-	(*HeadObjectResponse)(nil),              // 23: aruna.api.dataproxy.services.v2.HeadObjectResponse
-	(*InitMultiPartUploadRequest)(nil),      // 24: aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest
-	(*InitMultiPartUploadResponse)(nil),     // 25: aruna.api.dataproxy.services.v2.InitMultiPartUploadResponse
-	(*UploadPartRequest)(nil),               // 26: aruna.api.dataproxy.services.v2.UploadPartRequest
-	(*UploadPartResponse)(nil),              // 27: aruna.api.dataproxy.services.v2.UploadPartResponse
-	(*CompletedPart)(nil),                   // 28: aruna.api.dataproxy.services.v2.CompletedPart
-	(*CompleteMultiPartUploadRequest)(nil),  // 29: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest
-	(*CompleteMultiPartUploadResponse)(nil), // 30: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadResponse
-	(*CreateBucketRequest)(nil),             // 31: aruna.api.dataproxy.services.v2.CreateBucketRequest
-	(*CreateBucketResponse)(nil),            // 32: aruna.api.dataproxy.services.v2.CreateBucketResponse
-	(*DeleteBucketRequest)(nil),             // 33: aruna.api.dataproxy.services.v2.DeleteBucketRequest
-	(*DeleteBucketResponse)(nil),            // 34: aruna.api.dataproxy.services.v2.DeleteBucketResponse
-	(*DeleteObjectRequest)(nil),             // 35: aruna.api.dataproxy.services.v2.DeleteObjectRequest
-	(*DeleteObjectResponse)(nil),            // 36: aruna.api.dataproxy.services.v2.DeleteObjectResponse
-	(*InitLocationRequest)(nil),             // 37: aruna.api.dataproxy.services.v2.InitLocationRequest
-	(*InitLocationResponse)(nil),            // 38: aruna.api.dataproxy.services.v2.InitLocationResponse
+	(*InitMessage)(nil),                     // 1: aruna.api.dataproxy.services.v2.InitMessage
+	(*InfoAckMessage)(nil),                  // 2: aruna.api.dataproxy.services.v2.InfoAckMessage
+	(*ChunkAckMessage)(nil),                 // 3: aruna.api.dataproxy.services.v2.ChunkAckMessage
+	(*RetryChunkMessage)(nil),               // 4: aruna.api.dataproxy.services.v2.RetryChunkMessage
+	(*Empty)(nil),                           // 5: aruna.api.dataproxy.services.v2.Empty
+	(*ErrorMessage)(nil),                    // 6: aruna.api.dataproxy.services.v2.ErrorMessage
+	(*PullReplicationRequest)(nil),          // 7: aruna.api.dataproxy.services.v2.PullReplicationRequest
+	(*ObjectInfo)(nil),                      // 8: aruna.api.dataproxy.services.v2.ObjectInfo
+	(*Chunk)(nil),                           // 9: aruna.api.dataproxy.services.v2.Chunk
+	(*PullReplicationResponse)(nil),         // 10: aruna.api.dataproxy.services.v2.PullReplicationResponse
+	(*DataInfo)(nil),                        // 11: aruna.api.dataproxy.services.v2.DataInfo
+	(*DataInfos)(nil),                       // 12: aruna.api.dataproxy.services.v2.DataInfos
+	(*PushReplicationRequest)(nil),          // 13: aruna.api.dataproxy.services.v2.PushReplicationRequest
+	(*PushReplicationResponse)(nil),         // 14: aruna.api.dataproxy.services.v2.PushReplicationResponse
+	(*GetCredentialsRequest)(nil),           // 15: aruna.api.dataproxy.services.v2.GetCredentialsRequest
+	(*GetCredentialsResponse)(nil),          // 16: aruna.api.dataproxy.services.v2.GetCredentialsResponse
+	(*S3Path)(nil),                          // 17: aruna.api.dataproxy.services.v2.S3Path
+	(*PushReplicaRequest)(nil),              // 18: aruna.api.dataproxy.services.v2.PushReplicaRequest
+	(*PushReplicaResponse)(nil),             // 19: aruna.api.dataproxy.services.v2.PushReplicaResponse
+	(*PullReplicaRequest)(nil),              // 20: aruna.api.dataproxy.services.v2.PullReplicaRequest
+	(*PullReplicaResponse)(nil),             // 21: aruna.api.dataproxy.services.v2.PullReplicaResponse
+	(*ReplicationStatusRequest)(nil),        // 22: aruna.api.dataproxy.services.v2.ReplicationStatusRequest
+	(*ReplicationStatusResponse)(nil),       // 23: aruna.api.dataproxy.services.v2.ReplicationStatusResponse
+	(*ObjectLocation)(nil),                  // 24: aruna.api.dataproxy.services.v2.ObjectLocation
+	(*PutObjectRequest)(nil),                // 25: aruna.api.dataproxy.services.v2.PutObjectRequest
+	(*PutObjectResponse)(nil),               // 26: aruna.api.dataproxy.services.v2.PutObjectResponse
+	(*GetObjectRequest)(nil),                // 27: aruna.api.dataproxy.services.v2.GetObjectRequest
+	(*GetObjectResponse)(nil),               // 28: aruna.api.dataproxy.services.v2.GetObjectResponse
+	(*HeadObjectRequest)(nil),               // 29: aruna.api.dataproxy.services.v2.HeadObjectRequest
+	(*HeadObjectResponse)(nil),              // 30: aruna.api.dataproxy.services.v2.HeadObjectResponse
+	(*InitMultiPartUploadRequest)(nil),      // 31: aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest
+	(*InitMultiPartUploadResponse)(nil),     // 32: aruna.api.dataproxy.services.v2.InitMultiPartUploadResponse
+	(*UploadPartRequest)(nil),               // 33: aruna.api.dataproxy.services.v2.UploadPartRequest
+	(*UploadPartResponse)(nil),              // 34: aruna.api.dataproxy.services.v2.UploadPartResponse
+	(*CompletedPart)(nil),                   // 35: aruna.api.dataproxy.services.v2.CompletedPart
+	(*CompleteMultiPartUploadRequest)(nil),  // 36: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest
+	(*CompleteMultiPartUploadResponse)(nil), // 37: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadResponse
+	(*CreateBucketRequest)(nil),             // 38: aruna.api.dataproxy.services.v2.CreateBucketRequest
+	(*CreateBucketResponse)(nil),            // 39: aruna.api.dataproxy.services.v2.CreateBucketResponse
+	(*DeleteBucketRequest)(nil),             // 40: aruna.api.dataproxy.services.v2.DeleteBucketRequest
+	(*DeleteBucketResponse)(nil),            // 41: aruna.api.dataproxy.services.v2.DeleteBucketResponse
+	(*DeleteObjectRequest)(nil),             // 42: aruna.api.dataproxy.services.v2.DeleteObjectRequest
+	(*DeleteObjectResponse)(nil),            // 43: aruna.api.dataproxy.services.v2.DeleteObjectResponse
+	(*InitLocationRequest)(nil),             // 44: aruna.api.dataproxy.services.v2.InitLocationRequest
+	(*InitLocationResponse)(nil),            // 45: aruna.api.dataproxy.services.v2.InitLocationResponse
 }
 var file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_depIdxs = []int32{
-	1,  // 0: aruna.api.dataproxy.services.v2.RequestReplicationRequest.info:type_name -> aruna.api.dataproxy.services.v2.DataProxyInfo
-	3,  // 1: aruna.api.dataproxy.services.v2.DataInfos.data_info:type_name -> aruna.api.dataproxy.services.v2.DataInfo
-	4,  // 2: aruna.api.dataproxy.services.v2.RequestReplicationResponse.data_infos:type_name -> aruna.api.dataproxy.services.v2.DataInfos
-	4,  // 3: aruna.api.dataproxy.services.v2.InitReplicationRequest.data_infos:type_name -> aruna.api.dataproxy.services.v2.DataInfos
-	10, // 4: aruna.api.dataproxy.services.v2.PushReplicaRequest.s3_path:type_name -> aruna.api.dataproxy.services.v2.S3Path
-	10, // 5: aruna.api.dataproxy.services.v2.PullReplicaRequest.s3_path:type_name -> aruna.api.dataproxy.services.v2.S3Path
-	0,  // 6: aruna.api.dataproxy.services.v2.ReplicationStatusResponse.status:type_name -> aruna.api.dataproxy.services.v2.ReplicationStatus
-	17, // 7: aruna.api.dataproxy.services.v2.PutObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 8: aruna.api.dataproxy.services.v2.GetObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 9: aruna.api.dataproxy.services.v2.HeadObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 10: aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 11: aruna.api.dataproxy.services.v2.UploadPartRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 12: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	28, // 13: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest.completed_parts:type_name -> aruna.api.dataproxy.services.v2.CompletedPart
-	17, // 14: aruna.api.dataproxy.services.v2.DeleteObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	17, // 15: aruna.api.dataproxy.services.v2.InitLocationResponse.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
-	2,  // 16: aruna.api.dataproxy.services.v2.DataproxyService.RequestReplication:input_type -> aruna.api.dataproxy.services.v2.RequestReplicationRequest
-	6,  // 17: aruna.api.dataproxy.services.v2.DataproxyService.InitReplication:input_type -> aruna.api.dataproxy.services.v2.InitReplicationRequest
-	18, // 18: aruna.api.dataproxy.services.v2.DataproxyBackendService.PutObject:input_type -> aruna.api.dataproxy.services.v2.PutObjectRequest
-	20, // 19: aruna.api.dataproxy.services.v2.DataproxyBackendService.GetObject:input_type -> aruna.api.dataproxy.services.v2.GetObjectRequest
-	22, // 20: aruna.api.dataproxy.services.v2.DataproxyBackendService.HeadObject:input_type -> aruna.api.dataproxy.services.v2.HeadObjectRequest
-	24, // 21: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitMultiPartUpload:input_type -> aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest
-	26, // 22: aruna.api.dataproxy.services.v2.DataproxyBackendService.UploadPart:input_type -> aruna.api.dataproxy.services.v2.UploadPartRequest
-	29, // 23: aruna.api.dataproxy.services.v2.DataproxyBackendService.CompleteMultiPartUpload:input_type -> aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest
-	31, // 24: aruna.api.dataproxy.services.v2.DataproxyBackendService.CreateBucket:input_type -> aruna.api.dataproxy.services.v2.CreateBucketRequest
-	33, // 25: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteBucket:input_type -> aruna.api.dataproxy.services.v2.DeleteBucketRequest
-	35, // 26: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteObject:input_type -> aruna.api.dataproxy.services.v2.DeleteObjectRequest
-	37, // 27: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitLocation:input_type -> aruna.api.dataproxy.services.v2.InitLocationRequest
-	8,  // 28: aruna.api.dataproxy.services.v2.DataproxyUserService.GetCredentials:input_type -> aruna.api.dataproxy.services.v2.GetCredentialsRequest
-	11, // 29: aruna.api.dataproxy.services.v2.DataproxyUserService.PushReplica:input_type -> aruna.api.dataproxy.services.v2.PushReplicaRequest
-	13, // 30: aruna.api.dataproxy.services.v2.DataproxyUserService.PullReplica:input_type -> aruna.api.dataproxy.services.v2.PullReplicaRequest
-	15, // 31: aruna.api.dataproxy.services.v2.DataproxyUserService.ReplicationStatus:input_type -> aruna.api.dataproxy.services.v2.ReplicationStatusRequest
-	5,  // 32: aruna.api.dataproxy.services.v2.DataproxyService.RequestReplication:output_type -> aruna.api.dataproxy.services.v2.RequestReplicationResponse
-	7,  // 33: aruna.api.dataproxy.services.v2.DataproxyService.InitReplication:output_type -> aruna.api.dataproxy.services.v2.InitReplicationResponse
-	19, // 34: aruna.api.dataproxy.services.v2.DataproxyBackendService.PutObject:output_type -> aruna.api.dataproxy.services.v2.PutObjectResponse
-	21, // 35: aruna.api.dataproxy.services.v2.DataproxyBackendService.GetObject:output_type -> aruna.api.dataproxy.services.v2.GetObjectResponse
-	23, // 36: aruna.api.dataproxy.services.v2.DataproxyBackendService.HeadObject:output_type -> aruna.api.dataproxy.services.v2.HeadObjectResponse
-	25, // 37: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitMultiPartUpload:output_type -> aruna.api.dataproxy.services.v2.InitMultiPartUploadResponse
-	27, // 38: aruna.api.dataproxy.services.v2.DataproxyBackendService.UploadPart:output_type -> aruna.api.dataproxy.services.v2.UploadPartResponse
-	30, // 39: aruna.api.dataproxy.services.v2.DataproxyBackendService.CompleteMultiPartUpload:output_type -> aruna.api.dataproxy.services.v2.CompleteMultiPartUploadResponse
-	32, // 40: aruna.api.dataproxy.services.v2.DataproxyBackendService.CreateBucket:output_type -> aruna.api.dataproxy.services.v2.CreateBucketResponse
-	34, // 41: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteBucket:output_type -> aruna.api.dataproxy.services.v2.DeleteBucketResponse
-	36, // 42: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteObject:output_type -> aruna.api.dataproxy.services.v2.DeleteObjectResponse
-	38, // 43: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitLocation:output_type -> aruna.api.dataproxy.services.v2.InitLocationResponse
-	9,  // 44: aruna.api.dataproxy.services.v2.DataproxyUserService.GetCredentials:output_type -> aruna.api.dataproxy.services.v2.GetCredentialsResponse
-	12, // 45: aruna.api.dataproxy.services.v2.DataproxyUserService.PushReplica:output_type -> aruna.api.dataproxy.services.v2.PushReplicaResponse
-	14, // 46: aruna.api.dataproxy.services.v2.DataproxyUserService.PullReplica:output_type -> aruna.api.dataproxy.services.v2.PullReplicaResponse
-	16, // 47: aruna.api.dataproxy.services.v2.DataproxyUserService.ReplicationStatus:output_type -> aruna.api.dataproxy.services.v2.ReplicationStatusResponse
-	32, // [32:48] is the sub-list for method output_type
-	16, // [16:32] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	4,  // 0: aruna.api.dataproxy.services.v2.ErrorMessage.retry_chunk:type_name -> aruna.api.dataproxy.services.v2.RetryChunkMessage
+	5,  // 1: aruna.api.dataproxy.services.v2.ErrorMessage.abort:type_name -> aruna.api.dataproxy.services.v2.Empty
+	1,  // 2: aruna.api.dataproxy.services.v2.PullReplicationRequest.init_message:type_name -> aruna.api.dataproxy.services.v2.InitMessage
+	2,  // 3: aruna.api.dataproxy.services.v2.PullReplicationRequest.info_ack_message:type_name -> aruna.api.dataproxy.services.v2.InfoAckMessage
+	3,  // 4: aruna.api.dataproxy.services.v2.PullReplicationRequest.chunk_ack_message:type_name -> aruna.api.dataproxy.services.v2.ChunkAckMessage
+	6,  // 5: aruna.api.dataproxy.services.v2.PullReplicationRequest.error_message:type_name -> aruna.api.dataproxy.services.v2.ErrorMessage
+	5,  // 6: aruna.api.dataproxy.services.v2.PullReplicationRequest.finish_message:type_name -> aruna.api.dataproxy.services.v2.Empty
+	8,  // 7: aruna.api.dataproxy.services.v2.PullReplicationResponse.object_info:type_name -> aruna.api.dataproxy.services.v2.ObjectInfo
+	9,  // 8: aruna.api.dataproxy.services.v2.PullReplicationResponse.chunk:type_name -> aruna.api.dataproxy.services.v2.Chunk
+	5,  // 9: aruna.api.dataproxy.services.v2.PullReplicationResponse.finish_message:type_name -> aruna.api.dataproxy.services.v2.Empty
+	11, // 10: aruna.api.dataproxy.services.v2.DataInfos.data_info:type_name -> aruna.api.dataproxy.services.v2.DataInfo
+	12, // 11: aruna.api.dataproxy.services.v2.PushReplicationRequest.data_infos:type_name -> aruna.api.dataproxy.services.v2.DataInfos
+	17, // 12: aruna.api.dataproxy.services.v2.PushReplicaRequest.s3_path:type_name -> aruna.api.dataproxy.services.v2.S3Path
+	17, // 13: aruna.api.dataproxy.services.v2.PullReplicaRequest.s3_path:type_name -> aruna.api.dataproxy.services.v2.S3Path
+	0,  // 14: aruna.api.dataproxy.services.v2.ReplicationStatusResponse.status:type_name -> aruna.api.dataproxy.services.v2.ReplicationStatus
+	24, // 15: aruna.api.dataproxy.services.v2.PutObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 16: aruna.api.dataproxy.services.v2.GetObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 17: aruna.api.dataproxy.services.v2.HeadObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 18: aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 19: aruna.api.dataproxy.services.v2.UploadPartRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 20: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	35, // 21: aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest.completed_parts:type_name -> aruna.api.dataproxy.services.v2.CompletedPart
+	24, // 22: aruna.api.dataproxy.services.v2.DeleteObjectRequest.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	24, // 23: aruna.api.dataproxy.services.v2.InitLocationResponse.location:type_name -> aruna.api.dataproxy.services.v2.ObjectLocation
+	7,  // 24: aruna.api.dataproxy.services.v2.DataproxyReplicationService.PullReplication:input_type -> aruna.api.dataproxy.services.v2.PullReplicationRequest
+	13, // 25: aruna.api.dataproxy.services.v2.DataproxyReplicationService.PushReplication:input_type -> aruna.api.dataproxy.services.v2.PushReplicationRequest
+	25, // 26: aruna.api.dataproxy.services.v2.DataproxyBackendService.PutObject:input_type -> aruna.api.dataproxy.services.v2.PutObjectRequest
+	27, // 27: aruna.api.dataproxy.services.v2.DataproxyBackendService.GetObject:input_type -> aruna.api.dataproxy.services.v2.GetObjectRequest
+	29, // 28: aruna.api.dataproxy.services.v2.DataproxyBackendService.HeadObject:input_type -> aruna.api.dataproxy.services.v2.HeadObjectRequest
+	31, // 29: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitMultiPartUpload:input_type -> aruna.api.dataproxy.services.v2.InitMultiPartUploadRequest
+	33, // 30: aruna.api.dataproxy.services.v2.DataproxyBackendService.UploadPart:input_type -> aruna.api.dataproxy.services.v2.UploadPartRequest
+	36, // 31: aruna.api.dataproxy.services.v2.DataproxyBackendService.CompleteMultiPartUpload:input_type -> aruna.api.dataproxy.services.v2.CompleteMultiPartUploadRequest
+	38, // 32: aruna.api.dataproxy.services.v2.DataproxyBackendService.CreateBucket:input_type -> aruna.api.dataproxy.services.v2.CreateBucketRequest
+	40, // 33: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteBucket:input_type -> aruna.api.dataproxy.services.v2.DeleteBucketRequest
+	42, // 34: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteObject:input_type -> aruna.api.dataproxy.services.v2.DeleteObjectRequest
+	44, // 35: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitLocation:input_type -> aruna.api.dataproxy.services.v2.InitLocationRequest
+	15, // 36: aruna.api.dataproxy.services.v2.DataproxyUserService.GetCredentials:input_type -> aruna.api.dataproxy.services.v2.GetCredentialsRequest
+	18, // 37: aruna.api.dataproxy.services.v2.DataproxyUserService.PushReplica:input_type -> aruna.api.dataproxy.services.v2.PushReplicaRequest
+	20, // 38: aruna.api.dataproxy.services.v2.DataproxyUserService.PullReplica:input_type -> aruna.api.dataproxy.services.v2.PullReplicaRequest
+	22, // 39: aruna.api.dataproxy.services.v2.DataproxyUserService.ReplicationStatus:input_type -> aruna.api.dataproxy.services.v2.ReplicationStatusRequest
+	10, // 40: aruna.api.dataproxy.services.v2.DataproxyReplicationService.PullReplication:output_type -> aruna.api.dataproxy.services.v2.PullReplicationResponse
+	14, // 41: aruna.api.dataproxy.services.v2.DataproxyReplicationService.PushReplication:output_type -> aruna.api.dataproxy.services.v2.PushReplicationResponse
+	26, // 42: aruna.api.dataproxy.services.v2.DataproxyBackendService.PutObject:output_type -> aruna.api.dataproxy.services.v2.PutObjectResponse
+	28, // 43: aruna.api.dataproxy.services.v2.DataproxyBackendService.GetObject:output_type -> aruna.api.dataproxy.services.v2.GetObjectResponse
+	30, // 44: aruna.api.dataproxy.services.v2.DataproxyBackendService.HeadObject:output_type -> aruna.api.dataproxy.services.v2.HeadObjectResponse
+	32, // 45: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitMultiPartUpload:output_type -> aruna.api.dataproxy.services.v2.InitMultiPartUploadResponse
+	34, // 46: aruna.api.dataproxy.services.v2.DataproxyBackendService.UploadPart:output_type -> aruna.api.dataproxy.services.v2.UploadPartResponse
+	37, // 47: aruna.api.dataproxy.services.v2.DataproxyBackendService.CompleteMultiPartUpload:output_type -> aruna.api.dataproxy.services.v2.CompleteMultiPartUploadResponse
+	39, // 48: aruna.api.dataproxy.services.v2.DataproxyBackendService.CreateBucket:output_type -> aruna.api.dataproxy.services.v2.CreateBucketResponse
+	41, // 49: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteBucket:output_type -> aruna.api.dataproxy.services.v2.DeleteBucketResponse
+	43, // 50: aruna.api.dataproxy.services.v2.DataproxyBackendService.DeleteObject:output_type -> aruna.api.dataproxy.services.v2.DeleteObjectResponse
+	45, // 51: aruna.api.dataproxy.services.v2.DataproxyBackendService.InitLocation:output_type -> aruna.api.dataproxy.services.v2.InitLocationResponse
+	16, // 52: aruna.api.dataproxy.services.v2.DataproxyUserService.GetCredentials:output_type -> aruna.api.dataproxy.services.v2.GetCredentialsResponse
+	19, // 53: aruna.api.dataproxy.services.v2.DataproxyUserService.PushReplica:output_type -> aruna.api.dataproxy.services.v2.PushReplicaResponse
+	21, // 54: aruna.api.dataproxy.services.v2.DataproxyUserService.PullReplica:output_type -> aruna.api.dataproxy.services.v2.PullReplicaResponse
+	23, // 55: aruna.api.dataproxy.services.v2.DataproxyUserService.ReplicationStatus:output_type -> aruna.api.dataproxy.services.v2.ReplicationStatusResponse
+	40, // [40:56] is the sub-list for method output_type
+	24, // [24:40] is the sub-list for method input_type
+	24, // [24:24] is the sub-list for extension type_name
+	24, // [24:24] is the sub-list for extension extendee
+	0,  // [0:24] is the sub-list for field type_name
 }
 
 func init() { file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() }
@@ -2587,7 +3199,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DataProxyInfo); i {
+			switch v := v.(*InitMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2599,7 +3211,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RequestReplicationRequest); i {
+			switch v := v.(*InfoAckMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2611,7 +3223,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DataInfo); i {
+			switch v := v.(*ChunkAckMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2623,7 +3235,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DataInfos); i {
+			switch v := v.(*RetryChunkMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2635,7 +3247,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RequestReplicationResponse); i {
+			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2647,7 +3259,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InitReplicationRequest); i {
+			switch v := v.(*ErrorMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2659,7 +3271,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InitReplicationResponse); i {
+			switch v := v.(*PullReplicationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2671,7 +3283,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCredentialsRequest); i {
+			switch v := v.(*ObjectInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2683,7 +3295,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCredentialsResponse); i {
+			switch v := v.(*Chunk); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2695,7 +3307,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*S3Path); i {
+			switch v := v.(*PullReplicationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2707,7 +3319,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PushReplicaRequest); i {
+			switch v := v.(*DataInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2719,7 +3331,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PushReplicaResponse); i {
+			switch v := v.(*DataInfos); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2731,7 +3343,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PullReplicaRequest); i {
+			switch v := v.(*PushReplicationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2743,7 +3355,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PullReplicaResponse); i {
+			switch v := v.(*PushReplicationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2755,7 +3367,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReplicationStatusRequest); i {
+			switch v := v.(*GetCredentialsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2767,7 +3379,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReplicationStatusResponse); i {
+			switch v := v.(*GetCredentialsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2779,7 +3391,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ObjectLocation); i {
+			switch v := v.(*S3Path); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2791,7 +3403,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PutObjectRequest); i {
+			switch v := v.(*PushReplicaRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2803,7 +3415,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PutObjectResponse); i {
+			switch v := v.(*PushReplicaResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2815,7 +3427,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectRequest); i {
+			switch v := v.(*PullReplicaRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2827,7 +3439,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetObjectResponse); i {
+			switch v := v.(*PullReplicaResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2839,7 +3451,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HeadObjectRequest); i {
+			switch v := v.(*ReplicationStatusRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2851,7 +3463,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HeadObjectResponse); i {
+			switch v := v.(*ReplicationStatusResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2863,7 +3475,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InitMultiPartUploadRequest); i {
+			switch v := v.(*ObjectLocation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2875,7 +3487,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InitMultiPartUploadResponse); i {
+			switch v := v.(*PutObjectRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2887,7 +3499,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UploadPartRequest); i {
+			switch v := v.(*PutObjectResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2899,7 +3511,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UploadPartResponse); i {
+			switch v := v.(*GetObjectRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2911,7 +3523,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CompletedPart); i {
+			switch v := v.(*GetObjectResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2923,7 +3535,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CompleteMultiPartUploadRequest); i {
+			switch v := v.(*HeadObjectRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2935,7 +3547,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CompleteMultiPartUploadResponse); i {
+			switch v := v.(*HeadObjectResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2947,7 +3559,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateBucketRequest); i {
+			switch v := v.(*InitMultiPartUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2959,7 +3571,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateBucketResponse); i {
+			switch v := v.(*InitMultiPartUploadResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2971,7 +3583,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteBucketRequest); i {
+			switch v := v.(*UploadPartRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2983,7 +3595,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteBucketResponse); i {
+			switch v := v.(*UploadPartResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2995,7 +3607,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectRequest); i {
+			switch v := v.(*CompletedPart); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3007,7 +3619,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteObjectResponse); i {
+			switch v := v.(*CompleteMultiPartUploadRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3019,7 +3631,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InitLocationRequest); i {
+			switch v := v.(*CompleteMultiPartUploadResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3031,6 +3643,90 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateBucketRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateBucketResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteBucketRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteBucketResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteObjectRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteObjectResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InitLocationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*InitLocationResponse); i {
 			case 0:
 				return &v.state
@@ -3043,15 +3739,29 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			}
 		}
 	}
-	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[4].OneofWrappers = []interface{}{
-		(*RequestReplicationResponse_DataInfos)(nil),
-		(*RequestReplicationResponse_Ack)(nil),
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[5].OneofWrappers = []interface{}{
+		(*ErrorMessage_RetryChunk)(nil),
+		(*ErrorMessage_Abort)(nil),
+		(*ErrorMessage_RetryObjectId)(nil),
 	}
-	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[10].OneofWrappers = []interface{}{
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[6].OneofWrappers = []interface{}{
+		(*PullReplicationRequest_InitMessage)(nil),
+		(*PullReplicationRequest_InfoAckMessage)(nil),
+		(*PullReplicationRequest_ChunkAckMessage)(nil),
+		(*PullReplicationRequest_ErrorMessage)(nil),
+		(*PullReplicationRequest_FinishMessage)(nil),
+	}
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[7].OneofWrappers = []interface{}{}
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[9].OneofWrappers = []interface{}{
+		(*PullReplicationResponse_ObjectInfo)(nil),
+		(*PullReplicationResponse_Chunk)(nil),
+		(*PullReplicationResponse_FinishMessage)(nil),
+	}
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[17].OneofWrappers = []interface{}{
 		(*PushReplicaRequest_ResourceId)(nil),
 		(*PushReplicaRequest_S3Path)(nil),
 	}
-	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[12].OneofWrappers = []interface{}{
+	file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_msgTypes[19].OneofWrappers = []interface{}{
 		(*PullReplicaRequest_ResourceId)(nil),
 		(*PullReplicaRequest_S3Path)(nil),
 	}
@@ -3061,7 +3771,7 @@ func file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_aruna_api_dataproxy_services_v2_dataproxy_service_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   38,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   3,
 		},

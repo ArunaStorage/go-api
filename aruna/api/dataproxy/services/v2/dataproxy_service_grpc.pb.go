@@ -19,147 +19,180 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DataproxyService_RequestReplication_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyService/RequestReplication"
-	DataproxyService_InitReplication_FullMethodName    = "/aruna.api.dataproxy.services.v2.DataproxyService/InitReplication"
+	DataproxyReplicationService_PullReplication_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyReplicationService/PullReplication"
+	DataproxyReplicationService_PushReplication_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyReplicationService/PushReplication"
 )
 
-// DataproxyServiceClient is the client API for DataproxyService service.
+// DataproxyReplicationServiceClient is the client API for DataproxyReplicationService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type DataproxyServiceClient interface {
+type DataproxyReplicationServiceClient interface {
 	// RequestReplication
 	//
 	// Status: ALPHA
 	//
-	// Creates a replication request
-	RequestReplication(ctx context.Context, in *RequestReplicationRequest, opts ...grpc.CallOption) (*RequestReplicationResponse, error)
+	// Creates a replication stream
+	PullReplication(ctx context.Context, opts ...grpc.CallOption) (DataproxyReplicationService_PullReplicationClient, error)
 	// InitReplication
 	//
 	// Status: ALPHA
 	//
 	// Provides the necessary url to init replication
-	InitReplication(ctx context.Context, in *InitReplicationRequest, opts ...grpc.CallOption) (*InitReplicationResponse, error)
+	PushReplication(ctx context.Context, in *PushReplicationRequest, opts ...grpc.CallOption) (*PushReplicationResponse, error)
 }
 
-type dataproxyServiceClient struct {
+type dataproxyReplicationServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewDataproxyServiceClient(cc grpc.ClientConnInterface) DataproxyServiceClient {
-	return &dataproxyServiceClient{cc}
+func NewDataproxyReplicationServiceClient(cc grpc.ClientConnInterface) DataproxyReplicationServiceClient {
+	return &dataproxyReplicationServiceClient{cc}
 }
 
-func (c *dataproxyServiceClient) RequestReplication(ctx context.Context, in *RequestReplicationRequest, opts ...grpc.CallOption) (*RequestReplicationResponse, error) {
-	out := new(RequestReplicationResponse)
-	err := c.cc.Invoke(ctx, DataproxyService_RequestReplication_FullMethodName, in, out, opts...)
+func (c *dataproxyReplicationServiceClient) PullReplication(ctx context.Context, opts ...grpc.CallOption) (DataproxyReplicationService_PullReplicationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &DataproxyReplicationService_ServiceDesc.Streams[0], DataproxyReplicationService_PullReplication_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &dataproxyReplicationServicePullReplicationClient{stream}
+	return x, nil
+}
+
+type DataproxyReplicationService_PullReplicationClient interface {
+	Send(*PullReplicationRequest) error
+	Recv() (*PullReplicationResponse, error)
+	grpc.ClientStream
+}
+
+type dataproxyReplicationServicePullReplicationClient struct {
+	grpc.ClientStream
+}
+
+func (x *dataproxyReplicationServicePullReplicationClient) Send(m *PullReplicationRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *dataproxyReplicationServicePullReplicationClient) Recv() (*PullReplicationResponse, error) {
+	m := new(PullReplicationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *dataproxyReplicationServiceClient) PushReplication(ctx context.Context, in *PushReplicationRequest, opts ...grpc.CallOption) (*PushReplicationResponse, error) {
+	out := new(PushReplicationResponse)
+	err := c.cc.Invoke(ctx, DataproxyReplicationService_PushReplication_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dataproxyServiceClient) InitReplication(ctx context.Context, in *InitReplicationRequest, opts ...grpc.CallOption) (*InitReplicationResponse, error) {
-	out := new(InitReplicationResponse)
-	err := c.cc.Invoke(ctx, DataproxyService_InitReplication_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// DataproxyServiceServer is the server API for DataproxyService service.
-// All implementations should embed UnimplementedDataproxyServiceServer
+// DataproxyReplicationServiceServer is the server API for DataproxyReplicationService service.
+// All implementations should embed UnimplementedDataproxyReplicationServiceServer
 // for forward compatibility
-type DataproxyServiceServer interface {
+type DataproxyReplicationServiceServer interface {
 	// RequestReplication
 	//
 	// Status: ALPHA
 	//
-	// Creates a replication request
-	RequestReplication(context.Context, *RequestReplicationRequest) (*RequestReplicationResponse, error)
+	// Creates a replication stream
+	PullReplication(DataproxyReplicationService_PullReplicationServer) error
 	// InitReplication
 	//
 	// Status: ALPHA
 	//
 	// Provides the necessary url to init replication
-	InitReplication(context.Context, *InitReplicationRequest) (*InitReplicationResponse, error)
+	PushReplication(context.Context, *PushReplicationRequest) (*PushReplicationResponse, error)
 }
 
-// UnimplementedDataproxyServiceServer should be embedded to have forward compatible implementations.
-type UnimplementedDataproxyServiceServer struct {
+// UnimplementedDataproxyReplicationServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedDataproxyReplicationServiceServer struct {
 }
 
-func (UnimplementedDataproxyServiceServer) RequestReplication(context.Context, *RequestReplicationRequest) (*RequestReplicationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RequestReplication not implemented")
+func (UnimplementedDataproxyReplicationServiceServer) PullReplication(DataproxyReplicationService_PullReplicationServer) error {
+	return status.Errorf(codes.Unimplemented, "method PullReplication not implemented")
 }
-func (UnimplementedDataproxyServiceServer) InitReplication(context.Context, *InitReplicationRequest) (*InitReplicationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InitReplication not implemented")
+func (UnimplementedDataproxyReplicationServiceServer) PushReplication(context.Context, *PushReplicationRequest) (*PushReplicationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PushReplication not implemented")
 }
 
-// UnsafeDataproxyServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to DataproxyServiceServer will
+// UnsafeDataproxyReplicationServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DataproxyReplicationServiceServer will
 // result in compilation errors.
-type UnsafeDataproxyServiceServer interface {
-	mustEmbedUnimplementedDataproxyServiceServer()
+type UnsafeDataproxyReplicationServiceServer interface {
+	mustEmbedUnimplementedDataproxyReplicationServiceServer()
 }
 
-func RegisterDataproxyServiceServer(s grpc.ServiceRegistrar, srv DataproxyServiceServer) {
-	s.RegisterService(&DataproxyService_ServiceDesc, srv)
+func RegisterDataproxyReplicationServiceServer(s grpc.ServiceRegistrar, srv DataproxyReplicationServiceServer) {
+	s.RegisterService(&DataproxyReplicationService_ServiceDesc, srv)
 }
 
-func _DataproxyService_RequestReplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RequestReplicationRequest)
+func _DataproxyReplicationService_PullReplication_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(DataproxyReplicationServiceServer).PullReplication(&dataproxyReplicationServicePullReplicationServer{stream})
+}
+
+type DataproxyReplicationService_PullReplicationServer interface {
+	Send(*PullReplicationResponse) error
+	Recv() (*PullReplicationRequest, error)
+	grpc.ServerStream
+}
+
+type dataproxyReplicationServicePullReplicationServer struct {
+	grpc.ServerStream
+}
+
+func (x *dataproxyReplicationServicePullReplicationServer) Send(m *PullReplicationResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *dataproxyReplicationServicePullReplicationServer) Recv() (*PullReplicationRequest, error) {
+	m := new(PullReplicationRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _DataproxyReplicationService_PushReplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PushReplicationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DataproxyServiceServer).RequestReplication(ctx, in)
+		return srv.(DataproxyReplicationServiceServer).PushReplication(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DataproxyService_RequestReplication_FullMethodName,
+		FullMethod: DataproxyReplicationService_PushReplication_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DataproxyServiceServer).RequestReplication(ctx, req.(*RequestReplicationRequest))
+		return srv.(DataproxyReplicationServiceServer).PushReplication(ctx, req.(*PushReplicationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DataproxyService_InitReplication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InitReplicationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DataproxyServiceServer).InitReplication(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DataproxyService_InitReplication_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DataproxyServiceServer).InitReplication(ctx, req.(*InitReplicationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// DataproxyService_ServiceDesc is the grpc.ServiceDesc for DataproxyService service.
+// DataproxyReplicationService_ServiceDesc is the grpc.ServiceDesc for DataproxyReplicationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var DataproxyService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "aruna.api.dataproxy.services.v2.DataproxyService",
-	HandlerType: (*DataproxyServiceServer)(nil),
+var DataproxyReplicationService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "aruna.api.dataproxy.services.v2.DataproxyReplicationService",
+	HandlerType: (*DataproxyReplicationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RequestReplication",
-			Handler:    _DataproxyService_RequestReplication_Handler,
-		},
-		{
-			MethodName: "InitReplication",
-			Handler:    _DataproxyService_InitReplication_Handler,
+			MethodName: "PushReplication",
+			Handler:    _DataproxyReplicationService_PushReplication_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "PullReplication",
+			Handler:       _DataproxyReplicationService_PullReplication_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "aruna/api/dataproxy/services/v2/dataproxy_service.proto",
 }
 

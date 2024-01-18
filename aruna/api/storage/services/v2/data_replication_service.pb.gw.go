@@ -148,16 +148,6 @@ func request_DataReplicationService_PartialReplicateData_0(ctx context.Context, 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
 	}
 
-	val, ok = pathParams["resource_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
-	}
-
-	protoReq.ResourceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
-	}
-
 	msg, err := client.PartialReplicateData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -190,16 +180,6 @@ func local_request_DataReplicationService_PartialReplicateData_0(ctx context.Con
 	protoReq.EndpointId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
-	}
-
-	val, ok = pathParams["resource_id"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
-	}
-
-	protoReq.ResourceId, err = runtime.String(val)
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
 	}
 
 	msg, err := server.PartialReplicateData(ctx, &protoReq)
@@ -236,14 +216,14 @@ func request_DataReplicationService_UpdateReplicationStatus_0(ctx context.Contex
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
 	}
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["object_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_id")
 	}
 
-	protoReq.ResourceId, err = runtime.String(val)
+	protoReq.ObjectId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
 	}
 
 	msg, err := client.UpdateReplicationStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -280,14 +260,14 @@ func local_request_DataReplicationService_UpdateReplicationStatus_0(ctx context.
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "endpoint_id", err)
 	}
 
-	val, ok = pathParams["resource_id"]
+	val, ok = pathParams["object_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "resource_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "object_id")
 	}
 
-	protoReq.ResourceId, err = runtime.String(val)
+	protoReq.ObjectId, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "resource_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "object_id", err)
 	}
 
 	msg, err := server.UpdateReplicationStatus(ctx, &protoReq)
@@ -478,7 +458,7 @@ func RegisterDataReplicationServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/PartialReplicateData", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{resource_id}/partial"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/PartialReplicateData", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/partial"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -503,7 +483,7 @@ func RegisterDataReplicationServiceHandlerServer(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/UpdateReplicationStatus", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{resource_id}/status"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/UpdateReplicationStatus", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{object_id}/status"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -639,7 +619,7 @@ func RegisterDataReplicationServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/PartialReplicateData", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{resource_id}/partial"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/PartialReplicateData", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/partial"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -661,7 +641,7 @@ func RegisterDataReplicationServiceHandlerClient(ctx context.Context, mux *runti
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/UpdateReplicationStatus", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{resource_id}/status"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/aruna.api.storage.services.v2.DataReplicationService/UpdateReplicationStatus", runtime.WithHTTPPathPattern("/v2/endpoints/{endpoint_id}/replication/{object_id}/status"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -727,9 +707,9 @@ func RegisterDataReplicationServiceHandlerClient(ctx context.Context, mux *runti
 var (
 	pattern_DataReplicationService_ReplicateProjectData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v2", "endpoints", "endpoint_id", "replication", "project_id"}, ""))
 
-	pattern_DataReplicationService_PartialReplicateData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v2", "endpoints", "endpoint_id", "replication", "resource_id", "partial"}, ""))
+	pattern_DataReplicationService_PartialReplicateData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v2", "endpoints", "endpoint_id", "replication", "partial"}, ""))
 
-	pattern_DataReplicationService_UpdateReplicationStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v2", "endpoints", "endpoint_id", "replication", "resource_id", "status"}, ""))
+	pattern_DataReplicationService_UpdateReplicationStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v2", "endpoints", "endpoint_id", "replication", "object_id", "status"}, ""))
 
 	pattern_DataReplicationService_GetReplicationStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v2", "endpoints", "endpoint_id", "replication", "resource_id", "status"}, ""))
 

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.9"
+    "version": "2.0.0-beta.10"
   },
   "tags": [
     {
@@ -1229,6 +1229,108 @@
         ]
       }
     },
+    "/v2/endpoints/{endpointId}/replication/partial": {
+      "post": {
+        "summary": "PartialReplicateData",
+        "description": "Status: ALPHA\n\nPartial replicate data between endpoints",
+        "operationId": "DataReplicationService_PartialReplicateData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2PartialReplicateDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "collectionId": {
+                  "type": "string"
+                },
+                "datasetId": {
+                  "type": "string"
+                },
+                "objectId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      }
+    },
+    "/v2/endpoints/{endpointId}/replication/{objectId}/status": {
+      "patch": {
+        "summary": "UpdateReplicationStatus",
+        "description": "Status: ALPHA\n\nUpdate the replication status of a project",
+        "operationId": "DataReplicationService_UpdateReplicationStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateReplicationStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DataReplicationService"
+        ]
+      }
+    },
     "/v2/endpoints/{endpointId}/replication/{projectId}": {
       "post": {
         "summary": "ReplicateProjectData",
@@ -1313,52 +1415,6 @@
         ]
       }
     },
-    "/v2/endpoints/{endpointId}/replication/{resourceId}/partial": {
-      "post": {
-        "summary": "PartialReplicateData",
-        "description": "Status: ALPHA\n\nPartial replicate data between endpoints",
-        "operationId": "DataReplicationService_PartialReplicateData",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2PartialReplicateDataResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "endpointId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object"
-            }
-          }
-        ],
-        "tags": [
-          "DataReplicationService"
-        ]
-      }
-    },
     "/v2/endpoints/{endpointId}/replication/{resourceId}/status": {
       "get": {
         "summary": "GetReplicationStatus",
@@ -1390,55 +1446,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "DataReplicationService"
-        ]
-      },
-      "patch": {
-        "summary": "UpdateReplicationStatus",
-        "description": "Status: ALPHA\n\nUpdate the replication status of a project",
-        "operationId": "DataReplicationService_UpdateReplicationStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2UpdateReplicationStatusResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "endpointId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
-                }
-              }
-            }
           }
         ],
         "tags": [
@@ -1548,35 +1555,12 @@
         },
         "parameters": [
           {
-            "name": "error.error",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "secret",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "hookId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "objectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pubkeySerial",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2HookCallbackRequest"
+            }
           }
         ],
         "tags": [
@@ -4533,17 +4517,6 @@
         }
       }
     },
-    "apidataproxyservicesv2ReplicationStatus": {
-      "type": "string",
-      "enum": [
-        "REPLICATION_STATUS_UNSPECIFIED",
-        "REPLICATION_STATUS_PENDING",
-        "REPLICATION_STATUS_RUNNING",
-        "REPLICATION_STATUS_FINISHED",
-        "REPLICATION_STATUS_ERROR"
-      ],
-      "default": "REPLICATION_STATUS_UNSPECIFIED"
-    },
     "apistorageservicesv2CompletedPart": {
       "type": "object",
       "properties": {
@@ -4569,11 +4542,11 @@
         }
       }
     },
-    "apistorageservicesv2ReplicationStatus": {
+    "dataproxyservicesv2ReplicationStatus": {
       "type": "string",
       "enum": [
         "REPLICATION_STATUS_UNSPECIFIED",
-        "REPLICATION_STATUS_WAITING",
+        "REPLICATION_STATUS_PENDING",
         "REPLICATION_STATUS_RUNNING",
         "REPLICATION_STATUS_FINISHED",
         "REPLICATION_STATUS_ERROR"
@@ -4656,6 +4629,17 @@
       ],
       "default": "COMPONENT_STATUS_UNSPECIFIED",
       "title": "Status for endpoints"
+    },
+    "storagemodelsv2ReplicationStatus": {
+      "type": "string",
+      "enum": [
+        "REPLICATION_STATUS_UNSPECIFIED",
+        "REPLICATION_STATUS_WAITING",
+        "REPLICATION_STATUS_RUNNING",
+        "REPLICATION_STATUS_FINISHED",
+        "REPLICATION_STATUS_ERROR"
+      ],
+      "default": "REPLICATION_STATUS_UNSPECIFIED"
     },
     "storageservicesv2ComponentStatus": {
       "type": "object",
@@ -4783,6 +4767,37 @@
         "project": {
           "$ref": "#/definitions/v2Project",
           "title": "This project will be returned via an Persistent Identifier! Updates will be impossible"
+        }
+      }
+    },
+    "v2Chunk": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "chunkIdx": {
+          "type": "string",
+          "format": "int64"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        },
+        "checksum": {
+          "type": "string"
+        }
+      }
+    },
+    "v2ChunkAckMessage": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "chunkIdx": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -5517,9 +5532,14 @@
         "id": {
           "type": "string"
         },
-        "fullSynced": {
-          "type": "boolean",
-          "title": "Hint if the objects' project \nis fully synced to the endpoint"
+        "fullSync": {
+          "$ref": "#/definitions/v2FullSync"
+        },
+        "partialSync": {
+          "$ref": "#/definitions/v2PartialSync"
+        },
+        "status": {
+          "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
         }
       }
     },
@@ -5549,18 +5569,6 @@
             "type": "object",
             "$ref": "#/definitions/v2DataInfo"
           }
-        }
-      }
-    },
-    "v2DataProxyInfo": {
-      "type": "object",
-      "properties": {
-        "dataproxyId": {
-          "type": "string"
-        },
-        "availableSpace": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
@@ -5694,6 +5702,9 @@
     "v2DeleteWorkspaceTemplateResponse": {
       "type": "object"
     },
+    "v2Empty": {
+      "type": "object"
+    },
     "v2Endpoint": {
       "type": "object",
       "properties": {
@@ -5765,6 +5776,20 @@
       "type": "object",
       "properties": {
         "error": {
+          "type": "string"
+        }
+      }
+    },
+    "v2ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "retryChunk": {
+          "$ref": "#/definitions/v2RetryChunkMessage"
+        },
+        "abort": {
+          "$ref": "#/definitions/v2Empty"
+        },
+        "retryObjectId": {
           "type": "string"
         }
       }
@@ -5878,6 +5903,14 @@
             "type": "object",
             "$ref": "#/definitions/v2KeyValue"
           }
+        }
+      }
+    },
+    "v2FullSync": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
         }
       }
     },
@@ -6192,8 +6225,12 @@
     "v2GetReplicationStatusResponse": {
       "type": "object",
       "properties": {
-        "status": {
-          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+        "infos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2ReplicationInfo"
+          }
         }
       }
     },
@@ -6378,6 +6415,30 @@
         }
       }
     },
+    "v2HookCallbackRequest": {
+      "type": "object",
+      "properties": {
+        "finished": {
+          "$ref": "#/definitions/v2Finished"
+        },
+        "error": {
+          "$ref": "#/definitions/v2Error"
+        },
+        "secret": {
+          "type": "string"
+        },
+        "hookId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "pubkeySerial": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "v2HookCallbackResponse": {
       "type": "object"
     },
@@ -6411,6 +6472,14 @@
         }
       }
     },
+    "v2InfoAckMessage": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        }
+      }
+    },
     "v2InitLocationResponse": {
       "type": "object",
       "properties": {
@@ -6419,19 +6488,26 @@
         }
       }
     },
+    "v2InitMessage": {
+      "type": "object",
+      "properties": {
+        "dataproxyId": {
+          "type": "string"
+        },
+        "objectIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Messages (requests) from PROXY B"
+    },
     "v2InitMultiPartUploadResponse": {
       "type": "object",
       "properties": {
         "uploadId": {
           "type": "string"
-        }
-      }
-    },
-    "v2InitReplicationResponse": {
-      "type": "object",
-      "properties": {
-        "ack": {
-          "type": "boolean"
         }
       }
     },
@@ -6715,6 +6791,34 @@
         }
       }
     },
+    "v2ObjectInfo": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "chunks": {
+          "type": "string",
+          "format": "int64"
+        },
+        "rawSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "blockList": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "extra": {
+          "type": "string",
+          "title": "JSON encoded proxy specific extra fields"
+        }
+      },
+      "title": "Messages (responses) from PROXY A"
+    },
     "v2ObjectLocation": {
       "type": "object",
       "properties": {
@@ -6747,7 +6851,24 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+          "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
+        }
+      }
+    },
+    "v2PartialSync": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
         }
       }
     },
@@ -6930,7 +7051,23 @@
       "type": "object",
       "properties": {
         "replicationId": {
-          "type": "string"
+          "type": "string",
+          "title": "why ?"
+        }
+      }
+    },
+    "v2PullReplicationResponse": {
+      "type": "object",
+      "properties": {
+        "objectInfo": {
+          "$ref": "#/definitions/v2ObjectInfo"
+        },
+        "chunk": {
+          "$ref": "#/definitions/v2Chunk",
+          "title": "If no ack is received, the chunk will be resent"
+        },
+        "finishMessage": {
+          "$ref": "#/definitions/v2Empty"
         }
       }
     },
@@ -6939,6 +7076,14 @@
       "properties": {
         "replicationId": {
           "type": "string"
+        }
+      }
+    },
+    "v2PushReplicationResponse": {
+      "type": "object",
+      "properties": {
+        "ack": {
+          "type": "boolean"
         }
       }
     },
@@ -7037,7 +7182,27 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/apistorageservicesv2ReplicationStatus"
+          "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
+        }
+      }
+    },
+    "v2ReplicationInfo": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "datasetId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "endpointInfo": {
+          "$ref": "#/definitions/v2DataEndpoint"
         }
       }
     },
@@ -7045,7 +7210,7 @@
       "type": "object",
       "properties": {
         "status": {
-          "$ref": "#/definitions/apidataproxyservicesv2ReplicationStatus"
+          "$ref": "#/definitions/dataproxyservicesv2ReplicationStatus"
         },
         "message": {
           "type": "string"
@@ -7063,17 +7228,6 @@
         },
         "hmac": {
           "type": "string"
-        }
-      }
-    },
-    "v2RequestReplicationResponse": {
-      "type": "object",
-      "properties": {
-        "dataInfos": {
-          "$ref": "#/definitions/v2DataInfos"
-        },
-        "ack": {
-          "type": "boolean"
         }
       }
     },
@@ -7156,6 +7310,18 @@
         },
         "permission": {
           "$ref": "#/definitions/v2PermissionLevel"
+        }
+      }
+    },
+    "v2RetryChunkMessage": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "chunkIdx": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
