@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.10"
+    "version": "2.0.0-beta.11"
   },
   "tags": [
     {
@@ -5536,7 +5536,7 @@
           "$ref": "#/definitions/v2FullSync"
         },
         "partialSync": {
-          "$ref": "#/definitions/v2PartialSync"
+          "type": "boolean"
         },
         "status": {
           "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
@@ -5907,12 +5907,7 @@
       }
     },
     "v2FullSync": {
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "v2FullSyncEndpointResponse": {
       "type": "object",
@@ -6852,23 +6847,6 @@
       "properties": {
         "status": {
           "$ref": "#/definitions/storagemodelsv2ReplicationStatus"
-        }
-      }
-    },
-    "v2PartialSync": {
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "type": "string"
-        },
-        "collectionId": {
-          "type": "string"
-        },
-        "datasetId": {
-          "type": "string"
-        },
-        "objectId": {
-          "type": "string"
         }
       }
     },
