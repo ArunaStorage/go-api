@@ -28,6 +28,9 @@ const (
 	ObjectService_DeleteObject_FullMethodName        = "/aruna.api.storage.services.v2.ObjectService/DeleteObject"
 	ObjectService_GetObject_FullMethodName           = "/aruna.api.storage.services.v2.ObjectService/GetObject"
 	ObjectService_GetObjects_FullMethodName          = "/aruna.api.storage.services.v2.ObjectService/GetObjects"
+	ObjectService_UpdateObjectTitle_FullMethodName   = "/aruna.api.storage.services.v2.ObjectService/UpdateObjectTitle"
+	ObjectService_UpdateObjectAuthors_FullMethodName = "/aruna.api.storage.services.v2.ObjectService/UpdateObjectAuthors"
+	ObjectService_SetObjectHashes_FullMethodName     = "/aruna.api.storage.services.v2.ObjectService/SetObjectHashes"
 )
 
 // ObjectServiceClient is the client API for ObjectService service.
@@ -103,6 +106,26 @@ type ObjectServiceClient interface {
 	//
 	// Get multiple objects by ID at once
 	GetObjects(ctx context.Context, in *GetObjectsRequest, opts ...grpc.CallOption) (*GetObjectsResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// This method updates the title of an object
+	UpdateObjectTitle(ctx context.Context, in *UpdateObjectTitleRequest, opts ...grpc.CallOption) (*UpdateObjectTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// This method updates the authors of an object
+	UpdateObjectAuthors(ctx context.Context, in *UpdateObjectAuthorsRequest, opts ...grpc.CallOption) (*UpdateObjectAuthorsResponse, error)
+	// SetObjectHashes
+	//
+	// Status: ALPHA
+	//
+	// This method sets the object hashes if not already set
+	// if a hash is already set, it will be compared to the new hash and
+	// set the status to ERROR if they do not match
+	SetObjectHashes(ctx context.Context, in *SetObjectHashesRequest, opts ...grpc.CallOption) (*SetObjectHashesResponse, error)
 }
 
 type objectServiceClient struct {
@@ -194,6 +217,33 @@ func (c *objectServiceClient) GetObjects(ctx context.Context, in *GetObjectsRequ
 	return out, nil
 }
 
+func (c *objectServiceClient) UpdateObjectTitle(ctx context.Context, in *UpdateObjectTitleRequest, opts ...grpc.CallOption) (*UpdateObjectTitleResponse, error) {
+	out := new(UpdateObjectTitleResponse)
+	err := c.cc.Invoke(ctx, ObjectService_UpdateObjectTitle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) UpdateObjectAuthors(ctx context.Context, in *UpdateObjectAuthorsRequest, opts ...grpc.CallOption) (*UpdateObjectAuthorsResponse, error) {
+	out := new(UpdateObjectAuthorsResponse)
+	err := c.cc.Invoke(ctx, ObjectService_UpdateObjectAuthors_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *objectServiceClient) SetObjectHashes(ctx context.Context, in *SetObjectHashesRequest, opts ...grpc.CallOption) (*SetObjectHashesResponse, error) {
+	out := new(SetObjectHashesResponse)
+	err := c.cc.Invoke(ctx, ObjectService_SetObjectHashes_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ObjectServiceServer is the server API for ObjectService service.
 // All implementations should embed UnimplementedObjectServiceServer
 // for forward compatibility
@@ -267,6 +317,26 @@ type ObjectServiceServer interface {
 	//
 	// Get multiple objects by ID at once
 	GetObjects(context.Context, *GetObjectsRequest) (*GetObjectsResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// This method updates the title of an object
+	UpdateObjectTitle(context.Context, *UpdateObjectTitleRequest) (*UpdateObjectTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// This method updates the authors of an object
+	UpdateObjectAuthors(context.Context, *UpdateObjectAuthorsRequest) (*UpdateObjectAuthorsResponse, error)
+	// SetObjectHashes
+	//
+	// Status: ALPHA
+	//
+	// This method sets the object hashes if not already set
+	// if a hash is already set, it will be compared to the new hash and
+	// set the status to ERROR if they do not match
+	SetObjectHashes(context.Context, *SetObjectHashesRequest) (*SetObjectHashesResponse, error)
 }
 
 // UnimplementedObjectServiceServer should be embedded to have forward compatible implementations.
@@ -299,6 +369,15 @@ func (UnimplementedObjectServiceServer) GetObject(context.Context, *GetObjectReq
 }
 func (UnimplementedObjectServiceServer) GetObjects(context.Context, *GetObjectsRequest) (*GetObjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObjects not implemented")
+}
+func (UnimplementedObjectServiceServer) UpdateObjectTitle(context.Context, *UpdateObjectTitleRequest) (*UpdateObjectTitleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateObjectTitle not implemented")
+}
+func (UnimplementedObjectServiceServer) UpdateObjectAuthors(context.Context, *UpdateObjectAuthorsRequest) (*UpdateObjectAuthorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateObjectAuthors not implemented")
+}
+func (UnimplementedObjectServiceServer) SetObjectHashes(context.Context, *SetObjectHashesRequest) (*SetObjectHashesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetObjectHashes not implemented")
 }
 
 // UnsafeObjectServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -474,6 +553,60 @@ func _ObjectService_GetObjects_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ObjectService_UpdateObjectTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateObjectTitleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).UpdateObjectTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ObjectService_UpdateObjectTitle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).UpdateObjectTitle(ctx, req.(*UpdateObjectTitleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_UpdateObjectAuthors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateObjectAuthorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).UpdateObjectAuthors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ObjectService_UpdateObjectAuthors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).UpdateObjectAuthors(ctx, req.(*UpdateObjectAuthorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ObjectService_SetObjectHashes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetObjectHashesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ObjectServiceServer).SetObjectHashes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ObjectService_SetObjectHashes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ObjectServiceServer).SetObjectHashes(ctx, req.(*SetObjectHashesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ObjectService_ServiceDesc is the grpc.ServiceDesc for ObjectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -516,6 +649,18 @@ var ObjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetObjects",
 			Handler:    _ObjectService_GetObjects_Handler,
+		},
+		{
+			MethodName: "UpdateObjectTitle",
+			Handler:    _ObjectService_UpdateObjectTitle_Handler,
+		},
+		{
+			MethodName: "UpdateObjectAuthors",
+			Handler:    _ObjectService_UpdateObjectAuthors_Handler,
+		},
+		{
+			MethodName: "SetObjectHashes",
+			Handler:    _ObjectService_SetObjectHashes_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

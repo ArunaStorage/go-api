@@ -29,6 +29,8 @@ const (
 	CollectionService_UpdateCollectionDataClass_FullMethodName   = "/aruna.api.storage.services.v2.CollectionService/UpdateCollectionDataClass"
 	CollectionService_SnapshotCollection_FullMethodName          = "/aruna.api.storage.services.v2.CollectionService/SnapshotCollection"
 	CollectionService_UpdateCollectionLicenses_FullMethodName    = "/aruna.api.storage.services.v2.CollectionService/UpdateCollectionLicenses"
+	CollectionService_UpdateCollectionTitle_FullMethodName       = "/aruna.api.storage.services.v2.CollectionService/UpdateCollectionTitle"
+	CollectionService_UpdateCollectionAuthors_FullMethodName     = "/aruna.api.storage.services.v2.CollectionService/UpdateCollectionAuthors"
 )
 
 // CollectionServiceClient is the client API for CollectionService service.
@@ -95,6 +97,18 @@ type CollectionServiceClient interface {
 	//
 	// Updates the collections metadata license and/or default data license.
 	UpdateCollectionLicenses(ctx context.Context, in *UpdateCollectionLicensesRequest, opts ...grpc.CallOption) (*UpdateCollectionLicensesResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// Updates the collections metadata title.
+	UpdateCollectionTitle(ctx context.Context, in *UpdateCollectionTitleRequest, opts ...grpc.CallOption) (*UpdateCollectionTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// Updates the collections metadata title.
+	UpdateCollectionAuthors(ctx context.Context, in *UpdateCollectionAuthorsRequest, opts ...grpc.CallOption) (*UpdateCollectionAuthorsResponse, error)
 }
 
 type collectionServiceClient struct {
@@ -195,6 +209,24 @@ func (c *collectionServiceClient) UpdateCollectionLicenses(ctx context.Context, 
 	return out, nil
 }
 
+func (c *collectionServiceClient) UpdateCollectionTitle(ctx context.Context, in *UpdateCollectionTitleRequest, opts ...grpc.CallOption) (*UpdateCollectionTitleResponse, error) {
+	out := new(UpdateCollectionTitleResponse)
+	err := c.cc.Invoke(ctx, CollectionService_UpdateCollectionTitle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *collectionServiceClient) UpdateCollectionAuthors(ctx context.Context, in *UpdateCollectionAuthorsRequest, opts ...grpc.CallOption) (*UpdateCollectionAuthorsResponse, error) {
+	out := new(UpdateCollectionAuthorsResponse)
+	err := c.cc.Invoke(ctx, CollectionService_UpdateCollectionAuthors_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CollectionServiceServer is the server API for CollectionService service.
 // All implementations should embed UnimplementedCollectionServiceServer
 // for forward compatibility
@@ -259,6 +291,18 @@ type CollectionServiceServer interface {
 	//
 	// Updates the collections metadata license and/or default data license.
 	UpdateCollectionLicenses(context.Context, *UpdateCollectionLicensesRequest) (*UpdateCollectionLicensesResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// Updates the collections metadata title.
+	UpdateCollectionTitle(context.Context, *UpdateCollectionTitleRequest) (*UpdateCollectionTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// Updates the collections metadata title.
+	UpdateCollectionAuthors(context.Context, *UpdateCollectionAuthorsRequest) (*UpdateCollectionAuthorsResponse, error)
 }
 
 // UnimplementedCollectionServiceServer should be embedded to have forward compatible implementations.
@@ -294,6 +338,12 @@ func (UnimplementedCollectionServiceServer) SnapshotCollection(context.Context, 
 }
 func (UnimplementedCollectionServiceServer) UpdateCollectionLicenses(context.Context, *UpdateCollectionLicensesRequest) (*UpdateCollectionLicensesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCollectionLicenses not implemented")
+}
+func (UnimplementedCollectionServiceServer) UpdateCollectionTitle(context.Context, *UpdateCollectionTitleRequest) (*UpdateCollectionTitleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCollectionTitle not implemented")
+}
+func (UnimplementedCollectionServiceServer) UpdateCollectionAuthors(context.Context, *UpdateCollectionAuthorsRequest) (*UpdateCollectionAuthorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCollectionAuthors not implemented")
 }
 
 // UnsafeCollectionServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -487,6 +537,42 @@ func _CollectionService_UpdateCollectionLicenses_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CollectionService_UpdateCollectionTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCollectionTitleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CollectionServiceServer).UpdateCollectionTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CollectionService_UpdateCollectionTitle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CollectionServiceServer).UpdateCollectionTitle(ctx, req.(*UpdateCollectionTitleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CollectionService_UpdateCollectionAuthors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCollectionAuthorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CollectionServiceServer).UpdateCollectionAuthors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CollectionService_UpdateCollectionAuthors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CollectionServiceServer).UpdateCollectionAuthors(ctx, req.(*UpdateCollectionAuthorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CollectionService_ServiceDesc is the grpc.ServiceDesc for CollectionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -533,6 +619,14 @@ var CollectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateCollectionLicenses",
 			Handler:    _CollectionService_UpdateCollectionLicenses_Handler,
+		},
+		{
+			MethodName: "UpdateCollectionTitle",
+			Handler:    _CollectionService_UpdateCollectionTitle_Handler,
+		},
+		{
+			MethodName: "UpdateCollectionAuthors",
+			Handler:    _CollectionService_UpdateCollectionAuthors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

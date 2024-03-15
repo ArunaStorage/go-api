@@ -33,12 +33,19 @@ const (
 	UserService_UpdateUserEmail_FullMethodName                  = "/aruna.api.storage.services.v2.UserService/UpdateUserEmail"
 	UserService_GetNotActivatedUsers_FullMethodName             = "/aruna.api.storage.services.v2.UserService/GetNotActivatedUsers"
 	UserService_GetAllUsers_FullMethodName                      = "/aruna.api.storage.services.v2.UserService/GetAllUsers"
-	UserService_GetS3CredentialsUser_FullMethodName             = "/aruna.api.storage.services.v2.UserService/GetS3CredentialsUser"
+	UserService_CreateS3CredentialsUserToken_FullMethodName     = "/aruna.api.storage.services.v2.UserService/CreateS3CredentialsUserToken"
+	UserService_GetS3CredentialsUserToken_FullMethodName        = "/aruna.api.storage.services.v2.UserService/GetS3CredentialsUserToken"
+	UserService_DeleteS3CredentialsUserToken_FullMethodName     = "/aruna.api.storage.services.v2.UserService/DeleteS3CredentialsUserToken"
 	UserService_GetDataproxyTokenUser_FullMethodName            = "/aruna.api.storage.services.v2.UserService/GetDataproxyTokenUser"
 	UserService_GetPersonalNotifications_FullMethodName         = "/aruna.api.storage.services.v2.UserService/GetPersonalNotifications"
 	UserService_AcknowledgePersonalNotifications_FullMethodName = "/aruna.api.storage.services.v2.UserService/AcknowledgePersonalNotifications"
 	UserService_AddOidcProvider_FullMethodName                  = "/aruna.api.storage.services.v2.UserService/AddOidcProvider"
 	UserService_RemoveOidcProvider_FullMethodName               = "/aruna.api.storage.services.v2.UserService/RemoveOidcProvider"
+	UserService_AddPubkeyUser_FullMethodName                    = "/aruna.api.storage.services.v2.UserService/AddPubkeyUser"
+	UserService_AddTrustedEndpointsUser_FullMethodName          = "/aruna.api.storage.services.v2.UserService/AddTrustedEndpointsUser"
+	UserService_RemoveTrustedEndpointsUser_FullMethodName       = "/aruna.api.storage.services.v2.UserService/RemoveTrustedEndpointsUser"
+	UserService_AddDataProxyAttributeUser_FullMethodName        = "/aruna.api.storage.services.v2.UserService/AddDataProxyAttributeUser"
+	UserService_RemoveDataProxyAttributeUser_FullMethodName     = "/aruna.api.storage.services.v2.UserService/RemoveDataProxyAttributeUser"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -132,12 +139,24 @@ type UserServiceClient interface {
 	//
 	// Get all users including permissions (Admin only)
 	GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GetAllUsersResponse, error)
-	// GetS3Credentials
+	// CreateS3CredentialsUserToken
 	//
 	// Status: ALPHA
 	//
-	// Gets s3 credentials for a specific user and data_proxy
-	GetS3CredentialsUser(ctx context.Context, in *GetS3CredentialsUserRequest, opts ...grpc.CallOption) (*GetS3CredentialsUserResponse, error)
+	// Creates or updates S3 credentials for a specific user and data_proxy
+	CreateS3CredentialsUserToken(ctx context.Context, in *CreateS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*CreateS3CredentialsUserTokenResponse, error)
+	// GetS3CredentialsUserToken
+	//
+	// Status: ALPHA
+	//
+	// Gets S3 credentials for a specific token and data_proxy
+	GetS3CredentialsUserToken(ctx context.Context, in *GetS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*GetS3CredentialsUserTokenResponse, error)
+	// DeleteS3CredentialsUserToken
+	//
+	// Status: ALPHA
+	//
+	// Revokes existing S3 credentials for a specific user and data_proxy
+	DeleteS3CredentialsUserToken(ctx context.Context, in *DeleteS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*DeleteS3CredentialsUserResponse, error)
 	// GetDataproxyToken
 	//
 	// Status: ALPHA
@@ -169,6 +188,36 @@ type UserServiceClient interface {
 	// Remove alternative oidc login method from user
 	// (Only works if user has more than one oidc provider)
 	RemoveOidcProvider(ctx context.Context, in *RemoveOidcProviderRequest, opts ...grpc.CallOption) (*RemoveOidcProviderResponse, error)
+	// AddPubkeyUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an ED25519 public key for the user
+	AddPubkeyUser(ctx context.Context, in *AddPubkeyUserRequest, opts ...grpc.CallOption) (*AddPubkeyUserResponse, error)
+	// AddTrustedEndpointsUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an endpoint to the trusted endpoints list of the user
+	AddTrustedEndpointsUser(ctx context.Context, in *AddTrustedEndpointsUserRequest, opts ...grpc.CallOption) (*AddTrustedEndpointsUserResponse, error)
+	// RemoveTrustedEndpointsUser
+	//
+	// Status: ALPHA
+	//
+	// Removes an endpoint from the trusted endpoints list of the user
+	RemoveTrustedEndpointsUser(ctx context.Context, in *RemoveTrustedEndpointsUserRequest, opts ...grpc.CallOption) (*RemoveTrustedEndpointsUserResponse, error)
+	// AddDataProxyAttributeUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an data proxy specific attribute to the user
+	AddDataProxyAttributeUser(ctx context.Context, in *AddDataProxyAttributeUserRequest, opts ...grpc.CallOption) (*AddDataProxyAttributeUserResponse, error)
+	// RemoveDataProxyAttributeUser
+	//
+	// Status: ALPHA
+	//
+	// Removes an data proxy specific attribute from the user
+	RemoveDataProxyAttributeUser(ctx context.Context, in *RemoveDataProxyAttributeUserRequest, opts ...grpc.CallOption) (*RemoveDataProxyAttributeUserResponse, error)
 }
 
 type userServiceClient struct {
@@ -305,9 +354,27 @@ func (c *userServiceClient) GetAllUsers(ctx context.Context, in *GetAllUsersRequ
 	return out, nil
 }
 
-func (c *userServiceClient) GetS3CredentialsUser(ctx context.Context, in *GetS3CredentialsUserRequest, opts ...grpc.CallOption) (*GetS3CredentialsUserResponse, error) {
-	out := new(GetS3CredentialsUserResponse)
-	err := c.cc.Invoke(ctx, UserService_GetS3CredentialsUser_FullMethodName, in, out, opts...)
+func (c *userServiceClient) CreateS3CredentialsUserToken(ctx context.Context, in *CreateS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*CreateS3CredentialsUserTokenResponse, error) {
+	out := new(CreateS3CredentialsUserTokenResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateS3CredentialsUserToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetS3CredentialsUserToken(ctx context.Context, in *GetS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*GetS3CredentialsUserTokenResponse, error) {
+	out := new(GetS3CredentialsUserTokenResponse)
+	err := c.cc.Invoke(ctx, UserService_GetS3CredentialsUserToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeleteS3CredentialsUserToken(ctx context.Context, in *DeleteS3CredentialsUserTokenRequest, opts ...grpc.CallOption) (*DeleteS3CredentialsUserResponse, error) {
+	out := new(DeleteS3CredentialsUserResponse)
+	err := c.cc.Invoke(ctx, UserService_DeleteS3CredentialsUserToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -353,6 +420,51 @@ func (c *userServiceClient) AddOidcProvider(ctx context.Context, in *AddOidcProv
 func (c *userServiceClient) RemoveOidcProvider(ctx context.Context, in *RemoveOidcProviderRequest, opts ...grpc.CallOption) (*RemoveOidcProviderResponse, error) {
 	out := new(RemoveOidcProviderResponse)
 	err := c.cc.Invoke(ctx, UserService_RemoveOidcProvider_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) AddPubkeyUser(ctx context.Context, in *AddPubkeyUserRequest, opts ...grpc.CallOption) (*AddPubkeyUserResponse, error) {
+	out := new(AddPubkeyUserResponse)
+	err := c.cc.Invoke(ctx, UserService_AddPubkeyUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) AddTrustedEndpointsUser(ctx context.Context, in *AddTrustedEndpointsUserRequest, opts ...grpc.CallOption) (*AddTrustedEndpointsUserResponse, error) {
+	out := new(AddTrustedEndpointsUserResponse)
+	err := c.cc.Invoke(ctx, UserService_AddTrustedEndpointsUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RemoveTrustedEndpointsUser(ctx context.Context, in *RemoveTrustedEndpointsUserRequest, opts ...grpc.CallOption) (*RemoveTrustedEndpointsUserResponse, error) {
+	out := new(RemoveTrustedEndpointsUserResponse)
+	err := c.cc.Invoke(ctx, UserService_RemoveTrustedEndpointsUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) AddDataProxyAttributeUser(ctx context.Context, in *AddDataProxyAttributeUserRequest, opts ...grpc.CallOption) (*AddDataProxyAttributeUserResponse, error) {
+	out := new(AddDataProxyAttributeUserResponse)
+	err := c.cc.Invoke(ctx, UserService_AddDataProxyAttributeUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RemoveDataProxyAttributeUser(ctx context.Context, in *RemoveDataProxyAttributeUserRequest, opts ...grpc.CallOption) (*RemoveDataProxyAttributeUserResponse, error) {
+	out := new(RemoveDataProxyAttributeUserResponse)
+	err := c.cc.Invoke(ctx, UserService_RemoveDataProxyAttributeUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -450,12 +562,24 @@ type UserServiceServer interface {
 	//
 	// Get all users including permissions (Admin only)
 	GetAllUsers(context.Context, *GetAllUsersRequest) (*GetAllUsersResponse, error)
-	// GetS3Credentials
+	// CreateS3CredentialsUserToken
 	//
 	// Status: ALPHA
 	//
-	// Gets s3 credentials for a specific user and data_proxy
-	GetS3CredentialsUser(context.Context, *GetS3CredentialsUserRequest) (*GetS3CredentialsUserResponse, error)
+	// Creates or updates S3 credentials for a specific user and data_proxy
+	CreateS3CredentialsUserToken(context.Context, *CreateS3CredentialsUserTokenRequest) (*CreateS3CredentialsUserTokenResponse, error)
+	// GetS3CredentialsUserToken
+	//
+	// Status: ALPHA
+	//
+	// Gets S3 credentials for a specific token and data_proxy
+	GetS3CredentialsUserToken(context.Context, *GetS3CredentialsUserTokenRequest) (*GetS3CredentialsUserTokenResponse, error)
+	// DeleteS3CredentialsUserToken
+	//
+	// Status: ALPHA
+	//
+	// Revokes existing S3 credentials for a specific user and data_proxy
+	DeleteS3CredentialsUserToken(context.Context, *DeleteS3CredentialsUserTokenRequest) (*DeleteS3CredentialsUserResponse, error)
 	// GetDataproxyToken
 	//
 	// Status: ALPHA
@@ -487,6 +611,36 @@ type UserServiceServer interface {
 	// Remove alternative oidc login method from user
 	// (Only works if user has more than one oidc provider)
 	RemoveOidcProvider(context.Context, *RemoveOidcProviderRequest) (*RemoveOidcProviderResponse, error)
+	// AddPubkeyUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an ED25519 public key for the user
+	AddPubkeyUser(context.Context, *AddPubkeyUserRequest) (*AddPubkeyUserResponse, error)
+	// AddTrustedEndpointsUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an endpoint to the trusted endpoints list of the user
+	AddTrustedEndpointsUser(context.Context, *AddTrustedEndpointsUserRequest) (*AddTrustedEndpointsUserResponse, error)
+	// RemoveTrustedEndpointsUser
+	//
+	// Status: ALPHA
+	//
+	// Removes an endpoint from the trusted endpoints list of the user
+	RemoveTrustedEndpointsUser(context.Context, *RemoveTrustedEndpointsUserRequest) (*RemoveTrustedEndpointsUserResponse, error)
+	// AddDataProxyAttributeUser
+	//
+	// Status: ALPHA
+	//
+	// Adds an data proxy specific attribute to the user
+	AddDataProxyAttributeUser(context.Context, *AddDataProxyAttributeUserRequest) (*AddDataProxyAttributeUserResponse, error)
+	// RemoveDataProxyAttributeUser
+	//
+	// Status: ALPHA
+	//
+	// Removes an data proxy specific attribute from the user
+	RemoveDataProxyAttributeUser(context.Context, *RemoveDataProxyAttributeUserRequest) (*RemoveDataProxyAttributeUserResponse, error)
 }
 
 // UnimplementedUserServiceServer should be embedded to have forward compatible implementations.
@@ -535,8 +689,14 @@ func (UnimplementedUserServiceServer) GetNotActivatedUsers(context.Context, *Get
 func (UnimplementedUserServiceServer) GetAllUsers(context.Context, *GetAllUsersRequest) (*GetAllUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllUsers not implemented")
 }
-func (UnimplementedUserServiceServer) GetS3CredentialsUser(context.Context, *GetS3CredentialsUserRequest) (*GetS3CredentialsUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetS3CredentialsUser not implemented")
+func (UnimplementedUserServiceServer) CreateS3CredentialsUserToken(context.Context, *CreateS3CredentialsUserTokenRequest) (*CreateS3CredentialsUserTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateS3CredentialsUserToken not implemented")
+}
+func (UnimplementedUserServiceServer) GetS3CredentialsUserToken(context.Context, *GetS3CredentialsUserTokenRequest) (*GetS3CredentialsUserTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetS3CredentialsUserToken not implemented")
+}
+func (UnimplementedUserServiceServer) DeleteS3CredentialsUserToken(context.Context, *DeleteS3CredentialsUserTokenRequest) (*DeleteS3CredentialsUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteS3CredentialsUserToken not implemented")
 }
 func (UnimplementedUserServiceServer) GetDataproxyTokenUser(context.Context, *GetDataproxyTokenUserRequest) (*GetDataproxyTokenUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataproxyTokenUser not implemented")
@@ -552,6 +712,21 @@ func (UnimplementedUserServiceServer) AddOidcProvider(context.Context, *AddOidcP
 }
 func (UnimplementedUserServiceServer) RemoveOidcProvider(context.Context, *RemoveOidcProviderRequest) (*RemoveOidcProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveOidcProvider not implemented")
+}
+func (UnimplementedUserServiceServer) AddPubkeyUser(context.Context, *AddPubkeyUserRequest) (*AddPubkeyUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddPubkeyUser not implemented")
+}
+func (UnimplementedUserServiceServer) AddTrustedEndpointsUser(context.Context, *AddTrustedEndpointsUserRequest) (*AddTrustedEndpointsUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTrustedEndpointsUser not implemented")
+}
+func (UnimplementedUserServiceServer) RemoveTrustedEndpointsUser(context.Context, *RemoveTrustedEndpointsUserRequest) (*RemoveTrustedEndpointsUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTrustedEndpointsUser not implemented")
+}
+func (UnimplementedUserServiceServer) AddDataProxyAttributeUser(context.Context, *AddDataProxyAttributeUserRequest) (*AddDataProxyAttributeUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddDataProxyAttributeUser not implemented")
+}
+func (UnimplementedUserServiceServer) RemoveDataProxyAttributeUser(context.Context, *RemoveDataProxyAttributeUserRequest) (*RemoveDataProxyAttributeUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveDataProxyAttributeUser not implemented")
 }
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -817,20 +992,56 @@ func _UserService_GetAllUsers_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetS3CredentialsUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetS3CredentialsUserRequest)
+func _UserService_CreateS3CredentialsUserToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateS3CredentialsUserTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).GetS3CredentialsUser(ctx, in)
+		return srv.(UserServiceServer).CreateS3CredentialsUserToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_GetS3CredentialsUser_FullMethodName,
+		FullMethod: UserService_CreateS3CredentialsUserToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetS3CredentialsUser(ctx, req.(*GetS3CredentialsUserRequest))
+		return srv.(UserServiceServer).CreateS3CredentialsUserToken(ctx, req.(*CreateS3CredentialsUserTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetS3CredentialsUserToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetS3CredentialsUserTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetS3CredentialsUserToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetS3CredentialsUserToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetS3CredentialsUserToken(ctx, req.(*GetS3CredentialsUserTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeleteS3CredentialsUserToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteS3CredentialsUserTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeleteS3CredentialsUserToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeleteS3CredentialsUserToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeleteS3CredentialsUserToken(ctx, req.(*DeleteS3CredentialsUserTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -925,6 +1136,96 @@ func _UserService_RemoveOidcProvider_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AddPubkeyUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddPubkeyUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddPubkeyUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddPubkeyUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddPubkeyUser(ctx, req.(*AddPubkeyUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_AddTrustedEndpointsUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTrustedEndpointsUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddTrustedEndpointsUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddTrustedEndpointsUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddTrustedEndpointsUser(ctx, req.(*AddTrustedEndpointsUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RemoveTrustedEndpointsUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveTrustedEndpointsUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RemoveTrustedEndpointsUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RemoveTrustedEndpointsUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RemoveTrustedEndpointsUser(ctx, req.(*RemoveTrustedEndpointsUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_AddDataProxyAttributeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddDataProxyAttributeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddDataProxyAttributeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddDataProxyAttributeUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddDataProxyAttributeUser(ctx, req.(*AddDataProxyAttributeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RemoveDataProxyAttributeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveDataProxyAttributeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RemoveDataProxyAttributeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RemoveDataProxyAttributeUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RemoveDataProxyAttributeUser(ctx, req.(*RemoveDataProxyAttributeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -989,8 +1290,16 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetAllUsers_Handler,
 		},
 		{
-			MethodName: "GetS3CredentialsUser",
-			Handler:    _UserService_GetS3CredentialsUser_Handler,
+			MethodName: "CreateS3CredentialsUserToken",
+			Handler:    _UserService_CreateS3CredentialsUserToken_Handler,
+		},
+		{
+			MethodName: "GetS3CredentialsUserToken",
+			Handler:    _UserService_GetS3CredentialsUserToken_Handler,
+		},
+		{
+			MethodName: "DeleteS3CredentialsUserToken",
+			Handler:    _UserService_DeleteS3CredentialsUserToken_Handler,
 		},
 		{
 			MethodName: "GetDataproxyTokenUser",
@@ -1011,6 +1320,26 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveOidcProvider",
 			Handler:    _UserService_RemoveOidcProvider_Handler,
+		},
+		{
+			MethodName: "AddPubkeyUser",
+			Handler:    _UserService_AddPubkeyUser_Handler,
+		},
+		{
+			MethodName: "AddTrustedEndpointsUser",
+			Handler:    _UserService_AddTrustedEndpointsUser_Handler,
+		},
+		{
+			MethodName: "RemoveTrustedEndpointsUser",
+			Handler:    _UserService_RemoveTrustedEndpointsUser_Handler,
+		},
+		{
+			MethodName: "AddDataProxyAttributeUser",
+			Handler:    _UserService_AddDataProxyAttributeUser_Handler,
+		},
+		{
+			MethodName: "RemoveDataProxyAttributeUser",
+			Handler:    _UserService_RemoveDataProxyAttributeUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

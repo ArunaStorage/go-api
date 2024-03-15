@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.11"
+    "version": "2.0.0-beta.12"
   },
   "tags": [
     {
@@ -40,6 +40,9 @@
     },
     {
       "name": "RelationsService"
+    },
+    {
+      "name": "RulesService"
     },
     {
       "name": "SearchService"
@@ -356,6 +359,62 @@
         ]
       }
     },
+    "/v2/collections/{collectionId}/authors": {
+      "patch": {
+        "summary": "UpdateAuthors",
+        "description": "Status: ALPHA\n\nUpdates the collections metadata title.",
+        "operationId": "CollectionService_UpdateCollectionAuthors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateCollectionAuthorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "addAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  }
+                },
+                "removeAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
     "/v2/collections/{collectionId}/data_class": {
       "patch": {
         "summary": "UpdateCollectionDataClass",
@@ -632,6 +691,107 @@
         ],
         "tags": [
           "CollectionService"
+        ]
+      }
+    },
+    "/v2/collections/{collectionId}/title": {
+      "patch": {
+        "summary": "UpdateTitle",
+        "description": "Status: ALPHA\n\nUpdates the collections metadata title.",
+        "operationId": "CollectionService_UpdateCollectionTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateCollectionTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CollectionService"
+        ]
+      }
+    },
+    "/v2/dataset/{datasetId}/authors": {
+      "patch": {
+        "summary": "UpdateAuthors",
+        "description": "Status: ALPHA\n\nUpdates the datasets metadata title.",
+        "operationId": "DatasetService_UpdateDatasetAuthors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateDatasetAuthorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "addAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  }
+                },
+                "removeAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
         ]
       }
     },
@@ -1037,6 +1197,51 @@
             "required": true,
             "schema": {
               "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "DatasetService"
+        ]
+      }
+    },
+    "/v2/datasets/{datasetId}/title": {
+      "patch": {
+        "summary": "UpdateTitle",
+        "description": "Status: ALPHA\n\nUpdates the datasets metadata title.",
+        "operationId": "DatasetService_UpdateDatasetTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateDatasetTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -2354,6 +2559,65 @@
         ]
       }
     },
+    "/v2/objects/{objectId}/authors": {
+      "post": {
+        "summary": "UpdateAuthors",
+        "description": "Status: ALPHA\n\nThis method updates the authors of an object",
+        "operationId": "ObjectService_UpdateObjectAuthors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateObjectAuthorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "objectId",
+            "description": "Object id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "addAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  },
+                  "title": "Add authors"
+                },
+                "removeAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  },
+                  "title": "Remove authors"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
     "/v2/objects/{objectId}/download": {
       "get": {
         "summary": "GetDownloadUrl",
@@ -2450,6 +2714,104 @@
         ]
       }
     },
+    "/v2/objects/{objectId}/hashes": {
+      "post": {
+        "summary": "SetObjectHashes",
+        "description": "Status: ALPHA\n\nThis method sets the object hashes if not already set\nif a hash is already set, it will be compared to the new hash and\nset the status to ERROR if they do not match",
+        "operationId": "ObjectService_SetObjectHashes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2SetObjectHashesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "objectId",
+            "description": "Object id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hashes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Hash"
+                  },
+                  "title": "Hashes"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
+    "/v2/objects/{objectId}/title": {
+      "post": {
+        "summary": "UpdateTitle",
+        "description": "Status: ALPHA\n\nThis method updates the title of an object",
+        "operationId": "ObjectService_UpdateObjectTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateObjectTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "objectId",
+            "description": "Object id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "title": "New title"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ObjectService"
+        ]
+      }
+    },
     "/v2/objects/{objectId}/upload": {
       "get": {
         "summary": "GetUploadURL",
@@ -2495,6 +2857,112 @@
         ],
         "tags": [
           "ObjectService"
+        ]
+      }
+    },
+    "/v2/project/{projectId}/authors": {
+      "post": {
+        "summary": "UpdateAuthors",
+        "description": "Status: ALPHA\n\nThis method updates the authors of an object",
+        "operationId": "ProjectService_UpdateProjectAuthors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateProjectAuthorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "description": "Project id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "addAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  },
+                  "title": "Add authors"
+                },
+                "removeAuthors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/v2Author"
+                  },
+                  "title": "Remove authors"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
+        ]
+      }
+    },
+    "/v2/project/{projectId}/title": {
+      "post": {
+        "summary": "UpdateTitle",
+        "description": "Status: ALPHA\n\nThis method updates the title of a project",
+        "operationId": "ProjectService_UpdateProjectTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateProjectTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "description": "Project id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "title": "New title"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ProjectService"
         ]
       }
     },
@@ -3082,6 +3550,261 @@
         ]
       }
     },
+    "/v2/rules": {
+      "post": {
+        "summary": "CreateRule",
+        "description": "Status: ALPHA\n\nCreate a new rule",
+        "operationId": "RulesService_CreateRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2CreateRuleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      }
+    },
+    "/v2/rules/list": {
+      "get": {
+        "summary": "ListRule",
+        "description": "Status: ALPHA\n\nLists rules -\u003e Owned and public rules",
+        "operationId": "RulesService_ListRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2ListRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "RulesService"
+        ]
+      }
+    },
+    "/v2/rules/{id}": {
+      "get": {
+        "summary": "GetRule",
+        "description": "Status: ALPHA\n\nGets an existing rule",
+        "operationId": "RulesService_GetRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      },
+      "delete": {
+        "summary": "DeleteRule",
+        "description": "Status: ALPHA\n\nDeletes an existing rule",
+        "operationId": "RulesService_DeleteRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      },
+      "patch": {
+        "summary": "UpdateRule",
+        "description": "Status: ALPHA\n\nUpdates an existing rule",
+        "operationId": "RulesService_UpdateRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2UpdateRuleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rule": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "public": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      }
+    },
+    "/v2/rules/{ruleId}/bindings": {
+      "post": {
+        "summary": "CreateRuleBinding",
+        "description": "Status: ALPHA\n\nAssociates a rule with an object, optionally cascading the rule to all children",
+        "operationId": "RulesService_CreateRuleBinding",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateRuleBindingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "objectId": {
+                  "type": "string"
+                },
+                "cascading": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      }
+    },
+    "/v2/rules/{ruleId}/bindings/{objectId}": {
+      "delete": {
+        "summary": "DeleteRuleBinding",
+        "description": "Status: ALPHA\n\nDisassociates a rule from an object",
+        "operationId": "RulesService_DeleteRuleBinding",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteRuleBindingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RulesService"
+        ]
+      }
+    },
     "/v2/search": {
       "post": {
         "summary": "SearchResources",
@@ -3182,16 +3905,58 @@
         ]
       }
     },
-    "/v2/service_accounts/{svcAccountId}/permissions": {
-      "put": {
-        "summary": "SetServiceAccountPermission",
-        "description": "Status: BETA\n\nOverwrites the project specific permissions for a service account",
-        "operationId": "ServiceAccountService_SetServiceAccountPermission",
+    "/v2/service_accounts/{svcAccountId}/attributes/data_proxy": {
+      "delete": {
+        "summary": "RemoveDataProxyAttributeSvcAccount",
+        "description": "Status: ALPHA\n\nRemoves an data proxy specific attribute from the SvcAccount",
+        "operationId": "ServiceAccountService_RemoveDataProxyAttributeSvcAccount",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2SetServiceAccountPermissionResponse"
+              "$ref": "#/definitions/v2RemoveDataProxyAttributeSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dataproxyId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "attributeName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
+      "post": {
+        "summary": "AddDataProxyAttributeSvcAccount",
+        "description": "Status: ALPHA\n\nAdds an data proxy specific attribute to the SvcAccount",
+        "operationId": "ServiceAccountService_AddDataProxyAttributeSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddDataProxyAttributeSvcAccountResponse"
             }
           },
           "default": {
@@ -3215,8 +3980,8 @@
             "schema": {
               "type": "object",
               "properties": {
-                "permission": {
-                  "$ref": "#/definitions/v2Permission"
+                "attribute": {
+                  "$ref": "#/definitions/v2DataProxyAttribute"
                 }
               }
             }
@@ -3230,7 +3995,7 @@
     "/v2/service_accounts/{svcAccountId}/proxy_tokens/{endpointId}": {
       "post": {
         "summary": "GetDataproxyToken",
-        "description": "Status: ALPHA\n\nGets token for a specific user and data_proxy",
+        "description": "Status: ALPHA\n\nGets token for a specific SvcAccount and data_proxy",
         "operationId": "ServiceAccountService_CreateDataproxyTokenSvcAccount",
         "responses": {
           "200": {
@@ -3249,6 +4014,7 @@
         "parameters": [
           {
             "name": "svcAccountId",
+            "description": "Needs to be provided by project admins",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3267,7 +4033,8 @@
               "type": "object",
               "properties": {
                 "context": {
-                  "$ref": "#/definitions/v2Context"
+                  "$ref": "#/definitions/v2Context",
+                  "title": "optional context to limit the scope"
                 }
               }
             }
@@ -3278,16 +4045,61 @@
         ]
       }
     },
-    "/v2/service_accounts/{svcAccountId}/s3_credentials": {
-      "get": {
-        "summary": "GetS3Credentials",
-        "description": "Status: ALPHA\n\nGets s3 credentials for a specific user and data_proxy",
-        "operationId": "ServiceAccountService_GetS3CredentialsSvcAccount",
+    "/v2/service_accounts/{svcAccountId}/pubkey": {
+      "post": {
+        "summary": "AddPubkeySvcAccount",
+        "description": "Status: ALPHA\n\nAdds an ED25519 public key for the SvcAccount",
+        "operationId": "ServiceAccountService_AddPubkeySvcAccount",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v2GetS3CredentialsSvcAccountResponse"
+              "$ref": "#/definitions/v2AddPubkeySvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publicKey": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v2/service_accounts/{svcAccountId}/s3_credentials/{endpointId}": {
+      "patch": {
+        "summary": "CreateS3CredentialsSvcAccount",
+        "description": "Status: ALPHA\n\nCreates or updates S3 credentials for a specific SvcAccount and data_proxy",
+        "operationId": "ServiceAccountService_CreateS3CredentialsSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateS3CredentialsSvcAccountResponse"
             }
           },
           "default": {
@@ -3306,8 +4118,8 @@
           },
           {
             "name": "endpointId",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -3411,7 +4223,7 @@
               "properties": {
                 "permission": {
                   "$ref": "#/definitions/v2Permission",
-                  "title": "Identify the associated project (should always be provided)"
+                  "title": "Token permissions"
                 },
                 "name": {
                   "type": "string",
@@ -3498,6 +4310,87 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v2/service_accounts/{svcAccountId}/trusted_endpoints": {
+      "delete": {
+        "summary": "RemoveTrustedEndpointsSvcAccount",
+        "description": "Status: ALPHA\n\nRemoves an endpoint from the trusted endpoints list of the SvcAccount",
+        "operationId": "ServiceAccountService_RemoveTrustedEndpointsSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RemoveTrustedEndpointsSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      },
+      "post": {
+        "summary": "AddTrustedEndpointsSvcAccount",
+        "description": "Status: ALPHA\n\nAdds an endpoint to the trusted endpoints list of the SvcAccount",
+        "operationId": "ServiceAccountService_AddTrustedEndpointsSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddTrustedEndpointsSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "endpointId": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "tags": [
@@ -3713,7 +4606,7 @@
       }
     },
     "/v2/user/notifications/acknowledge": {
-      "get": {
+      "post": {
         "summary": "AcknowledgePersonalNotifications",
         "description": "Status: ALPHA\n\nAcknowledges personal notifications",
         "operationId": "UserService_AcknowledgePersonalNotifications",
@@ -3733,14 +4626,108 @@
         },
         "parameters": [
           {
-            "name": "notificationIds",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2AcknowledgePersonalNotificationsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/proxy_token": {
+      "get": {
+        "summary": "GetDataproxyToken",
+        "description": "Status: ALPHA\n\nGets token for a specific user and data_proxy",
+        "operationId": "UserService_GetDataproxyTokenUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetDataproxyTokenUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
             "in": "query",
             "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "context.s3Credentials",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "context.copy.resource",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "context.copy.targetEndpoint",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "context.copy.push",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/pubkey": {
+      "patch": {
+        "summary": "AddPubkeyUser",
+        "description": "Status: ALPHA\n\nAdds an ED25519 public key for the user",
+        "operationId": "UserService_AddPubkeyUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddPubkeyUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2AddPubkeyUserRequest"
+            }
           }
         ],
         "tags": [
@@ -3813,6 +4800,193 @@
         ],
         "tags": [
           "UserService"
+        ]
+      }
+    },
+    "/v2/user/s3_credentials/{endpointId}": {
+      "get": {
+        "summary": "GetS3CredentialsUserToken",
+        "description": "Status: ALPHA\n\nGets S3 credentials for a specific token and data_proxy",
+        "operationId": "UserService_GetS3CredentialsUserToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetS3CredentialsUserTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "patch": {
+        "summary": "CreateS3CredentialsUserToken",
+        "description": "Status: ALPHA\n\nCreates or updates S3 credentials for a specific user and data_proxy",
+        "operationId": "UserService_CreateS3CredentialsUserToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2CreateS3CredentialsUserTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/s3_credentials/{endpointId}/revoke": {
+      "patch": {
+        "summary": "DeleteS3CredentialsUserToken",
+        "description": "Status: ALPHA\n\nRevokes existing S3 credentials for a specific user and data_proxy",
+        "operationId": "UserService_DeleteS3CredentialsUserToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteS3CredentialsUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/s3_credentials/{svcAccountId}/s3_credentials/{endpointId}": {
+      "get": {
+        "summary": "GetS3CredentialsSvcAccount",
+        "description": "Status: ALPHA\n\nGets S3 credentials for a specific svc_account and data_proxy",
+        "operationId": "ServiceAccountService_GetS3CredentialsSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetS3CredentialsSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "description": "If called as admin, an id must be provided",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
+        ]
+      }
+    },
+    "/v2/user/s3_credentials/{svcAccountId}/s3_credentials/{endpointId}/revoke": {
+      "patch": {
+        "summary": "DeleteS3CredentialsSvcAccount",
+        "description": "Status: ALPHA\n\nRevokes existing S3 credentials for a specific user and data_proxy",
+        "operationId": "ServiceAccountService_DeleteS3CredentialsSvcAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2DeleteS3CredentialsSvcAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "svcAccountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "ServiceAccountService"
         ]
       }
     },
@@ -3967,6 +5141,70 @@
         ]
       }
     },
+    "/v2/user/trusted_endpoints": {
+      "delete": {
+        "summary": "RemoveTrustedEndpointsUser",
+        "description": "Status: ALPHA\n\nRemoves an endpoint from the trusted endpoints list of the user",
+        "operationId": "UserService_RemoveTrustedEndpointsUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RemoveTrustedEndpointsUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "patch": {
+        "summary": "AddTrustedEndpointsUser",
+        "description": "Status: ALPHA\n\nAdds an endpoint to the trusted endpoints list of the user",
+        "operationId": "UserService_AddTrustedEndpointsUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddTrustedEndpointsUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v2AddTrustedEndpointsUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/v2/user/{userId}/activate": {
       "patch": {
         "summary": "ActivateUser",
@@ -4000,6 +5238,93 @@
             "required": true,
             "schema": {
               "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v2/user/{userId}/attributes/data_proxy": {
+      "delete": {
+        "summary": "RemoveDataProxyAttributeUser",
+        "description": "Status: ALPHA\n\nRemoves an data proxy specific attribute from the user",
+        "operationId": "UserService_RemoveDataProxyAttributeUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2RemoveDataProxyAttributeUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dataproxyId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "attributeName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "patch": {
+        "summary": "AddDataProxyAttributeUser",
+        "description": "Status: ALPHA\n\nAdds an data proxy specific attribute to the user",
+        "operationId": "UserService_AddDataProxyAttributeUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2AddDataProxyAttributeUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attribute": {
+                  "$ref": "#/definitions/v2DataProxyAttribute"
+                }
+              }
             }
           }
         ],
@@ -4049,68 +5374,6 @@
         ]
       }
     },
-    "/v2/user/{userId}/proxy_token": {
-      "get": {
-        "summary": "GetDataproxyToken",
-        "description": "Status: ALPHA\n\nGets token for a specific user and data_proxy",
-        "operationId": "UserService_GetDataproxyTokenUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetDataproxyTokenUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "endpointId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.s3Credentials",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "context.copy.resource",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.copy.targetEndpoint",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "context.copy.push",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
     "/v2/user/{userId}/redacted": {
       "get": {
         "summary": "GetUserRequestRedacted",
@@ -4136,44 +5399,6 @@
             "description": "Optional user_id",
             "in": "path",
             "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v2/user/{userId}/s3_credentials": {
-      "get": {
-        "summary": "GetS3Credentials",
-        "description": "Status: ALPHA\n\nGets s3 credentials for a specific user and data_proxy",
-        "operationId": "UserService_GetS3CredentialsUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v2GetS3CredentialsUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "endpointId",
-            "in": "query",
-            "required": false,
             "type": "string"
           }
         ],
@@ -4668,10 +5893,27 @@
     "v2AcknowledgeMessageBatchResponse": {
       "type": "object"
     },
+    "v2AcknowledgePersonalNotificationsRequest": {
+      "type": "object",
+      "properties": {
+        "notificationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "v2AcknowledgePersonalNotificationsResponse": {
       "type": "object"
     },
     "v2ActivateUserResponse": {
+      "type": "object"
+    },
+    "v2AddDataProxyAttributeSvcAccountResponse": {
+      "type": "object"
+    },
+    "v2AddDataProxyAttributeUserResponse": {
       "type": "object"
     },
     "v2AddHook": {
@@ -4714,6 +5956,45 @@
     },
     "v2AddProjectsToHookResponse": {
       "type": "object"
+    },
+    "v2AddPubkeySvcAccountResponse": {
+      "type": "object"
+    },
+    "v2AddPubkeyUserRequest": {
+      "type": "object",
+      "properties": {
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "v2AddPubkeyUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v2User"
+        }
+      }
+    },
+    "v2AddTrustedEndpointsSvcAccountResponse": {
+      "type": "object"
+    },
+    "v2AddTrustedEndpointsUserRequest": {
+      "type": "object",
+      "properties": {
+        "endpointId": {
+          "type": "string"
+        }
+      }
+    },
+    "v2AddTrustedEndpointsUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v2User",
+          "title": "Here would be the place to add conditions\n why the request was denied"
+        }
+      }
     },
     "v2Announcement": {
       "type": "object",
@@ -4767,6 +6048,26 @@
         "project": {
           "$ref": "#/definitions/v2Project",
           "title": "This project will be returned via an Persistent Identifier! Updates will be impossible"
+        }
+      }
+    },
+    "v2Author": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "orcid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
         }
       }
     },
@@ -4824,6 +6125,9 @@
           "type": "string",
           "title": "my_mags"
         },
+        "title": {
+          "type": "string"
+        },
         "description": {
           "type": "string",
           "title": "ENA asda234928349028 MAG 1293819203819028i V1"
@@ -4857,6 +6161,13 @@
         "createdBy": {
           "type": "string"
         },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
+        },
         "status": {
           "$ref": "#/definitions/modelsv2Status"
         },
@@ -4875,6 +6186,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "ruleBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2RuleBinding"
+          }
         }
       }
     },
@@ -5023,6 +6341,9 @@
           "type": "string",
           "title": "collection name"
         },
+        "title": {
+          "type": "string"
+        },
         "description": {
           "type": "string",
           "title": "description"
@@ -5055,6 +6376,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
         }
       }
     },
@@ -5081,6 +6409,9 @@
         "name": {
           "type": "string",
           "title": "dataset name"
+        },
+        "title": {
+          "type": "string"
         },
         "description": {
           "type": "string",
@@ -5117,6 +6448,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
         }
       }
     },
@@ -5243,6 +6581,10 @@
           "type": "string",
           "title": "collection name"
         },
+        "title": {
+          "type": "string",
+          "title": "title"
+        },
         "description": {
           "type": "string",
           "title": "description"
@@ -5288,6 +6630,13 @@
         },
         "dataLicenseTag": {
           "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
         }
       },
       "description": "Models\nThese are the models for the above described requests and responses.\ngRPC best practises advice each Request and Response message in a RPC to be\ncalled {rpc_name}Request and {rpc_name}Response."
@@ -5300,12 +6649,27 @@
         }
       }
     },
+    "v2CreateOrUpdateCredentialsResponse": {
+      "type": "object",
+      "properties": {
+        "accessKey": {
+          "type": "string"
+        },
+        "secretKey": {
+          "type": "string"
+        }
+      }
+    },
     "v2CreateProjectRequest": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
           "title": "Project name"
+        },
+        "title": {
+          "type": "string",
+          "title": "title"
         },
         "description": {
           "type": "string",
@@ -5340,6 +6704,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
         }
       }
     },
@@ -5352,14 +6723,81 @@
         }
       }
     },
+    "v2CreateRuleBindingResponse": {
+      "type": "object",
+      "properties": {
+        "ruleId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "cascading": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v2CreateRuleRequest": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "public": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v2CreateRuleResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "v2CreateS3CredentialsSvcAccountResponse": {
+      "type": "object",
+      "properties": {
+        "s3AccessKey": {
+          "type": "string"
+        },
+        "s3SecretKey": {
+          "type": "string"
+        },
+        "s3EndpointUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "v2CreateS3CredentialsUserTokenResponse": {
+      "type": "object",
+      "properties": {
+        "s3AccessKey": {
+          "type": "string"
+        },
+        "s3SecretKey": {
+          "type": "string"
+        },
+        "s3EndpointUrl": {
+          "type": "string"
+        }
+      }
+    },
     "v2CreateServiceAccountRequest": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string"
         },
-        "permission": {
-          "$ref": "#/definitions/v2Permission"
+        "projectId": {
+          "type": "string"
+        },
+        "permissionLevel": {
+          "$ref": "#/definitions/v2PermissionLevel"
         }
       }
     },
@@ -5483,6 +6921,13 @@
             "type": "string"
           },
           "title": "Endpoint ids that are used for this template"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule ids that are enforced on workspace-level"
         }
       }
     },
@@ -5503,7 +6948,7 @@
       },
       "title": "Will be expanded with additional credential types"
     },
-    "v2CustomAttributes": {
+    "v2CustomAttribute": {
       "type": "object",
       "properties": {
         "attributeName": {
@@ -5572,6 +7017,23 @@
         }
       }
     },
+    "v2DataProxyAttribute": {
+      "type": "object",
+      "properties": {
+        "attributeName": {
+          "type": "string"
+        },
+        "attributeValue": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "proxyId": {
+          "type": "string"
+        }
+      }
+    },
     "v2Dataset": {
       "type": "object",
       "properties": {
@@ -5580,6 +7042,10 @@
         },
         "name": {
           "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "title": "Long name"
         },
         "description": {
           "type": "string"
@@ -5613,6 +7079,13 @@
         "createdBy": {
           "type": "string"
         },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
+        },
         "status": {
           "$ref": "#/definitions/modelsv2Status"
         },
@@ -5631,6 +7104,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "ruleBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2RuleBinding"
+          }
         }
       }
     },
@@ -5682,6 +7162,18 @@
       "type": "object"
     },
     "v2DeleteReplicationResponse": {
+      "type": "object"
+    },
+    "v2DeleteRuleBindingResponse": {
+      "type": "object"
+    },
+    "v2DeleteRuleResponse": {
+      "type": "object"
+    },
+    "v2DeleteS3CredentialsSvcAccountResponse": {
+      "type": "object"
+    },
+    "v2DeleteS3CredentialsUserResponse": {
       "type": "object"
     },
     "v2DeleteServiceAccountResponse": {
@@ -6249,6 +7741,14 @@
         }
       }
     },
+    "v2GetRuleResponse": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/v2Rule"
+        }
+      }
+    },
     "v2GetS3CredentialsSvcAccountResponse": {
       "type": "object",
       "properties": {
@@ -6263,7 +7763,7 @@
         }
       }
     },
-    "v2GetS3CredentialsUserResponse": {
+    "v2GetS3CredentialsUserTokenResponse": {
       "type": "object",
       "properties": {
         "s3AccessKey": {
@@ -6475,6 +7975,73 @@
         }
       }
     },
+    "v2IngestExistingObjectResponse": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        }
+      }
+    },
+    "v2IngestResource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "object name"
+        },
+        "title": {
+          "type": "string",
+          "title": "title"
+        },
+        "description": {
+          "type": "string",
+          "title": "description"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          },
+          "title": "Authors"
+        },
+        "keyValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2KeyValue"
+          },
+          "title": "object specific labels / hooks"
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Relation"
+          },
+          "title": "Internal / External relations (URLs / IDs from external sources)"
+        },
+        "dataClass": {
+          "$ref": "#/definitions/v2DataClass",
+          "title": "DataClass"
+        },
+        "hashes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Hash"
+          },
+          "title": "Ignored if Collection | Dataset"
+        },
+        "metadataLicenseTag": {
+          "type": "string"
+        },
+        "dataLicenseTag": {
+          "type": "string"
+        }
+      }
+    },
     "v2InitLocationResponse": {
       "type": "object",
       "properties": {
@@ -6634,6 +8201,18 @@
         }
       }
     },
+    "v2ListRuleResponse": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Rule"
+          }
+        }
+      }
+    },
     "v2LocationStatus": {
       "type": "object",
       "properties": {
@@ -6723,6 +8302,10 @@
         "name": {
           "type": "string"
         },
+        "title": {
+          "type": "string",
+          "title": "Long name"
+        },
         "description": {
           "type": "string"
         },
@@ -6757,6 +8340,13 @@
         "createdBy": {
           "type": "string"
         },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
+        },
         "status": {
           "$ref": "#/definitions/modelsv2Status"
         },
@@ -6783,6 +8373,13 @@
         },
         "dataLicenseTag": {
           "type": "string"
+        },
+        "ruleBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2RuleBinding"
+          }
         }
       }
     },
@@ -6794,18 +8391,16 @@
         },
         "chunks": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "== (Compressed_size / (65536 + 28)) + 1"
         },
         "rawSize": {
           "type": "string",
           "format": "int64"
         },
-        "blockList": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
+        "compressedSize": {
+          "type": "string",
+          "format": "int64"
         },
         "extra": {
           "type": "string",
@@ -6928,6 +8523,10 @@
           "type": "string",
           "title": "Short name according to BucketNamingRules"
         },
+        "title": {
+          "type": "string",
+          "title": "Long name"
+        },
         "description": {
           "type": "string",
           "title": "Long name"
@@ -6961,6 +8560,13 @@
         "createdBy": {
           "type": "string"
         },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Author"
+          }
+        },
         "status": {
           "$ref": "#/definitions/modelsv2Status"
         },
@@ -6979,6 +8585,13 @@
         },
         "defaultDataLicenseTag": {
           "type": "string"
+        },
+        "ruleBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2RuleBinding"
+          }
         }
       }
     },
@@ -7140,6 +8753,12 @@
       "default": "RELATION_DIRECTION_UNSPECIFIED",
       "title": "internal object relation type (direction)"
     },
+    "v2RemoveDataProxyAttributeSvcAccountResponse": {
+      "type": "object"
+    },
+    "v2RemoveDataProxyAttributeUserResponse": {
+      "type": "object"
+    },
     "v2RemoveOidcProviderRequest": {
       "type": "object",
       "properties": {
@@ -7149,6 +8768,17 @@
       }
     },
     "v2RemoveOidcProviderResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/v2User"
+        }
+      }
+    },
+    "v2RemoveTrustedEndpointsSvcAccountResponse": {
+      "type": "object"
+    },
+    "v2RemoveTrustedEndpointsUserResponse": {
       "type": "object",
       "properties": {
         "user": {
@@ -7303,6 +8933,40 @@
         }
       }
     },
+    "v2RevokeCredentialsResponse": {
+      "type": "object"
+    },
+    "v2Rule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "rule": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "owner": {
+          "type": "string"
+        }
+      }
+    },
+    "v2RuleBinding": {
+      "type": "object",
+      "properties": {
+        "ruleId": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        }
+      }
+    },
     "v2S3Path": {
       "type": "object",
       "properties": {
@@ -7452,11 +9116,12 @@
         }
       }
     },
-    "v2SetServiceAccountPermissionResponse": {
+    "v2SetObjectHashesResponse": {
       "type": "object",
       "properties": {
-        "serviceAccount": {
-          "$ref": "#/definitions/v2ServiceAccount"
+        "object": {
+          "$ref": "#/definitions/v2Object",
+          "title": "The updated object (possibly with error status)"
         }
       }
     },
@@ -7576,6 +9241,14 @@
         }
       }
     },
+    "v2UpdateCollectionAuthorsResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v2Collection"
+        }
+      }
+    },
     "v2UpdateCollectionDataClassResponse": {
       "type": "object",
       "properties": {
@@ -7613,6 +9286,22 @@
       "properties": {
         "collection": {
           "$ref": "#/definitions/v2Collection"
+        }
+      }
+    },
+    "v2UpdateCollectionTitleResponse": {
+      "type": "object",
+      "properties": {
+        "collection": {
+          "$ref": "#/definitions/v2Collection"
+        }
+      }
+    },
+    "v2UpdateDatasetAuthorsResponse": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/definitions/v2Dataset"
         }
       }
     },
@@ -7656,6 +9345,23 @@
         }
       }
     },
+    "v2UpdateDatasetTitleResponse": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/definitions/v2Dataset"
+        }
+      }
+    },
+    "v2UpdateObjectAuthorsResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v2Object",
+          "title": "The updated object"
+        }
+      }
+    },
     "v2UpdateObjectResponse": {
       "type": "object",
       "properties": {
@@ -7664,6 +9370,24 @@
         },
         "newRevision": {
           "type": "boolean"
+        }
+      }
+    },
+    "v2UpdateObjectTitleResponse": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/v2Object",
+          "title": "The updated object"
+        }
+      }
+    },
+    "v2UpdateProjectAuthorsResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/v2Project",
+          "title": "The updated project"
         }
       }
     },
@@ -7707,8 +9431,25 @@
         }
       }
     },
+    "v2UpdateProjectTitleResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/v2Project",
+          "title": "The updated object"
+        }
+      }
+    },
     "v2UpdateReplicationStatusResponse": {
       "type": "object"
+    },
+    "v2UpdateRuleResponse": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/v2Rule"
+        }
+      }
     },
     "v2UpdateUserDisplayNameRequest": {
       "type": "object",
@@ -7778,6 +9519,13 @@
         "attributes": {
           "$ref": "#/definitions/v2UserAttributes",
           "title": "User attributes"
+        },
+        "firstName": {
+          "type": "string",
+          "title": "First and Last name"
+        },
+        "lastName": {
+          "type": "string"
         }
       },
       "title": "------------- USERS \u0026 PERMISSIONS -----------------------"
@@ -7808,7 +9556,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v2CustomAttributes"
+            "$ref": "#/definitions/v2CustomAttribute"
           }
         },
         "personalPermissions": {
@@ -7823,6 +9571,16 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/v2OidcMapping"
+          }
+        },
+        "pubkey": {
+          "type": "string"
+        },
+        "dataProxyAttributes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2DataProxyAttribute"
           }
         }
       }

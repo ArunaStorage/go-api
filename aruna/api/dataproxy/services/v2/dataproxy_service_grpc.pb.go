@@ -35,7 +35,7 @@ type DataproxyReplicationServiceClient interface {
 	PullReplication(ctx context.Context, opts ...grpc.CallOption) (DataproxyReplicationService_PullReplicationClient, error)
 	// InitReplication
 	//
-	// Status: ALPHA
+	// Status: UNIMPLEMENTED
 	//
 	// Provides the necessary url to init replication
 	PushReplication(ctx context.Context, in *PushReplicationRequest, opts ...grpc.CallOption) (*PushReplicationResponse, error)
@@ -101,7 +101,7 @@ type DataproxyReplicationServiceServer interface {
 	PullReplication(DataproxyReplicationService_PullReplicationServer) error
 	// InitReplication
 	//
-	// Status: ALPHA
+	// Status: UNIMPLEMENTED
 	//
 	// Provides the necessary url to init replication
 	PushReplication(context.Context, *PushReplicationRequest) (*PushReplicationResponse, error)
@@ -714,10 +714,12 @@ var DataproxyBackendService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	DataproxyUserService_GetCredentials_FullMethodName    = "/aruna.api.dataproxy.services.v2.DataproxyUserService/GetCredentials"
-	DataproxyUserService_PushReplica_FullMethodName       = "/aruna.api.dataproxy.services.v2.DataproxyUserService/PushReplica"
-	DataproxyUserService_PullReplica_FullMethodName       = "/aruna.api.dataproxy.services.v2.DataproxyUserService/PullReplica"
-	DataproxyUserService_ReplicationStatus_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus"
+	DataproxyUserService_GetCredentials_FullMethodName            = "/aruna.api.dataproxy.services.v2.DataproxyUserService/GetCredentials"
+	DataproxyUserService_CreateOrUpdateCredentials_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyUserService/CreateOrUpdateCredentials"
+	DataproxyUserService_RevokeCredentials_FullMethodName         = "/aruna.api.dataproxy.services.v2.DataproxyUserService/RevokeCredentials"
+	DataproxyUserService_PushReplica_FullMethodName               = "/aruna.api.dataproxy.services.v2.DataproxyUserService/PushReplica"
+	DataproxyUserService_PullReplica_FullMethodName               = "/aruna.api.dataproxy.services.v2.DataproxyUserService/PullReplica"
+	DataproxyUserService_ReplicationStatus_FullMethodName         = "/aruna.api.dataproxy.services.v2.DataproxyUserService/ReplicationStatus"
 )
 
 // DataproxyUserServiceClient is the client API for DataproxyUserService service.
@@ -731,21 +733,35 @@ type DataproxyUserServiceClient interface {
 	// Authorized method that needs a aruna-token to exchange for dataproxy
 	// specific S3AccessKey and S3SecretKey
 	GetCredentials(ctx context.Context, in *GetCredentialsRequest, opts ...grpc.CallOption) (*GetCredentialsResponse, error)
-	// PushReplica
+	// CreateOrUpdateCredentials
 	//
 	// Status: BETA
+	//
+	// Authorized method that needs a aruna-token to exchange for dataproxy
+	// specific S3AccessKey and S3SecretKey
+	CreateOrUpdateCredentials(ctx context.Context, in *CreateOrUpdateCredentialsRequest, opts ...grpc.CallOption) (*CreateOrUpdateCredentialsResponse, error)
+	// RevokeCredentials
+	//
+	// Status: BETA
+	//
+	// Authorized method that needs a aruna-token
+	// Revokes the current credentials
+	RevokeCredentials(ctx context.Context, in *RevokeCredentialsRequest, opts ...grpc.CallOption) (*RevokeCredentialsResponse, error)
+	// PushReplica
+	//
+	// Status: UNIMPLEMENTED
 	//
 	// Manually transfers a replica to another data-proxy
 	PushReplica(ctx context.Context, in *PushReplicaRequest, opts ...grpc.CallOption) (*PushReplicaResponse, error)
 	// PullReplica
 	//
-	// Status: BETA
+	// Status: UNIMPLEMENTED
 	//
 	// Manually request data to be transferred to this data-proxy
 	PullReplica(ctx context.Context, in *PullReplicaRequest, opts ...grpc.CallOption) (*PullReplicaResponse, error)
-	// PullReplica
+	// ReplicationStatus
 	//
-	// Status: BETA
+	// Status: UNIMPLEMENTED
 	//
 	// Status of the previous replication request
 	ReplicationStatus(ctx context.Context, in *ReplicationStatusRequest, opts ...grpc.CallOption) (*ReplicationStatusResponse, error)
@@ -762,6 +778,24 @@ func NewDataproxyUserServiceClient(cc grpc.ClientConnInterface) DataproxyUserSer
 func (c *dataproxyUserServiceClient) GetCredentials(ctx context.Context, in *GetCredentialsRequest, opts ...grpc.CallOption) (*GetCredentialsResponse, error) {
 	out := new(GetCredentialsResponse)
 	err := c.cc.Invoke(ctx, DataproxyUserService_GetCredentials_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dataproxyUserServiceClient) CreateOrUpdateCredentials(ctx context.Context, in *CreateOrUpdateCredentialsRequest, opts ...grpc.CallOption) (*CreateOrUpdateCredentialsResponse, error) {
+	out := new(CreateOrUpdateCredentialsResponse)
+	err := c.cc.Invoke(ctx, DataproxyUserService_CreateOrUpdateCredentials_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dataproxyUserServiceClient) RevokeCredentials(ctx context.Context, in *RevokeCredentialsRequest, opts ...grpc.CallOption) (*RevokeCredentialsResponse, error) {
+	out := new(RevokeCredentialsResponse)
+	err := c.cc.Invoke(ctx, DataproxyUserService_RevokeCredentials_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -806,21 +840,35 @@ type DataproxyUserServiceServer interface {
 	// Authorized method that needs a aruna-token to exchange for dataproxy
 	// specific S3AccessKey and S3SecretKey
 	GetCredentials(context.Context, *GetCredentialsRequest) (*GetCredentialsResponse, error)
-	// PushReplica
+	// CreateOrUpdateCredentials
 	//
 	// Status: BETA
+	//
+	// Authorized method that needs a aruna-token to exchange for dataproxy
+	// specific S3AccessKey and S3SecretKey
+	CreateOrUpdateCredentials(context.Context, *CreateOrUpdateCredentialsRequest) (*CreateOrUpdateCredentialsResponse, error)
+	// RevokeCredentials
+	//
+	// Status: BETA
+	//
+	// Authorized method that needs a aruna-token
+	// Revokes the current credentials
+	RevokeCredentials(context.Context, *RevokeCredentialsRequest) (*RevokeCredentialsResponse, error)
+	// PushReplica
+	//
+	// Status: UNIMPLEMENTED
 	//
 	// Manually transfers a replica to another data-proxy
 	PushReplica(context.Context, *PushReplicaRequest) (*PushReplicaResponse, error)
 	// PullReplica
 	//
-	// Status: BETA
+	// Status: UNIMPLEMENTED
 	//
 	// Manually request data to be transferred to this data-proxy
 	PullReplica(context.Context, *PullReplicaRequest) (*PullReplicaResponse, error)
-	// PullReplica
+	// ReplicationStatus
 	//
-	// Status: BETA
+	// Status: UNIMPLEMENTED
 	//
 	// Status of the previous replication request
 	ReplicationStatus(context.Context, *ReplicationStatusRequest) (*ReplicationStatusResponse, error)
@@ -832,6 +880,12 @@ type UnimplementedDataproxyUserServiceServer struct {
 
 func (UnimplementedDataproxyUserServiceServer) GetCredentials(context.Context, *GetCredentialsRequest) (*GetCredentialsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCredentials not implemented")
+}
+func (UnimplementedDataproxyUserServiceServer) CreateOrUpdateCredentials(context.Context, *CreateOrUpdateCredentialsRequest) (*CreateOrUpdateCredentialsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateCredentials not implemented")
+}
+func (UnimplementedDataproxyUserServiceServer) RevokeCredentials(context.Context, *RevokeCredentialsRequest) (*RevokeCredentialsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeCredentials not implemented")
 }
 func (UnimplementedDataproxyUserServiceServer) PushReplica(context.Context, *PushReplicaRequest) (*PushReplicaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PushReplica not implemented")
@@ -868,6 +922,42 @@ func _DataproxyUserService_GetCredentials_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DataproxyUserServiceServer).GetCredentials(ctx, req.(*GetCredentialsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DataproxyUserService_CreateOrUpdateCredentials_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateCredentialsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataproxyUserServiceServer).CreateOrUpdateCredentials(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DataproxyUserService_CreateOrUpdateCredentials_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataproxyUserServiceServer).CreateOrUpdateCredentials(ctx, req.(*CreateOrUpdateCredentialsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DataproxyUserService_RevokeCredentials_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeCredentialsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataproxyUserServiceServer).RevokeCredentials(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DataproxyUserService_RevokeCredentials_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataproxyUserServiceServer).RevokeCredentials(ctx, req.(*RevokeCredentialsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -938,6 +1028,14 @@ var DataproxyUserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DataproxyUserService_GetCredentials_Handler,
 		},
 		{
+			MethodName: "CreateOrUpdateCredentials",
+			Handler:    _DataproxyUserService_CreateOrUpdateCredentials_Handler,
+		},
+		{
+			MethodName: "RevokeCredentials",
+			Handler:    _DataproxyUserService_RevokeCredentials_Handler,
+		},
+		{
 			MethodName: "PushReplica",
 			Handler:    _DataproxyUserService_PushReplica_Handler,
 		},
@@ -948,6 +1046,104 @@ var DataproxyUserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReplicationStatus",
 			Handler:    _DataproxyUserService_ReplicationStatus_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "aruna/api/dataproxy/services/v2/dataproxy_service.proto",
+}
+
+const (
+	DataproxyIngestionService_IngestExistingObject_FullMethodName = "/aruna.api.dataproxy.services.v2.DataproxyIngestionService/IngestExistingObject"
+)
+
+// DataproxyIngestionServiceClient is the client API for DataproxyIngestionService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type DataproxyIngestionServiceClient interface {
+	// IngestExistingObject
+	//
+	// Status: ALPHA
+	//
+	// Ingest an existing object into backend
+	IngestExistingObject(ctx context.Context, in *IngestExistingObjectRequest, opts ...grpc.CallOption) (*IngestExistingObjectResponse, error)
+}
+
+type dataproxyIngestionServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewDataproxyIngestionServiceClient(cc grpc.ClientConnInterface) DataproxyIngestionServiceClient {
+	return &dataproxyIngestionServiceClient{cc}
+}
+
+func (c *dataproxyIngestionServiceClient) IngestExistingObject(ctx context.Context, in *IngestExistingObjectRequest, opts ...grpc.CallOption) (*IngestExistingObjectResponse, error) {
+	out := new(IngestExistingObjectResponse)
+	err := c.cc.Invoke(ctx, DataproxyIngestionService_IngestExistingObject_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// DataproxyIngestionServiceServer is the server API for DataproxyIngestionService service.
+// All implementations should embed UnimplementedDataproxyIngestionServiceServer
+// for forward compatibility
+type DataproxyIngestionServiceServer interface {
+	// IngestExistingObject
+	//
+	// Status: ALPHA
+	//
+	// Ingest an existing object into backend
+	IngestExistingObject(context.Context, *IngestExistingObjectRequest) (*IngestExistingObjectResponse, error)
+}
+
+// UnimplementedDataproxyIngestionServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedDataproxyIngestionServiceServer struct {
+}
+
+func (UnimplementedDataproxyIngestionServiceServer) IngestExistingObject(context.Context, *IngestExistingObjectRequest) (*IngestExistingObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IngestExistingObject not implemented")
+}
+
+// UnsafeDataproxyIngestionServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DataproxyIngestionServiceServer will
+// result in compilation errors.
+type UnsafeDataproxyIngestionServiceServer interface {
+	mustEmbedUnimplementedDataproxyIngestionServiceServer()
+}
+
+func RegisterDataproxyIngestionServiceServer(s grpc.ServiceRegistrar, srv DataproxyIngestionServiceServer) {
+	s.RegisterService(&DataproxyIngestionService_ServiceDesc, srv)
+}
+
+func _DataproxyIngestionService_IngestExistingObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IngestExistingObjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataproxyIngestionServiceServer).IngestExistingObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DataproxyIngestionService_IngestExistingObject_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataproxyIngestionServiceServer).IngestExistingObject(ctx, req.(*IngestExistingObjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// DataproxyIngestionService_ServiceDesc is the grpc.ServiceDesc for DataproxyIngestionService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var DataproxyIngestionService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "aruna.api.dataproxy.services.v2.DataproxyIngestionService",
+	HandlerType: (*DataproxyIngestionServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "IngestExistingObject",
+			Handler:    _DataproxyIngestionService_IngestExistingObject_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

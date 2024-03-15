@@ -29,6 +29,8 @@ const (
 	DatasetService_UpdateDatasetDataClass_FullMethodName   = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetDataClass"
 	DatasetService_SnapshotDataset_FullMethodName          = "/aruna.api.storage.services.v2.DatasetService/SnapshotDataset"
 	DatasetService_UpdateDatasetLicenses_FullMethodName    = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetLicenses"
+	DatasetService_UpdateDatasetTitle_FullMethodName       = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetTitle"
+	DatasetService_UpdateDatasetAuthors_FullMethodName     = "/aruna.api.storage.services.v2.DatasetService/UpdateDatasetAuthors"
 )
 
 // DatasetServiceClient is the client API for DatasetService service.
@@ -95,6 +97,18 @@ type DatasetServiceClient interface {
 	//
 	// Updates the dataset metadata license and/or default data license.
 	UpdateDatasetLicenses(ctx context.Context, in *UpdateDatasetLicensesRequest, opts ...grpc.CallOption) (*UpdateDatasetLicensesResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// Updates the datasets metadata title.
+	UpdateDatasetTitle(ctx context.Context, in *UpdateDatasetTitleRequest, opts ...grpc.CallOption) (*UpdateDatasetTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// Updates the datasets metadata title.
+	UpdateDatasetAuthors(ctx context.Context, in *UpdateDatasetAuthorsRequest, opts ...grpc.CallOption) (*UpdateDatasetAuthorsResponse, error)
 }
 
 type datasetServiceClient struct {
@@ -195,6 +209,24 @@ func (c *datasetServiceClient) UpdateDatasetLicenses(ctx context.Context, in *Up
 	return out, nil
 }
 
+func (c *datasetServiceClient) UpdateDatasetTitle(ctx context.Context, in *UpdateDatasetTitleRequest, opts ...grpc.CallOption) (*UpdateDatasetTitleResponse, error) {
+	out := new(UpdateDatasetTitleResponse)
+	err := c.cc.Invoke(ctx, DatasetService_UpdateDatasetTitle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetServiceClient) UpdateDatasetAuthors(ctx context.Context, in *UpdateDatasetAuthorsRequest, opts ...grpc.CallOption) (*UpdateDatasetAuthorsResponse, error) {
+	out := new(UpdateDatasetAuthorsResponse)
+	err := c.cc.Invoke(ctx, DatasetService_UpdateDatasetAuthors_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetServiceServer is the server API for DatasetService service.
 // All implementations should embed UnimplementedDatasetServiceServer
 // for forward compatibility
@@ -259,6 +291,18 @@ type DatasetServiceServer interface {
 	//
 	// Updates the dataset metadata license and/or default data license.
 	UpdateDatasetLicenses(context.Context, *UpdateDatasetLicensesRequest) (*UpdateDatasetLicensesResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// Updates the datasets metadata title.
+	UpdateDatasetTitle(context.Context, *UpdateDatasetTitleRequest) (*UpdateDatasetTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// Updates the datasets metadata title.
+	UpdateDatasetAuthors(context.Context, *UpdateDatasetAuthorsRequest) (*UpdateDatasetAuthorsResponse, error)
 }
 
 // UnimplementedDatasetServiceServer should be embedded to have forward compatible implementations.
@@ -294,6 +338,12 @@ func (UnimplementedDatasetServiceServer) SnapshotDataset(context.Context, *Snaps
 }
 func (UnimplementedDatasetServiceServer) UpdateDatasetLicenses(context.Context, *UpdateDatasetLicensesRequest) (*UpdateDatasetLicensesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetLicenses not implemented")
+}
+func (UnimplementedDatasetServiceServer) UpdateDatasetTitle(context.Context, *UpdateDatasetTitleRequest) (*UpdateDatasetTitleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetTitle not implemented")
+}
+func (UnimplementedDatasetServiceServer) UpdateDatasetAuthors(context.Context, *UpdateDatasetAuthorsRequest) (*UpdateDatasetAuthorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDatasetAuthors not implemented")
 }
 
 // UnsafeDatasetServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -487,6 +537,42 @@ func _DatasetService_UpdateDatasetLicenses_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetService_UpdateDatasetTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDatasetTitleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).UpdateDatasetTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatasetService_UpdateDatasetTitle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).UpdateDatasetTitle(ctx, req.(*UpdateDatasetTitleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetService_UpdateDatasetAuthors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDatasetAuthorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetServiceServer).UpdateDatasetAuthors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatasetService_UpdateDatasetAuthors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetServiceServer).UpdateDatasetAuthors(ctx, req.(*UpdateDatasetAuthorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatasetService_ServiceDesc is the grpc.ServiceDesc for DatasetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -533,6 +619,14 @@ var DatasetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateDatasetLicenses",
 			Handler:    _DatasetService_UpdateDatasetLicenses_Handler,
+		},
+		{
+			MethodName: "UpdateDatasetTitle",
+			Handler:    _DatasetService_UpdateDatasetTitle_Handler,
+		},
+		{
+			MethodName: "UpdateDatasetAuthors",
+			Handler:    _DatasetService_UpdateDatasetAuthors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

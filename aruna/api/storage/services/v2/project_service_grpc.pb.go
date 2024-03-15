@@ -29,6 +29,8 @@ const (
 	ProjectService_UpdateProjectDataClass_FullMethodName   = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectDataClass"
 	ProjectService_UpdateProjectLicenses_FullMethodName    = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectLicenses"
 	ProjectService_ArchiveProject_FullMethodName           = "/aruna.api.storage.services.v2.ProjectService/ArchiveProject"
+	ProjectService_UpdateProjectTitle_FullMethodName       = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectTitle"
+	ProjectService_UpdateProjectAuthors_FullMethodName     = "/aruna.api.storage.services.v2.ProjectService/UpdateProjectAuthors"
 )
 
 // ProjectServiceClient is the client API for ProjectService service.
@@ -95,6 +97,18 @@ type ProjectServiceClient interface {
 	//
 	// Archives the full project, rendering all downstream relations immutable
 	ArchiveProject(ctx context.Context, in *ArchiveProjectRequest, opts ...grpc.CallOption) (*ArchiveProjectResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// This method updates the title of a project
+	UpdateProjectTitle(ctx context.Context, in *UpdateProjectTitleRequest, opts ...grpc.CallOption) (*UpdateProjectTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// This method updates the authors of an object
+	UpdateProjectAuthors(ctx context.Context, in *UpdateProjectAuthorsRequest, opts ...grpc.CallOption) (*UpdateProjectAuthorsResponse, error)
 }
 
 type projectServiceClient struct {
@@ -195,6 +209,24 @@ func (c *projectServiceClient) ArchiveProject(ctx context.Context, in *ArchivePr
 	return out, nil
 }
 
+func (c *projectServiceClient) UpdateProjectTitle(ctx context.Context, in *UpdateProjectTitleRequest, opts ...grpc.CallOption) (*UpdateProjectTitleResponse, error) {
+	out := new(UpdateProjectTitleResponse)
+	err := c.cc.Invoke(ctx, ProjectService_UpdateProjectTitle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectServiceClient) UpdateProjectAuthors(ctx context.Context, in *UpdateProjectAuthorsRequest, opts ...grpc.CallOption) (*UpdateProjectAuthorsResponse, error) {
+	out := new(UpdateProjectAuthorsResponse)
+	err := c.cc.Invoke(ctx, ProjectService_UpdateProjectAuthors_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectServiceServer is the server API for ProjectService service.
 // All implementations should embed UnimplementedProjectServiceServer
 // for forward compatibility
@@ -259,6 +291,18 @@ type ProjectServiceServer interface {
 	//
 	// Archives the full project, rendering all downstream relations immutable
 	ArchiveProject(context.Context, *ArchiveProjectRequest) (*ArchiveProjectResponse, error)
+	// UpdateTitle
+	//
+	// Status: ALPHA
+	//
+	// This method updates the title of a project
+	UpdateProjectTitle(context.Context, *UpdateProjectTitleRequest) (*UpdateProjectTitleResponse, error)
+	// UpdateAuthors
+	//
+	// Status: ALPHA
+	//
+	// This method updates the authors of an object
+	UpdateProjectAuthors(context.Context, *UpdateProjectAuthorsRequest) (*UpdateProjectAuthorsResponse, error)
 }
 
 // UnimplementedProjectServiceServer should be embedded to have forward compatible implementations.
@@ -294,6 +338,12 @@ func (UnimplementedProjectServiceServer) UpdateProjectLicenses(context.Context, 
 }
 func (UnimplementedProjectServiceServer) ArchiveProject(context.Context, *ArchiveProjectRequest) (*ArchiveProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ArchiveProject not implemented")
+}
+func (UnimplementedProjectServiceServer) UpdateProjectTitle(context.Context, *UpdateProjectTitleRequest) (*UpdateProjectTitleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProjectTitle not implemented")
+}
+func (UnimplementedProjectServiceServer) UpdateProjectAuthors(context.Context, *UpdateProjectAuthorsRequest) (*UpdateProjectAuthorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProjectAuthors not implemented")
 }
 
 // UnsafeProjectServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -487,6 +537,42 @@ func _ProjectService_ArchiveProject_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectService_UpdateProjectTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProjectTitleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).UpdateProjectTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProjectService_UpdateProjectTitle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).UpdateProjectTitle(ctx, req.(*UpdateProjectTitleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProjectService_UpdateProjectAuthors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProjectAuthorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).UpdateProjectAuthors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProjectService_UpdateProjectAuthors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).UpdateProjectAuthors(ctx, req.(*UpdateProjectAuthorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProjectService_ServiceDesc is the grpc.ServiceDesc for ProjectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -533,6 +619,14 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ArchiveProject",
 			Handler:    _ProjectService_ArchiveProject_Handler,
+		},
+		{
+			MethodName: "UpdateProjectTitle",
+			Handler:    _ProjectService_UpdateProjectTitle_Handler,
+		},
+		{
+			MethodName: "UpdateProjectAuthors",
+			Handler:    _ProjectService_UpdateProjectAuthors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
