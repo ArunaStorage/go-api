@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.12"
+    "version": "2.0.0-beta.13-pre"
   },
   "tags": [
     {
@@ -7860,6 +7860,9 @@
         }
       }
     },
+    "v2Handshake": {
+      "type": "object"
+    },
     "v2Hash": {
       "type": "object",
       "properties": {
@@ -8406,8 +8409,7 @@
           "type": "string",
           "title": "JSON encoded proxy specific extra fields"
         }
-      },
-      "title": "Messages (responses) from PROXY A"
+      }
     },
     "v2ObjectLocation": {
       "type": "object",
@@ -8650,6 +8652,9 @@
     "v2PullReplicationResponse": {
       "type": "object",
       "properties": {
+        "handshake": {
+          "$ref": "#/definitions/v2Handshake"
+        },
         "objectInfo": {
           "$ref": "#/definitions/v2ObjectInfo"
         },
@@ -8659,6 +8664,9 @@
         },
         "finishMessage": {
           "$ref": "#/definitions/v2Empty"
+        },
+        "skip": {
+          "$ref": "#/definitions/v2Skip"
         }
       }
     },
@@ -9124,6 +9132,15 @@
           "title": "The updated object (possibly with error status)"
         }
       }
+    },
+    "v2Skip": {
+      "type": "object",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        }
+      },
+      "title": "Gets send if PROXY A has only a tmp location"
     },
     "v2SnapshotCollectionResponse": {
       "type": "object",
