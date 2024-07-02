@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0-beta.14"
+    "version": "2.0.0-beta.15"
   },
   "tags": [
     {
@@ -1918,8 +1918,8 @@
     },
     "/v2/info/announcements": {
       "get": {
-        "summary": "GetAnnouncements",
-        "description": "Status: BETA\n\nQuery global announcements",
+        "summary": "Get Announcements",
+        "description": "Status: BETA\n\nQuery global announcements optionally filtered by specific ids. \n - Returns all announcements if no ids are provided\n - Returns only the specific announcements if ids are provided",
         "operationId": "StorageStatusService_GetAnnouncements",
         "responses": {
           "200": {
@@ -1935,6 +1935,33 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "announcementIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page.startAfter",
+            "description": "This is the last ID of the previous returned request",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page.pageSize",
+            "description": "Default to 20, -1 for all",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "StorageStatusService"
         ]
@@ -1967,6 +1994,93 @@
             "schema": {
               "$ref": "#/definitions/v2SetAnnouncementsRequest"
             }
+          }
+        ],
+        "tags": [
+          "StorageStatusService"
+        ]
+      }
+    },
+    "/v2/info/announcements/{announcementId}": {
+      "get": {
+        "summary": "Get a specific Announcement",
+        "description": "Status: BETA\n\nQuery a specific global announcement by its id",
+        "operationId": "StorageStatusService_GetAnnouncement",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetAnnouncementResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "StorageStatusService"
+        ]
+      }
+    },
+    "/v2/info/announcements/{announcementType}": {
+      "get": {
+        "summary": "GetAnnouncementsByType",
+        "description": "Status: BETA\n\nQuery global announcements by type",
+        "operationId": "StorageStatusService_GetAnnouncementsByType",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v2GetAnnouncementsByTypeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "announcementType",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "ANNOUNCEMENT_TYPE_UNSPECIFIED",
+              "ANNOUNCEMENT_TYPE_ORGA",
+              "ANNOUNCEMENT_TYPE_RELEASE",
+              "ANNOUNCEMENT_TYPE_UPDATE",
+              "ANNOUNCEMENT_TYPE_MAINTENANCE",
+              "ANNOUNCEMENT_TYPE_BLOG"
+            ]
+          },
+          {
+            "name": "page.startAfter",
+            "description": "This is the last ID of the previous returned request",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page.pageSize",
+            "description": "Default to 20, -1 for all",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -5999,17 +6113,50 @@
     "v2Announcement": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "announcementId": {
+          "type": "string",
+          "title": "Announcement id"
+        },
+        "announcementType": {
+          "$ref": "#/definitions/v2AnnouncementType",
+          "title": "Announcement type"
+        },
+        "title": {
+          "type": "string",
+          "title": "Announcement title"
+        },
+        "teaser": {
+          "type": "string",
+          "title": "Short announcement summary"
+        },
+        "imageUrl": {
+          "type": "string",
+          "title": "URL for announcement preview image"
         },
         "content": {
-          "type": "string"
+          "type": "string",
+          "title": "Announcement content text"
+        },
+        "createdBy": {
+          "type": "string",
+          "title": "Initial announcement author"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "Initial creation timestamp"
+        },
+        "modifiedBy": {
+          "type": "string",
+          "title": "Author responsible for the last modification"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Last modification timestamp"
         }
-      }
+      },
+      "title": "-------------------------------------"
     },
     "v2AnnouncementEvent": {
       "type": "object",
@@ -6041,6 +6188,19 @@
           "$ref": "#/definitions/v2Reply"
         }
       }
+    },
+    "v2AnnouncementType": {
+      "type": "string",
+      "enum": [
+        "ANNOUNCEMENT_TYPE_UNSPECIFIED",
+        "ANNOUNCEMENT_TYPE_ORGA",
+        "ANNOUNCEMENT_TYPE_RELEASE",
+        "ANNOUNCEMENT_TYPE_UPDATE",
+        "ANNOUNCEMENT_TYPE_MAINTENANCE",
+        "ANNOUNCEMENT_TYPE_BLOG"
+      ],
+      "default": "ANNOUNCEMENT_TYPE_UNSPECIFIED",
+      "title": "--------------- ENUMS ------------------------\nDefines the public announcement type"
     },
     "v2ArchiveProjectResponse": {
       "type": "object",
@@ -7466,6 +7626,26 @@
         }
       }
     },
+    "v2GetAnnouncementResponse": {
+      "type": "object",
+      "properties": {
+        "announcement": {
+          "$ref": "#/definitions/v2Announcement"
+        }
+      }
+    },
+    "v2GetAnnouncementsByTypeResponse": {
+      "type": "object",
+      "properties": {
+        "announcements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v2Announcement"
+          }
+        }
+      }
+    },
     "v2GetAnnouncementsResponse": {
       "type": "object",
       "properties": {
@@ -8436,6 +8616,20 @@
         },
         "oidcUrl": {
           "type": "string"
+        }
+      }
+    },
+    "v2PageRequest": {
+      "type": "object",
+      "properties": {
+        "startAfter": {
+          "type": "string",
+          "title": "This is the last ID of the previous returned request"
+        },
+        "pageSize": {
+          "type": "string",
+          "format": "int64",
+          "title": "Default to 20, -1 for all"
         }
       }
     },

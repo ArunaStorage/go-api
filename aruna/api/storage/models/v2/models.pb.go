@@ -21,6 +21,66 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// --------------- ENUMS ------------------------
+// Defines the public announcement type
+type AnnouncementType int32
+
+const (
+	AnnouncementType_ANNOUNCEMENT_TYPE_UNSPECIFIED AnnouncementType = 0
+	AnnouncementType_ANNOUNCEMENT_TYPE_ORGA        AnnouncementType = 1
+	AnnouncementType_ANNOUNCEMENT_TYPE_RELEASE     AnnouncementType = 2
+	AnnouncementType_ANNOUNCEMENT_TYPE_UPDATE      AnnouncementType = 3
+	AnnouncementType_ANNOUNCEMENT_TYPE_MAINTENANCE AnnouncementType = 4
+	AnnouncementType_ANNOUNCEMENT_TYPE_BLOG        AnnouncementType = 5
+)
+
+// Enum value maps for AnnouncementType.
+var (
+	AnnouncementType_name = map[int32]string{
+		0: "ANNOUNCEMENT_TYPE_UNSPECIFIED",
+		1: "ANNOUNCEMENT_TYPE_ORGA",
+		2: "ANNOUNCEMENT_TYPE_RELEASE",
+		3: "ANNOUNCEMENT_TYPE_UPDATE",
+		4: "ANNOUNCEMENT_TYPE_MAINTENANCE",
+		5: "ANNOUNCEMENT_TYPE_BLOG",
+	}
+	AnnouncementType_value = map[string]int32{
+		"ANNOUNCEMENT_TYPE_UNSPECIFIED": 0,
+		"ANNOUNCEMENT_TYPE_ORGA":        1,
+		"ANNOUNCEMENT_TYPE_RELEASE":     2,
+		"ANNOUNCEMENT_TYPE_UPDATE":      3,
+		"ANNOUNCEMENT_TYPE_MAINTENANCE": 4,
+		"ANNOUNCEMENT_TYPE_BLOG":        5,
+	}
+)
+
+func (x AnnouncementType) Enum() *AnnouncementType {
+	p := new(AnnouncementType)
+	*p = x
+	return p
+}
+
+func (x AnnouncementType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (AnnouncementType) Descriptor() protoreflect.EnumDescriptor {
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[0].Descriptor()
+}
+
+func (AnnouncementType) Type() protoreflect.EnumType {
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[0]
+}
+
+func (x AnnouncementType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use AnnouncementType.Descriptor instead.
+func (AnnouncementType) EnumDescriptor() ([]byte, []int) {
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{0}
+}
+
 // Dataclass defines the confidentiality of the object
 type DataClass int32
 
@@ -61,11 +121,11 @@ func (x DataClass) String() string {
 }
 
 func (DataClass) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[0].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[1].Descriptor()
 }
 
 func (DataClass) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[0]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[1]
 }
 
 func (x DataClass) Number() protoreflect.EnumNumber {
@@ -74,7 +134,7 @@ func (x DataClass) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use DataClass.Descriptor instead.
 func (DataClass) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{0}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{1}
 }
 
 // Which kind of endpoint
@@ -111,11 +171,11 @@ func (x EndpointVariant) String() string {
 }
 
 func (EndpointVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[1].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[2].Descriptor()
 }
 
 func (EndpointVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[1]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[2]
 }
 
 func (x EndpointVariant) Number() protoreflect.EnumNumber {
@@ -124,7 +184,7 @@ func (x EndpointVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use EndpointVariant.Descriptor instead.
 func (EndpointVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{1}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{2}
 }
 
 // Which features does the endpoint have
@@ -161,11 +221,11 @@ func (x EndpointHostVariant) String() string {
 }
 
 func (EndpointHostVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[2].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[3].Descriptor()
 }
 
 func (EndpointHostVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[2]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[3]
 }
 
 func (x EndpointHostVariant) Number() protoreflect.EnumNumber {
@@ -174,7 +234,7 @@ func (x EndpointHostVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use EndpointHostVariant.Descriptor instead.
 func (EndpointHostVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{2}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{3}
 }
 
 // Permission Levels
@@ -220,11 +280,11 @@ func (x PermissionLevel) String() string {
 }
 
 func (PermissionLevel) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[3].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[4].Descriptor()
 }
 
 func (PermissionLevel) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[3]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[4]
 }
 
 func (x PermissionLevel) Number() protoreflect.EnumNumber {
@@ -233,7 +293,7 @@ func (x PermissionLevel) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use PermissionLevel.Descriptor instead.
 func (PermissionLevel) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{3}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{4}
 }
 
 // KeyValueVariants
@@ -276,11 +336,11 @@ func (x KeyValueVariant) String() string {
 }
 
 func (KeyValueVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[4].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[5].Descriptor()
 }
 
 func (KeyValueVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[4]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[5]
 }
 
 func (x KeyValueVariant) Number() protoreflect.EnumNumber {
@@ -289,7 +349,7 @@ func (x KeyValueVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use KeyValueVariant.Descriptor instead.
 func (KeyValueVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{4}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{5}
 }
 
 // External Relations
@@ -329,11 +389,11 @@ func (x ExternalRelationVariant) String() string {
 }
 
 func (ExternalRelationVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[5].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[6].Descriptor()
 }
 
 func (ExternalRelationVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[5]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[6]
 }
 
 func (x ExternalRelationVariant) Number() protoreflect.EnumNumber {
@@ -342,7 +402,7 @@ func (x ExternalRelationVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ExternalRelationVariant.Descriptor instead.
 func (ExternalRelationVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{5}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{6}
 }
 
 // InternalRelations
@@ -394,11 +454,11 @@ func (x InternalRelationVariant) String() string {
 }
 
 func (InternalRelationVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[6].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[7].Descriptor()
 }
 
 func (InternalRelationVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[6]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[7]
 }
 
 func (x InternalRelationVariant) Number() protoreflect.EnumNumber {
@@ -407,7 +467,7 @@ func (x InternalRelationVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use InternalRelationVariant.Descriptor instead.
 func (InternalRelationVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{6}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{7}
 }
 
 // internal object relation type (direction)
@@ -444,11 +504,11 @@ func (x RelationDirection) String() string {
 }
 
 func (RelationDirection) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[7].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[8].Descriptor()
 }
 
 func (RelationDirection) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[7]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[8]
 }
 
 func (x RelationDirection) Number() protoreflect.EnumNumber {
@@ -457,7 +517,7 @@ func (x RelationDirection) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use RelationDirection.Descriptor instead.
 func (RelationDirection) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{7}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{8}
 }
 
 // Used for the internal associated services to validate permissions
@@ -504,11 +564,11 @@ func (x ResourceAction) String() string {
 }
 
 func (ResourceAction) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[8].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[9].Descriptor()
 }
 
 func (ResourceAction) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[8]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[9]
 }
 
 func (x ResourceAction) Number() protoreflect.EnumNumber {
@@ -517,7 +577,7 @@ func (x ResourceAction) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ResourceAction.Descriptor instead.
 func (ResourceAction) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{8}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{9}
 }
 
 // An arbitrary status for Objects
@@ -566,11 +626,11 @@ func (x Status) String() string {
 }
 
 func (Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[9].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[10].Descriptor()
 }
 
 func (Status) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[9]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[10]
 }
 
 func (x Status) Number() protoreflect.EnumNumber {
@@ -579,7 +639,7 @@ func (x Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Status.Descriptor instead.
 func (Status) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{9}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{10}
 }
 
 // Status for endpoints
@@ -625,11 +685,11 @@ func (x ComponentStatus) String() string {
 }
 
 func (ComponentStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[10].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[11].Descriptor()
 }
 
 func (ComponentStatus) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[10]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[11]
 }
 
 func (x ComponentStatus) Number() protoreflect.EnumNumber {
@@ -638,7 +698,7 @@ func (x ComponentStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ComponentStatus.Descriptor instead.
 func (ComponentStatus) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{10}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{11}
 }
 
 type Hashalgorithm int32
@@ -674,11 +734,11 @@ func (x Hashalgorithm) String() string {
 }
 
 func (Hashalgorithm) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[11].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[12].Descriptor()
 }
 
 func (Hashalgorithm) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[11]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[12]
 }
 
 func (x Hashalgorithm) Number() protoreflect.EnumNumber {
@@ -687,7 +747,7 @@ func (x Hashalgorithm) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Hashalgorithm.Descriptor instead.
 func (Hashalgorithm) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{11}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{12}
 }
 
 type ResourceVariant int32
@@ -729,11 +789,11 @@ func (x ResourceVariant) String() string {
 }
 
 func (ResourceVariant) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[12].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[13].Descriptor()
 }
 
 func (ResourceVariant) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[12]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[13]
 }
 
 func (x ResourceVariant) Number() protoreflect.EnumNumber {
@@ -742,7 +802,7 @@ func (x ResourceVariant) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ResourceVariant.Descriptor instead.
 func (ResourceVariant) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{12}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{13}
 }
 
 type ReplicationStatus int32
@@ -784,11 +844,11 @@ func (x ReplicationStatus) String() string {
 }
 
 func (ReplicationStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_aruna_api_storage_models_v2_models_proto_enumTypes[13].Descriptor()
+	return file_aruna_api_storage_models_v2_models_proto_enumTypes[14].Descriptor()
 }
 
 func (ReplicationStatus) Type() protoreflect.EnumType {
-	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[13]
+	return &file_aruna_api_storage_models_v2_models_proto_enumTypes[14]
 }
 
 func (x ReplicationStatus) Number() protoreflect.EnumNumber {
@@ -797,7 +857,7 @@ func (x ReplicationStatus) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ReplicationStatus.Descriptor instead.
 func (ReplicationStatus) EnumDescriptor() ([]byte, []int) {
-	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{13}
+	return file_aruna_api_storage_models_v2_models_proto_rawDescGZIP(), []int{14}
 }
 
 // ------------- USERS & PERMISSIONS -----------------------
@@ -3908,7 +3968,20 @@ var file_aruna_api_storage_models_v2_models_proto_rawDesc = []byte{
 	0x61, 0x72, 0x75, 0x6e, 0x61, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67,
 	0x65, 0x2e, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x75, 0x6c, 0x65,
 	0x42, 0x69, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x52, 0x0c, 0x72, 0x75, 0x6c, 0x65, 0x42, 0x69, 0x6e,
-	0x64, 0x69, 0x6e, 0x67, 0x73, 0x2a, 0x8d, 0x01, 0x0a, 0x09, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6c,
+	0x64, 0x69, 0x6e, 0x67, 0x73, 0x2a, 0xcd, 0x01, 0x0a, 0x10, 0x41, 0x6e, 0x6e, 0x6f, 0x75, 0x6e,
+	0x63, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x21, 0x0a, 0x1d, 0x41, 0x4e,
+	0x4e, 0x4f, 0x55, 0x4e, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
+	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x1a, 0x0a,
+	0x16, 0x41, 0x4e, 0x4e, 0x4f, 0x55, 0x4e, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59,
+	0x50, 0x45, 0x5f, 0x4f, 0x52, 0x47, 0x41, 0x10, 0x01, 0x12, 0x1d, 0x0a, 0x19, 0x41, 0x4e, 0x4e,
+	0x4f, 0x55, 0x4e, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x52,
+	0x45, 0x4c, 0x45, 0x41, 0x53, 0x45, 0x10, 0x02, 0x12, 0x1c, 0x0a, 0x18, 0x41, 0x4e, 0x4e, 0x4f,
+	0x55, 0x4e, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x50,
+	0x44, 0x41, 0x54, 0x45, 0x10, 0x03, 0x12, 0x21, 0x0a, 0x1d, 0x41, 0x4e, 0x4e, 0x4f, 0x55, 0x4e,
+	0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x4d, 0x41, 0x49, 0x4e,
+	0x54, 0x45, 0x4e, 0x41, 0x4e, 0x43, 0x45, 0x10, 0x04, 0x12, 0x1a, 0x0a, 0x16, 0x41, 0x4e, 0x4e,
+	0x4f, 0x55, 0x4e, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x42,
+	0x4c, 0x4f, 0x47, 0x10, 0x05, 0x2a, 0x8d, 0x01, 0x0a, 0x09, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6c,
 	0x61, 0x73, 0x73, 0x12, 0x1a, 0x0a, 0x16, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x43, 0x4c, 0x41, 0x53,
 	0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12,
 	0x15, 0x0a, 0x11, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x43, 0x4c, 0x41, 0x53, 0x53, 0x5f, 0x50, 0x55,
@@ -4092,121 +4165,122 @@ func file_aruna_api_storage_models_v2_models_proto_rawDescGZIP() []byte {
 	return file_aruna_api_storage_models_v2_models_proto_rawDescData
 }
 
-var file_aruna_api_storage_models_v2_models_proto_enumTypes = make([]protoimpl.EnumInfo, 14)
+var file_aruna_api_storage_models_v2_models_proto_enumTypes = make([]protoimpl.EnumInfo, 15)
 var file_aruna_api_storage_models_v2_models_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_aruna_api_storage_models_v2_models_proto_goTypes = []interface{}{
-	(DataClass)(0),                // 0: aruna.api.storage.models.v2.DataClass
-	(EndpointVariant)(0),          // 1: aruna.api.storage.models.v2.EndpointVariant
-	(EndpointHostVariant)(0),      // 2: aruna.api.storage.models.v2.EndpointHostVariant
-	(PermissionLevel)(0),          // 3: aruna.api.storage.models.v2.PermissionLevel
-	(KeyValueVariant)(0),          // 4: aruna.api.storage.models.v2.KeyValueVariant
-	(ExternalRelationVariant)(0),  // 5: aruna.api.storage.models.v2.ExternalRelationVariant
-	(InternalRelationVariant)(0),  // 6: aruna.api.storage.models.v2.InternalRelationVariant
-	(RelationDirection)(0),        // 7: aruna.api.storage.models.v2.RelationDirection
-	(ResourceAction)(0),           // 8: aruna.api.storage.models.v2.ResourceAction
-	(Status)(0),                   // 9: aruna.api.storage.models.v2.Status
-	(ComponentStatus)(0),          // 10: aruna.api.storage.models.v2.ComponentStatus
-	(Hashalgorithm)(0),            // 11: aruna.api.storage.models.v2.Hashalgorithm
-	(ResourceVariant)(0),          // 12: aruna.api.storage.models.v2.ResourceVariant
-	(ReplicationStatus)(0),        // 13: aruna.api.storage.models.v2.ReplicationStatus
-	(*User)(nil),                  // 14: aruna.api.storage.models.v2.User
-	(*Permission)(nil),            // 15: aruna.api.storage.models.v2.Permission
-	(*Token)(nil),                 // 16: aruna.api.storage.models.v2.Token
-	(*Pubkey)(nil),                // 17: aruna.api.storage.models.v2.Pubkey
-	(*CustomAttribute)(nil),       // 18: aruna.api.storage.models.v2.CustomAttribute
-	(*DataProxyAttribute)(nil),    // 19: aruna.api.storage.models.v2.DataProxyAttribute
-	(*OidcMapping)(nil),           // 20: aruna.api.storage.models.v2.OidcMapping
-	(*UserAttributes)(nil),        // 21: aruna.api.storage.models.v2.UserAttributes
-	(*KeyValue)(nil),              // 22: aruna.api.storage.models.v2.KeyValue
-	(*Relation)(nil),              // 23: aruna.api.storage.models.v2.Relation
-	(*ExternalRelation)(nil),      // 24: aruna.api.storage.models.v2.ExternalRelation
-	(*InternalRelation)(nil),      // 25: aruna.api.storage.models.v2.InternalRelation
-	(*PageRequest)(nil),           // 26: aruna.api.storage.models.v2.PageRequest
-	(*Stats)(nil),                 // 27: aruna.api.storage.models.v2.Stats
-	(*Hash)(nil),                  // 28: aruna.api.storage.models.v2.Hash
-	(*EndpointHostConfig)(nil),    // 29: aruna.api.storage.models.v2.EndpointHostConfig
-	(*Endpoint)(nil),              // 30: aruna.api.storage.models.v2.Endpoint
-	(*DataEndpoint)(nil),          // 31: aruna.api.storage.models.v2.DataEndpoint
-	(*FullSync)(nil),              // 32: aruna.api.storage.models.v2.FullSync
-	(*Copy)(nil),                  // 33: aruna.api.storage.models.v2.Copy
-	(*Context)(nil),               // 34: aruna.api.storage.models.v2.Context
-	(*License)(nil),               // 35: aruna.api.storage.models.v2.License
-	(*Author)(nil),                // 36: aruna.api.storage.models.v2.Author
-	(*RuleBinding)(nil),           // 37: aruna.api.storage.models.v2.RuleBinding
-	(*GenericResource)(nil),       // 38: aruna.api.storage.models.v2.GenericResource
-	(*Project)(nil),               // 39: aruna.api.storage.models.v2.Project
-	(*Collection)(nil),            // 40: aruna.api.storage.models.v2.Collection
-	(*Dataset)(nil),               // 41: aruna.api.storage.models.v2.Dataset
-	(*Object)(nil),                // 42: aruna.api.storage.models.v2.Object
-	(*timestamppb.Timestamp)(nil), // 43: google.protobuf.Timestamp
+	(AnnouncementType)(0),         // 0: aruna.api.storage.models.v2.AnnouncementType
+	(DataClass)(0),                // 1: aruna.api.storage.models.v2.DataClass
+	(EndpointVariant)(0),          // 2: aruna.api.storage.models.v2.EndpointVariant
+	(EndpointHostVariant)(0),      // 3: aruna.api.storage.models.v2.EndpointHostVariant
+	(PermissionLevel)(0),          // 4: aruna.api.storage.models.v2.PermissionLevel
+	(KeyValueVariant)(0),          // 5: aruna.api.storage.models.v2.KeyValueVariant
+	(ExternalRelationVariant)(0),  // 6: aruna.api.storage.models.v2.ExternalRelationVariant
+	(InternalRelationVariant)(0),  // 7: aruna.api.storage.models.v2.InternalRelationVariant
+	(RelationDirection)(0),        // 8: aruna.api.storage.models.v2.RelationDirection
+	(ResourceAction)(0),           // 9: aruna.api.storage.models.v2.ResourceAction
+	(Status)(0),                   // 10: aruna.api.storage.models.v2.Status
+	(ComponentStatus)(0),          // 11: aruna.api.storage.models.v2.ComponentStatus
+	(Hashalgorithm)(0),            // 12: aruna.api.storage.models.v2.Hashalgorithm
+	(ResourceVariant)(0),          // 13: aruna.api.storage.models.v2.ResourceVariant
+	(ReplicationStatus)(0),        // 14: aruna.api.storage.models.v2.ReplicationStatus
+	(*User)(nil),                  // 15: aruna.api.storage.models.v2.User
+	(*Permission)(nil),            // 16: aruna.api.storage.models.v2.Permission
+	(*Token)(nil),                 // 17: aruna.api.storage.models.v2.Token
+	(*Pubkey)(nil),                // 18: aruna.api.storage.models.v2.Pubkey
+	(*CustomAttribute)(nil),       // 19: aruna.api.storage.models.v2.CustomAttribute
+	(*DataProxyAttribute)(nil),    // 20: aruna.api.storage.models.v2.DataProxyAttribute
+	(*OidcMapping)(nil),           // 21: aruna.api.storage.models.v2.OidcMapping
+	(*UserAttributes)(nil),        // 22: aruna.api.storage.models.v2.UserAttributes
+	(*KeyValue)(nil),              // 23: aruna.api.storage.models.v2.KeyValue
+	(*Relation)(nil),              // 24: aruna.api.storage.models.v2.Relation
+	(*ExternalRelation)(nil),      // 25: aruna.api.storage.models.v2.ExternalRelation
+	(*InternalRelation)(nil),      // 26: aruna.api.storage.models.v2.InternalRelation
+	(*PageRequest)(nil),           // 27: aruna.api.storage.models.v2.PageRequest
+	(*Stats)(nil),                 // 28: aruna.api.storage.models.v2.Stats
+	(*Hash)(nil),                  // 29: aruna.api.storage.models.v2.Hash
+	(*EndpointHostConfig)(nil),    // 30: aruna.api.storage.models.v2.EndpointHostConfig
+	(*Endpoint)(nil),              // 31: aruna.api.storage.models.v2.Endpoint
+	(*DataEndpoint)(nil),          // 32: aruna.api.storage.models.v2.DataEndpoint
+	(*FullSync)(nil),              // 33: aruna.api.storage.models.v2.FullSync
+	(*Copy)(nil),                  // 34: aruna.api.storage.models.v2.Copy
+	(*Context)(nil),               // 35: aruna.api.storage.models.v2.Context
+	(*License)(nil),               // 36: aruna.api.storage.models.v2.License
+	(*Author)(nil),                // 37: aruna.api.storage.models.v2.Author
+	(*RuleBinding)(nil),           // 38: aruna.api.storage.models.v2.RuleBinding
+	(*GenericResource)(nil),       // 39: aruna.api.storage.models.v2.GenericResource
+	(*Project)(nil),               // 40: aruna.api.storage.models.v2.Project
+	(*Collection)(nil),            // 41: aruna.api.storage.models.v2.Collection
+	(*Dataset)(nil),               // 42: aruna.api.storage.models.v2.Dataset
+	(*Object)(nil),                // 43: aruna.api.storage.models.v2.Object
+	(*timestamppb.Timestamp)(nil), // 44: google.protobuf.Timestamp
 }
 var file_aruna_api_storage_models_v2_models_proto_depIdxs = []int32{
-	21, // 0: aruna.api.storage.models.v2.User.attributes:type_name -> aruna.api.storage.models.v2.UserAttributes
-	3,  // 1: aruna.api.storage.models.v2.Permission.permission_level:type_name -> aruna.api.storage.models.v2.PermissionLevel
-	43, // 2: aruna.api.storage.models.v2.Token.created_at:type_name -> google.protobuf.Timestamp
-	43, // 3: aruna.api.storage.models.v2.Token.expires_at:type_name -> google.protobuf.Timestamp
-	15, // 4: aruna.api.storage.models.v2.Token.permission:type_name -> aruna.api.storage.models.v2.Permission
-	16, // 5: aruna.api.storage.models.v2.UserAttributes.tokens:type_name -> aruna.api.storage.models.v2.Token
-	18, // 6: aruna.api.storage.models.v2.UserAttributes.custom_attributes:type_name -> aruna.api.storage.models.v2.CustomAttribute
-	15, // 7: aruna.api.storage.models.v2.UserAttributes.personal_permissions:type_name -> aruna.api.storage.models.v2.Permission
-	20, // 8: aruna.api.storage.models.v2.UserAttributes.external_ids:type_name -> aruna.api.storage.models.v2.OidcMapping
-	19, // 9: aruna.api.storage.models.v2.UserAttributes.data_proxy_attributes:type_name -> aruna.api.storage.models.v2.DataProxyAttribute
-	4,  // 10: aruna.api.storage.models.v2.KeyValue.variant:type_name -> aruna.api.storage.models.v2.KeyValueVariant
-	24, // 11: aruna.api.storage.models.v2.Relation.external:type_name -> aruna.api.storage.models.v2.ExternalRelation
-	25, // 12: aruna.api.storage.models.v2.Relation.internal:type_name -> aruna.api.storage.models.v2.InternalRelation
-	5,  // 13: aruna.api.storage.models.v2.ExternalRelation.defined_variant:type_name -> aruna.api.storage.models.v2.ExternalRelationVariant
-	12, // 14: aruna.api.storage.models.v2.InternalRelation.resource_variant:type_name -> aruna.api.storage.models.v2.ResourceVariant
-	6,  // 15: aruna.api.storage.models.v2.InternalRelation.defined_variant:type_name -> aruna.api.storage.models.v2.InternalRelationVariant
-	7,  // 16: aruna.api.storage.models.v2.InternalRelation.direction:type_name -> aruna.api.storage.models.v2.RelationDirection
-	43, // 17: aruna.api.storage.models.v2.Stats.last_updated:type_name -> google.protobuf.Timestamp
-	11, // 18: aruna.api.storage.models.v2.Hash.alg:type_name -> aruna.api.storage.models.v2.Hashalgorithm
-	2,  // 19: aruna.api.storage.models.v2.EndpointHostConfig.host_variant:type_name -> aruna.api.storage.models.v2.EndpointHostVariant
-	1,  // 20: aruna.api.storage.models.v2.Endpoint.ep_variant:type_name -> aruna.api.storage.models.v2.EndpointVariant
-	10, // 21: aruna.api.storage.models.v2.Endpoint.status:type_name -> aruna.api.storage.models.v2.ComponentStatus
-	29, // 22: aruna.api.storage.models.v2.Endpoint.host_configs:type_name -> aruna.api.storage.models.v2.EndpointHostConfig
-	32, // 23: aruna.api.storage.models.v2.DataEndpoint.full_sync:type_name -> aruna.api.storage.models.v2.FullSync
-	13, // 24: aruna.api.storage.models.v2.DataEndpoint.status:type_name -> aruna.api.storage.models.v2.ReplicationStatus
-	33, // 25: aruna.api.storage.models.v2.Context.copy:type_name -> aruna.api.storage.models.v2.Copy
-	39, // 26: aruna.api.storage.models.v2.GenericResource.project:type_name -> aruna.api.storage.models.v2.Project
-	40, // 27: aruna.api.storage.models.v2.GenericResource.collection:type_name -> aruna.api.storage.models.v2.Collection
-	41, // 28: aruna.api.storage.models.v2.GenericResource.dataset:type_name -> aruna.api.storage.models.v2.Dataset
-	42, // 29: aruna.api.storage.models.v2.GenericResource.object:type_name -> aruna.api.storage.models.v2.Object
-	22, // 30: aruna.api.storage.models.v2.Project.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
-	23, // 31: aruna.api.storage.models.v2.Project.relations:type_name -> aruna.api.storage.models.v2.Relation
-	27, // 32: aruna.api.storage.models.v2.Project.stats:type_name -> aruna.api.storage.models.v2.Stats
-	0,  // 33: aruna.api.storage.models.v2.Project.data_class:type_name -> aruna.api.storage.models.v2.DataClass
-	43, // 34: aruna.api.storage.models.v2.Project.created_at:type_name -> google.protobuf.Timestamp
-	36, // 35: aruna.api.storage.models.v2.Project.authors:type_name -> aruna.api.storage.models.v2.Author
-	9,  // 36: aruna.api.storage.models.v2.Project.status:type_name -> aruna.api.storage.models.v2.Status
-	31, // 37: aruna.api.storage.models.v2.Project.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
-	37, // 38: aruna.api.storage.models.v2.Project.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
-	22, // 39: aruna.api.storage.models.v2.Collection.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
-	23, // 40: aruna.api.storage.models.v2.Collection.relations:type_name -> aruna.api.storage.models.v2.Relation
-	27, // 41: aruna.api.storage.models.v2.Collection.stats:type_name -> aruna.api.storage.models.v2.Stats
-	0,  // 42: aruna.api.storage.models.v2.Collection.data_class:type_name -> aruna.api.storage.models.v2.DataClass
-	43, // 43: aruna.api.storage.models.v2.Collection.created_at:type_name -> google.protobuf.Timestamp
-	36, // 44: aruna.api.storage.models.v2.Collection.authors:type_name -> aruna.api.storage.models.v2.Author
-	9,  // 45: aruna.api.storage.models.v2.Collection.status:type_name -> aruna.api.storage.models.v2.Status
-	31, // 46: aruna.api.storage.models.v2.Collection.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
-	37, // 47: aruna.api.storage.models.v2.Collection.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
-	22, // 48: aruna.api.storage.models.v2.Dataset.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
-	23, // 49: aruna.api.storage.models.v2.Dataset.relations:type_name -> aruna.api.storage.models.v2.Relation
-	27, // 50: aruna.api.storage.models.v2.Dataset.stats:type_name -> aruna.api.storage.models.v2.Stats
-	0,  // 51: aruna.api.storage.models.v2.Dataset.data_class:type_name -> aruna.api.storage.models.v2.DataClass
-	43, // 52: aruna.api.storage.models.v2.Dataset.created_at:type_name -> google.protobuf.Timestamp
-	36, // 53: aruna.api.storage.models.v2.Dataset.authors:type_name -> aruna.api.storage.models.v2.Author
-	9,  // 54: aruna.api.storage.models.v2.Dataset.status:type_name -> aruna.api.storage.models.v2.Status
-	31, // 55: aruna.api.storage.models.v2.Dataset.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
-	37, // 56: aruna.api.storage.models.v2.Dataset.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
-	22, // 57: aruna.api.storage.models.v2.Object.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
-	23, // 58: aruna.api.storage.models.v2.Object.relations:type_name -> aruna.api.storage.models.v2.Relation
-	0,  // 59: aruna.api.storage.models.v2.Object.data_class:type_name -> aruna.api.storage.models.v2.DataClass
-	43, // 60: aruna.api.storage.models.v2.Object.created_at:type_name -> google.protobuf.Timestamp
-	36, // 61: aruna.api.storage.models.v2.Object.authors:type_name -> aruna.api.storage.models.v2.Author
-	9,  // 62: aruna.api.storage.models.v2.Object.status:type_name -> aruna.api.storage.models.v2.Status
-	31, // 63: aruna.api.storage.models.v2.Object.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
-	28, // 64: aruna.api.storage.models.v2.Object.hashes:type_name -> aruna.api.storage.models.v2.Hash
-	37, // 65: aruna.api.storage.models.v2.Object.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
+	22, // 0: aruna.api.storage.models.v2.User.attributes:type_name -> aruna.api.storage.models.v2.UserAttributes
+	4,  // 1: aruna.api.storage.models.v2.Permission.permission_level:type_name -> aruna.api.storage.models.v2.PermissionLevel
+	44, // 2: aruna.api.storage.models.v2.Token.created_at:type_name -> google.protobuf.Timestamp
+	44, // 3: aruna.api.storage.models.v2.Token.expires_at:type_name -> google.protobuf.Timestamp
+	16, // 4: aruna.api.storage.models.v2.Token.permission:type_name -> aruna.api.storage.models.v2.Permission
+	17, // 5: aruna.api.storage.models.v2.UserAttributes.tokens:type_name -> aruna.api.storage.models.v2.Token
+	19, // 6: aruna.api.storage.models.v2.UserAttributes.custom_attributes:type_name -> aruna.api.storage.models.v2.CustomAttribute
+	16, // 7: aruna.api.storage.models.v2.UserAttributes.personal_permissions:type_name -> aruna.api.storage.models.v2.Permission
+	21, // 8: aruna.api.storage.models.v2.UserAttributes.external_ids:type_name -> aruna.api.storage.models.v2.OidcMapping
+	20, // 9: aruna.api.storage.models.v2.UserAttributes.data_proxy_attributes:type_name -> aruna.api.storage.models.v2.DataProxyAttribute
+	5,  // 10: aruna.api.storage.models.v2.KeyValue.variant:type_name -> aruna.api.storage.models.v2.KeyValueVariant
+	25, // 11: aruna.api.storage.models.v2.Relation.external:type_name -> aruna.api.storage.models.v2.ExternalRelation
+	26, // 12: aruna.api.storage.models.v2.Relation.internal:type_name -> aruna.api.storage.models.v2.InternalRelation
+	6,  // 13: aruna.api.storage.models.v2.ExternalRelation.defined_variant:type_name -> aruna.api.storage.models.v2.ExternalRelationVariant
+	13, // 14: aruna.api.storage.models.v2.InternalRelation.resource_variant:type_name -> aruna.api.storage.models.v2.ResourceVariant
+	7,  // 15: aruna.api.storage.models.v2.InternalRelation.defined_variant:type_name -> aruna.api.storage.models.v2.InternalRelationVariant
+	8,  // 16: aruna.api.storage.models.v2.InternalRelation.direction:type_name -> aruna.api.storage.models.v2.RelationDirection
+	44, // 17: aruna.api.storage.models.v2.Stats.last_updated:type_name -> google.protobuf.Timestamp
+	12, // 18: aruna.api.storage.models.v2.Hash.alg:type_name -> aruna.api.storage.models.v2.Hashalgorithm
+	3,  // 19: aruna.api.storage.models.v2.EndpointHostConfig.host_variant:type_name -> aruna.api.storage.models.v2.EndpointHostVariant
+	2,  // 20: aruna.api.storage.models.v2.Endpoint.ep_variant:type_name -> aruna.api.storage.models.v2.EndpointVariant
+	11, // 21: aruna.api.storage.models.v2.Endpoint.status:type_name -> aruna.api.storage.models.v2.ComponentStatus
+	30, // 22: aruna.api.storage.models.v2.Endpoint.host_configs:type_name -> aruna.api.storage.models.v2.EndpointHostConfig
+	33, // 23: aruna.api.storage.models.v2.DataEndpoint.full_sync:type_name -> aruna.api.storage.models.v2.FullSync
+	14, // 24: aruna.api.storage.models.v2.DataEndpoint.status:type_name -> aruna.api.storage.models.v2.ReplicationStatus
+	34, // 25: aruna.api.storage.models.v2.Context.copy:type_name -> aruna.api.storage.models.v2.Copy
+	40, // 26: aruna.api.storage.models.v2.GenericResource.project:type_name -> aruna.api.storage.models.v2.Project
+	41, // 27: aruna.api.storage.models.v2.GenericResource.collection:type_name -> aruna.api.storage.models.v2.Collection
+	42, // 28: aruna.api.storage.models.v2.GenericResource.dataset:type_name -> aruna.api.storage.models.v2.Dataset
+	43, // 29: aruna.api.storage.models.v2.GenericResource.object:type_name -> aruna.api.storage.models.v2.Object
+	23, // 30: aruna.api.storage.models.v2.Project.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
+	24, // 31: aruna.api.storage.models.v2.Project.relations:type_name -> aruna.api.storage.models.v2.Relation
+	28, // 32: aruna.api.storage.models.v2.Project.stats:type_name -> aruna.api.storage.models.v2.Stats
+	1,  // 33: aruna.api.storage.models.v2.Project.data_class:type_name -> aruna.api.storage.models.v2.DataClass
+	44, // 34: aruna.api.storage.models.v2.Project.created_at:type_name -> google.protobuf.Timestamp
+	37, // 35: aruna.api.storage.models.v2.Project.authors:type_name -> aruna.api.storage.models.v2.Author
+	10, // 36: aruna.api.storage.models.v2.Project.status:type_name -> aruna.api.storage.models.v2.Status
+	32, // 37: aruna.api.storage.models.v2.Project.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
+	38, // 38: aruna.api.storage.models.v2.Project.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
+	23, // 39: aruna.api.storage.models.v2.Collection.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
+	24, // 40: aruna.api.storage.models.v2.Collection.relations:type_name -> aruna.api.storage.models.v2.Relation
+	28, // 41: aruna.api.storage.models.v2.Collection.stats:type_name -> aruna.api.storage.models.v2.Stats
+	1,  // 42: aruna.api.storage.models.v2.Collection.data_class:type_name -> aruna.api.storage.models.v2.DataClass
+	44, // 43: aruna.api.storage.models.v2.Collection.created_at:type_name -> google.protobuf.Timestamp
+	37, // 44: aruna.api.storage.models.v2.Collection.authors:type_name -> aruna.api.storage.models.v2.Author
+	10, // 45: aruna.api.storage.models.v2.Collection.status:type_name -> aruna.api.storage.models.v2.Status
+	32, // 46: aruna.api.storage.models.v2.Collection.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
+	38, // 47: aruna.api.storage.models.v2.Collection.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
+	23, // 48: aruna.api.storage.models.v2.Dataset.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
+	24, // 49: aruna.api.storage.models.v2.Dataset.relations:type_name -> aruna.api.storage.models.v2.Relation
+	28, // 50: aruna.api.storage.models.v2.Dataset.stats:type_name -> aruna.api.storage.models.v2.Stats
+	1,  // 51: aruna.api.storage.models.v2.Dataset.data_class:type_name -> aruna.api.storage.models.v2.DataClass
+	44, // 52: aruna.api.storage.models.v2.Dataset.created_at:type_name -> google.protobuf.Timestamp
+	37, // 53: aruna.api.storage.models.v2.Dataset.authors:type_name -> aruna.api.storage.models.v2.Author
+	10, // 54: aruna.api.storage.models.v2.Dataset.status:type_name -> aruna.api.storage.models.v2.Status
+	32, // 55: aruna.api.storage.models.v2.Dataset.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
+	38, // 56: aruna.api.storage.models.v2.Dataset.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
+	23, // 57: aruna.api.storage.models.v2.Object.key_values:type_name -> aruna.api.storage.models.v2.KeyValue
+	24, // 58: aruna.api.storage.models.v2.Object.relations:type_name -> aruna.api.storage.models.v2.Relation
+	1,  // 59: aruna.api.storage.models.v2.Object.data_class:type_name -> aruna.api.storage.models.v2.DataClass
+	44, // 60: aruna.api.storage.models.v2.Object.created_at:type_name -> google.protobuf.Timestamp
+	37, // 61: aruna.api.storage.models.v2.Object.authors:type_name -> aruna.api.storage.models.v2.Author
+	10, // 62: aruna.api.storage.models.v2.Object.status:type_name -> aruna.api.storage.models.v2.Status
+	32, // 63: aruna.api.storage.models.v2.Object.endpoints:type_name -> aruna.api.storage.models.v2.DataEndpoint
+	29, // 64: aruna.api.storage.models.v2.Object.hashes:type_name -> aruna.api.storage.models.v2.Hash
+	38, // 65: aruna.api.storage.models.v2.Object.rule_bindings:type_name -> aruna.api.storage.models.v2.RuleBinding
 	66, // [66:66] is the sub-list for method output_type
 	66, // [66:66] is the sub-list for method input_type
 	66, // [66:66] is the sub-list for extension type_name
@@ -4601,7 +4675,7 @@ func file_aruna_api_storage_models_v2_models_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_aruna_api_storage_models_v2_models_proto_rawDesc,
-			NumEnums:      14,
+			NumEnums:      15,
 			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   0,
