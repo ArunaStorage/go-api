@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.0"
+    "version": "2.0.1"
   },
   "tags": [
     {
@@ -2967,6 +2967,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "uploadId",
+            "description": "(optional) if part_number \u003e 1 and multipart = true",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -8011,6 +8018,10 @@
         "url": {
           "type": "string",
           "title": "URL"
+        },
+        "uploadId": {
+          "type": "string",
+          "title": "Upload Id (can be ignored with single part uploads)"
         }
       }
     },
