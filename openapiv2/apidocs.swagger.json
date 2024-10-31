@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Aruna Object Storage (AOS) REST API",
-    "version": "2.0.1"
+    "version": "2.0.2"
   },
   "tags": [
     {
@@ -2818,6 +2818,10 @@
                     "$ref": "#/definitions/apistorageservicesv2CompletedPart"
                   },
                   "title": "If the upload was multipart, this is the list of parts that were uploaded.\nShould be empty if the upload was not multipart.\n(optional)"
+                },
+                "uploadId": {
+                  "type": "string",
+                  "title": "If the upload was multipart, this is the upload id which should be completed.\nShould be empty if the upload was not multipart.\n(optional)"
                 }
               }
             }
